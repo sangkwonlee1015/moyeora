@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "tb_maps")
 public class Maps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

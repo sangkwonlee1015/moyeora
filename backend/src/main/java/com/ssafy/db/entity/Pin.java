@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -17,12 +18,11 @@ public class Pin {
     private Long pinSeq = null;
     private String lat;
     private String lng;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private LocalDateTime time;
     private String content;
     private Integer color;
     @Column(name = "map_seq")
     private Long mapSeq;
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 }

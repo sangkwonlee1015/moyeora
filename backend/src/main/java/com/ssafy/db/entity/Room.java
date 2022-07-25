@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "tb_room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +19,5 @@ public class Room {
     @Column(name = "room_url")
     private String roomUrl;
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 }

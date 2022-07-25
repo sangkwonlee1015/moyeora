@@ -37,7 +37,7 @@ class PinRepositorySupportTest {
         cond1.setMapSeq(123151L);
 
         PinSearchCond cond2 = new PinSearchCond();
-        cond2.setUserId(356L);
+        cond2.setUserId("Hello");
 
         System.out.println("Hello! : " + pinRepositorySupport.findAllCond(cond1).toString());
         System.out.println("Hello! : " + pinRepositorySupport.findAllCond(cond2).toString());

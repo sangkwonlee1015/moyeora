@@ -7,7 +7,6 @@ import com.ssafy.db.entity.PinSearchCond;
 import com.ssafy.db.entity.QPin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -19,12 +18,12 @@ public class PinRepositorySupport {
 
     public List<Pin> findAllCond(PinSearchCond pinSearchCond){
         Long mapSeq = pinSearchCond.getMapSeq();
-        Long userSeq = pinSearchCond.getUserId();
+        String userId = pinSearchCond.getUserId();
 
         QPin pin = QPin.pin;
         BooleanBuilder builder = new BooleanBuilder();
-        if(userSeq != null){
-            builder.and(pin.userId.eq(userSeq));
+        if(userId != null){
+            builder.and(pin.userId.eq(userId));
         }
         if(mapSeq != null){
             builder.and(pin.mapSeq.eq(mapSeq));
