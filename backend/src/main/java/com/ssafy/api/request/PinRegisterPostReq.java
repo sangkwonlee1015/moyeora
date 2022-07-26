@@ -25,4 +25,6 @@ public class PinRegisterPostReq {
     Long mapSeq;
     @ApiModelProperty(name="userId")
     String userId;
+    @ApiModelProperty(name="roomSeq")
+    Long roomSeq;
 }

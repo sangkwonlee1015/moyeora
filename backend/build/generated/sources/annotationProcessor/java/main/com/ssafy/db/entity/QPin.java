@@ -31,6 +31,8 @@ public class QPin extends EntityPathBase<Pin> {
 
     public final NumberPath<Long> pinSeq = createNumber("pinSeq", Long.class);
 
+    public final NumberPath<Long> roomSeq = createNumber("roomSeq", Long.class);
+
     public final DateTimePath<java.time.LocalDateTime> time = createDateTime("time", java.time.LocalDateTime.class);
 
     public final StringPath userId = createString("userId");

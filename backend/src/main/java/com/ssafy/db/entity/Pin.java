@@ -25,4 +25,6 @@ public class Pin {
     private Long mapSeq;
     @Column(name = "user_id")
     private String userId;
+    @Column(name = "room_seq")
+    private Long roomSeq;
 }

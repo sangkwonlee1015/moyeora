@@ -23,4 +23,6 @@ public class PinUpdatePatchReq {
     String userId;
     @ApiModelProperty(name="mapSeq")
     Long mapSeq;
+    @ApiModelProperty(name = "roomSeq")
+    Long roomSeq;
 }

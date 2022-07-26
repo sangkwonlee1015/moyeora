@@ -28,7 +28,6 @@ public class PinRepositorySupport {
         if(mapSeq != null){
             builder.and(pin.mapSeq.eq(mapSeq));
         }
-
         List<Pin> result = jpaQueryFactory.select(pin).from(pin).where(builder).fetch();
         return result;
     }
