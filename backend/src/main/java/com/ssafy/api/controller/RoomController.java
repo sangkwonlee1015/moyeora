@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.RoomCreatePostReq;
+import com.ssafy.api.request.RoomUpdatePatchReq;
 import com.ssafy.api.response.RoomCreatePostRes;
 import com.ssafy.api.response.RoomRes;
 import com.ssafy.api.service.RoomService;
@@ -53,5 +54,35 @@ public class RoomController {
         return ResponseEntity.status(200).body(roomList);
     }
 
+    @PatchMapping()
+    @ApiOperation(value = "방 정보 수정", notes = "방 정보를 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> update(@ApiIgnore Authentication authentication,
+                                             @RequestBody @ApiParam(value="방 수정 정보", required = true) RoomUpdatePatchReq roomUpdatePatchReq) {
+        if (authentication == null){
+            return null;
+        }
 
+        roomService.updateRoom(roomUpdatePatchReq);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @DeleteMapping("/{roomSeq}")
+    @ApiOperation(value = "방 삭제", notes = "방을 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> delete(@ApiIgnore Authentication authentication,
+                                                             @PathVariable Long roomSeq) {
+        if (authentication == null){
+            return null;
+        }
+
+        roomService.deleteRoom(roomSeq);
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
 }
