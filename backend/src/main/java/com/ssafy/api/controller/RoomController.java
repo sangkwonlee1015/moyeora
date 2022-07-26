@@ -43,7 +43,7 @@ public class RoomController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
     })
-    public ResponseEntity<List<Room>> create(@ApiIgnore Authentication authentication,
+    public ResponseEntity<List<Room>> search(@ApiIgnore Authentication authentication,
                                        @PathVariable String findName) {
         if (authentication == null){
             return null;
@@ -52,4 +52,6 @@ public class RoomController {
 
         return ResponseEntity.status(200).body(roomList);
     }
+
+
 }
