@@ -18,6 +18,6 @@ public class Room {
     private String roomName;
     @Column(name = "room_url")
     private String roomUrl;
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_seq")
+    private Long userSeq;
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("MapCreatePostReq")
+@ApiModel("MapsCreatePostReq")
 public class MapsCreatePostReq {
     @ApiModelProperty(name="맵 제목", example="new map")
     String title;
