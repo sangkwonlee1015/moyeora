@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,node,visualstudiocode,intellij,java
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,node,visualstudiocode,intellij,java
+# Created by https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,intellij,java,react
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudiocode,intellij,java,react
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -317,4 +317,4 @@ sketch
 # Ignore code-workspaces
 *.code-workspace
 
-# End of https://www.toptal.com/developers/gitignore/api/react,node,visualstudiocode,intellij,java
+# End of https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,intellij,java,react
