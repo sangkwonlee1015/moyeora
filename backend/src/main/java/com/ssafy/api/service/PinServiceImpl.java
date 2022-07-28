@@ -3,11 +3,13 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.PinRegisterPostReq;
 import com.ssafy.api.request.PinUpdatePatchReq;
 import com.ssafy.db.entity.Pin;
+import com.ssafy.db.entity.PinSearchCond;
 import com.ssafy.db.repository.PinRepository;
 import com.ssafy.db.repository.PinRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("pinService")
@@ -39,6 +41,16 @@ public class PinServiceImpl implements PinService{
             return null;
         }else {
             return pin.get();
+        }
+    }
+
+    @Override
+    public List<Pin> getPinsByPinSearchCond(PinSearchCond pinSearchCond){
+        List<Pin> pins = pinRepositorySupport.findAllCond(pinSearchCond);
+        if (pins.isEmpty()){
+            return null;
+        }else{
+            return pins;
         }
     }
 

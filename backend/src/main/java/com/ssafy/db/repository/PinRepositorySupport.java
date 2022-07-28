@@ -18,12 +18,12 @@ public class PinRepositorySupport {
 
     public List<Pin> findAllCond(PinSearchCond pinSearchCond){
         Long mapSeq = pinSearchCond.getMapSeq();
-        String userId = pinSearchCond.getUserId();
+        Long roomSeq = pinSearchCond.getRoomSeq();
 
         QPin pin = QPin.pin;
         BooleanBuilder builder = new BooleanBuilder();
-        if(userId != null){
-            builder.and(pin.userId.eq(userId));
+        if(roomSeq != null){
+            builder.and(pin.roomSeq.eq(roomSeq));
         }
         if(mapSeq != null){
             builder.and(pin.mapSeq.eq(mapSeq));

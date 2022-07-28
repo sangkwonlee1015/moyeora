@@ -5,16 +5,15 @@ import com.ssafy.api.service.ParticipantsService;
 import com.ssafy.api.service.PinService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Participants;
-import com.ssafy.db.entity.ParticipantsId;
-import com.ssafy.db.entity.Pin;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @Api(value = "Pin API", tags = {"Pin."})
 @RestController
@@ -84,5 +83,25 @@ public class PinController {
         }
         pinService.deletePin(deleteInfo.getPinSeq());
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
+
+    @PostMapping("/pins")
+    @ApiOperation(value = "핀 정보 조회", notes = "원하는 핀의 정보를 삭제한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "내용 없음"),
+            @ApiResponse(code = 403, message = "권한 없음"),
+    })
+    public ResponseEntity<List<Pin>> getPins(@ApiIgnore Authentication authentication, @RequestBody @ApiParam(value = "핀 조회 정보", required = true)PinInquirePostReq inquireInfo){
+        if (authentication == null){
+            return ResponseEntity.status(403).body(null);
+        }
+
+        List<Pin> pins = pinService.getPinsByPinSearchCond(new PinSearchCond(inquireInfo.getMapSeq(), inquireInfo.getRoomSeq()));
+        if (pins != null) {
+            return ResponseEntity.status(200).body(pins);
+        }else{
+            return ResponseEntity.status(204).body(null);
+        }
     }
 }

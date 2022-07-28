@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 public class PinSearchCond {
     private Long mapSeq;
-    private String userId;
+    private Long roomSeq;
 }
