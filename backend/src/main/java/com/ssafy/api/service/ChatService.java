@@ -13,4 +13,7 @@ public class ChatService {
     public void sendMessage(ChatMessage message){
         this.template.convertAndSend("/chatroom/public", message);
     }
+    public void sendMessagePrivate(ChatMessage message) {
+        this.template.convertAndSendToUser(message.getReceiver(), "/private", message);
+    }
 }
