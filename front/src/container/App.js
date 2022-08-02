@@ -1,4 +1,4 @@
-import Header from '../components/header';
+import Header from '../components/header/header';
 import { Redirect } from 'react-router';
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -10,7 +10,7 @@ import Homepage from './homepage';
 import { useNavigate } from "react-router";
 
 function App() {
-  let LoggedIn = false;
+  let LoggedIn = true;
   // const navigate = useNavigate();
   return (
     <BrowserRouter>
