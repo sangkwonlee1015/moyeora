@@ -10,24 +10,14 @@ import Homepage from './homepage';
 import { useNavigate } from "react-router";
 
 function App() {
-  let LoggedIn = true;
-  const navigate = useNavigate();
+  let LoggedIn = false;
+  // const navigate = useNavigate();
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/dashboard" element={<Homepage/>}></Route>
-        <Route exact path="/">
-          {LoggedIn ? navigate("/dashboard", {replace: true}) :
-          <ThemeProvider theme={theme}>
-            <Initpage></Initpage>
-          </ThemeProvider>}
-        </Route>
+        <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
       </Routes>
     </BrowserRouter>
-
-    // <ThemeProvider theme={theme}>
-    //   <Initpage></Initpage>
-    // </ThemeProvider>
   );
 }
 
