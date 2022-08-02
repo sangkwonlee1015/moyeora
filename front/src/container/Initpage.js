@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router';
-import {Link} from "react-router-dom";
 import {
   Paper,
   Button,
@@ -16,11 +14,13 @@ import {
   Checkbox
 } from '@mui/material';
 import { GroupAdd, Person, ArrowBack } from '@mui/icons-material';
+import { useNavigate } from "react-router";
 
 
 
 const Initpage = ()=>{
-   
+  
+  const navigate = useNavigate();
   // Dispatch
 
   // Local state to control Modal Windows + Data fields
@@ -221,7 +221,7 @@ const Initpage = ()=>{
               className="modal-login-button"
               variant="contained"
               color="primary"
-              onClick={() => func()}
+              onClick={() => onClickfunc()}
             >
               Login
             </Button>
@@ -230,6 +230,10 @@ const Initpage = ()=>{
       </Slide>
     );
   };
+  const onClickfunc = () =>{
+    console.log("login button click")
+    navigate("/home")
+  }
 
   return (
     <div className="auth-wrapper">
@@ -240,12 +244,6 @@ const Initpage = ()=>{
       </Paper>
     </div>
   );
-}
-function func(){
-  console.log("login click")
-  // return(
-  //   //<Redirect to="/dashboard"></Redirect>
-  // );
 }
 
 export default Initpage;
