@@ -1,21 +1,16 @@
-import Header from '../components/header';
-import { Redirect } from 'react-router';
-import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
-import Initpage from './Initpage';
-import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import Homepage from './homepage';
-import { useNavigate } from "react-router";
+import Initpage from './Initpage';
 
 function App() {
   let LoggedIn = false;
-  // const navigate = useNavigate();
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
+        <Route path="/home" element={<Homepage/>}/>
       </Routes>
     </BrowserRouter>
   );
