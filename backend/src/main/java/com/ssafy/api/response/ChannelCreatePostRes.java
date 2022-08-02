@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("RoomCreatePostRes")
-public class RoomCreatePostRes extends BaseResponseBody {
-    RoomRes roomRes;
+public class ChannelCreatePostRes extends BaseResponseBody {
+    ChannelRes channelRes;
 
-    public static RoomCreatePostRes of(Integer statusCode, String message, RoomRes roomRes) {
-        RoomCreatePostRes res = new RoomCreatePostRes();
+    public static ChannelCreatePostRes of(Integer statusCode, String message, ChannelRes channelRes) {
+        ChannelCreatePostRes res = new ChannelCreatePostRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
-        res.setRoomRes(roomRes);
+        res.setChannelRes(channelRes);
         return res;
     }
 }

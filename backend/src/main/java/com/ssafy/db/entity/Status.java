@@ -4,5 +4,5 @@ public enum Status {
     JOIN,
     MESSAGE,
     LEAVE,
-    ADDPIN
+    ADDPIN,
 }
