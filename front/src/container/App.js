@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route exact path="/dashboard" element={<Homepage/>}></Route>
         <Route exact path="/">
-          {LoggedIn ? navigate("/dashboard") :
+          {LoggedIn ? navigate("/dashboard", {replace: true}) :
           <ThemeProvider theme={theme}>
             <Initpage></Initpage>
           </ThemeProvider>}

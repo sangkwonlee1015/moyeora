@@ -1,10 +1,13 @@
-//import Header from "./components/header";
+import Header from "../components/header";
+import Intro from "../components/intro";
+import React, { useState } from 'react';
 
-export default function home(){
+export default function homepage(){
     console.log("homepage");
     return (
-        <h2>homepage</h2>
-        //<Header></Header>
-        //<모여라소개></모여라소개>
+        <div>
+            <Header></Header>
+            <Intro></Intro>
+        </div>
     );
 }
