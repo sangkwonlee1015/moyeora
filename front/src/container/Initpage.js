@@ -14,11 +14,13 @@ import {
   Checkbox
 } from '@mui/material';
 import { GroupAdd, Person, ArrowBack } from '@mui/icons-material';
+import { useNavigate } from "react-router";
 
 
 
-const Temp = ()=>{
-   
+const Initpage = ()=>{
+  
+  const navigate = useNavigate();
   // Dispatch
 
   // Local state to control Modal Windows + Data fields
@@ -219,6 +221,7 @@ const Temp = ()=>{
               className="modal-login-button"
               variant="contained"
               color="primary"
+              onClick={() => onClickfunc()}
             >
               Login
             </Button>
@@ -227,6 +230,10 @@ const Temp = ()=>{
       </Slide>
     );
   };
+  const onClickfunc = () =>{
+    console.log("login button click")
+    navigate("/home")
+  }
 
   return (
     <div className="auth-wrapper">
@@ -239,6 +246,4 @@ const Temp = ()=>{
   );
 }
 
-export default Temp;
-
-
+export default Initpage;
