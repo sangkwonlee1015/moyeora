@@ -1,13 +1,18 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
-import Temp from './Temp';
-import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import Homepage from './homepage';
+import Initpage from './Initpage';
+
 function App() {
+  let LoggedIn = false;
   return (
-    <ThemeProvider theme={theme}>
-      <Temp></Temp>
-  </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
+        <Route path="/home" element={<Homepage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
