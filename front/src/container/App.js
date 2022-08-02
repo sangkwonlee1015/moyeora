@@ -1,13 +1,33 @@
-import logo from './logo.svg';
+import Header from '../components/header';
+import { Redirect } from 'react-router';
 import './App.css';
-import Temp from './Temp';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.css';
+import Initpage from './Initpage';
 import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import Homepage from './homepage';
+import { useNavigate } from "react-router";
+
 function App() {
+  let LoggedIn = true;
+  const navigate = useNavigate();
   return (
-    <ThemeProvider theme={theme}>
-      <Temp></Temp>
-  </ThemeProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/dashboard" element={<Homepage/>}></Route>
+        <Route exact path="/">
+          {LoggedIn ? navigate("/dashboard") :
+          <ThemeProvider theme={theme}>
+            <Initpage></Initpage>
+          </ThemeProvider>}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
+    // <ThemeProvider theme={theme}>
+    //   <Initpage></Initpage>
+    // </ThemeProvider>
   );
 }
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router';
+import {Link} from "react-router-dom";
 import {
   Paper,
   Button,
@@ -17,7 +19,7 @@ import { GroupAdd, Person, ArrowBack } from '@mui/icons-material';
 
 
 
-const Temp = ()=>{
+const Initpage = ()=>{
    
   // Dispatch
 
@@ -219,6 +221,7 @@ const Temp = ()=>{
               className="modal-login-button"
               variant="contained"
               color="primary"
+              onClick={() => func()}
             >
               Login
             </Button>
@@ -238,7 +241,11 @@ const Temp = ()=>{
     </div>
   );
 }
+function func(){
+  console.log("login click")
+  // return(
+  //   //<Redirect to="/dashboard"></Redirect>
+  // );
+}
 
-export default Temp;
-
-
+export default Initpage;
