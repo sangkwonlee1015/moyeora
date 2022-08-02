@@ -1,5 +1,3 @@
-import Header from '../components/header/header';
-import { Redirect } from 'react-router';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createTheme } from '@mui/material/styles';
@@ -7,8 +5,7 @@ import Homepage from './homepage';
 import Initpage from './Initpage';
 
 function App() {
-  let LoggedIn = true;
-
+  let LoggedIn = false;
   return (
     <BrowserRouter>
       <Routes>
