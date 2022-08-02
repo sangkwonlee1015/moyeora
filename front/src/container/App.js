@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createTheme } from '@mui/material/styles';
-import Homepage from './homepage';
+import Homepage from './Homepage';
 import Initpage from './Initpage';
 
 function App() {

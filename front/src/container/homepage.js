@@ -1,10 +1,10 @@
-import Header from "../components/header/header";
-import Intro from "../components/intro";
+import Header from "../components/header/Header";
+import Intro from "../components/Intro";
 import React, { useState } from 'react';
 import './homepage.css'
 
-export default function homepage(){
-    console.log("homepage");
+export default function Homepage(){
+    console.log("Homepage");
     return (
         <div className="comp">
             <div>
