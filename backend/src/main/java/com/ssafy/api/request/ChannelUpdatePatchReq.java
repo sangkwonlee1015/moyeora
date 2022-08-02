@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("RoomUpdatePatchReq")
-public class RoomUpdatePatchReq {
+public class ChannelUpdatePatchReq {
     @ApiModelProperty(name="방 seq", example="1")
-    Long roomSeq;
+    Long channelSeq;
     @ApiModelProperty(name="방 이름", example="new room")
-    String roomName;
+    String channelName;
     @ApiModelProperty(name="방장 유저 seq", example="1")
     Long userSeq;
 }

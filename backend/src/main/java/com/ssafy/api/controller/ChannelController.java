@@ -1,12 +1,12 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.RoomCreatePostReq;
-import com.ssafy.api.request.RoomUpdatePatchReq;
-import com.ssafy.api.response.RoomCreatePostRes;
-import com.ssafy.api.response.RoomRes;
-import com.ssafy.api.service.RoomService;
+import com.ssafy.api.request.ChannelCreatePostReq;
+import com.ssafy.api.request.ChannelUpdatePatchReq;
+import com.ssafy.api.response.ChannelCreatePostRes;
+import com.ssafy.api.response.ChannelRes;
+import com.ssafy.api.service.ChannelService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Room;
+import com.ssafy.db.entity.Channel;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +19,9 @@ import java.util.List;
 @Api(value = "방 API", tags = {"Room"})
 @RestController
 @RequestMapping("/api/v1/room")
-public class RoomController {
+public class ChannelController {
     @Autowired
-    RoomService roomService;
+    ChannelService channelService;
 
     @PostMapping()
     @ApiOperation(value = "방 생성", notes = "새로운 방을 만든다.")
@@ -29,14 +29,14 @@ public class RoomController {
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<? extends BaseResponseBody> create(@ApiIgnore Authentication authentication,
-                                                             @RequestBody @ApiParam(value="방 생성 정보", required = true) RoomCreatePostReq roomCreatePostReq) {
+                                                             @RequestBody @ApiParam(value="방 생성 정보", required = true) ChannelCreatePostReq channelCreatePostReq) {
         if (authentication == null){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
         }
 
-        Room room = roomService.createRoom(roomCreatePostReq);
+        Channel channel = channelService.registerChannel(channelCreatePostReq);
 
-        return ResponseEntity.status(200).body(RoomCreatePostRes.of(200, "Success", RoomRes.of(room)));
+        return ResponseEntity.status(200).body(ChannelCreatePostRes.of(200, "Success", ChannelRes.of(channel)));
     }
 
     @GetMapping("/{findName}")
@@ -44,14 +44,14 @@ public class RoomController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
     })
-    public ResponseEntity<List<Room>> search(@ApiIgnore Authentication authentication,
-                                       @PathVariable String findName) {
+    public ResponseEntity<List<Channel>> search(@ApiIgnore Authentication authentication,
+                                                @PathVariable String findName) {
         if (authentication == null){
             return null;
         }
-        List<Room> roomList = roomService.getRoomByNameContaining(findName);
+        List<Channel> channelList = channelService.getChannelByNameContaining(findName);
 
-        return ResponseEntity.status(200).body(roomList);
+        return ResponseEntity.status(200).body(channelList);
     }
 
     @PatchMapping()
@@ -60,12 +60,12 @@ public class RoomController {
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<? extends BaseResponseBody> update(@ApiIgnore Authentication authentication,
-                                             @RequestBody @ApiParam(value="방 수정 정보", required = true) RoomUpdatePatchReq roomUpdatePatchReq) {
+                                             @RequestBody @ApiParam(value="방 수정 정보", required = true) ChannelUpdatePatchReq channelUpdatePatchReq) {
         if (authentication == null){
             return null;
         }
 
-        roomService.updateRoom(roomUpdatePatchReq);
+        channelService.updateChannel(channelUpdatePatchReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
@@ -81,7 +81,7 @@ public class RoomController {
             return null;
         }
 
-        roomService.deleteRoom(roomSeq);
+        channelService.deleteChannel(roomSeq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
