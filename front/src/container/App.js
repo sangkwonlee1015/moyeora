@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import Header from '../components/header/header';
-import { Redirect } from 'react-router';
-import './App.css';
-=======
->>>>>>> 44a92282d90899321e22e068c91be2e1d8bd1d11
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createTheme } from '@mui/material/styles';
@@ -11,12 +5,7 @@ import Homepage from './homepage';
 import Initpage from './Initpage';
 
 function App() {
-<<<<<<< HEAD
-  let LoggedIn = true;
-  // const navigate = useNavigate();
-=======
   let LoggedIn = false;
->>>>>>> 44a92282d90899321e22e068c91be2e1d8bd1d11
   return (
     <BrowserRouter>
       <Routes>
