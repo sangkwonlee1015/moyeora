@@ -19,15 +19,13 @@ public class QMaps extends EntityPathBase<Maps> {
 
     public static final QMaps maps = new QMaps("maps");
 
-    public final StringPath lat = createString("lat");
+    public final NumberPath<Long> channelSeq = createNumber("channelSeq", Long.class);
 
-    public final StringPath lng = createString("lng");
+    public final StringPath mapName = createString("mapName");
 
     public final NumberPath<Long> mapSeq = createNumber("mapSeq", Long.class);
 
-    public final NumberPath<Long> roomSeq = createNumber("roomSeq", Long.class);
-
-    public final StringPath title = createString("title");
+    public final NumberPath<Long> userSeq = createNumber("userSeq", Long.class);
 
     public QMaps(String variable) {
         super(Maps.class, forVariable(variable));
