@@ -1,6 +1,6 @@
 import './Header.css'
 import HomePage from '../../container/Homepage'
-import Intro from '../home/Home';
+import Intro from '../Home/Home';
 import React from 'react';
 import ChannelHomePage from '../../container/ChannelHomePage';
 import {Routes, Route,Link} from 'react-router-dom'

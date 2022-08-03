@@ -1,6 +1,6 @@
 import MypageSideBar from "../components/Sidebar/MypageSidebar"
 import MypageSeting from "../components/Mypage/MypageSetting"
-import Header from "../components/header/Header"
+import Header from "../components/Header/Header"
 
 function MypageSetingPage(){
     return (
