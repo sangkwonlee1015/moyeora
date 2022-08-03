@@ -9,13 +9,26 @@
 }
 
 .sidebar{
-    width: 220px;
-    background-color: aqua;
+    width: 300px;
+    background-color: #F2F3F5;
 }
-
+.sidebar>div{
+  border-radius: 10px;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+.sidebar>div:hover{
+  background-color: #DDE0E5;
+}
+.sidebar a{
+  display: block;
+  text-decoration-line: none;
+  color: #6A7480;
+  font-weight: bold;
+}
 .sidebar-mypage{
-    width :220px;
-    background-color: beige;
+  width: 300px;
+  background-color: #F2F3F5;
 }
 .mypage-setting{
     width: 100%;
