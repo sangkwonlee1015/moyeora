@@ -1,4 +1,4 @@
-import Header from "../components/header/Header"
+import Header from "../components/Header/Header"
 import Sidebar from "../components/Sidebar/Sidebar"
 import MapArea from "../components/MapArea"
 import MapMarkerList from "../components/MapMarkerList"
