@@ -5,16 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @ApiModel("MapsUpdatePatchReq")
 public class MapsUpdatePatchReq {
+    @Positive
     @ApiModelProperty(name="맵 seq", example="1")
     Long mapSeq;
-    @ApiModelProperty(name="맵 제목", example="new map")
-    String title;
-    @ApiModelProperty(name="지도 위도", example="37.42829747263545")
-    String lat;
-    @ApiModelProperty(name="지도 경도", example="126.76620435615891")
-    String lng;
+    @NotBlank
+    @ApiModelProperty(name="맵 이름", example="new map")
+    String mapName;
 }

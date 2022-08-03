@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service("mapsServie")
+@Service("mapsService")
 public class MapsServiceImpl implements MapsService {
 
     @Autowired
@@ -19,14 +19,22 @@ public class MapsServiceImpl implements MapsService {
     @Override
     public Maps createMaps(MapsCreatePostReq mapsCreatePostReq) {
         Maps maps = new Maps();
-        maps.setTitle(mapsCreatePostReq.getTitle());
-        maps.setRoomSeq(mapsCreatePostReq.getRoomSeq());
+        maps.setMapName(mapsCreatePostReq.getMapName());
+        if(mapsCreatePostReq.getChannelSeq() > 0)
+            maps.setChannelSeq(mapsCreatePostReq.getChannelSeq());
+        if(mapsCreatePostReq.getUserSeq() > 0)
+            maps.setUserSeq(mapsCreatePostReq.getUserSeq());
         return mapsRepository.save(maps);
     }
 
     @Override
-    public List<Maps> getMapsByRoomSeq(Long roomSeq) {
-        return mapsRepository.findMapsByRoomSeq(roomSeq);
+    public List<Maps> getMapsByChannelSeq(Long channelSeq) {
+        return mapsRepository.findMapsByChannelSeq(channelSeq);
+    }
+
+    @Override
+    public List<Maps> getMapsByUserSeq(Long userSeq) {
+        return mapsRepository.findMapsByUserSeq(userSeq);
     }
 
     @Override
@@ -34,9 +42,7 @@ public class MapsServiceImpl implements MapsService {
         Optional<Maps> oMaps = mapsRepository.findById(mapsUpdatePatchReq.getMapSeq());
         if(oMaps.isPresent()){
             Maps maps = oMaps.get();
-            maps.setTitle(mapsUpdatePatchReq.getTitle());
-            maps.setLat(mapsUpdatePatchReq.getLat());
-            maps.setLng(mapsUpdatePatchReq.getLng());
+            maps.setMapName(mapsUpdatePatchReq.getMapName());
             return mapsRepository.save(maps);
         }
         return null;
