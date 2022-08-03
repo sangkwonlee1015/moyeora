@@ -8,9 +8,8 @@ import com.ssafy.db.entity.PinSearchCond;
 import java.util.List;
 
 public interface PinService {
-    Pin createPin(PinRegisterPostReq pinRegisterInfo);
-    Pin getPinByPinSeq(Long pinSeq);
+    Pin registerPin(PinRegisterPostReq pinRegisterInfo);
     Pin updatePin(PinUpdatePatchReq pinUpdateInfo);
     void deletePin(Long pinSeq);
-    List<Pin> getPinsByPinSearchCond(PinSearchCond pinSearchCond);
+    List<Pin> findByMapSeq(Long mapSeq);
 }

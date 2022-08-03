@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface MapsService {
     Maps createMaps(MapsCreatePostReq mapsCreatePostReq);
-    List<Maps> getMapsByRoomSeq(Long RoomSeq);
     Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq);
     void deleteMaps(Long mapsSeq);
+    Maps findByMapSeq(Long mapSeq);
+    List<Maps> findByChannelSeqOrUserSeq(Long channelSeq, Long userSeq);
+
 }

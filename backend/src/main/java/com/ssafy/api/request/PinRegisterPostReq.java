@@ -5,26 +5,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ApiModel("PinRegisterPostRequest")
 public class PinRegisterPostReq {
-    @ApiModelProperty(name="lat")
-    String lat;
-    @ApiModelProperty(name="lng")
-    String lng;
-    @ApiModelProperty(name="time")
-    LocalDateTime time;
-    @ApiModelProperty(name="content")
-    String content;
-    @ApiModelProperty(name="color")
-    Integer color;
-    @ApiModelProperty(name="mapSeq")
-    Long mapSeq;
-    @ApiModelProperty(name="userId")
-    String userId;
-    @ApiModelProperty(name="roomSeq")
-    Long roomSeq;
+    private String pinContent;
+    private String pinLat;
+    private String pinLng;
+    private String pinColor;
+    private Integer pinOrder;
+    private Long userSeq;
+    private Long mapSeq;
 }

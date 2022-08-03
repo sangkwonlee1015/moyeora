@@ -12,11 +12,9 @@ import javax.persistence.*;
 public class Maps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "map_seq")
     private Long mapSeq;
-    private String title;
-    private String lat;
-    private String lng;
-    @Column(name = "room_seq")
-    private Long roomSeq;
+    private String mapName;
+    private Long userSeq;
+    private Long channelSeq;
+
 }

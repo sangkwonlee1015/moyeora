@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @ApiModel("MapsCreatePostReq")
 public class MapsCreatePostReq {
-    @ApiModelProperty(name="맵 제목", example="new map")
-    String title;
-    @ApiModelProperty(name="방 seq", example="1")
-    long roomSeq;
+    private String mapName;
+    private Long channelSeq;
+    private Long userSeq;
 }
