@@ -1,5 +1,6 @@
 import './Intro.css'
-import Header from '../header/Header';
+import React from 'react';
+import Header from '../header/header';
 export default function intro(){
     return (
         <div>

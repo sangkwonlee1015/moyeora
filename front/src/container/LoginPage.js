@@ -15,10 +15,11 @@ import {
 } from '@mui/material';
 import { GroupAdd, Person, ArrowBack } from '@mui/icons-material';
 import { useNavigate } from "react-router";
+import axios from 'axios';
 
 
 
-const Initpage = ()=>{
+const LoginPage = ()=>{
   
   const navigate = useNavigate();
   // Dispatch
@@ -221,7 +222,7 @@ const Initpage = ()=>{
               className="modal-login-button"
               variant="contained"
               color="primary"
-              onClick={() => onClickfunc()}
+              onClick={() => onLogin(userName, userPass)}
             >
               Login
             </Button>
@@ -230,10 +231,29 @@ const Initpage = ()=>{
       </Slide>
     );
   };
-  const onClickfunc = () =>{
-    console.log("login button click")
-    navigate("/dashboard")
+
+  const onLogin = (email, password) => {
+    const data = {
+      email,
+      password,
+    };
+    axios.post('/api/v1/auth/login', data).then(response => {
+      const { accessToken } = response.data;
+  
+      // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  
+      // accessToken을 localStorage, cookie 등에 저장하지 않는다!
+  
+    }).catch(error => {
+      // ... 에러 처리
+      console.log("login requset fail : " + error);
+    }).finally(()=>{console.log("login request end")});
   }
+  // const onClickfunc = () =>{
+  //   console.log("login button click")
+  //   navigate("/home")
+  // }
 
   return (
     <div className="auth-wrapper">
@@ -246,4 +266,4 @@ const Initpage = ()=>{
   );
 }
 
-export default Initpage;
+export default LoginPage;

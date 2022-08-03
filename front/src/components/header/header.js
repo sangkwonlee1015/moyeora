@@ -1,6 +1,7 @@
-import './Header.css'
+import './header.css'
 import HomePage from '../../container/MainPage'
-import Intro from '../intro/Intro';
+import Intro from '../intro/Home';
+import React from 'react';
 import ServerHome from '../../container/ServerHome';
 import {Routes, Route,Link} from 'react-router-dom'
 
