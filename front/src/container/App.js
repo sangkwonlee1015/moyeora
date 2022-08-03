@@ -3,16 +3,23 @@ import './App.css';
 import { createTheme } from '@mui/material/styles';
 import Homepage from './homepage';
 import Initpage from './Initpage';
+import Intro from "../components/intro/intro";
+import Emptypage from './emptypage';
+import Header from "../components/header/header";
 
 function App() {
   let LoggedIn = false;
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
-        <Route path="/home" element={<Homepage/>}/>
-      </Routes>
-    </BrowserRouter>
+    <div className="app">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
+          <Route path="/dashboard" element={<Homepage/>}/>
+          <Route path="/home" element={<Intro/>}/>
+        </Routes>
+      </BrowserRouter>
+      {/* <Header/> */}
+    </div>
   );
 }
 

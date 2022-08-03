@@ -232,7 +232,7 @@ const Initpage = ()=>{
   };
   const onClickfunc = () =>{
     console.log("login button click")
-    navigate("/home")
+    navigate("/dashboard")
   }
 
   return (
