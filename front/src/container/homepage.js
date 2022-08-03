@@ -1,7 +1,7 @@
 import Header from "../components/header/Header";
 import Intro from "../components/Intro";
 import React, { useState } from 'react';
-import './homepage.css'
+import './Homepage.css'
 
 export default function Homepage(){
     console.log("Homepage");
