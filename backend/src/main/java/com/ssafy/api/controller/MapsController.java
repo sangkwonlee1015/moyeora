@@ -5,8 +5,12 @@ import com.ssafy.api.request.MapsUpdatePatchReq;
 import com.ssafy.api.response.MapsCreatePostRes;
 import com.ssafy.api.response.MapsListGetRes;
 import com.ssafy.api.service.MapsService;
+import com.ssafy.api.service.ParticipantsService;
+import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Maps;
+import com.ssafy.db.entity.ParticipantsId;
+import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +30,9 @@ public class MapsController {
     @Autowired
     MapsService mapsService;
 
+    @Autowired
+    ParticipantsService participantsService;
+
     @PostMapping()
     @ApiOperation(value = "지도 생성", notes = "새로운 지도를 만든다.")
     @ApiResponses({
@@ -34,18 +41,32 @@ public class MapsController {
     public ResponseEntity<? extends BaseResponseBody> create(@ApiIgnore Authentication authentication,
             @Validated @RequestBody @ApiParam(value="지도 생성 정보", required = true) MapsCreatePostReq mapsCreatePostReq,
                                                              BindingResult bindingResult) {
-        if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+        if (authentication == null) {
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
+        }
+
+        User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
 
         // UserSeq와 ChannelSeq 둘 중 하나만 들어와야 함
         boolean flag = false;
-        if(mapsCreatePostReq.getUserSeq() > 0)
+        if (mapsCreatePostReq.getChannelSeq() > 0) {
+            // 로그인 계정이 속한 채널의 channelSeq 인지 체크
+            ParticipantsId participantsId = new ParticipantsId(user.getUserSeq(), mapsCreatePostReq.getChannelSeq());
+            if (!participantsService.getParticipantsById(participantsId).isPresent()) {
+                return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+            }
             flag = true;
-        if(mapsCreatePostReq.getChannelSeq() > 0)
+        }
+        if (mapsCreatePostReq.getUserSeq() > 0) {
+            // 로그인 계정의 userSeq 인지 체크
+            if (user.getUserSeq() != mapsCreatePostReq.getUserSeq()){
+                return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+            }
             flag ^= true;
+        }
         if (!flag)
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
 
@@ -63,14 +84,25 @@ public class MapsController {
                                                   @PathVariable Long seq,
                                                   @RequestParam(value="type", required = true) String type){
         if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
 
-        List<Maps> mapsList = new ArrayList<>();
+        User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
+
+        List<Maps> mapsList;
         if (type.equals("channel")) {
+            // 로그인 계정이 속한 채널의 channelSeq 인지 체크
+            ParticipantsId participantsId = new ParticipantsId(user.getUserSeq(), seq);
+            if (!participantsService.getParticipantsById(participantsId).isPresent()) {
+                return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+            }
             mapsList = mapsService.getMapsByChannelSeq(seq);
         }
         else if (type.equals("user")) {
+            // 로그인 계정의 userSeq 인지 체크
+            if (user.getUserSeq() != seq){
+                return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+            }
             mapsList = mapsService.getMapsByUserSeq(seq);
         }
         else{
@@ -89,13 +121,18 @@ public class MapsController {
             @Validated @RequestBody @ApiParam(value="지도 수정 정보", required = true) MapsUpdatePatchReq mapsUpdatePatchReq,
                                                              BindingResult bindingResult) {
         if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+        }
+
+        User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
+        if (!mapsService.checkAuth(mapsUpdatePatchReq.getMapSeq(), user.getUserSeq())){
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
 
         if (bindingResult.hasErrors())
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
 
-        mapsService.updateMaps(mapsUpdatePatchReq);
+        mapsService.updateMaps(mapsUpdatePatchReq, user);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
@@ -108,7 +145,13 @@ public class MapsController {
     public ResponseEntity<? extends BaseResponseBody> delete(@ApiIgnore Authentication authentication,
                                                              @PathVariable Long mapsSeq) {
         if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+        }
+
+        User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
+
+        if(!mapsService.checkAuth(mapsSeq, user.getUserSeq())){
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
 
         mapsService.deleteMaps(mapsSeq);

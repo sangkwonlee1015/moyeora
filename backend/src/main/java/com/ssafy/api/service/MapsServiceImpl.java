@@ -3,7 +3,10 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.MapsCreatePostReq;
 import com.ssafy.api.request.MapsUpdatePatchReq;
 import com.ssafy.db.entity.Maps;
+import com.ssafy.db.entity.ParticipantsId;
+import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.MapsRepository;
+import com.ssafy.db.repository.ParticipantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,9 @@ public class MapsServiceImpl implements MapsService {
 
     @Autowired
     MapsRepository mapsRepository;
+
+    @Autowired
+    ParticipantsRepository participantsRepository;
 
     @Override
     public Maps createMaps(MapsCreatePostReq mapsCreatePostReq) {
@@ -28,6 +34,24 @@ public class MapsServiceImpl implements MapsService {
     }
 
     @Override
+    public boolean checkAuth(Long mapSeq, Long userSeq) {
+        Optional<Maps> oMaps = mapsRepository.findById(mapSeq);
+        if(oMaps.isPresent()){
+            Maps maps = oMaps.get();
+            if(maps.getUserSeq() == userSeq)
+                return true;
+            if(participantsRepository.findById(new ParticipantsId(userSeq, maps.getChannelSeq())).isPresent())
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Optional<Maps> getMapsByMapSeq(Long mapSeq) {
+        return mapsRepository.findById(mapSeq);
+    }
+
+    @Override
     public List<Maps> getMapsByChannelSeq(Long channelSeq) {
         return mapsRepository.findMapsByChannelSeq(channelSeq);
     }
@@ -38,7 +62,7 @@ public class MapsServiceImpl implements MapsService {
     }
 
     @Override
-    public Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq) {
+    public Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq, User user) {
         Optional<Maps> oMaps = mapsRepository.findById(mapsUpdatePatchReq.getMapSeq());
         if(oMaps.isPresent()){
             Maps maps = oMaps.get();
