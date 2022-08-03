@@ -1,5 +1,5 @@
 import Header from "../components/header/Header";
-import Intro from "../components/Intro";
+import Home from "../components/Home";
 import React, { useState } from 'react';
 import './Homepage.css'
 
@@ -7,12 +7,8 @@ export default function Homepage(){
     console.log("Homepage");
     return (
         <div className="comp">
-            <div>
-                <Header></Header>
-            </div>
-            <div>
-                <Intro></Intro>
-            </div>
+            <Header/>
+            <Home/>
         </div>
     );
 }
