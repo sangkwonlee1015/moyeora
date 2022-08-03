@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface MapsService {
     Maps createMaps(MapsCreatePostReq mapsCreatePostReq);
-    List<Maps> getMapsByRoomSeq(Long RoomSeq);
+    List<Maps> getMapsByChannelSeq(Long channelSeq);
+    List<Maps> getMapsByUserSeq(Long userSeq);
     Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq);
     void deleteMaps(Long mapsSeq);
 }
