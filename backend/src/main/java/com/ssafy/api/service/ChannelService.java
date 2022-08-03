@@ -1,14 +1,16 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.ChannelCreatePostReq;
+import com.ssafy.api.request.ChannelRegisterPostReq;
 import com.ssafy.api.request.ChannelUpdatePatchReq;
 import com.ssafy.db.entity.Channel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChannelService {
-    Channel registerChannel(ChannelCreatePostReq channelCreatePostReq);
-    List<Channel> getChannelByNameContaining(String findName);
-    Channel updateChannel(ChannelUpdatePatchReq channelUpdatePatchReq);
+    Channel registerChannel(ChannelRegisterPostReq channelRegisterPostReq, Long userSeq);
+    List<Channel> findByChannelNameContainingAndChannelTagContaining(String channelName, String channelTag);
+    boolean updateChannel(ChannelUpdatePatchReq channelUpdatePatchReq);
+    boolean findByChannelSeqAndUserSeq(Long channelSeq, Long userSeq);
     void deleteChannel(Long roomSeq);
 }
