@@ -1,4 +1,4 @@
-import './header.css'
+import './Header.css'
 import HomePage from '../../container/Homepage'
 import Intro from '../home/Home';
 import React from 'react';
