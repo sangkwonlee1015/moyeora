@@ -11,8 +11,10 @@ import OvPage from "./OVPage";
 import MapPage from "./MapPage"
 
 let LoggedIn = false;
+
+
 function App() {
-  
+
   return (
   
     <div className="App">
@@ -20,7 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={LoggedIn ? <Homepage/> : <Homepage/>}/>
           <Route path="/homepage" element={<Homepage/>}/>
-          <Route path="/serverpage" element={<ChannelHomePage/>}/>
+          <Route path="/serverpage/:serverid" element={<ChannelHomePage/>}/>
           <Route path="/addchannelpage" element={<AddChannelPage/>}/>
           <Route path="/articlepage" element={<ArticlePage/>}/>
           <Route path="/mypagesettingpage" element={<MypageSetingPage/>}/>

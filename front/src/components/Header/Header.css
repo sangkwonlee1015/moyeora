@@ -30,3 +30,23 @@
 img {
     width: 100%;
 }
+
+.channel_list {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.channel_list a{
+  text-decoration-line: none;
+  width: 70px;
+  display: block;
+  text-align: center;
+  border-radius: 50%;
+  background: #BADA55;
+  padding: 1.5rem 0 1.5rem;
+  margin-top: 1rem;
+}
+
+.channel_list a:hover{
+  background: #69763f;
+}
