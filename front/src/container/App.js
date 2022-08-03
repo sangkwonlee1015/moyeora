@@ -1,21 +1,31 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createTheme } from '@mui/material/styles';
-import Homepage from './homepage';
+import Homepage from './MainPage';
 import Initpage from './Initpage';
-import Intro from "../components/intro/intro";
+import Intro from "../components/intro/Intro";
 import Emptypage from './emptypage';
-import Header from "../components/header/header";
-
+import Header from "../components/header/Header";
+import ServerHome from "./ServerHome";
+let LoggedIn = false;
+function temp(){
+  if (LoggedIn){
+    console.log("sadada");
+    return (<Header/>);
+  }
+}
 function App() {
-  let LoggedIn = false;
+  
   return (
+  
     <div className="app">
+      <temp/>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
           <Route path="/dashboard" element={<Homepage/>}/>
-          <Route path="/home" element={<Intro/>}/>
+          {/* <Route path="/dashboard/main" element={<Homepage/>}/> */}
+          <Route path="/dashboard/server" element={<ServerHome/>}/>
         </Routes>
       </BrowserRouter>
       {/* <Header/> */}

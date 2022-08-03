@@ -1,12 +1,11 @@
-import Header from "../components/header/header";
-import Intro from "../components/intro/intro";
-import './homepage.css'
+import Header from "../components/header/Header";
+import Intro from "../components/intro/Intro";
+import './MainPage.css'
 
 export default function homepage(){
     console.log("homepage !!!!!");
     return (
         <div className="comp">
-            <Header/>
             <Intro/>
         </div>
     );

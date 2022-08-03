@@ -1,5 +1,5 @@
-import './intro.css'
-import Header from '../header/header';
+import './Intro.css'
+import Header from '../header/Header';
 export default function intro(){
     return (
         <div>

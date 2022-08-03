@@ -1,6 +1,6 @@
-import './header.css'
-import HomePage from '../../container/homepage'
-import Intro from '../intro/intro';
+import './Header.css'
+import HomePage from '../../container/MainPage'
+import Intro from '../intro/Intro';
 import ServerHome from '../../container/ServerHome';
 import {Routes, Route,Link} from 'react-router-dom'
 
@@ -12,8 +12,8 @@ export default function header(){
     return (
         // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
         <div className="container">
-            <div className="item item1"><Link to="/home"><img src={homePng} alt='홈'/></Link></div>
-            <div className="item item2"><Link to="/server">서버</Link></div>
+            <div className="item item1"><Link to="/dashboard"><img src={homePng} alt='홈'/></Link></div>
+            <div className="item item2"><Link to="/dashboard/server">서버</Link></div>
             <div className="item item3"><Link to="/"><img src={addPng} alt='방 추가'/></Link></div>
             <div className="item item4"><Link to="/"><img src={findPng} alt='방 찾기'/></Link></div>
             <div className="item item5"><Link to="/"><img src={settingPng} alt='마이 페이지'/></Link></div>
