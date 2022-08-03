@@ -1,11 +1,11 @@
 .container {
     width: 70px;
     height: 100vh;
-    position: fixed;
     background-color: bisque;
 }
 .item{
     width: 70px;
+    display: block;
 }
 .item1{
     background: brown;
@@ -25,4 +25,8 @@
 
 .item5{
     background: darkcyan;
+}
+
+img {
+    width: 100%;
 }

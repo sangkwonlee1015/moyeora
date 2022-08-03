@@ -24,7 +24,8 @@ let store = createStore(reduxTest)
 //       <App />
 //     </Provider>
 //   </React.StrictMode>
-// );
+// );  // 18~
+
 ReactDOM.render(
   <React.StrictMode >
       <Provider store={store}>
