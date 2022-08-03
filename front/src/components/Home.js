@@ -1,7 +1,7 @@
 
 
-export default function Intro(){
+export default function Home(){
     return (
-        <div>intro</div>
+        <div>Home</div>
     );
 }

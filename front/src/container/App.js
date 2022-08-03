@@ -2,20 +2,23 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import { createTheme } from '@mui/material/styles';
 import Homepage from './Homepage';
-import Initpage from './Initpage';
+import LoginPage from './LoginPage';
+import Header from "../components/header/Header";
 
 function App() {
   let LoggedIn = false;
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
-        <Route path="/home" element={<Homepage/>}/>
-      </Routes>
-    </BrowserRouter>
+    <div>
+      {LoggedIn ? <Header/> : null}
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={LoggedIn ? <Homepage/> : <LoginPage/>}/>
+          <Route path="/home" element={<Homepage/>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
-
 export default App;
 const theme = createTheme({
   overrides: {
