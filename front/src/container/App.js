@@ -5,7 +5,11 @@ import Homepage from './Homepage';
 import ChannelHomePage from "./ChannelHomePage";
 import AddChannelPage from "./AddChannelPage";
 import ArticlePage from "./ArticlePage";
-import MypageSetingPage from "./MypageSettingPage"
+import MypageSetingPage from "./MypageSettingPage";
+import ChattingPage from "./ChattingPage";
+import OvPage from "./OVPage";
+import MapPage from "./MapPage"
+
 let LoggedIn = false;
 function App() {
   
@@ -20,9 +24,11 @@ function App() {
           <Route path="/addchannelpage" element={<AddChannelPage/>}/>
           <Route path="/articlepage" element={<ArticlePage/>}/>
           <Route path="/mypagesettingpage" element={<MypageSetingPage/>}/>
+          <Route path="/chattingpage" element={<ChattingPage/>}/>
+          <Route path="/mappage" element={<MapPage/>}/>
+          <Route path="/ovpage" element={<OvPage/>}/>
         </Routes>
       </BrowserRouter>
-      {/* <Header/> */}
     </div>
   );
 }

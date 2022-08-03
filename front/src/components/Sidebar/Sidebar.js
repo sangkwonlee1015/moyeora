@@ -1,6 +1,14 @@
+import Chatting from "./Chatting";
+import Map from "./Map";
+import Ov from "./OV";
+
 function Sidebar (){
     return (
-        <div className="sidebar">사이드바 입니다</div>
+        <div className="sidebar">
+            <Chatting/>
+            <Map/>
+            <Ov/>
+        </div>
     )
 }
 export default Sidebar 
