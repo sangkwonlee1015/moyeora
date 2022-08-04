@@ -38,9 +38,9 @@ public class PinController {
         }
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         String userId = userDetails.getUsername();
-        if (!participantsService.getParticipantsById(new ParticipantsId(userId, registerInfo.getRoomSeq())).isPresent()){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
-        }
+//        if (!participantsService.getParticipantsById(new ParticipantsId(userId, registerInfo.getRoomSeq())).isPresent()){
+//            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+//        }
         pinService.createPin(registerInfo);
 
         return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
@@ -58,9 +58,9 @@ public class PinController {
         }
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         String userId = userDetails.getUsername();
-        if (!participantsService.getParticipantsById(new ParticipantsId(userId, updateInfo.getRoomSeq())).isPresent()){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
-        }
+//        if (!participantsService.getParticipantsById(new ParticipantsId(userId, updateInfo.getRoomSeq())).isPresent()){
+//            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+//        }
         Pin pin = pinService.updatePin(updateInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
@@ -78,9 +78,9 @@ public class PinController {
         }
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         String userId = userDetails.getUsername();
-        if (!participantsService.getParticipantsById(new ParticipantsId(userId, deleteInfo.getRoomSeq())).isPresent()){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
-        }
+//        if (!participantsService.getParticipantsById(new ParticipantsId(userId, deleteInfo.getRoomSeq())).isPresent()){
+//            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+//        }
         pinService.deletePin(deleteInfo.getPinSeq());
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }

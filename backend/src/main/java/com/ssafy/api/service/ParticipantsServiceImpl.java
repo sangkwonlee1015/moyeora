@@ -25,8 +25,8 @@ public class ParticipantsServiceImpl implements ParticipantsService{
     public Participants registerParticipants(ParticipantsRegisterPostReq registerInfo) {
         Participants participants = new Participants();
         ParticipantsId id = new ParticipantsId();
-        id.setRoomSeq(registerInfo.getRoomSeq());
-        id.setUserId(registerInfo.getUserId());
+        id.setChannelSeq(registerInfo.getChannelSeq());
+        id.setUserSeq(registerInfo.getUserSeq());
         participants.setParticipantsId(id);
         return participantsRepository.save(participants);
     }
