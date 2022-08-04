@@ -13,4 +13,10 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     // 아래와 같이, Query Method 인터페이스(반환값, 메소드명, 인자) 정의를 하면 자동으로 Query Method 구현됨.
     Optional<User> findByUserId(String userId);
+
+
+//    // 유저 ID 중족체크
+//    boolean existsByUserId(String userId);
+//    // 유저 닉네임 중복체크
+//    boolean existsByUserNick(String userNick);
 }

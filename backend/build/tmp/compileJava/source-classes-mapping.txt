@@ -1,78 +1,138 @@
-com/ssafy/db/entity/Status.java
- com.ssafy.db.entity.Status
+com/ssafy/api/service/ParticipantsService.java
+ com.ssafy.api.service.ParticipantsService
 com/ssafy/config/SecurityConfig.java
  com.ssafy.config.SecurityConfig
-com/ssafy/config/SwaggerConfig.java
- com.ssafy.config.SwaggerConfig
-com/ssafy/db/repository/RoomRepository.java
- com.ssafy.db.repository.RoomRepository
-com/ssafy/api/service/UserService.java
- com.ssafy.api.service.UserService
-com/ssafy/api/service/UserServiceImpl.java
- com.ssafy.api.service.UserServiceImpl
+com/ssafy/api/request/PinUpdatePatchReq.java
+ com.ssafy.api.request.PinUpdatePatchReq
 com/ssafy/api/controller/AuthController.java
  com.ssafy.api.controller.AuthController
-com/ssafy/common/auth/SsafyUserDetails.java
- com.ssafy.common.auth.SsafyUserDetails
+com/ssafy/api/request/ParticipantsRegisterPostReq.java
+ com.ssafy.api.request.ParticipantsRegisterPostReq
 com/ssafy/db/repository/PinRepositorySupport.java
  com.ssafy.db.repository.PinRepositorySupport
-com/ssafy/db/repository/MapsRepository.java
- com.ssafy.db.repository.MapsRepository
-com/ssafy/api/request/UserRegisterPostReq.java
- com.ssafy.api.request.UserRegisterPostReq
-com/ssafy/db/repository/PinRepository.java
- com.ssafy.db.repository.PinRepository
 com/ssafy/api/request/UserLoginPostReq.java
  com.ssafy.api.request.UserLoginPostReq
 com/ssafy/api/service/ChatService.java
  com.ssafy.api.service.ChatService
 com/ssafy/db/entity/ChatMessage.java
  com.ssafy.db.entity.ChatMessage
+com/ssafy/api/request/PinInquirePostReq.java
+ com.ssafy.api.request.PinInquirePostReq
 com/ssafy/config/WebSocketConfig.java
  com.ssafy.config.WebSocketConfig
-com/ssafy/api/request/UserUpdatePatchReq.java
- com.ssafy.api.request.UserUpdatePatchReq
-com/ssafy/db/repository/UserRepository.java
- com.ssafy.db.repository.UserRepository
 com/ssafy/db/entity/User.java
  com.ssafy.db.entity.User
+com/ssafy/api/controller/ChannelController.java
+ com.ssafy.api.controller.ChannelController
 com/ssafy/db/entity/PinSearchCond.java
  com.ssafy.db.entity.PinSearchCond
+com/ssafy/api/service/ChannelServiceImpl.java
+ com.ssafy.api.service.ChannelServiceImpl
 com/ssafy/GroupCallApplication.java
  com.ssafy.GroupCallApplication
+com/ssafy/api/request/ChannelCreatePostReq.java
+ com.ssafy.api.request.ChannelCreatePostReq
 com/ssafy/common/auth/SsafyUserDetailService.java
  com.ssafy.common.auth.SsafyUserDetailService
 com/ssafy/common/exception/handler/NotFoundHandler.java
  com.ssafy.common.exception.handler.NotFoundHandler
-com/ssafy/common/model/response/BaseResponseBody.java
- com.ssafy.common.model.response.BaseResponseBody
 com/ssafy/common/util/JwtTokenUtil.java
  com.ssafy.common.util.JwtTokenUtil
+com/ssafy/api/service/ChannelService.java
+ com.ssafy.api.service.ChannelService
 com/ssafy/api/response/UserLoginPostRes.java
  com.ssafy.api.response.UserLoginPostRes
+com/ssafy/api/request/ChannelUpdatePatchReq.java
+ com.ssafy.api.request.ChannelUpdatePatchReq
 com/ssafy/api/response/UserRes.java
  com.ssafy.api.response.UserRes
 com/ssafy/common/util/ResponseBodyWriteUtil.java
  com.ssafy.common.util.ResponseBodyWriteUtil
-com/ssafy/common/auth/JwtAuthenticationFilter.java
- com.ssafy.common.auth.JwtAuthenticationFilter
-com/ssafy/db/entity/Maps.java
- com.ssafy.db.entity.Maps
-com/ssafy/db/entity/Room.java
- com.ssafy.db.entity.Room
+com/ssafy/api/service/MapsService.java
+ com.ssafy.api.service.MapsService
 com/ssafy/api/response/UserMeGetRes.java
  com.ssafy.api.response.UserMeGetRes
+com/ssafy/api/service/ParticipantsServiceImpl.java
+ com.ssafy.api.service.ParticipantsServiceImpl
+com/ssafy/api/controller/ChatMessageController.java
+ com.ssafy.api.controller.ChatMessageController
+com/ssafy/api/service/PinService.java
+ com.ssafy.api.service.PinService
+com/ssafy/db/repository/UserRepositorySupport.java
+ com.ssafy.db.repository.UserRepositorySupport
+com/ssafy/api/response/ChannelRes.java
+ com.ssafy.api.response.ChannelRes
+com/ssafy/config/JpaConfig.java
+ com.ssafy.config.JpaConfig
+com/ssafy/db/entity/Status.java
+ com.ssafy.db.entity.Status
+com/ssafy/api/request/PinDeletePostReq.java
+ com.ssafy.api.request.PinDeletePostReq
+com/ssafy/db/repository/ChannelRepository.java
+ com.ssafy.db.repository.ChannelRepository
+com/ssafy/config/SwaggerConfig.java
+ com.ssafy.config.SwaggerConfig
+com/ssafy/db/entity/ParticipantsId.java
+ com.ssafy.db.entity.ParticipantsId
+com/ssafy/api/service/UserService.java
+ com.ssafy.api.service.UserService
+com/ssafy/api/request/UserFindUserIdPostReq.java
+ com.ssafy.api.request.UserFindUserIdPostReq
+com/ssafy/api/service/UserServiceImpl.java
+ com.ssafy.api.service.UserServiceImpl
+com/ssafy/common/auth/SsafyUserDetails.java
+ com.ssafy.common.auth.SsafyUserDetails
+com/ssafy/db/repository/ParticipantsRepository.java
+ com.ssafy.db.repository.ParticipantsRepository
+com/ssafy/db/entity/Channel.java
+ com.ssafy.db.entity.Channel
+com/ssafy/db/repository/MapsRepository.java
+ com.ssafy.db.repository.MapsRepository
+com/ssafy/api/request/UserRegisterPostReq.java
+ com.ssafy.api.request.UserRegisterPostReq
+com/ssafy/api/service/MapsServiceImpl.java
+ com.ssafy.api.service.MapsServiceImpl
+com/ssafy/db/repository/PinRepository.java
+ com.ssafy.db.repository.PinRepository
+com/ssafy/api/request/UserUpdatePatchReq.java
+ com.ssafy.api.request.UserUpdatePatchReq
+com/ssafy/api/request/UserPasswordPatchReq.java
+ com.ssafy.api.request.UserPasswordPatchReq
+com/ssafy/api/controller/PinController.java
+ com.ssafy.api.controller.PinController
+com/ssafy/db/repository/UserRepository.java
+ com.ssafy.db.repository.UserRepository
+com/ssafy/api/response/UserDuplCheckRes.java
+ com.ssafy.api.response.UserDuplCheckRes
+com/ssafy/common/model/response/BaseResponseBody.java
+ com.ssafy.common.model.response.BaseResponseBody
+com/ssafy/api/request/MapsUpdatePatchReq.java
+ com.ssafy.api.request.MapsUpdatePatchReq
+com/ssafy/api/response/ChannelCreatePostRes.java
+ com.ssafy.api.response.ChannelCreatePostRes
+com/ssafy/config/LocalDateTimeAttributeConverter.java
+ com.ssafy.config.LocalDateTimeAttributeConverter
+com/ssafy/api/request/UserDeleteDeleteReq.java
+ com.ssafy.api.request.UserDeleteDeleteReq
+com/ssafy/api/controller/MapsController.java
+ com.ssafy.api.controller.MapsController
+com/ssafy/api/service/PinServiceImpl.java
+ com.ssafy.api.service.PinServiceImpl
+com/ssafy/db/entity/Maps.java
+ com.ssafy.db.entity.Maps
+com/ssafy/common/auth/JwtAuthenticationFilter.java
+ com.ssafy.common.auth.JwtAuthenticationFilter
+com/ssafy/api/response/UserFindUserIdRes.java
+ com.ssafy.api.response.UserFindUserIdRes
 com/ssafy/config/WebMvcConfig.java
  com.ssafy.config.WebMvcConfig
 com/ssafy/db/entity/Pin.java
  com.ssafy.db.entity.Pin
-com/ssafy/api/controller/ChatMessageController.java
- com.ssafy.api.controller.ChatMessageController
 com/ssafy/api/controller/UserController.java
  com.ssafy.api.controller.UserController
-com/ssafy/db/repository/UserRepositorySupport.java
- com.ssafy.db.repository.UserRepositorySupport
-com/ssafy/config/JpaConfig.java
- com.ssafy.config.JpaConfig
+com/ssafy/api/request/MapsCreatePostReq.java
+ com.ssafy.api.request.MapsCreatePostReq
+com/ssafy/api/request/PinRegisterPostReq.java
+ com.ssafy.api.request.PinRegisterPostReq
 com/ssafy/db/entity/Participants.java
  com.ssafy.db.entity.Participants
