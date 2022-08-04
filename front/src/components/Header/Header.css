@@ -8,23 +8,29 @@
     display: block;
 }
 .item1{
-    background: brown;
+  display: block;
+  background: #E3E5E8;
+  margin-top: 0.5rem;
+    
 }
-
 .item2{
-    background: yellow;
+    background: #E3E5E8;
+    margin-top: 0.5rem;
 }
 
 .item3{
-    background: wheat;
+    background: #E3E5E8;
+    margin-top: 0.5rem;
 }
 
 .item4{
-    background: powderblue;
+    background: #E3E5E8;
+    margin-top: 0.5rem;
 }
 
 .item5{
-    background: darkcyan;
+    background: #E3E5E8;
+    margin-top: 0.5rem;
 }
 
 img {
@@ -34,19 +40,25 @@ img {
 .channel_list {
   list-style: none;
   padding-left: 0px;
+  margin: 0.5rem;
+}
+.channel_list div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .channel_list a{
   text-decoration-line: none;
   color: #4F5660;
-  width: 70px;
   display: block;
   text-align: center;
   border-radius: 50%;
   background: white;
-  padding: 1.5rem 0 1.5rem;
-  margin-top: 1rem;
-  transition: 0.5s;
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s;
+  align-items: center;
 }
 
 .channel_list a:hover{
