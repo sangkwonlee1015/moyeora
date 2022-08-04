@@ -31,8 +31,8 @@ function MapArea(){
                 width: '100%',
                 height: '100%',
             }}
-            defaultCenter={{ lat: 37.3595704, lng: 127.105399 }}
-            defaultZoom={10}/>
+            defaultCenter={{ lat: 37.5013068, lng: 127.0396597 }}
+            defaultZoom={18}/>
             </RenderAfterNavermapsLoaded>
         </div>
     )
