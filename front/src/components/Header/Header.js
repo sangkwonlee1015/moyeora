@@ -1,6 +1,8 @@
 import './Header.css'
 import {Link} from 'react-router-dom'
 
+// react-icon
+import { FaHome, FaPlus, FaSearch, FaCog } from "react-icons/fa";
 
 import ChannelTest from './ChannelTest'
 
@@ -12,12 +14,11 @@ export default function Header(){
     return (
         // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
         <div className="container">
-            <div className="item item1"><Link to="/homepage"><img src={homePng} alt='홈'/></Link></div>
-            {/* <div className="item item1"><Link to="/homepage"><i class="large material-icons cyan-text text-darken-4">home</i></Link></div> */}
+            <div className="header_items"><Link to="/homepage"><FaHome size="20" color="7f8694"/></Link></div>
             <ChannelTest/>
-            <div className="item item3"><Link to="/b"><img src={addPng} alt='방 추가'/></Link></div>
-            <div className="item item4"><Link to="/c"><img src={findPng} alt='방 찾기'/></Link></div>
-            <div className="item item5"><Link to="/d"><img src={settingPng} alt='마이 페이지'/></Link></div>
+            <div className="header_items"><Link to="/b"><FaPlus size="20" color="7f8694"/></Link></div>
+            <div className="header_items"><Link to="/c"><FaSearch size="20" color="7f8694"/></Link></div>
+            <div className="header_items"><Link to="/d"><FaCog size="20" color="7f8694"/></Link></div>
         </div>
     );
 }

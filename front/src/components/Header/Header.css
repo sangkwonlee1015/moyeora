@@ -1,54 +1,17 @@
 .container {
-    width: 70px;
+    width: 90px;
     height: 100vh;
     background-color: #E3E5E8;
 }
-.item{
-    width: 70px;
-    display: block;
-}
-.item1{
-  display: block;
-  background: #E3E5E8;
-  margin-top: 0.5rem;
-    
-}
-.item2{
-    background: #E3E5E8;
-    margin-top: 0.5rem;
-}
-
-.item3{
-    background: #E3E5E8;
-    margin-top: 0.5rem;
-}
-
-.item4{
-    background: #E3E5E8;
-    margin-top: 0.5rem;
-}
-
-.item5{
-    background: #E3E5E8;
-    margin-top: 0.5rem;
-}
-
-img {
-    width: 100%;
-}
-
-.channel_list {
+.header_items {
+  width: 30px;
   list-style: none;
   padding-left: 0px;
-  margin: 0.5rem;
+  margin: 0.7rem 0 0 0.5rem;
 }
-.channel_list div{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.channel_list a{
+.header_items a{
+  width: 20px;
+  height: 20px;
   text-decoration-line: none;
   color: #4F5660;
   display: block;
@@ -58,10 +21,8 @@ img {
   padding: 1.1rem;
   margin-top: 0.5rem;
   transition: 0.3s;
-  align-items: center;
 }
-
-.channel_list a:hover{
+.header_items a:hover{
   background: #738ADB;
   border-radius: 30%;
 }
