@@ -1,7 +1,45 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import './MapMarkerList.css'
+
+
 function MapMarkerList(){
-    return(
-        <div className="mapmarkerlist">마커들의 list가 보여지는 화면입니다.</div>
-    )
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(res => {
+        console.log(res)
+        setPosts(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
+
+  return(
+    <div className="mapmarkerlist">
+      <b>최종선택</b>
+      <div className='mapMarkerSelect'>
+        <ul>
+          {posts.map(post => (
+            <li key={post.id}>{post.id}</li>
+          ))
+          }
+        </ul>
+      </div>
+      <div>==================</div>
+      <b>후보</b>
+      <div className='mapMarkerSub'>
+        <ul>
+          {posts.map(post => (
+            <li key={post.id}>{post.id}</li>
+          ))
+          }
+        </ul>
+      </div>
+    </div>
+  )
 }
 
 export default MapMarkerList

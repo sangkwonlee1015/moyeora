@@ -1,0 +1,35 @@
+.mapmarkerlist {
+  width: 15%;
+  height: 100vh;
+  background-color: #F2F3F5;
+  overflow: hidden;
+  /* opacity: 0; */
+  /* align-self: flex-end; */
+}
+.mapmarkerlist ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mapMarkerSelect{
+  height: 45%;
+  overflow: scroll;
+}
+.mapMarkerSub{
+  height: 55%;
+  overflow: scroll;
+}
+.mapMarkerSub::-webkit-scrollbar {
+  width: 10px;
+  /* background-color: #F2F3F5; */
+}
+.mapMarkerSelect::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F2F3F5;
+}
+.mapMarkerSelect::-webkit-scrollbar-corner {
+  background-color: #F2F3F5;
+}
+.mapMarkerSub::-webkit-scrollbar-corner {
+  background-color: #F2F3F5;
+}
