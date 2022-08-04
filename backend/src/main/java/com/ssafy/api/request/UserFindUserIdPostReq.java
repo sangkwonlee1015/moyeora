@@ -5,14 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+@ApiModel("UserFindUserIdPostRequest")
 @Getter
 @Setter
-@ApiModel("UserUpdatePatchReq")
-public class UserUpdatePatchReq {
+public class UserFindUserIdPostReq {
     @ApiModelProperty(name="User Name")
     String userName;
-    @ApiModelProperty(name="User Nickname")
-    String userNick;
     @ApiModelProperty(name="User Phone")
     String userPhone;
 }
