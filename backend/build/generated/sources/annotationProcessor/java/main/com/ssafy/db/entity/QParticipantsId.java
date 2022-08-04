@@ -19,9 +19,9 @@ public class QParticipantsId extends BeanPath<ParticipantsId> {
 
     public static final QParticipantsId participantsId = new QParticipantsId("participantsId");
 
-    public final NumberPath<Long> roomSeq = createNumber("roomSeq", Long.class);
+    public final NumberPath<Long> channelSeq = createNumber("channelSeq", Long.class);
 
-    public final StringPath userId = createString("userId");
+    public final NumberPath<Long> userSeq = createNumber("userSeq", Long.class);
 
     public QParticipantsId(String variable) {
         super(ParticipantsId.class, forVariable(variable));

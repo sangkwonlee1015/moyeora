@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiResponse;
  */
 @Api(value = "인증 API", tags = {"Auth."})
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	@Autowired
 	UserService userService;
@@ -45,14 +45,14 @@ public class AuthController {
     })
 	public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo) {
 		String userId = loginInfo.getUserId();
-		String password = loginInfo.getPassword();
+		String userPassword = loginInfo.getUserPassword();
 		
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
 			return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "존재하지 않는 계정입니다.", null));
 		}
 		// 로그인 요청한 유저로부터 입력된 패스워드 와 디비에 저장된 유저의 암호화된 패스워드가 같은지 확인.(유효한 패스워드인지 여부 확인)
-		if(passwordEncoder.matches(password, user.getPassword())) {
+		if(passwordEncoder.matches(userPassword, user.getUserPassword())) {
 			// 유효한 패스워드가 맞는 경우, 로그인 성공으로 응답.(액세스 토큰을 포함하여 응답값 전달)
 			return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(userId)));
 		}

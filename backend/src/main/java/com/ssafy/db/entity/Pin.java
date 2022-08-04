@@ -16,15 +16,18 @@ public class Pin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pin_seq")
     private Long pinSeq = null;
-    private String lat;
-    private String lng;
-    private LocalDateTime time;
-    private String content;
-    private Integer color;
+    @Column(name = "pin_content")
+    private String pinContent;
+    @Column(name = "pin_lat")
+    private String pinLat;
+    @Column(name = "pin_lng")
+    private String pinLng;
+    @Column(name = "pin_color")
+    private String pinColor;
+    @Column(name = "pin_order")
+    private Integer pinOrder;
+    @Column(name = "user_seq")
+    private Long userSeq;
     @Column(name = "map_seq")
     private Long mapSeq;
-    @Column(name = "user_id")
-    private String userId;
-    @Column(name = "room_seq")
-    private Long roomSeq;
 }

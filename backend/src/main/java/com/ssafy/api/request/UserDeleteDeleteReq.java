@@ -7,8 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("ParticipantsCreatePostReq")
-public class ParticipantsRegisterPostReq {
-    private Long channelSeq;
-    private Long userSeq;
+@ApiModel("UserDeleteDeleteRequest")
+public class UserDeleteDeleteReq {
+
+    @ApiModelProperty(name = "Current Password")
+    String currentPassword;
+
 }
