@@ -1,3 +1,80 @@
-div.comp{
-    display: inline;
+.comp{
+    width: 100%;
+    display: flex;
+}
+.comp-ver{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar{
+    width: 300px;
+    background-color: #F2F3F5;
+}
+.sidebar>div{
+  border-radius: 10px;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+.sidebar>div:hover{
+  background-color: #DDE0E5;
+}
+.sidebar a{
+  display: block;
+  text-decoration-line: none;
+  color: #6A7480;
+  font-weight: bold;
+}
+.sidebar-mypage{
+  width: 300px;
+  background-color: #F2F3F5;
+}
+.mypage-setting{
+    width: 100%;
+    background-color: blanchedalmond;
+}
+.server-home{
+    width: 100%;
+    background-color: coral;
+}
+
+.addchannel{
+    width: 100%;
+    background-color: antiquewhite;
+    text-align: center;
+}
+
+.article-search{
+    background-color: beige;
+    height: 70px;
+}
+
+.article-list{
+    background-color: blanchedalmond;
+    height: 100%;
+}
+
+.chattingarea{
+    width: 100%;
+    background-color: blue;
+}
+
+.maparea{
+    width: 80%;
+    background-color: yellow;
+}
+
+.mapmarkerlist{
+    width: 20%;
+    background-color: yellowgreen;
+}
+
+.mappage{
+    height: 85%;
+}
+
+.ovarea{
+    height: 15%;
+    background-color: lawngreen;
 }

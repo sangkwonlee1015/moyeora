@@ -7,15 +7,8 @@ import reportWebVitals from './reportWebVitals';
 
 // redux
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import store from './redux/store';
 
-const testRedux = 100;
-
-function reduxTest(state = testRedux, action){
-  return state
-}
-
-let store = createStore(reduxTest)
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -28,10 +21,10 @@ let store = createStore(reduxTest)
 
 ReactDOM.render(
   <React.StrictMode >
-      <Provider store={store}>
-       <App />
-     </Provider>
-   </React.StrictMode>,
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 )
 
