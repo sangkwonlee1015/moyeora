@@ -74,6 +74,7 @@
 
 .mappage{
     height: 85%;
+    overflow: visible;
 }
 
 .ovarea{
