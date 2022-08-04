@@ -26,10 +26,9 @@ public class MapsServiceImpl implements MapsService {
     public Maps createMaps(MapsCreatePostReq mapsCreatePostReq) {
         Maps maps = new Maps();
         maps.setMapName(mapsCreatePostReq.getMapName());
-        if(mapsCreatePostReq.getChannelSeq() > 0)
-            maps.setChannelSeq(mapsCreatePostReq.getChannelSeq());
-        if(mapsCreatePostReq.getUserSeq() > 0)
-            maps.setUserSeq(mapsCreatePostReq.getUserSeq());
+        maps.setChannelSeq(mapsCreatePostReq.getChannelSeq());
+        maps.setUserSeq(mapsCreatePostReq.getUserSeq());
+
         return mapsRepository.save(maps);
     }
 
@@ -61,8 +60,9 @@ public class MapsServiceImpl implements MapsService {
         return mapsRepository.findMapsByUserSeq(userSeq);
     }
 
+
     @Override
-    public Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq, User user) {
+    public Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq) {
         Optional<Maps> oMaps = mapsRepository.findById(mapsUpdatePatchReq.getMapSeq());
         if(oMaps.isPresent()){
             Maps maps = oMaps.get();
@@ -76,4 +76,19 @@ public class MapsServiceImpl implements MapsService {
     public void deleteMaps(Long mapsSeq) {
         mapsRepository.deleteById(mapsSeq);
     }
+
+    @Override
+    public Maps findByMapSeq(Long mapSeq) {
+        Optional<Maps> map = mapsRepository.findByMapSeq(mapSeq);
+        if (map.isPresent())
+            return map.get();
+        else
+            return null;
+    }
+
+    @Override
+    public List<Maps> findByChannelSeqOrUserSeq(Long channelSeq, Long userSeq) {
+        return mapsRepository.findByChannelSeqOrUserSeq(channelSeq, userSeq);
+    }
+
 }

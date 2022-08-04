@@ -11,18 +11,8 @@ import java.time.LocalDateTime;
 @Setter
 @ApiModel("PinUpdatePatchRequest")
 public class PinUpdatePatchReq {
-    @ApiModelProperty(name="pinSeq")
-    Long pinSeq;
-    @ApiModelProperty(name="time")
-    LocalDateTime time;
-    @ApiModelProperty(name="content")
-    String content;
-    @ApiModelProperty(name="color")
-    Integer color;
-    @ApiModelProperty(name="userId")
-    String userId;
-    @ApiModelProperty(name="mapSeq")
-    Long mapSeq;
-    @ApiModelProperty(name = "roomSeq")
-    Long roomSeq;
+    private String pinColor;
+    private String pinContent;
+    private Long pinSeq;
+    private Long mapSeq;
 }

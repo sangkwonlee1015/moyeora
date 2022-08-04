@@ -22,50 +22,35 @@ public class PinServiceImpl implements PinService{
     PinRepositorySupport pinRepositorySupport;
 
     @Override
-    public Pin createPin(PinRegisterPostReq pinRegisterInfo) {
+    public Pin registerPin(PinRegisterPostReq pinRegisterInfo) {
         Pin pin = new Pin();
-        pin.setLat(pinRegisterInfo.getLat());
-        pin.setLng(pinRegisterInfo.getLng());
-        pin.setTime(pinRegisterInfo.getTime());
-        pin.setUserId(pinRegisterInfo.getUserId());
-        pin.setColor(pinRegisterInfo.getColor());
-        pin.setContent(pinRegisterInfo.getContent());
+        pin.setPinContent(pinRegisterInfo.getPinContent());
+        pin.setPinLat(pinRegisterInfo.getPinLat());
+        pin.setPinLng(pinRegisterInfo.getPinLng());
+        pin.setPinColor(pinRegisterInfo.getPinColor());
+        pin.setPinOrder(pinRegisterInfo.getPinOrder());
         pin.setMapSeq(pinRegisterInfo.getMapSeq());
+        pin.setUserSeq(pinRegisterInfo.getUserSeq());
         return pinRepository.save(pin);
     }
 
     @Override
-    public Pin getPinByPinSeq(Long pinSeq) {
-        Optional<Pin> pin = pinRepository.findPinByPinSeq(pinSeq);
-        if (!pin.isPresent()){
-            return null;
-        }else {
-            return pin.get();
-        }
-    }
-
-    @Override
-    public List<Pin> getPinsByPinSearchCond(PinSearchCond pinSearchCond){
-        List<Pin> pins = pinRepositorySupport.findAllCond(pinSearchCond);
-        if (pins.isEmpty()){
-            return null;
-        }else{
-            return pins;
-        }
-    }
-
-    @Override
     public Pin updatePin(PinUpdatePatchReq pinUpdateInfo) {
-        Pin pin = pinRepository.findPinByPinSeq(pinUpdateInfo.getPinSeq()).get();
-        pin.setColor(pinUpdateInfo.getColor());
-        pin.setTime(pinUpdateInfo.getTime());
-        pin.setContent(pinUpdateInfo.getContent());
+        Pin pin = pinRepository.findByPinSeq(pinUpdateInfo.getPinSeq()).get();
+        pin.setPinColor(pinUpdateInfo.getPinColor());
+        pin.setPinContent(pinUpdateInfo.getPinContent());
+
         return pinRepository.save(pin);
     }
 
     @Override
     public void deletePin(Long pinSeq) {
-        Pin pin = pinRepository.findPinByPinSeq(pinSeq).get();
+        Pin pin = pinRepository.findByPinSeq(pinSeq).get();
         pinRepository.delete(pin);
+    }
+
+    @Override
+    public List<Pin> findByMapSeq(Long mapSeq) {
+        return pinRepository.findByMapSeq(mapSeq);
     }
 }

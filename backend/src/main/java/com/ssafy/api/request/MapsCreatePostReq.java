@@ -13,9 +13,10 @@ import javax.validation.constraints.NotBlank;
 public class MapsCreatePostReq {
     @NotBlank(message = "맵 이름은 필수 값 입니다")
     @ApiModelProperty(name="맵 이름", example="new map")
-    String mapName;
+    private String mapName;
     @ApiModelProperty(name="채널 seq", example="1")
-    long channelSeq;
+    private Long channelSeq;
     @ApiModelProperty(name="유저 seq", example="1")
-    long userSeq;
+    private Long userSeq;
+
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @ApiModel("MapsCreatePostRes")
 public class MapsCreatePostRes extends BaseResponseBody {
-    Long mapSeq;
+    private Long mapSeq;
 
     public static MapsCreatePostRes of(Integer statusCode, String message, Long mapSeq){
         MapsCreatePostRes res = new MapsCreatePostRes();

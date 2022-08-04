@@ -10,7 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface MapsRepository extends JpaRepository<Maps, Long> {
+
     List<Maps> findMapsByChannelSeq(Long channelSeq);
 
     List<Maps> findMapsByUserSeq(Long userSeq);
+
+    Optional<Maps> findByMapSeq(Long mapSeq);
+    List<Maps> findByChannelSeqOrUserSeq(Long channelSeq, Long userSeq);
 }

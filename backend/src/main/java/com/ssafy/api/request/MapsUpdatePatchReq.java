@@ -14,8 +14,8 @@ import javax.validation.constraints.Positive;
 public class MapsUpdatePatchReq {
     @Positive
     @ApiModelProperty(name="맵 seq", example="1")
-    Long mapSeq;
+    private Long mapSeq;
     @NotBlank
     @ApiModelProperty(name="맵 이름", example="new map")
-    String mapName;
+    private String mapName;
 }

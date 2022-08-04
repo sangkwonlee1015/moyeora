@@ -14,6 +14,9 @@ public interface MapsService {
     Optional<Maps> getMapsByMapSeq(Long mapSeq);
     List<Maps> getMapsByChannelSeq(Long channelSeq);
     List<Maps> getMapsByUserSeq(Long userSeq);
-    Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq, User user);
+    Maps updateMaps(MapsUpdatePatchReq mapsUpdatePatchReq);
     void deleteMaps(Long mapsSeq);
+    Maps findByMapSeq(Long mapSeq);
+    List<Maps> findByChannelSeqOrUserSeq(Long channelSeq, Long userSeq);
+
 }

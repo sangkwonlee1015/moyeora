@@ -4,6 +4,7 @@ import com.ssafy.api.request.MapsCreatePostReq;
 import com.ssafy.api.request.MapsUpdatePatchReq;
 import com.ssafy.api.response.MapsCreatePostRes;
 import com.ssafy.api.response.MapsListGetRes;
+
 import com.ssafy.api.service.MapsService;
 import com.ssafy.api.service.ParticipantsService;
 import com.ssafy.common.auth.SsafyUserDetails;
@@ -25,7 +26,7 @@ import java.util.List;
 
 @Api(value = "지도 API", tags = {"Maps"})
 @RestController
-@RequestMapping("/api/maps")
+@RequestMapping("/api/map")
 public class MapsController {
     @Autowired
     MapsService mapsService;
@@ -47,6 +48,7 @@ public class MapsController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
         }
+        Maps map = mapsService.createMaps(mapsCreatePostReq);
 
         User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
 
@@ -110,10 +112,12 @@ public class MapsController {
         }
 
         return ResponseEntity.status(200).body(MapsListGetRes.of(200, "Success", mapsList));
+
     }
 
     @PatchMapping()
     @ApiOperation(value = "지도 정보 수정", notes = "지도 정보를 수정한다.")
+
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
     })
@@ -137,7 +141,7 @@ public class MapsController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @DeleteMapping("/{mapsSeq}")
+    @DeleteMapping("/{mapSeq}")
     @ApiOperation(value = "지도 삭제", notes = "지도를 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -152,10 +156,23 @@ public class MapsController {
 
         if(!mapsService.checkAuth(mapsSeq, user.getUserSeq())){
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
+
         }
 
-        mapsService.deleteMaps(mapsSeq);
+        mapsService.deleteMaps(mapSeq);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        return ResponseEntity.status(code).body(BaseResponseBody.of(code, "Success"));
+    }
+
+    private int validateRequest(Authentication authentication, Long userSeq, Long channelSeq) {
+        if (authentication == null) return 401;
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+        if (userSeq != null && user.getUserSeq() != userSeq) {
+            return 403;
+        } else if (channelSeq != null && !participantsService.getParticipantsById(new ParticipantsId(user.getUserSeq(), channelSeq)).isPresent()) {
+            return 403;
+        }
+        return 200;
     }
 }
