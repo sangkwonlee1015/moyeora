@@ -19,7 +19,7 @@ function MapMarkerList(){
 
   return(
     <div className="mapmarkerlist">
-      <b>최종선택</b>
+      <b className='mapMarkerTitle'>최종선택</b>
       <div className='mapMarkerSelect'>
         <ul>
           {posts.map(post => (
@@ -28,8 +28,7 @@ function MapMarkerList(){
           }
         </ul>
       </div>
-      <div>==================</div>
-      <b>후보</b>
+      <b className='mapMarkerTitle'>후보</b>
       <div className='mapMarkerSub'>
         <ul>
           {posts.map(post => (
