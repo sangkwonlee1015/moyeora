@@ -14,11 +14,11 @@ export default function Header(){
     return (
         // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
         <div className="container">
-            <div className="header_items"><Link to="/homepage"><FaHome size="20" color="7f8694"/></Link></div>
+            <div className="header_items"><Link to="/homepage"><FaHome class='home_svg' size="40" color="7f8694"/><span class="tooltiptext">홈</span></Link></div>
             <ChannelTest/>
-            <div className="header_items"><Link to="/b"><FaPlus size="20" color="7f8694"/></Link></div>
-            <div className="header_items"><Link to="/c"><FaSearch size="20" color="7f8694"/></Link></div>
-            <div className="header_items"><Link to="/d"><FaCog size="20" color="7f8694"/></Link></div>
+            <div className="header_items headerSetting"><Link to="/b"><FaPlus size="20"/><span class="tooltiptext">채널 추가하기</span></Link></div>
+            <div className="header_items headerSetting"><Link to="/c"><FaSearch size="20"/><span class="tooltiptext">채널 살펴보기</span></Link></div>
+            <div className="header_items headerSetting"><Link to="/d"><FaCog size="20"/><span class="tooltiptext">사용자 설정</span></Link></div>
         </div>
     );
 }
