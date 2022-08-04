@@ -14,9 +14,9 @@ export default function ChannelTest(){
       <>
         <ul className='channel_list'>
           {channelList.map(channel => (
-            <Link to={`/serverpage/${channel.channelId}`}>{ channel.channelName }
-              <li key={channel.channelId}></li>
-            </Link>
+            <li key={channel.channelId}>
+              <Link to={`/serverpage/${channel.channelId}`}>{ channel.channelName }</Link>
+            </li>
           ))}
         </ul>
       </>

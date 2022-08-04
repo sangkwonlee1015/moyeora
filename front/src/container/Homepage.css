@@ -77,4 +77,5 @@
 .ovarea{
     height: 15%;
     background-color: lawngreen;
+    opacity: 0.5;
 }
