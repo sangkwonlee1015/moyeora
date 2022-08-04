@@ -4,7 +4,6 @@ import com.ssafy.api.request.MapsCreatePostReq;
 import com.ssafy.api.request.MapsUpdatePatchReq;
 import com.ssafy.api.response.MapsCreatePostRes;
 import com.ssafy.api.response.MapsListGetRes;
-
 import com.ssafy.api.service.MapsService;
 import com.ssafy.api.service.ParticipantsService;
 import com.ssafy.common.auth.SsafyUserDetails;
@@ -26,7 +25,7 @@ import java.util.List;
 
 @Api(value = "지도 API", tags = {"Maps"})
 @RestController
-@RequestMapping("/api/map")
+@RequestMapping("/api/maps")
 public class MapsController {
     @Autowired
     MapsService mapsService;
@@ -40,7 +39,7 @@ public class MapsController {
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<? extends BaseResponseBody> create(@ApiIgnore Authentication authentication,
-            @Validated @RequestBody @ApiParam(value="지도 생성 정보", required = true) MapsCreatePostReq mapsCreatePostReq,
+                                                             @Validated @RequestBody @ApiParam(value="지도 생성 정보", required = true) MapsCreatePostReq mapsCreatePostReq,
                                                              BindingResult bindingResult) {
         if (authentication == null) {
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
@@ -48,7 +47,6 @@ public class MapsController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
         }
-        Maps map = mapsService.createMaps(mapsCreatePostReq);
 
         User user = ((SsafyUserDetails) authentication.getDetails()).getUser();
 
@@ -83,8 +81,8 @@ public class MapsController {
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<? extends BaseResponseBody> getMapsList(@ApiIgnore Authentication authentication,
-                                                  @PathVariable Long seq,
-                                                  @RequestParam(value="type", required = true) String type){
+                                                                  @PathVariable Long seq,
+                                                                  @RequestParam(value="type", required = true) String type){
         if (authentication == null){
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
@@ -112,17 +110,15 @@ public class MapsController {
         }
 
         return ResponseEntity.status(200).body(MapsListGetRes.of(200, "Success", mapsList));
-
     }
 
     @PatchMapping()
     @ApiOperation(value = "지도 정보 수정", notes = "지도 정보를 수정한다.")
-
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<? extends BaseResponseBody> update(@ApiIgnore Authentication authentication,
-            @Validated @RequestBody @ApiParam(value="지도 수정 정보", required = true) MapsUpdatePatchReq mapsUpdatePatchReq,
+                                                             @Validated @RequestBody @ApiParam(value="지도 수정 정보", required = true) MapsUpdatePatchReq mapsUpdatePatchReq,
                                                              BindingResult bindingResult) {
         if (authentication == null){
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
@@ -136,12 +132,12 @@ public class MapsController {
         if (bindingResult.hasErrors())
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
 
-        mapsService.updateMaps(mapsUpdatePatchReq, user);
+        mapsService.updateMaps(mapsUpdatePatchReq);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @DeleteMapping("/{mapSeq}")
+    @DeleteMapping("/{mapsSeq}")
     @ApiOperation(value = "지도 삭제", notes = "지도를 삭제한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -156,23 +152,10 @@ public class MapsController {
 
         if(!mapsService.checkAuth(mapsSeq, user.getUserSeq())){
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
-
         }
 
-        mapsService.deleteMaps(mapSeq);
+        mapsService.deleteMaps(mapsSeq);
 
-        return ResponseEntity.status(code).body(BaseResponseBody.of(code, "Success"));
-    }
-
-    private int validateRequest(Authentication authentication, Long userSeq, Long channelSeq) {
-        if (authentication == null) return 401;
-        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        User user = userDetails.getUser();
-        if (userSeq != null && user.getUserSeq() != userSeq) {
-            return 403;
-        } else if (channelSeq != null && !participantsService.getParticipantsById(new ParticipantsId(user.getUserSeq(), channelSeq)).isPresent()) {
-            return 403;
-        }
-        return 200;
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 }
