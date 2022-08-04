@@ -1,55 +1,60 @@
 .container {
-    width: 70px;
+    width: 90px;
     height: 100vh;
     background-color: #E3E5E8;
 }
-.item{
-    width: 70px;
-    display: block;
-}
-.item1{
-    background: brown;
-}
-
-.item2{
-    background: yellow;
-}
-
-.item3{
-    background: wheat;
-}
-
-.item4{
-    background: powderblue;
-}
-
-.item5{
-    background: darkcyan;
-}
-
-img {
-    width: 100%;
-}
-
-.channel_list {
+.header_items {
+  width: 30px;
   list-style: none;
   padding-left: 0px;
+  margin: 0.7rem 0 0 0.5rem;
 }
-
-.channel_list a{
+.header_items a{
+  width: 20px;
+  height: 20px;
   text-decoration-line: none;
   color: #4F5660;
-  width: 70px;
   display: block;
-  text-align: center;
   border-radius: 50%;
   background: white;
-  padding: 1.5rem 0 1.5rem;
-  margin-top: 1rem;
-  transition: 0.5s;
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
 }
-
-.channel_list a:hover{
+.header_items a:hover{
   background: #738ADB;
   border-radius: 30%;
+}
+.headerSetting svg{
+  color: #287E29;
+}
+.headerSetting a:hover{
+  background: #2ecc71;
+  border-radius: 30%;
+}
+.headerSetting a:hover svg{
+  color: white;
+}
+.header_items .home_svg{
+  position: absolute; transform: translateX(-25%) translateY(-25%);
+}
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* position: absolute; */
+  z-index: 1000;
+  top: -5px;
+  left: 5%;
+}
+
+.header_items a:hover .tooltiptext {
+  visibility: visible;
+  overflow: visible;
 }
