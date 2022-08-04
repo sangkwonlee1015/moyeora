@@ -17,6 +17,5 @@ public class PinRegisterPostReq {
     private String pinLng;
     private String pinColor;
     private Integer pinOrder;
-    private Long userSeq;
     private Long mapSeq;
 }

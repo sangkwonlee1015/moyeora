@@ -47,8 +47,10 @@ public class PinController {
                 return ResponseEntity.status(403).body(BaseResponseBody.of(403, "unauthorized"));
         }
 
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
 
-        pinService.registerPin(registerInfo);
+        pinService.registerPin(registerInfo, user.getUserSeq());
 
         return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
     }
@@ -117,11 +119,11 @@ public class PinController {
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
         Maps map = mapService.findByMapSeq(mapSeq);
-        if (map.getChannelSeq() != null && !participantsService.getParticipantsById(new ParticipantsId(user.getUserSeq(), map.getChannelSeq())).isPresent()) {
-            return 403;
-        }else if (map.getUserSeq() != user.getUserSeq()){
-            return 403;
+        if (map.getChannelSeq() != null && participantsService.getParticipantsById(new ParticipantsId(user.getUserSeq(), map.getChannelSeq())).isPresent()) {
+            return 200;
+        }else if (map.getUserSeq() != null && map.getUserSeq() == user.getUserSeq()){
+            return 200;
         }
-        return 200;
+        return 403;
     }
 }

@@ -17,7 +17,7 @@ public class PinServiceImpl implements PinService{
     PinRepository pinRepository;
 
     @Override
-    public Pin registerPin(PinRegisterPostReq pinRegisterInfo) {
+    public Pin registerPin(PinRegisterPostReq pinRegisterInfo, Long userSeq) {
         Pin pin = new Pin();
         pin.setPinContent(pinRegisterInfo.getPinContent());
         pin.setPinLat(pinRegisterInfo.getPinLat());
@@ -25,7 +25,7 @@ public class PinServiceImpl implements PinService{
         pin.setPinColor(pinRegisterInfo.getPinColor());
         pin.setPinOrder(pinRegisterInfo.getPinOrder());
         pin.setMapSeq(pinRegisterInfo.getMapSeq());
-        pin.setUserSeq(pinRegisterInfo.getUserSeq());
+        pin.setUserSeq(userSeq);
         return pinRepository.save(pin);
     }
 
