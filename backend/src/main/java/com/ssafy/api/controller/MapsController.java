@@ -52,7 +52,7 @@ public class MapsController {
 
         // UserSeq와 ChannelSeq 둘 중 하나만 들어와야 함
         boolean flag = false;
-        if (mapsCreatePostReq.getChannelSeq() > 0) {
+        if (mapsCreatePostReq.getChannelSeq() != null) {
             // 로그인 계정이 속한 채널의 channelSeq 인지 체크
             ParticipantsId participantsId = new ParticipantsId(user.getUserSeq(), mapsCreatePostReq.getChannelSeq());
             if (!participantsService.getParticipantsById(participantsId).isPresent()) {
@@ -60,7 +60,7 @@ public class MapsController {
             }
             flag = true;
         }
-        if (mapsCreatePostReq.getUserSeq() > 0) {
+        if (mapsCreatePostReq.getUserSeq() != null) {
             // 로그인 계정의 userSeq 인지 체크
             if (user.getUserSeq() != mapsCreatePostReq.getUserSeq()){
                 return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
