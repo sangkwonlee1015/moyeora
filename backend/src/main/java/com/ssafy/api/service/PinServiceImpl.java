@@ -3,9 +3,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.PinRegisterPostReq;
 import com.ssafy.api.request.PinUpdatePatchReq;
 import com.ssafy.db.entity.Pin;
-import com.ssafy.db.entity.PinSearchCond;
 import com.ssafy.db.repository.PinRepository;
-import com.ssafy.db.repository.PinRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +15,6 @@ public class PinServiceImpl implements PinService{
 
     @Autowired
     PinRepository pinRepository;
-
-    @Autowired
-    PinRepositorySupport pinRepositorySupport;
 
     @Override
     public Pin registerPin(PinRegisterPostReq pinRegisterInfo) {
