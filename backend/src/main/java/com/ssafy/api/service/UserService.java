@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserPasswordPatchReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePatchReq;
 import com.ssafy.db.entity.User;
@@ -12,4 +13,7 @@ public interface UserService {
 	User getUserByUserId(String userId);
 	User updateUser(String userId, UserUpdatePatchReq userUpdateInfo);
 	void deleteUser(String userId);
+
+	User updateUserPassword(String userId, UserPasswordPatchReq passwordInfo);
+	User getUserByUserPhone(String userPhone);
 }
