@@ -62,7 +62,7 @@ function MapArea() {
             onClick={() => {
               console.log(index);
               marker.isVisible = !marker.isVisible;
-              setMarkers(markers);
+              setMarkers([...markers]);
             }}
           >
             {markers.at(index).isVisible && <div>{index}</div>}
