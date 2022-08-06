@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-
 import { useSelector } from "react-redux";
+
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);
   const stomp = useSelector((state) => state.stompReducer.stomp);
+  const commentChange = (index, event) => {
+    markers.at(index).comment = event.target.value
+    setMarkers([...markers]);
+  } 
 
   return (
     <div
@@ -34,7 +39,7 @@ function MapArea() {
               isVisible: false,
             },
           ]);
-          console.log(markers.at(0) ? markers.at(0).isVisible : null);
+          // console.log(markers.at(0) ? markers.at(0).isVisible : null);
           // if (stomp) {
           //   console.log(stomp.send);
           //   let chatMessage = {
@@ -59,12 +64,29 @@ function MapArea() {
             key={`${index}`}
             position={{ lat: marker.lat, lng: marker.lng }}
             onClick={() => {
-              console.log(index);
+              // console.log(index);
               marker.isVisible = !marker.isVisible;
               setMarkers([...markers]);
             }}
           >
-            {markers.at(index).isVisible && <div>{index}</div>}
+            {marker.isVisible && 
+            <div>
+              {/* <input 
+              type="text"
+              id="comment"
+              name="comment"
+              onChange={(e) => commentChange(index, e)}
+              value={marker.comment}>
+              </input> */}
+              <TextareaAutosize
+                aria-label="minimum height"
+                minRows={3}
+                placeholder=""
+                style={{ width: 200 }}
+                onChange={(e) => commentChange(index, e)}
+                value={marker.comment}
+              />
+            </div>}
           </MapMarker>
         ))}
       </Map>
