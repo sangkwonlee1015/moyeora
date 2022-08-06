@@ -47,14 +47,14 @@ public class ParticipantController {
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "unauthenticated"));
 
         Channel channel = channelService.findByChannelSeq(registerInfo.getChannelSeq());
-        if (registerInfo.getChannelPassword().equals(channel.getChannelPassword()))
+        if (channel.getChannelPassword() != null && !registerInfo.getChannelPassword().equals(channel.getChannelPassword()))
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "비밀번호가 일치하지 않습니다."));
 
         participantsService.registerParticipants(registerInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "참여자 등록 성공!"));
     }
 
-    @GetMapping("/{userSeq}")
+    @GetMapping("/byUser/{userSeq}")
     @ApiOperation(value = "참여자 검색", notes = "유저가 속해 있는 채널 목록을 검색한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -73,7 +73,7 @@ public class ParticipantController {
         return ResponseEntity.status(200).body(ParticipantsSearchUserSeqGetRes.of(200, "success", list));
     }
 
-    @GetMapping("/{channelSeq}")
+    @GetMapping("/byChannel/{channelSeq}")
     @ApiOperation(value = "참여자 검색", notes = "채널에 속해 있는 유저 목록을 검색한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -94,7 +94,7 @@ public class ParticipantController {
         return ResponseEntity.status(200).body(ParticipantsSearchUserSeqGetRes.of(200, "success", list));
     }
 
-    @DeleteMapping("/{channelSeq}/{userSeq}")
+    @DeleteMapping(value = {"/{channelSeq}", "/{channelSeq}/{userSeq}"})
     @ApiOperation(value = "채널 나가기", notes = "채널에서 나간다. userSeq가 추가로 올 경우 방장 권한으로 유저 내보내기 가능")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
