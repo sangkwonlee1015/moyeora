@@ -48,4 +48,13 @@ public class ChannelServiceImpl implements ChannelService {
     public void deleteChannel(Long channelSeq) {
         channelRepository.deleteById(channelSeq);
     }
+
+    @Override
+    public Channel findByChannelSeq(Long channelSeq) {
+        Optional<Channel> channel = channelRepository.findByChannelSeq(channelSeq);
+        if (channel.isPresent())
+            return channel.get();
+        else
+            return null;
+    }
 }
