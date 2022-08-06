@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './MapMarkerList.css';
 
 
-function MapMarkerList(){
+function MapMarkerList() {
 
   // marker state
   const [posts, setPosts] = useState([])
@@ -18,43 +18,43 @@ function MapMarkerList(){
     items.splice(result.destination.index, 0, reorderedItem);
 
     setPosts(items);
-    }
+  }
 
-    // axios 요청 보내기
+  // axios 요청 보내기
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(res => {
+      .then(res => {
         // console.log(res)
         setPosts(res.data)
-        })
-        .catch(err => {
+      })
+      .catch(err => {
         console.log(err)
-        })
-    }, [])
+      })
+  }, [])
 
-  return(
+  return (
     <div className="mapmarkerlist">
       <b className='mapMarkerTitle'>최종선택</b>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="characters">
           {(provided) => (
-              <div className='mapMarkerSelect'>
-                <ul {...provided.droppableProps} ref={provided.innerRef}>
-                  {posts.map((post, idx) => {
-                    return (
-                      <Draggable key={post.title} draggableId={post.title} index={idx}>
-                        {(provided) => (
-                          <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                            {post.id}
-                          </li>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </ul>
-              </div>
-            )}
+            <div className='mapMarkerSelect'>
+              <ul {...provided.droppableProps} ref={provided.innerRef}>
+                {posts.map((post, idx) => {
+                  return (
+                    <Draggable key={post.title} draggableId={post.title} index={idx}>
+                      {(provided) => (
+                        <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                          {post.title}
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            </div>
+          )}
         </Droppable>
       </DragDropContext>
     </div>
