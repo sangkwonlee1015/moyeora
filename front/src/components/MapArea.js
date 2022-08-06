@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
+import { useSelector } from "react-redux";
+
 function MapArea() {
   const [markers, setMarkers] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const stomp = useSelector((state) => state.stompReducer.stomp);
+
   return (
     <div
       style={{
@@ -27,19 +32,40 @@ function MapArea() {
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
               comment: "test",
+              isVisible: false,
             },
           ]);
-          console.log(markers);
+          console.log(markers.at(0) ? markers.at(0).isVisible : null);
+          // if (stomp) {
+          //   console.log(stomp.send);
+          //   let chatMessage = {
+          //     receiver: 2,
+          //     longitude: mouseEvent.latLng.getLat(),
+          //     latitude: mouseEvent.latLng.getLng(),
+          //     status: "ADDPIN",
+          //   };
+          //   stomp.send(
+          //     "/app/private-message",
+          //     null,
+          //     JSON.stringify(chatMessage)
+          //   );
+          //   stomp.subscribe("/user/" + 2 + "/private", (data) => {
+          //     const message = JSON.parse(data.body);
+          //   });
+          // }
         }}
       >
         {markers.map((marker, index) => (
           <MapMarker
             key={`${index}`}
             position={{ lat: marker.lat, lng: marker.lng }}
-            title={`${index}`}
-            onClick={() => {}}
+            onClick={() => {
+              console.log(index);
+              marker.isVisible = !marker.isVisible;
+              setMarkers(markers);
+            }}
           >
-            {<div>{marker.comment}</div>}
+            {markers.at(index).isVisible && <div>{index}</div>}
           </MapMarker>
         ))}
       </Map>

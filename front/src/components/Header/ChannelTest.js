@@ -4,23 +4,27 @@ import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setStomp } from "../../redux/action";
 
 export default function ChannelTest() {
   const user = useSelector((store) => store.userReducer.user);
   const channelList = user.userServer;
+
+  const dispatch = useDispatch();
 
   const enterChannel = (id) => {
     console.log(id);
     const sock = new SockJs("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
+    dispatch(setStomp(stomp));
     console.log(stomp);
 
     stomp.connect({}, () => {
-      stomp.subscribe("/user/" + id + "/private", (data) => {
-        const message = JSON.parse(data.body);
-      });
+      // stomp.subscribe("/user/" + id + "/private", (data) => {
+      //   const message = JSON.parse(data.body);
+      // });
     });
   };
 
