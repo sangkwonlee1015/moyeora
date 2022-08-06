@@ -1,68 +1,38 @@
-<<<<<<< HEAD
-import Header from '../components/header/header';
-import { Redirect } from 'react-router';
-import './App.css';
-=======
->>>>>>> 44a92282d90899321e22e068c91be2e1d8bd1d11
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import './App.css';
-import { createTheme } from '@mui/material/styles';
-import Homepage from './homepage';
-import Initpage from './Initpage';
+import React from "react";
+import "./App.css";
+import Homepage from './Homepage';
+import ChannelHomePage from "./ChannelHomePage";
+import AddChannelPage from "./AddChannelPage";
+import ArticlePage from "./ArticlePage";
+import MypageSetingPage from "./MypageSettingPage";
+import ChattingPage from "./ChattingPage";
+import OvPage from "./OVPage";
+import MapPage from "./MapPage"
+
+let LoggedIn = false;
+
 
 function App() {
-<<<<<<< HEAD
-  let LoggedIn = true;
-  // const navigate = useNavigate();
-=======
-  let LoggedIn = false;
->>>>>>> 44a92282d90899321e22e068c91be2e1d8bd1d11
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={LoggedIn ? <Homepage/> : <Initpage/>}/>
-        <Route path="/home" element={<Homepage/>}/>
-      </Routes>
-    </BrowserRouter>
+  
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={LoggedIn ? <Homepage/> : <Homepage/>}/>
+          <Route path="/homepage" element={<Homepage/>}/>
+          <Route path="/serverpage/:serverid" element={<ChannelHomePage/>}/>
+          <Route path="/addchannelpage" element={<AddChannelPage/>}/>
+          <Route path="/articlepage" element={<ArticlePage/>}/>
+          <Route path="/mypagesettingpage" element={<MypageSetingPage/>}/>
+          <Route path="/chattingpage" element={<ChattingPage/>}/>
+          <Route path="/mappage" element={<MapPage/>}/>
+          <Route path="/ovpage" element={<OvPage/>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
 export default App;
-const theme = createTheme({
-  overrides: {
-    MuiTooltip: {
-      tooltip: {
-        fontSize: '14px',
-        backgroundColor: 'black'
-      }
-    },
-    MuiSnackbarContent: {
-      root: {
-        backgroundColor: '#202225',
-        color: 'white'
-      }
-    },
-    MuiAppBar: {
-      colorPrimary: {
-        backgroundColor: '#36393E',
-        position: 'absolute'
-      }
-    }
-  },
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#7289da'
-    },
-    secondary: {
-      main: '#3ca374'
-    }
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontSize: 14,
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600
-  }
-});
