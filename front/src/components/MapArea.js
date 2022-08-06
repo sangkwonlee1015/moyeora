@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const stomp = useSelector((state) => state.stompReducer.stomp);
 
   return (
