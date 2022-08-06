@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 import { useSelector } from "react-redux";
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);
-  const stomp = useSelector((state) => state.stompReducer.stomp);
+  const store = useSelector((state) => state);
+  const stomp = store.stompReducer.stomp;
+  const pins = store.pinsReducer.pins;
 
   return (
     <div
@@ -25,46 +27,34 @@ function MapArea() {
         }}
         level={5} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) => {
-          setMarkers([
-            ...markers,
-            {
-              lat: mouseEvent.latLng.getLat(),
-              lng: mouseEvent.latLng.getLng(),
-              comment: "test",
-              isVisible: false,
-            },
-          ]);
-          console.log(markers.at(0) ? markers.at(0).isVisible : null);
-          // if (stomp) {
-          //   console.log(stomp.send);
-          //   let chatMessage = {
-          //     receiver: 2,
-          //     longitude: mouseEvent.latLng.getLat(),
-          //     latitude: mouseEvent.latLng.getLng(),
-          //     status: "ADDPIN",
-          //   };
-          //   stomp.send(
-          //     "/app/private-message",
-          //     null,
-          //     JSON.stringify(chatMessage)
-          //   );
-          //   stomp.subscribe("/user/" + 2 + "/private", (data) => {
-          //     const message = JSON.parse(data.body);
-          //   });
-          // }
+          console.log("pins", pins);
+          if (stomp) {
+            let chatMessage = {
+              receiver: 2,
+              latitude: mouseEvent.latLng.getLat(),
+              longitude: mouseEvent.latLng.getLng(),
+              status: "ADDPIN",
+            };
+            stomp.send(
+              "/app/private-message",
+              null,
+              JSON.stringify(chatMessage)
+            );
+            console.log("markers: ", markers);
+          }
         }}
       >
-        {markers.map((marker, index) => (
+        {pins.map((marker, index) => (
           <MapMarker
             key={`${index}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
+            position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
             onClick={() => {
               console.log(index);
               marker.isVisible = !marker.isVisible;
               setMarkers([...markers]);
             }}
           >
-            {markers.at(index).isVisible && <div>{index}</div>}
+            {marker.isVisible && <div>{marker.comment}</div>}
           </MapMarker>
         ))}
       </Map>
