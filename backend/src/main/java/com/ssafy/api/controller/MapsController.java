@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.MapsCreatePostReq;
 import com.ssafy.api.request.MapsUpdatePatchReq;
+import com.ssafy.api.response.GetMapInfoRes;
 import com.ssafy.api.response.MapsCreatePostRes;
 import com.ssafy.api.response.MapsListGetRes;
 import com.ssafy.api.service.MapsService;
@@ -158,4 +159,11 @@ public class MapsController {
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
+
+    @GetMapping()
+    public ResponseEntity<? extends BaseResponseBody> getMapInfo(@RequestParam Long mapSeq){
+        Maps map = mapsService.findByMapSeq(mapSeq);
+        return ResponseEntity.status(200).body(GetMapInfoRes.of(200, "success", map.getMapName()));
+    }
+
 }

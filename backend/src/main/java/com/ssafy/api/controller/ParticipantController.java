@@ -54,7 +54,7 @@ public class ParticipantController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "참여자 등록 성공!"));
     }
 
-    @GetMapping("/byUser/{userSeq}")
+    @GetMapping("/byUser")
     @ApiOperation(value = "참여자 검색", notes = "유저가 속해 있는 채널 목록을 검색한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -62,14 +62,12 @@ public class ParticipantController {
             @ApiResponse(code = 403, message = "unauthorized"),
 
     })
-    public ResponseEntity<? extends BaseResponseBody> searchByUserSeq(@ApiIgnore Authentication authentication, @PathVariable Long userSeq){
+    public ResponseEntity<? extends BaseResponseBody> searchByUserSeq(@ApiIgnore Authentication authentication){
         if (authentication == null)
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "unauthenticated"));
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
-        if (user.getUserSeq() != userSeq)
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "unauthorized"));
-        List<Participants> list = participantsService.getParticipantsByUserSeq(userSeq);
+        List<Participants> list = participantsService.getParticipantsByUserSeq(user.getUserSeq());
         return ResponseEntity.status(200).body(ParticipantsSearchUserSeqGetRes.of(200, "success", list));
     }
 

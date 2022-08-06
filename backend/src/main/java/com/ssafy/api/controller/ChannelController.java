@@ -4,6 +4,7 @@ import com.ssafy.api.request.ChannelRegisterPostReq;
 import com.ssafy.api.request.ChannelUpdatePatchReq;
 import com.ssafy.api.response.ChannelRegisterPostRes;
 import com.ssafy.api.response.ChannelSearchGetRes;
+import com.ssafy.api.response.GetChannelInfoRes;
 import com.ssafy.api.service.ChannelService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -49,6 +50,12 @@ public class ChannelController {
         List<Channel> channelList = channelService.findByChannelNameContainingAndChannelTagContaining(channelName, channelTag);
 
         return ResponseEntity.status(200).body(ChannelSearchGetRes.of(200, "success", channelList));
+    }
+
+    @GetMapping("/{channelSeq}")
+    public ResponseEntity<GetChannelInfoRes> getChannelInfo(@PathVariable Long channelSeq){
+        Channel channel = channelService.findByChannelSeq(channelSeq);
+        return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag()));
     }
 
     @PatchMapping()
