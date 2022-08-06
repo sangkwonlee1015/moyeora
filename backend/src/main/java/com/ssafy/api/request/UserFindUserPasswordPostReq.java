@@ -7,12 +7,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("UserUpdatePatchRequest")
-public class UserUpdatePatchReq {
+@ApiModel("UserFindUserPasswordPostRequest")
+public class UserFindUserPasswordPostReq {
+
+    @ApiModelProperty(name="User Id")
+    String userId;
     @ApiModelProperty(name="User Name")
     String userName;
-    @ApiModelProperty(name="User Nickname")
-    String userNick;
     @ApiModelProperty(name="User Phone")
     String userPhone;
+    @ApiModelProperty(name="New Password")
+    String newPassword;
+
 }
+

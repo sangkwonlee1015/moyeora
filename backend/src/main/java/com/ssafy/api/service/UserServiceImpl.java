@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserFindUserPasswordPostReq;
 import com.ssafy.api.request.UserPasswordPatchReq;
 import com.ssafy.api.request.UserUpdatePatchReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,19 @@ public class UserServiceImpl implements UserService {
 		User user = userRepositorySupport.findUserByUserPhone(userPhone).orElse(null);
 		return user;
 	}
+
+
+	public User findUserPassword(String userId, UserFindUserPasswordPostReq userInfo) {
+		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
+		User user = getUserByUserId(userId);
+		user.setUserPassword(passwordEncoder.encode(userInfo.getNewPassword()));
+		return userRepository.save(user);
+	}
+
+
+
+
+
 
 //	@Transactional
 //	public void checkUsernameDuplication(UserRequestDto dto) {
