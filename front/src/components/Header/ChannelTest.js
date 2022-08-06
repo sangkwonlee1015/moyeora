@@ -5,10 +5,11 @@ import StompJs from "stompjs";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setStomp } from "../../redux/action";
+import { setPins, setStomp } from "../../redux/action";
 
 export default function ChannelTest() {
-  const user = useSelector((store) => store.userReducer.user);
+  const store = useSelector((store) => store);
+  const user = store.userReducer.user;
   const channelList = user.userServer;
 
   const dispatch = useDispatch();
@@ -21,10 +22,22 @@ export default function ChannelTest() {
     dispatch(setStomp(stomp));
     console.log(stomp);
 
+    let pins = store.pinsReducer.pins;
+
     stomp.connect({}, () => {
-      // stomp.subscribe("/user/" + id + "/private", (data) => {
-      //   const message = JSON.parse(data.body);
-      // });
+      stomp.subscribe("/user/" + id + "/private", (data) => {
+        const message = JSON.parse(data.body);
+        pins = [
+          ...pins,
+          {
+            lat: Number(message.latitude),
+            lng: Number(message.longitude),
+            comment: "test",
+            isVisible: false,
+          },
+        ];
+        dispatch(setPins(pins));
+      });
     });
   };
 

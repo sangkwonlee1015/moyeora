@@ -11,3 +11,10 @@ export const setStomp = (stomp) => {
     payload: stomp,
   };
 };
+
+export const setPins = (pins) => {
+  return {
+    type: "SET_PINS",
+    payload: pins,
+  };
+};
