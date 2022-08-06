@@ -11,4 +11,5 @@ public interface ChannelService {
     List<Channel> getChannelByNameContaining(String findName);
     Channel updateChannel(ChannelUpdatePatchReq channelUpdatePatchReq);
     void deleteChannel(Long roomSeq);
+    Channel findByChannelSeq(Long channelSeq);
 }

@@ -4,9 +4,11 @@ import com.ssafy.api.request.ParticipantsRegisterPostReq;
 import com.ssafy.db.entity.Participants;
 import com.ssafy.db.entity.ParticipantsId;
 import com.ssafy.db.repository.ParticipantsRepository;
+import com.ssafy.db.repository.ParticipantsRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("ParticipantsService")
@@ -14,6 +16,9 @@ public class ParticipantsServiceImpl implements ParticipantsService{
 
     @Autowired
     ParticipantsRepository participantsRepository;
+
+    @Autowired
+    ParticipantsRepositorySupport participantsRepositorySupport;
 
     @Override
     public Optional<Participants> getParticipantsById(ParticipantsId participantsId) {
@@ -34,5 +39,15 @@ public class ParticipantsServiceImpl implements ParticipantsService{
     @Override
     public void deleteParticipants(ParticipantsId participantsId) {
         participantsRepository.deleteById(participantsId);
+    }
+
+    @Override
+    public List<Participants> getParticipantsByUserSeq(Long userSeq){
+        return participantsRepositorySupport.findByUserSeq(userSeq);
+    }
+
+    @Override
+    public List<Participants> getParticipantsByChannelSeq(Long channelSeq){
+        return participantsRepositorySupport.findByChannelSeq(channelSeq);
     }
 }
