@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserFindUserPasswordPostReq;
 import com.ssafy.api.request.UserPasswordPatchReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserUpdatePatchReq;
@@ -16,4 +17,5 @@ public interface UserService {
 
 	User updateUserPassword(String userId, UserPasswordPatchReq passwordInfo);
 	User getUserByUserPhone(String userPhone);
+	User findUserPassword(String userId, UserFindUserPasswordPostReq userInfo);
 }

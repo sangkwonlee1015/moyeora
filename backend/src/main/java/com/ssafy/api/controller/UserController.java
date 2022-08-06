@@ -111,9 +111,9 @@ public class UserController {
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "일치하는 회원 없음"));
     }
 
-    /*
+
     @PostMapping("/find/password")
-    @ApiOperation(value = "비밀번호 찾기", notes = "이미 가입된 회원의 비밀번호를 검색한다")
+    @ApiOperation(value = "비밀번호 찾기(변경)", notes = "비로그인 상태에서 회원의 비밀번호를 변경한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 409, message = "일치하는 회원 없음"),
@@ -125,21 +125,20 @@ public class UserController {
         String userId = userInfo.getUserId();  // 내가 입력한 아이디
         String userName = userInfo.getUserName();  // 내가 입력한 이름
         String userPhone = userInfo.getUserPhone();  // 내가 입력한 전화번호
+        String newPassword = userInfo.getNewPassword(); // 내가 입력한 새 비밀번호
         User user = userService.getUserByUserId(userId);  // 유저 객체를 찾음(없다면 null 값 가능)
 
         // user 가 빈 값이 아니면서(입력한 아이디로 가입된 user 객체가 있으면서),
         // 내가 입력한 userName 과 전화번호로 찾은 user 객체의 userName 이 같다면
         if ((user != null) && (userName.equals(user.getUserName())) && (userPhone.equals(user.getUserPhone()))){
-            String userPassword = user.getUserPassword();
-            System.out.println(userPassword + "---------------------------------------");
-            System.out.println(Decode);
-            return ResponseEntity.status(200).body(UserFindUserPasswordRes.of(200, "Success", userPassword));
+            userService.findUserPassword(userId, userInfo);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
 
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "일치하는 회원 없음"));
     }
 
-    */
+
 
 
     @GetMapping("/profile")
@@ -168,13 +167,13 @@ public class UserController {
     @ApiOperation(value = "회원 프로필(본인) 수정", notes = "회원 프로필을 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 403, message = "권한 없음"),
+            @ApiResponse(code = 401, message = "권한 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> update(@ApiIgnore Authentication authentication,
                                                              @RequestBody @ApiParam(value = "회원프로필 정보", required = true) UserUpdatePatchReq updateInfo) {
         if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         String userId = userDetails.getUserId();
@@ -184,16 +183,16 @@ public class UserController {
     }
 
     @PatchMapping("/password")
-    @ApiOperation(value = "비밀번호 수정", notes = "비밀번호를 수정한다")
+    @ApiOperation(value = "비밀번호 수정", notes = "로그인 한 상태에서 비밀번호를 수정한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 409, message = "현재 비밀번호와 새 비밀번호 중복"),
+            @ApiResponse(code = 403, message = "현재 비밀번호와 새 비밀번호 중복"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> update(@ApiIgnore Authentication authentication,
                                                              @RequestBody @ApiParam(value = "비밀번호 수정", required = true) UserPasswordPatchReq passwordInfo) {
         if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         String userId = userDetails.getUserId();
@@ -222,39 +221,24 @@ public class UserController {
     }
 
     @DeleteMapping()
-    // 삭제 예정
     @ApiOperation(value = "회원정보 삭제(회원탈퇴)", notes = "회원 정보를 삭제(회원탈퇴)한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 403, message = "권한 없음"),
+            @ApiResponse(code = 401, message = "권한 없음"),
             @ApiResponse(code = 409, message = "현재 비밀번호 오류"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> delete(
-            @ApiIgnore Authentication authentication,
-            @RequestBody @ApiParam(value = "회원정보 삭제(회원탈퇴)", required = true) UserDeleteDeleteReq passwordInfo
-    ) {
+    public ResponseEntity<? extends BaseResponseBody> delete(@ApiIgnore Authentication authentication) {
 
-        if (authentication == null){
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Access Denied"));
+        if (authentication == null) {
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Unauthenticated"));
         }
 
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        String userPassword = userDetails.getPassword();  // 현재 비밀번호
-        String userId = userDetails.getUserId();
+        User user = userDetails.getUser();
+        String userId = user.getUserId();
 
-        System.out.println("-----------------------" + userPassword + "-----------------------");
-        System.out.println(passwordEncoder.encode(passwordInfo.getCurrentPassword()) + "-----------------------");
-
-
-        // 이번에 입력한 현재 비밀번호와 현재 비밀번호가 같다면 -> 삭제
-        if (passwordEncoder.matches(passwordInfo.getCurrentPassword(), userPassword)) {
-//        if (passwordEncoder.encode(userPassword) != passwordInfo.getCurrentPassword()) {
-            userService.deleteUser(userId);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-        }
-
-        return ResponseEntity.status(409).body(BaseResponseBody.of(409, "현재 비밀번호 오류입니다."));
-
+        userService.deleteUser(userId);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 }
