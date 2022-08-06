@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Table(name = "tb_user")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seq")
     private Long userSeq = null;
 
     @Column(name = "user_id")

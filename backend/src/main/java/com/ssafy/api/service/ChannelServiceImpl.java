@@ -1,6 +1,6 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.ChannelCreatePostReq;
+import com.ssafy.api.request.ChannelRegisterPostReq;
 import com.ssafy.api.request.ChannelUpdatePatchReq;
 import com.ssafy.db.entity.Channel;
 import com.ssafy.db.repository.ChannelRepository;
@@ -17,31 +17,50 @@ public class ChannelServiceImpl implements ChannelService {
     ChannelRepository channelRepository;
 
     @Override
-    public Channel registerChannel(ChannelCreatePostReq channelCreatePostReq) {
+    public Channel registerChannel(ChannelRegisterPostReq channelRegisterPostReq, Long userSeq) {
         Channel channel = new Channel();
-        channel.setChannelName(channelCreatePostReq.getChannelName());
-        channel.setChannelDesc(channelCreatePostReq.getChannelDesc());
-        channel.setChannelTag(channelCreatePostReq.getChannelTag());
-        channel.setChannelPassword(channelCreatePostReq.getChannelPassword());
-        channel.setUserSeq(channelCreatePostReq.getUserSeq());
+        channel.setChannelName(channelRegisterPostReq.getChannelName());
+        channel.setChannelDesc(channelRegisterPostReq.getChannelDesc());
+        channel.setChannelTag(channelRegisterPostReq.getChannelTag());
+        if (channelRegisterPostReq.getChannelPassword().isEmpty())
+            channel.setChannelPassword(null);
+        else
+            channel.setChannelPassword(channelRegisterPostReq.getChannelPassword());
+        channel.setUserSeq(userSeq);
         return channelRepository.save(channel);
     }
 
     @Override
-    public List<Channel> getChannelByNameContaining(String findName) {
-        return channelRepository.findByChannelNameContaining(findName);
+    public List<Channel> findByChannelNameContainingAndChannelTagContaining(String channelName, String channelTag) {
+        return channelRepository.findByChannelNameContainingAndChannelTagContaining(channelName, channelTag);
     }
 
+
     @Override
-    public Channel updateChannel(ChannelUpdatePatchReq channelUpdatePatchReq) {
+    public boolean updateChannel(ChannelUpdatePatchReq channelUpdatePatchReq) {
         Optional<Channel> oChannel = channelRepository.findById(channelUpdatePatchReq.getChannelSeq());
         if(oChannel.isPresent()){
             Channel channel = oChannel.get();
             channel.setChannelName(channelUpdatePatchReq.getChannelName());
-            channel.setUserSeq(channelUpdatePatchReq.getUserSeq());
-            return channelRepository.save(channel);
+            channel.setChannelDesc(channelUpdatePatchReq.getChannelDesc());
+            channel.setChannelTag(channelUpdatePatchReq.getChannelTag());
+            if (channelUpdatePatchReq.getChannelPassword().isEmpty())
+                channel.setChannelPassword(null);
+            else
+                channel.setChannelPassword(channelUpdatePatchReq.getChannelPassword());
+            channelRepository.save(channel);
+            return true;
         }
-        return null;
+        return false;
+    }
+
+    @Override
+    public boolean findByChannelSeqAndUserSeq(Long channelSeq, Long userSeq) {
+        Optional<Channel> oChannel = channelRepository.findByChannelSeqAndUserSeq(channelSeq, userSeq);
+        if (oChannel.isPresent())
+            return true;
+        else
+            return false;
     }
 
     @Override

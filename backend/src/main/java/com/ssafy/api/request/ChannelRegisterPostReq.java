@@ -9,11 +9,9 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@ApiModel("ChannelUpdatePatchReq")
-public class ChannelUpdatePatchReq {
-    @ApiModelProperty(name="채널 일련번호", example="channelSeq")
-    Long channelSeq;
-    @ApiModelProperty(name="채널 이름", example="Channel Name")
+@ApiModel("ChannelRegisterPostReq")
+public class ChannelRegisterPostReq {
+    @ApiModelProperty(name="채널 이름", example="new Channel")
     @NotBlank
     String channelName;
     @ApiModelProperty(name="간단한 채널 소개", example="Channel Description")
