@@ -7,9 +7,9 @@ function registerParticipant(participantInfo, token, success, error) {
     .catch(error);
 }
 
-function getParticipantListByUser(userSeq, token, success, error) {
+function getParticipantListByUser(token, success, error) {
   instance
-    .get(`/participants/byUser/${userSeq}`, { headers: createHeaders(token) })
+    .get(`/participants/byUser`, { headers: createHeaders(token) })
     .then(success)
     .catch(error);
 }

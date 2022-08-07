@@ -31,4 +31,11 @@ function deleteMap(mapSeq, token, success, error) {
     .catch(error);
 }
 
-export { registerMap, getMapList, updateMap, deleteMap };
+function getMapInfo(mapSeq, success, error) {
+  instance
+    .get(`/maps`, { params: { mapSeq: mapSeq } })
+    .then(success)
+    .catch(error);
+}
+
+export { registerMap, getMapList, updateMap, deleteMap, getMapInfo };
