@@ -106,6 +106,7 @@ function MapMarkerList (){
                       {(provided, snapshot) => {
                         return (
                           <div
+                            className="mapMarkerSelect"
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                             style={{
