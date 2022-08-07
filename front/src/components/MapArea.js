@@ -78,14 +78,7 @@ function MapArea() {
             }}
           >
             {marker.isVisible && (
-              <div>
-                {/* <input 
-              type="text"
-              id="comment"
-              name="comment"
-              onChange={(e) => commentChange(index, e)}
-              value={marker.comment}>
-              </input> */}
+              // <div>
                 <TextareaAutosize
                   aria-label="minimum height"
                   minRows={3}
@@ -94,7 +87,7 @@ function MapArea() {
                   onChange={(e) => commentChange(index, e)}
                   value={marker.comment}
                 />
-              </div>
+              // </div>
             )}
           </MapMarker>
         ))}
