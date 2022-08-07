@@ -27,16 +27,32 @@ export default function ChannelTest() {
     stomp.connect({}, () => {
       stomp.subscribe("/user/" + id + "/private", (data) => {
         const message = JSON.parse(data.body);
-        pins = [
-          ...pins,
-          {
-            lat: Number(message.latitude),
-            lng: Number(message.longitude),
-            comment: "test",
-            isVisible: false,
-          },
-        ];
-        dispatch(setPins(pins));
+        switch (message.status) {
+          case "ADDPIN":
+            pins = [
+              ...pins,
+              {
+                seq: message.pinSeq,
+                lat: Number(message.lat),
+                lng: Number(message.lng),
+                color: message.pinColor,
+                comment: message.pinContent,
+                isVisible: false,
+              },
+            ];
+            dispatch(setPins(pins));
+            break;
+          case "MODPIN":
+            pins.map((pin) => {
+              if (pin.seq == message.pinSeq) {
+                pin.color = message.pinColor;
+                pin.comment = message.pinContent;
+              }
+            });
+            dispatch(setPins(pins));
+            break;
+          default:
+        }
       });
     });
   };

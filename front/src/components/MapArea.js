@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { setPins } from "../redux/action";
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);
   const store = useSelector((state) => state);
   const stomp = store.stompReducer.stomp;
   const pins = store.pinsReducer.pins;
+
+  const dispatch = useDispatch();
+
+  const commentChange = (index, event) => {
+    console.log(event.target.value);
+    if (stomp) {
+      let chatMessage = {
+        receiver: 2, // 채널 seq로 변경 예정
+        pinSeq: pins.at(index).seq,
+        pinContent: event.target.value,
+        pinColor: "test",
+        status: "MODPIN",
+      };
+      stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
+      console.log("markers: ", markers);
+    }
+    // pins.at(index).comment = event.target.value;
+    // dispatch(setPins(pins));
+  };
 
   return (
     <div
@@ -31,9 +51,11 @@ function MapArea() {
           console.log("pins", pins);
           if (stomp) {
             let chatMessage = {
-              receiver: 2,
-              latitude: mouseEvent.latLng.getLat(),
-              longitude: mouseEvent.latLng.getLng(),
+              receiver: 2, // 채널 seq로 변경 예정
+              lat: mouseEvent.latLng.getLat(),
+              lng: mouseEvent.latLng.getLng(),
+              pinContent: "",
+              pinColor: "test",
               status: "ADDPIN",
             };
             stomp.send(
@@ -55,24 +77,25 @@ function MapArea() {
               setMarkers([...markers]);
             }}
           >
-            {marker.isVisible && 
-            <div>
-              {/* <input 
+            {marker.isVisible && (
+              <div>
+                {/* <input 
               type="text"
               id="comment"
               name="comment"
               onChange={(e) => commentChange(index, e)}
               value={marker.comment}>
               </input> */}
-              <TextareaAutosize
-                aria-label="minimum height"
-                minRows={3}
-                placeholder=""
-                style={{ width: 200 }}
-                onChange={(e) => commentChange(index, e)}
-                value={marker.comment}
-              />
-            </div>}
+                <TextareaAutosize
+                  aria-label="minimum height"
+                  minRows={3}
+                  placeholder=""
+                  style={{ width: 200 }}
+                  onChange={(e) => commentChange(index, e)}
+                  value={marker.comment}
+                />
+              </div>
+            )}
           </MapMarker>
         ))}
       </Map>
