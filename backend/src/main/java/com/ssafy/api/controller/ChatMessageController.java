@@ -27,7 +27,7 @@ public class ChatMessageController {
 
     @MessageMapping("/private-message")
     public void receivePrivateMessage(@Payload ChatMessage message) {
-
+        chatService.sendMessagePrivate(message);
     }
 
 }
