@@ -24,10 +24,9 @@ function MapArea() {
           setMarkers([
             ...markers,
             {
-              title: "test",
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              isInfoOpen: false,
+              comment: "test",
             },
           ]);
           console.log(markers);
@@ -37,10 +36,10 @@ function MapArea() {
           <MapMarker
             key={`${index}`}
             position={{ lat: marker.lat, lng: marker.lng }}
-            title={`${marker.title}-${index}`}
+            title={`${index}`}
             onClick={() => {}}
           >
-            {<div>{index}</div>}
+            {<div>{marker.comment}</div>}
           </MapMarker>
         ))}
       </Map>
