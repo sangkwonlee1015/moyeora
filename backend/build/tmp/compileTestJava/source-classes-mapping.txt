@@ -1,4 +1,0 @@
-com/ssafy/db/repository/UserRepositoryTest.java
- com.ssafy.db.repository.UserRepositoryTest
-com/ssafy/db/repository/PinRepositorySupportTest.java
- com.ssafy.db.repository.PinRepositorySupportTest
