@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,15 +12,22 @@ import javax.persistence.*;
 @Table(name = "tb_user")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seq")
     private Long userSeq = null;
+
     @Column(name = "user_id")
     private String userId;
-    @Column(name = "user_email")
-    private String password;
-    private String phone;
+
+    @Column(name = "user_password")
+    private String userPassword;
+
     @Column(name = "user_name")
     private String userName;
-    private String nickname;
+
+    @Column(name = "user_nick")
+    private String userNick;
+
+    @Column(name = "user_phone")
+    private String userPhone;
+
 
 }

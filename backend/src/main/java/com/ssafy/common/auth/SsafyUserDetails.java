@@ -32,7 +32,7 @@ public class SsafyUserDetails implements UserDetails {
     }
 	@Override
 	public String getPassword() {
-		return this.user.getPassword();
+		return this.user.getUserPassword();
 	}
 	@Override
 	public String getUsername() {
@@ -60,5 +60,9 @@ public class SsafyUserDetails implements UserDetails {
 	}
 	public void setAuthorities(List<GrantedAuthority> roles) {
 		this.roles = roles;
+	}
+
+	public String getUserId() {
+		return this.user.getUserId();
 	}
 }

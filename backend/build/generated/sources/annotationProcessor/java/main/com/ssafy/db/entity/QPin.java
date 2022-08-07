@@ -19,23 +19,21 @@ public class QPin extends EntityPathBase<Pin> {
 
     public static final QPin pin = new QPin("pin");
 
-    public final NumberPath<Integer> color = createNumber("color", Integer.class);
-
-    public final StringPath content = createString("content");
-
-    public final StringPath lat = createString("lat");
-
-    public final StringPath lng = createString("lng");
-
     public final NumberPath<Long> mapSeq = createNumber("mapSeq", Long.class);
+
+    public final StringPath pinColor = createString("pinColor");
+
+    public final StringPath pinContent = createString("pinContent");
+
+    public final StringPath pinLat = createString("pinLat");
+
+    public final StringPath pinLng = createString("pinLng");
+
+    public final NumberPath<Integer> pinOrder = createNumber("pinOrder", Integer.class);
 
     public final NumberPath<Long> pinSeq = createNumber("pinSeq", Long.class);
 
-    public final NumberPath<Long> roomSeq = createNumber("roomSeq", Long.class);
-
-    public final DateTimePath<java.time.LocalDateTime> time = createDateTime("time", java.time.LocalDateTime.class);
-
-    public final StringPath userId = createString("userId");
+    public final NumberPath<Long> userSeq = createNumber("userSeq", Long.class);
 
     public QPin(String variable) {
         super(Pin.class, forVariable(variable));

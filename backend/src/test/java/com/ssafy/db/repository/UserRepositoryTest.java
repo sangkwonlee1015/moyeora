@@ -17,9 +17,9 @@ class UserRepositoryTest {
     public void testing(){
         User user = new User();
         user.setUserId("userId1");
-        user.setPassword("hello12345");
-        user.setPhone("01075591248");
-        user.setNickname("didnlie");
+        user.setUserPassword("hello12345");
+        user.setUserPhone("01075591248");
+        user.setUserNick("didnlie");
         user.setUserName("윤경식");
 
         userRepository.save(user);
