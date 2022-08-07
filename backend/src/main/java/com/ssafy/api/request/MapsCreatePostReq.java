@@ -5,12 +5,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @ApiModel("MapsCreatePostReq")
 public class MapsCreatePostReq {
-    @ApiModelProperty(name="맵 제목", example="new map")
-    String title;
-    @ApiModelProperty(name="방 seq", example="1")
-    long roomSeq;
+    @NotBlank(message = "맵 이름은 필수 값 입니다")
+    @ApiModelProperty(name="맵 이름", example="new map")
+    private String mapName;
+    @ApiModelProperty(name="채널 seq", example="1")
+    private Long channelSeq;
+    @ApiModelProperty(name="유저 seq", example="1")
+    private Long userSeq;
+
 }

@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @ApiModel("ParticipantsCreatePostReq")
 public class ParticipantsRegisterPostReq {
-    @ApiModelProperty(name="참가한 방", example="new room")
-    private Long roomSeq;
-    @ApiModelProperty(name="참가 아이디", example="userId")
-    private String userId;
+    private Long channelSeq;
+    private Long userSeq;
+    private String channelPassword;
 }
