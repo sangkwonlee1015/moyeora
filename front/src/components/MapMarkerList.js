@@ -95,7 +95,8 @@ function MapMarkerList (){
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center"
+                    alignItems: "center",
+                    height: 420
                   }}
                   key={columnId}
                 >
@@ -110,10 +111,10 @@ function MapMarkerList (){
                             style={{
                               background: snapshot.isDraggingOver
                                 ? "lightblue"
-                                : "lightgrey",
+                                : "#F2F3F5",
                               padding: 4,
                               width: 200,
-                              minHeight: 200,
+                              minHeight: 330,
                               maxHeight: 330,
                               overflow: "scroll",
                             }}
@@ -135,7 +136,7 @@ function MapMarkerList (){
                                           userSelect: "none",
                                           // padding: 16,
                                           margin: "0 0 8px 0",
-                                          minHeight: "50px",
+                                          minHeight: "40px",
                                           backgroundColor: snapshot.isDragging
                                             ? "#263B4A"
                                             : "#456C86",
