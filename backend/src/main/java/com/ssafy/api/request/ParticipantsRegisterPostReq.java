@@ -10,6 +10,5 @@ import lombok.Setter;
 @ApiModel("ParticipantsCreatePostReq")
 public class ParticipantsRegisterPostReq {
     private Long channelSeq;
-    private Long userSeq;
     private String channelPassword;
 }
