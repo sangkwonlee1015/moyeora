@@ -24,7 +24,7 @@ export default function ChannelTest() {
 
     let pins = store.pinsReducer.pins;
 
-    stomp.connect({}, () => {
+    stomp.connect({}, (e) => {
       stomp.subscribe("/user/" + id + "/private", (data) => {
         const message = JSON.parse(data.body);
         switch (message.status) {
@@ -61,7 +61,7 @@ export default function ChannelTest() {
     <>
       <ul className="header_items">
         {channelList.map((channel) => (
-          <li key={channel.channelId}>
+          <li key={channel.channelId} className='header_items_2 headerSetting'>
             <Link
               to={`/serverpage/${channel.channelId}`}
               onClick={() => enterChannel(channel.channelId)}

@@ -23,11 +23,11 @@ public class ParticipantsServiceImpl implements ParticipantsService{
     }
 
     @Override
-    public Participants registerParticipants(ParticipantsRegisterPostReq registerInfo) {
+    public Participants registerParticipants(ParticipantsRegisterPostReq registerInfo, Long userSeq) {
         Participants participants = new Participants();
         ParticipantsId id = new ParticipantsId();
         id.setChannelSeq(registerInfo.getChannelSeq());
-        id.setUserSeq(registerInfo.getUserSeq());
+        id.setUserSeq(userSeq);
         participants.setParticipantsId(id);
         return participantsRepository.save(participants);
     }

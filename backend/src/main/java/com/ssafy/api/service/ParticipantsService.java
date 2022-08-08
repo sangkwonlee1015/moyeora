@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ParticipantsService {
     Optional<Participants> getParticipantsById(ParticipantsId participantsId);
-    Participants registerParticipants(ParticipantsRegisterPostReq registerInfo);
+    Participants registerParticipants(ParticipantsRegisterPostReq registerInfo, Long userSeq);
     void deleteParticipants(ParticipantsId participantsId);
     List<Participants> getParticipantsByUserSeq(Long userSeq);
     List<Participants> getParticipantsByChannelSeq(Long channelSeq);

@@ -1,0 +1,29 @@
+.sidebar{
+  width: 300px;
+  /* 사이드바 배경색 */
+  background-color: #2f3136;
+}
+.sidebar>div{
+border-radius: 10px;
+margin: 0.2rem;
+padding: 0.3rem;
+}
+.sidebar>div:hover{
+background-color: #42464d;
+}
+
+/* .sidebar-test>a:hover{
+background-color: red;
+} */
+
+.sidebar a{
+display: block;
+text-decoration-line: none;
+/* 사이드 바 글자색 */
+color: #e2e3e4;
+font-weight: bold;
+}
+.sidebar-mypage{
+width: 300px;
+background-color: #F2F3F5;
+}
