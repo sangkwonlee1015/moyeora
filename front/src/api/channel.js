@@ -26,9 +26,19 @@ function updateChannel(channelInfo, token, success, error) {
 
 function deleteChannel(channelSeq, token, success, error) {
   instance
-    .delete(`/participants/${channelSeq}`, { headers: createHeaders(token) })
+    .delete(`/channel/${channelSeq}`, { headers: createHeaders(token) })
     .then(success)
     .catch(error);
 }
 
-export { registerChannel, getChannelList, updateChannel, deleteChannel };
+function getChannelInfo(channelSeq, success, error) {
+  instance.get(`/channel/${channelSeq}`, {}).then(success).catch(error);
+}
+
+export {
+  registerChannel,
+  getChannelList,
+  updateChannel,
+  deleteChannel,
+  getChannelInfo,
+};

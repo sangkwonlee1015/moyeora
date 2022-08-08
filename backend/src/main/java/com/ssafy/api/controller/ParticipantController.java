@@ -50,7 +50,10 @@ public class ParticipantController {
         if (channel.getChannelPassword() != null && !registerInfo.getChannelPassword().equals(channel.getChannelPassword()))
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "비밀번호가 일치하지 않습니다."));
 
-        participantsService.registerParticipants(registerInfo);
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+
+        participantsService.registerParticipants(registerInfo, user.getUserSeq());
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "참여자 등록 성공!"));
     }
 
