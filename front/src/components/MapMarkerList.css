@@ -1,8 +1,9 @@
 .mapmarkerlist {
-  width: 15%;
+  width: auto;
   height: 100vh;
-  background-color: #F2F3F5;
+  background-color: #36393f;
 }
+/* e2e3e4 */
 .mapmarkerlist ul{
   list-style: none;
   margin: 0;

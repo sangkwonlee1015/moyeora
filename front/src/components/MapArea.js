@@ -1,8 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useSelector, useDispatch } from "react-redux";
+
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { setPins } from "../redux/action";
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);
+  const store = useSelector((state) => state);
+  const stomp = store.stompReducer.stomp;
+  const pins = store.pinsReducer.pins;
+
+  const dispatch = useDispatch();
+
+  const commentChange = (index, e) => {
+    if (stomp) {
+      let chatMessage = {
+        receiver: 2, // 채널 seq로 변경 예정
+        pinSeq: pins.at(index).seq,
+        pinContent: e.target.value,
+        pinColor: "test",
+        status: "MODPIN",
+      };
+      stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
+      console.log("markers: ", markers);
+    }
+    // pins.at(index).comment = event.target.value;
+    // dispatch(setPins(pins));
+  };
+
   return (
     <div
       style={{
@@ -21,25 +47,59 @@ function MapArea() {
         }}
         level={5} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) => {
-          setMarkers([
-            ...markers,
-            {
+          console.log("pins", pins);
+          if (stomp) {
+            let chatMessage = {
+              receiver: 2, // 채널 seq로 변경 예정
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              comment: "test",
-            },
-          ]);
-          console.log(markers);
+              pinContent: "",
+              pinColor: "test",
+              status: "ADDPIN",
+            };
+            stomp.send(
+              "/app/private-message",
+              null,
+              JSON.stringify(chatMessage)
+            );
+            console.log("markers: ", markers);
+          }
         }}
       >
-        {markers.map((marker, index) => (
+        {pins.map((marker, index) => (
           <MapMarker
             key={`${index}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            title={`${index}`}
-            onClick={() => {}}
+            position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+            onClick={() => {
+              // console.log(index);
+              marker.isVisible = !marker.isVisible;
+              setMarkers([...markers]);
+            }}
           >
-            {<div>{marker.comment}</div>}
+            {marker.isVisible && (
+              <div>
+                <TextareaAutosize
+                  aria-label="minimum height"
+                  minRows={3}
+                  placeholder=""
+                  style={{ width: 200 }}
+                  onKeyDown={(e) => {
+                    if (e.nativeEvent.isComposing) {
+                      return;
+                    }
+                    if (e.key === "Enter" && e.shiftKey) {
+                      console.log("shift + enter");
+                      return;
+                    } else if (e.key === "Enter") {
+                      commentChange(index, e);
+                      e.preventDefault();
+                    }
+                  }}
+                  // value={marker.comment}
+                  defaultValue={marker.comment}
+                ></TextareaAutosize>
+              </div>
+            )}
           </MapMarker>
         ))}
       </Map>
