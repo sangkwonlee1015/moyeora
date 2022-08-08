@@ -1,50 +1,81 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../api/user";
+import { doLogin } from "../api/auth";
+import { SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 
-const LoginPage = () => {
-  const navigate = useNavigate();
-  // Dispatch
+const LoginPage = (setLogIn) => {
+  //const navigate= useNavigate();
+  const dispatch = useDispatch();
 
-  // Local state to control Modal Windows + Data fields
-  const [mainVisible, setMainVisible] = useState(true);
-  const [mainDirection, setMainDirection] = useState("left");
-  const [createVisible, setCreateVisible] = useState(false);
-  const [createDirection, setCreateDirection] = useState("left");
-  const [loginVisible, setLoginVisible] = useState(false);
-  const [loginDirection, setLoginDirection] = useState("left");
-  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [userPass, setUserPass] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-
-  // const onLogin = (email, password) => {
-  //   const data = {
-  //     email,
-  //     password,
-  //   };
-  //   axios.post('/api/v1/auth/login', data).then(response => {
-  //     const { accessToken } = response.data;
-
-  //     // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-  //     // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-
-  //   }).catch(error => {
-  //     // ... 에러 처리
-  //     console.log("login requset fail : " + error);
-  //   }).finally(()=>{console.log("login request end")});
-  // }
-  const onClickfunc = () => {
-    console.log("login button click");
-    navigate("/homepage");
+  const onSubmitRegisterForm = () => {
+    const data = {
+      userId: userId,
+      userPassword: userPass,
+    };
+    registerUser(data, (response) => {
+      console.log(response.data)
+    },
+    (error) => {
+      console.log(error);
+    })
   };
-
+  const onSubmitLoginForm = (event) => {
+    event.preventDefault();
+    doLogin(
+      { userId: userId, userPassword: userPass },
+      (response) => {
+        dispatch(SET_TOKEN(response.data.accessToken));
+        setLogIn();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
   return (
     <div>
-      <input id="username"></input>
-      <input id="userpass"></input>
-      <button onClick={onClickfunc()}>Login</button>
+      <form className="mt-8 space-y-6" onSubmit={onSubmitLoginForm}>
+        <div className="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label htmlFor="UserID" className="sr-only">
+              User ID
+            </label>
+            <input id="userid" value={userId} onChange={(e) => setUserId(e.target.value)} type="text"
+              placeholder="Password"></input>
+          </div>
+          <div>
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
+            <input
+              id="userpass" value={userPass} onChange={(e)=> setUserPass(e.target.value)}
+              type="text"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+           로그인
+          </button>
+        </div>
+      </form>
+
+      <form onSubmit={onSubmitRegisterForm}>
+        <input id="userid" value={userId} onChange={(e) => setUserId(e.target.value)}></input>
+        <input
+          id="userPassword"
+          value={userPass}
+          onChange={(e) => setUserPass(e.target.value)}
+        ></input>
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };

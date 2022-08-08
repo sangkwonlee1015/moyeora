@@ -5,12 +5,14 @@ import StompJs from "stompjs";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setPins, setStomp } from "../../redux/action";
+import { SET_PINLIST, setStomp } from "../../redux/PinList";
+/// setStomp 이거 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 export default function ChannelTest() {
-  const store = useSelector((store) => store);
-  const user = store.userReducer.user;
-  const channelList = user.userServer;
+  //const user = useSelector((state) => state.UserInfo.userInfo.userName);
+  const channelList = useSelector((state) => state.ChannelList.channelList);
+  // const user = store.userReducer.user;
+  // const channelList = user.userServer;
 
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ export default function ChannelTest() {
                 isVisible: false,
               },
             ];
-            dispatch(setPins(pins));
+            dispatch(SET_PINLIST(pins));
             break;
           case "MODPIN":
             pins.map((pin) => {
@@ -49,7 +51,7 @@ export default function ChannelTest() {
                 pin.comment = message.pinContent;
               }
             });
-            dispatch(setPins(pins));
+            dispatch(SET_PINLIST(pins));
             break;
           default:
         }
