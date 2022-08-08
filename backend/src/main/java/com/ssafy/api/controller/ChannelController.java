@@ -71,10 +71,15 @@ public class ChannelController {
     }
 
     @GetMapping("/{channelSeq}")
-    public ResponseEntity<? extends BaseResponseBody> getChannelInfo(@PathVariable Long channelSeq){
+    public ResponseEntity<? extends BaseResponseBody> getChannelInfo(@ApiIgnore Authentication authentication, @PathVariable Long channelSeq){
         Channel channel = channelService.findByChannelSeq(channelSeq);
 
-        ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).role(OpenViduRole.PUBLISHER).build();
+
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+        String serverData = "{\"serverData\": \"" + user.getUserSeq() + "\"}";
+        ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(OpenViduRole.PUBLISHER).build();
+
 
         String sessionName = channel.getChannelSeq().toString();
         String token;
