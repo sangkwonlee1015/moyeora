@@ -3,7 +3,6 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
 
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { setPins } from "../redux/action";
 
 function MapArea() {
   const [markers, setMarkers] = useState([]);

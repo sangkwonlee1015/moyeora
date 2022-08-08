@@ -10,7 +10,6 @@ import ChattingPage from "./ChattingPage";
 import OvPage from "./OVPage";
 import MapPage from "./MapPage";
 import LoginPage from "./LoginPage";
-import PrivateRoute from "../routes/PrivateRoute";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);

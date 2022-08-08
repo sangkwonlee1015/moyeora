@@ -1,30 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
+import { getParticipantListByUser } from "../../api/participant";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { SET_PINLIST, setStomp } from "../../redux/PinList";
+import { SET_PINLIST} from "../../redux/PinList";
+import { SET_STOMP } from "../../redux/ChannelList";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
 /// setStomp 이거 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 export default function ChannelTest() {
-  //const user = useSelector((state) => state.UserInfo.userInfo.userName);
-  const channelList = useSelector((state) => state.ChannelList.channelList);
-  // const user = store.userReducer.user;
-  // const channelList = user.userServer;
-
   const dispatch = useDispatch();
+  const [channelList, setChannelList] = useState("");
+  const token = useSelector((state) => state.UserInfo.accessToken);
+  const store = useSelector((state) => state);
+  getParticipantListByUser(
+    token,
+    (response) => {
+      dispatch(SET_CHANNELLIST(response.data));
+      setChannelList(response.data);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 
   const enterChannel = (id) => {
     console.log(id);
     const sock = new SockJs("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
-    dispatch(setStomp(stomp));
+    dispatch(SET_STOMP(stomp));
     console.log(stomp);
 
-    let pins = store.pinsReducer.pins;
+    let pins = store.PinList.pinList;
 
     stomp.connect({}, (e) => {
       stomp.subscribe("/user/" + id + "/private", (data) => {
@@ -63,7 +74,7 @@ export default function ChannelTest() {
     <>
       <ul className="header_items">
         {channelList.map((channel) => (
-          <li key={channel.channelId} className='header_items_2 headerSetting'>
+          <li key={channel.channelId} className="header_items_2 headerSetting">
             <Link
               to={`/serverpage/${channel.channelId}`}
               onClick={() => enterChannel(channel.channelId)}
