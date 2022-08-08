@@ -24,7 +24,7 @@ export default function ChannelTest() {
 
     let pins = store.pinsReducer.pins;
 
-    stomp.connect({}, () => {
+    stomp.connect({}, (e) => {
       stomp.subscribe("/user/" + id + "/private", (data) => {
         const message = JSON.parse(data.body);
         switch (message.status) {
