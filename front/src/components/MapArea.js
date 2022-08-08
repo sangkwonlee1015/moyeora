@@ -11,8 +11,6 @@ function MapArea() {
   const stomp = store.stompReducer.stomp;
   const pins = store.pinsReducer.pins;
 
-  const textareaRef = useRef(null);
-
   const dispatch = useDispatch();
 
   const commentChange = (index, e) => {
@@ -99,7 +97,6 @@ function MapArea() {
                   }}
                   // value={marker.comment}
                   defaultValue={marker.comment}
-                  ref={textareaRef}
                 ></TextareaAutosize>
               </div>
             )}
