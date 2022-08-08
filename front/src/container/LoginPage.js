@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../api/user";
+import { registerUser, getUserProfile } from "../api/user";
 import { doLogin } from "../api/auth";
+import { useDispatch } from "react-redux";
 import { SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 
 const LoginPage = (setLogIn) => {
@@ -28,6 +28,13 @@ const LoginPage = (setLogIn) => {
       { userId: userId, userPassword: userPass },
       (response) => {
         dispatch(SET_TOKEN(response.data.accessToken));
+        getUserProfile({accessToken:response.data.accessToken},
+          (response) =>{
+            dispatch(SET_USERINFO(response.data));
+          },
+          (error)=>{
+            console.log(error);
+          })
         setLogIn();
       },
       (error) => {
