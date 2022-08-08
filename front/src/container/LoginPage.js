@@ -4,7 +4,7 @@ import { doLogin } from "../api/auth";
 import { useDispatch } from "react-redux";
 import { SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 
-const LoginPage = (setLogIn) => {
+const LoginPage = ({setLogIn}) => {
   //const navigate= useNavigate();
   const dispatch = useDispatch();
 
@@ -27,10 +27,12 @@ const LoginPage = (setLogIn) => {
     doLogin(
       { userId: userId, userPassword: userPass },
       (response) => {
+        console.log(response.data);
         dispatch(SET_TOKEN(response.data.accessToken));
-        getUserProfile({accessToken:response.data.accessToken},
+        getUserProfile(response.data.accessToken,
           (response) =>{
             dispatch(SET_USERINFO(response.data));
+            console.log("profile get", response.data);
           },
           (error)=>{
             console.log(error);
