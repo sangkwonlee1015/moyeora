@@ -5,10 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function MapArea() {
-  const [markers, setMarkers] = useState([]);
   const store = useSelector((state) => state);
-  const stomp = store.stompReducer.stomp;
-  const pins = store.pinsReducer.pins;
+  const stomp = store.ChannelList.stomp;
+  const pins = store.PinList.pinList;
 
   const dispatch = useDispatch();
 
@@ -22,7 +21,6 @@ function MapArea() {
         status: "MODPIN",
       };
       stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
-      console.log("markers: ", markers);
     }
     // pins.at(index).comment = event.target.value;
     // dispatch(setPins(pins));
@@ -61,7 +59,6 @@ function MapArea() {
               null,
               JSON.stringify(chatMessage)
             );
-            console.log("markers: ", markers);
           }
         }}
       >
@@ -72,7 +69,6 @@ function MapArea() {
             onClick={() => {
               // console.log(index);
               marker.isVisible = !marker.isVisible;
-              setMarkers([...markers]);
             }}
           >
             {marker.isVisible && (

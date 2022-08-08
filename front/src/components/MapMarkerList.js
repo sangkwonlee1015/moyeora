@@ -1,11 +1,10 @@
-import React, { useState }from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
-import "./MapMarkerList.css"
+import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
-
 
 const itemsFromBackend = [
   { id: uuid(), content: "First task" },
@@ -22,18 +21,18 @@ const itemsFromBackend = [
   { id: uuid(), content: "Fifth task" },
   { id: uuid(), content: "Fifth task" },
   { id: uuid(), content: "Fifth task" },
-  
+
   // { id: pins.id, content: pins.content}
 ];
 
 const columnsFromBackend = {
   [uuid()]: {
     name: "최종선택",
-    items: []
+    items: [],
   },
   [uuid()]: {
     name: "후보",
-    items: itemsFromBackend
+    items: itemsFromBackend,
   },
   // [uuid()]: {
   //   name: "In Progress",
@@ -56,12 +55,12 @@ const onDragEnd = (result, columns, setColumns) => {
       ...columns,
       [source.droppableId]: {
         ...sourceColumn,
-        items: sourceItems
+        items: sourceItems,
       },
       [destination.droppableId]: {
         ...destColumn,
-        items: destItems
-      }
+        items: destItems,
+      },
     });
   } else {
     const column = columns[source.droppableId];
@@ -72,34 +71,36 @@ const onDragEnd = (result, columns, setColumns) => {
       ...columns,
       [source.droppableId]: {
         ...column,
-        items: copiedItems
-      }
+        items: copiedItems,
+      },
     });
   }
 };
 
-function MapMarkerList (){
+function MapMarkerList() {
   const store = useSelector((state) => state);
-  const pins = store.pinsReducer.pins;
+  const pins = store.PinList.pinList;
   const [columns, setColumns] = useState(columnsFromBackend);
 
   return (
-    <div className="mapmarkerlist">  
-      <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+    <div className="mapmarkerlist">
+      <div
+        style={{ display: "flex", justifyContent: "center", height: "100%" }}
+      >
         <DragDropContext
-          onDragEnd={result => onDragEnd(result, columns, setColumns)}
+          onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
         >
           <div className="hi">
             {Object.entries(columns).map(([columnId, column], index) => {
               return (
                 <div
                   style={{
-                    backgroundColor: "#202225",  // 리스트 박스 글자색
-                    color: "#e2e3e4",        // 리스트 박스(최종선택, 후보) 글자색
+                    backgroundColor: "#202225", // 리스트 박스 글자색
+                    color: "#e2e3e4", // 리스트 박스(최종선택, 후보) 글자색
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: 420
+                    height: 420,
                   }}
                   key={columnId}
                 >
@@ -114,8 +115,8 @@ function MapMarkerList (){
                             ref={provided.innerRef}
                             style={{
                               background: snapshot.isDraggingOver
-                                ? "lightblue"  // 리스트 드래그 했을때 배경 색
-                                : "#2f3136",  // 리스트 배경색
+                                ? "lightblue" // 리스트 드래그 했을때 배경 색
+                                : "#2f3136", // 리스트 배경색
                               // color: "red",
                               padding: 4,
                               width: 200,
@@ -143,17 +144,17 @@ function MapMarkerList (){
                                           margin: "0 0 8px 0",
                                           minHeight: "40px",
                                           backgroundColor: snapshot.isDragging
-                                            ? "#5865f2"  // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
+                                            ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
                                             : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
                                           color: snapshot.isDragging
-                                            ? "#e2e3e4"  // 리스트 드래그 했을때 글자색 // e2e3e4
+                                            ? "#e2e3e4" // 리스트 드래그 했을때 글자색 // e2e3e4
                                             : "#e2e3e4", // 리스트 글자 색
                                           borderRadius: 10,
                                           marginTop: 5,
                                           marginLeft: 5,
                                           paddingTop: 5,
                                           paddingLeft: 10,
-                                          ...provided.draggableProps.style
+                                          ...provided.draggableProps.style,
                                         }}
                                       >
                                         {item.content}
@@ -176,7 +177,7 @@ function MapMarkerList (){
         </DragDropContext>
       </div>
     </div>
-  )
+  );
 }
 
-export default MapMarkerList
+export default MapMarkerList;
