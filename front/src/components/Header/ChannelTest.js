@@ -61,7 +61,7 @@ export default function ChannelTest() {
     <>
       <ul className="header_items">
         {channelList.map((channel) => (
-          <li key={channel.channelId}>
+          <li key={channel.channelId} className='header_items_2 headerSetting'>
             <Link
               to={`/serverpage/${channel.channelId}`}
               onClick={() => enterChannel(channel.channelId)}
