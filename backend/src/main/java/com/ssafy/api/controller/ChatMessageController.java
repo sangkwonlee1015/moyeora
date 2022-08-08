@@ -33,6 +33,10 @@ public class ChatMessageController {
     }
 
     @MessageMapping("/private-message")
+<<<<<<< HEAD
+    public void receivePrivateMessage(@Payload ChatMessage message) {
+        chatService.sendMessagePrivate(message);
+=======
     public void receivePrivateMessage(@ApiIgnore Authentication authentication, @Payload ChatMessage message) {
         // 로그인 구현 후 테스트
 //        if (authentication == null) {
@@ -62,6 +66,7 @@ public class ChatMessageController {
                 break;
 
         }
+>>>>>>> origin/front_css
     }
 
 }

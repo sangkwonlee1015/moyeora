@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,13 +13,12 @@ function MapArea() {
 
   const dispatch = useDispatch();
 
-  const commentChange = (index, event) => {
-    console.log(event.target.value);
+  const commentChange = (index, e) => {
     if (stomp) {
       let chatMessage = {
         receiver: 2, // 채널 seq로 변경 예정
         pinSeq: pins.at(index).seq,
-        pinContent: event.target.value,
+        pinContent: e.target.value,
         pinColor: "test",
         status: "MODPIN",
       };
@@ -78,16 +77,28 @@ function MapArea() {
             }}
           >
             {marker.isVisible && (
-              // <div>
+              <div>
                 <TextareaAutosize
                   aria-label="minimum height"
                   minRows={3}
                   placeholder=""
                   style={{ width: 200 }}
-                  onChange={(e) => commentChange(index, e)}
-                  value={marker.comment}
-                />
-              // </div>
+                  onKeyDown={(e) => {
+                    if (e.nativeEvent.isComposing) {
+                      return;
+                    }
+                    if (e.key === "Enter" && e.shiftKey) {
+                      console.log("shift + enter");
+                      return;
+                    } else if (e.key === "Enter") {
+                      commentChange(index, e);
+                      e.preventDefault();
+                    }
+                  }}
+                  // value={marker.comment}
+                  defaultValue={marker.comment}
+                ></TextareaAutosize>
+              </div>
             )}
           </MapMarker>
         ))}

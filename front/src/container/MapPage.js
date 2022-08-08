@@ -5,12 +5,14 @@ import MapMarkerList from "../components/MapMarkerList"
 
 function MapPage(){
     return (
-        <div className="comp mappage">
-            <Header/>
-            <Sidebar/>
+      <div className="comp mappage">
+          <Header/>
+          <Sidebar/>
+          <div className="comp">
             <MapArea/>
             <MapMarkerList/>
-        </div>
+          </div>
+      </div>
     )
 }
 
