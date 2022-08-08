@@ -4,7 +4,6 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuid } from 'uuid';
 
 import "./MapMarkerList.css"
-import { red } from "@mui/material/colors";
 
 
 const itemsFromBackend = [
@@ -94,12 +93,9 @@ function MapMarkerList (){
               return (
                 <div
                   style={{
-                    backgroundColor: "#202225",  // 리스트 박스 글자색
-                    color: "#e2e3e4",        // 리스트 박스(최종선택, 후보) 글자색
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    height: 420
+                    alignItems: "center"
                   }}
                   key={columnId}
                 >
@@ -109,19 +105,17 @@ function MapMarkerList (){
                       {(provided, snapshot) => {
                         return (
                           <div
-                            className="mapMarkerSelect"
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                             style={{
                               background: snapshot.isDraggingOver
-                                ? "lightblue"  // 리스트 드래그 했을때 배경 색
-                                : "#2f3136",  // 리스트 배경색
-                              // color: "red",
+                                ? "lightblue"
+                                : "lightgrey",
                               padding: 4,
                               width: 200,
                               minHeight: 200,
-                              maxHeight: 400,
-                              overflow: "auto",
+                              maxHeight: 330,
+                              overflow: "scroll",
                             }}
                           >
                             {column.items.map((item, index) => {
@@ -141,18 +135,11 @@ function MapMarkerList (){
                                           userSelect: "none",
                                           // padding: 16,
                                           margin: "0 0 8px 0",
-                                          minHeight: "40px",
+                                          minHeight: "50px",
                                           backgroundColor: snapshot.isDragging
-                                            ? "#5865f2"  // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
-                                            : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
-                                          color: snapshot.isDragging
-                                            ? "#e2e3e4"  // 리스트 드래그 했을때 글자색 // e2e3e4
-                                            : "#e2e3e4", // 리스트 글자 색
-                                          borderRadius: 10,
-                                          marginTop: 5,
-                                          marginLeft: 5,
-                                          paddingTop: 5,
-                                          paddingLeft: 10,
+                                            ? "#263B4A"
+                                            : "#456C86",
+                                          color: "white",
                                           ...provided.draggableProps.style
                                         }}
                                       >
