@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import "./Sidebar.css"
+import "./Sidebar.css";
 
-function Map(){
-  return(
-    <div><Link to="/mappage">Map</Link></div>
-  )
+function Map(props) {
+  return (
+    <div>
+      <Link to={`/mappage/${props.channelSeq}`}>Map</Link>
+    </div>
+  );
 }
 
-export default Map
+export default Map;

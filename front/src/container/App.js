@@ -36,14 +36,14 @@ function App() {
               )
             }
           />
-            <Route path="/homepage" element={<Homepage />} />
-            <Route path="/serverpage/:serverid" element={<ChannelHomePage />} />
-            <Route path="/addchannelpage" element={<AddChannelPage />} />
-            <Route path="/articlepage" element={<ArticlePage />} />
-            <Route path="/mypagesettingpage" element={<MypageSetingPage />} />
-            <Route path="/chattingpage" element={<ChattingPage />} />
-            <Route path="/mappage" element={<MapPage />} />
-            <Route path="/ovpage" element={<OvPage />} />
+          <Route path="/homepage" element={<Homepage />} />
+          <Route path="/serverpage/:serverid" element={<ChannelHomePage />} />
+          <Route path="/addchannelpage" element={<AddChannelPage />} />
+          <Route path="/articlepage" element={<ArticlePage />} />
+          <Route path="/mypagesettingpage" element={<MypageSetingPage />} />
+          <Route path="/chattingpage" element={<ChattingPage />} />
+          <Route path="/mappage/:channelSeq" element={<MapPage />} />
+          <Route path="/ovpage" element={<OvPage />} />
         </Routes>
       </BrowserRouter>
     </div>

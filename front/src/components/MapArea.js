@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
-function MapArea() {
+function MapArea(props) {
   const store = useSelector((state) => state);
   const stomp = store.ChannelList.stomp;
   const pins = store.PinList.pinList;
@@ -45,9 +45,10 @@ function MapArea() {
         level={5} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) => {
           console.log("pins", pins);
+          console.log(props.channelSeq);
           if (stomp) {
             let chatMessage = {
-              receiver: 2, // 채널 seq로 변경 예정
+              receiver: props.channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
               pinContent: "",

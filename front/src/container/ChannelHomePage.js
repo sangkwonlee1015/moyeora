@@ -1,16 +1,16 @@
-import Header from "../components/Header/Header"
-import Sidebar from "../components/Sidebar/Sidebar"
-import ChannelHome from "../components/ChannelHome"
+import Header from "../components/Header/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
+import ChannelHome from "../components/ChannelHome";
+import { useParams } from "react-router-dom";
 
-function ChannelHomePage(){
-
-    return (
-        <div className="comp">
-            <Header/>
-            <Sidebar/>
-            <ChannelHome/>
-        </div>
-    )
+function ChannelHomePage() {
+  return (
+    <div className="comp">
+      <Header />
+      <Sidebar channelSeq={useParams().serverid} />
+      <ChannelHome />
+    </div>
+  );
 }
 
-export default ChannelHomePage
+export default ChannelHomePage;

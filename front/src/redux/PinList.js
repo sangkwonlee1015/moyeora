@@ -6,8 +6,8 @@ export const tokenSlice = createSlice({
     pinList: [],
   },
   reducers: {
-    SET_PINLIST: (state, action)=>{
-      state.mapList = action.payload;
+    SET_PINLIST: (state, action) => {
+      state.pinList = action.payload;
     },
   },
 });

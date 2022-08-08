@@ -76,6 +76,7 @@ export default function ChannelTest() {
                 isVisible: false,
               },
             ];
+            console.log(pins);
             dispatch(SET_PINLIST(pins));
             break;
           case "MODPIN":
