@@ -4,6 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuid } from 'uuid';
 
 import "./MapMarkerList.css"
+import { red } from "@mui/material/colors";
 
 
 const itemsFromBackend = [
@@ -93,6 +94,8 @@ function MapMarkerList (){
               return (
                 <div
                   style={{
+                    backgroundColor: "#202225",  // 리스트 박스 글자색
+                    color: "#e2e3e4",        // 리스트 박스(최종선택, 후보) 글자색
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center"
@@ -109,13 +112,14 @@ function MapMarkerList (){
                             ref={provided.innerRef}
                             style={{
                               background: snapshot.isDraggingOver
-                                ? "lightblue"
-                                : "lightgrey",
+                                ? "lightblue"  // 리스트 드래그 했을때 배경 색
+                                : "#2f3136",  // 리스트 배경색
+                              // color: "red",
                               padding: 4,
                               width: 200,
                               minHeight: 200,
-                              maxHeight: 330,
-                              overflow: "scroll",
+                              maxHeight: 400,
+                              overflow: "auto",
                             }}
                           >
                             {column.items.map((item, index) => {
@@ -137,9 +141,16 @@ function MapMarkerList (){
                                           margin: "0 0 8px 0",
                                           minHeight: "50px",
                                           backgroundColor: snapshot.isDragging
-                                            ? "#263B4A"
-                                            : "#456C86",
-                                          color: "white",
+                                            ? "#5865f2"  // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
+                                            : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
+                                          color: snapshot.isDragging
+                                            ? "#e2e3e4"  // 리스트 드래그 했을때 글자색 // e2e3e4
+                                            : "#e2e3e4", // 리스트 글자 색
+                                          borderRadius: 10,
+                                          marginTop: 5,
+                                          marginLeft: 5,
+                                          paddingTop: 5,
+                                          paddingLeft: 10,
                                           ...provided.draggableProps.style
                                         }}
                                       >
