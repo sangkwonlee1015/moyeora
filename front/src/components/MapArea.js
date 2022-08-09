@@ -1,8 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useSelector, useDispatch } from "react-redux";
+// import SockJs from "sockjs-client";
+// import StompJs from "stompjs";
 
-function MapArea() {
-  const [markers, setMarkers] = useState([]);
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+
+import Editor from "./EditorComponent";
+import { CLICK_PIN, SET_PIN } from "../redux/PinList";
+
+function MapArea({ channelSeq, stomp }) {
+  const pins = useSelector((state) => state.PinList.pinList);
+  // const sock = new SockJs("http://localhost:8080/ws");
+  // const stomp = StompJs.over(sock);
+  // const [testValue, setTestValue] = useState("");
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   stomp.connect({}, (e) => {});
+  // }, []);
+
+  const commentChange = (index, e) => {
+    console.log(e);
+    if (stomp) {
+      let chatMessage = {
+        receiver: channelSeq,
+        pinSeq: pins.at(index).seq,
+        pinContent: e.getHTML(),
+        // pinContent: e,
+        pinColor: "test",
+        status: "MODPIN",
+      };
+      stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
+    }
+  };
+
   return (
     <div
       style={{
@@ -21,25 +54,53 @@ function MapArea() {
         }}
         level={5} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) => {
-          setMarkers([
-            ...markers,
-            {
+          console.log("pins", pins);
+          if (stomp) {
+            let chatMessage = {
+              receiver: channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              comment: "test",
-            },
-          ]);
-          console.log(markers);
+              pinContent: "",
+              pinColor: "test",
+              status: "ADDPIN",
+            };
+            stomp.send(
+              "/app/private-message",
+              null,
+              JSON.stringify(chatMessage)
+            );
+          }
         }}
       >
-        {markers.map((marker, index) => (
+        {pins.map((marker, index) => (
           <MapMarker
             key={`${index}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            title={`${index}`}
-            onClick={() => {}}
+            position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+            onClick={() => {
+              dispatch(CLICK_PIN({ pinSeq: marker.seq }));
+            }}
           >
-            {<div>{marker.comment}</div>}
+            {marker.isVisible && (
+              <div>
+                <Editor
+                  value={marker.comment}
+                  onChange={commentChange}
+                  index={index}
+                />
+                {/* <TextareaAutosize
+                  aria-label="minimum height"
+                  minRows={3}
+                  placeholder=""
+                  style={{ width: 200 }}
+                  onInput={(e) => {
+                    console.log(e.target.value);
+                    commentChange(index, e.target.value);
+                  }}
+                  // value={marker.comment}
+                  defaultValue={marker.comment}
+                ></TextareaAutosize> */}
+              </div>
+            )}
           </MapMarker>
         ))}
       </Map>
