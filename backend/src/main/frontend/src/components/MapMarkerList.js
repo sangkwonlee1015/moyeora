@@ -49,24 +49,68 @@ function MapMarkerList() {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const [columns, setColumns] = useState(columnsFromBackend);
-  let items = [
+  let itemsCandi = [            // 다 지우고 빈 리스트로 만들기
     { id: uuid(), content: "First task" },
     { id: uuid(), content: "Second task" },
-    { id: uuid(), content: "Third task" },
+  ];
+  let itemsFinal = [
   ];
 
-  useEffect(() => {
+
+  pins.map((pin) => {           // store에서 pin 가져와서 초기 세팅해주기
+    let item = { 
+      id: uuid(),
+      content: pin.pinContent,  // title로 바꾸기
+      pinSeq: pin.pinSeq,
+      pinOrder: pin.pinOrder,   // pin index
+      pinFlag: pin.pinFlag,     // 최종선택: 1 or 후보: 0
+    }
+    if (item.pinOrder === 1) {
+      itemsFinal.push(item)
+    } else {itemsCandi.push(item)}
+  })
+
+
+  itemsCandi.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+    if (a.pinOrder > b.pinOrder) {
+      return 1;
+    }
+    if (a.pinOrder < b.pinOrder) {
+      return -1;
+    }
+    // a must be equal to b
+    return 0;
+  });
+
+  itemsFinal.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+    if (a.pinOrder > b.pinOrder) {
+      return 1;
+    }
+    if (a.pinOrder < b.pinOrder) {
+      return -1;
+    }
+    // a must be equal to b
+    return 0;
+  });
+  
+  const itemsFinalId = uuid()         // id 변수에 저장
+  const itemsCandiId = uuid()
+
+  useEffect(() => {                   // 초기 세팅하고
     setColumns({
-      [uuid()]: {
+      [itemsFinalId]: {
         name: "최종선택",
-        items: [],
+        items: itemsFinal,
       },
-      [uuid()]: {
+      [itemsCandiId]: {
         name: "후보",
-        items: items,
+        items: itemsCandi,
       },
     });
-  }, []);
+  }, [pins]);                         // pins 정보 바뀌면 rerender
+
+  // pin 안에 index, order 정보 넣어주기
+
   return (
     <div className="mapmarkerlist">
       <div

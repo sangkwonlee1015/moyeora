@@ -30,7 +30,7 @@ function MapArea({ channelSeq, stomp }) {
         pinContent: e.getHTML(),
         // pinContent: e,
         pinColor: "test",
-        status: "MODPIN",
+        status: "MODPIN",                 // pin 정보 추가하기 (order, flag, title 추가해주기)
       };
       stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
     }
