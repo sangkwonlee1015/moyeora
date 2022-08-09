@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
@@ -6,39 +6,7 @@ import { v4 as uuid } from "uuid";
 import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
 
-const itemsFromBackend = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-
-  // { id: pins.id, content: pins.content}
-];
-
-const columnsFromBackend = {
-  [uuid()]: {
-    name: "최종선택",
-    items: [],
-  },
-  [uuid()]: {
-    name: "후보",
-    items: itemsFromBackend,
-  },
-  // [uuid()]: {
-  //   name: "In Progress",
-  //   items: []
-  // },
-};
+const columnsFromBackend = {};
 
 const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
@@ -81,7 +49,24 @@ function MapMarkerList() {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const [columns, setColumns] = useState(columnsFromBackend);
+  let items = [
+    { id: uuid(), content: "First task" },
+    { id: uuid(), content: "Second task" },
+    { id: uuid(), content: "Third task" },
+  ];
 
+  useEffect(() => {
+    setColumns({
+      [uuid()]: {
+        name: "최종선택",
+        items: [],
+      },
+      [uuid()]: {
+        name: "후보",
+        items: items,
+      },
+    });
+  }, []);
   return (
     <div className="mapmarkerlist">
       <div
@@ -90,7 +75,7 @@ function MapMarkerList() {
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
         >
-          <div className="hi">
+          <div className="hi" style={{backgroundColor: "#202225"}}>
             {Object.entries(columns).map(([columnId, column], index) => {
               return (
                 <div
@@ -100,7 +85,7 @@ function MapMarkerList() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: 420,
+                    height: 470,
                   }}
                   key={columnId}
                 >
@@ -115,13 +100,13 @@ function MapMarkerList() {
                             ref={provided.innerRef}
                             style={{
                               background: snapshot.isDraggingOver
-                                ? "lightblue" // 리스트 드래그 했을때 배경 색
-                                : "#2f3136", // 리스트 배경색
+                                ? "#2f3136" // 리스트 드래그 했을때 배경 색
+                                : "#202225", // 리스트 배경색
                               // color: "red",
                               padding: 4,
                               width: 200,
-                              minHeight: 200,
-                              maxHeight: 400,
+                              minHeight: 360,
+                              maxHeight: 360,
                               overflow: "auto",
                             }}
                           >
