@@ -6,7 +6,7 @@ import { getParticipantListByUser } from "../../api/participant";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { SET_PINLIST } from "../../redux/PinList";
+import { ADD_PIN, SET_PIN, SET_PINLIST } from "../../redux/PinList";
 import { SET_STOMP } from "../../redux/ChannelList";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
@@ -16,7 +16,7 @@ export default function ChannelTest() {
   const dispatch = useDispatch();
   const [channelList, setChannelList] = useState([]);
   const token = useSelector((state) => state.UserInfo.accessToken);
-  const store = useSelector((state) => state);
+  const pins = useSelector((state) => state.PinList.pinList);
 
   useEffect(() => {
     let list = [];
@@ -49,50 +49,61 @@ export default function ChannelTest() {
     );
   }, []);
 
-  const enterChannel = (id) => {
+  console.log("pins : ", pins);
+
+  function enterChannel(id) {
     console.log(id);
     const sock = new SockJs("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
-    dispatch(SET_STOMP(stomp));
-    console.log("stomp : ", stomp);
+    // dispatch(SET_STOMP(stomp));
+    // console.log("stomp : ", stomp);
 
-    let pins = store.PinList.pinList;
-    console.log("pins : ", pins);
-
+    console.log("pins 1 : ", pins);
     stomp.connect({}, (e) => {
+      console.log("pins 2 : ", pins);
       stomp.subscribe("/user/" + id + "/private", (data) => {
+        console.log("pins 3 : ", pins);
         const message = JSON.parse(data.body);
         switch (message.status) {
           case "ADDPIN":
-            pins = [
-              ...pins,
-              {
-                seq: message.pinSeq,
-                lat: Number(message.lat),
-                lng: Number(message.lng),
-                color: message.pinColor,
-                comment: message.pinContent,
-                isVisible: false,
-              },
-            ];
-            console.log(pins);
-            dispatch(SET_PINLIST(pins));
+            const newPins = {
+              seq: message.pinSeq,
+              lat: Number(message.lat),
+              lng: Number(message.lng),
+              color: message.pinColor,
+              comment: message.pinContent,
+              isVisible: false,
+            };
+            console.log("newPins : ", newPins);
+            dispatch(ADD_PIN(newPins));
+            console.log("pins 4 : ", pins);
             break;
           case "MODPIN":
-            pins.map((pin) => {
-              if (pin.seq == message.pinSeq) {
-                pin.color = message.pinColor;
-                pin.comment = message.pinContent;
-              }
-            });
-            dispatch(SET_PINLIST(pins));
+            dispatch(
+              SET_PIN({
+                pinSeq: message.pinSeq,
+                pinColor: message.pinColor,
+                pinContent: message.pinContent,
+              })
+            );
+            // pins.map((pin, index) => {
+            //   console.log("pin : ", pin);
+            //   if (pin.seq == message.pinSeq) {
+            //     console.log("pin : ", pin);
+            //     let newPin = { ...pin };
+            //     newPin.color = message.pinColor;
+            //     newPin.comment = message.pinContent;
+            //     dispatch(SET_PIN({ index: index, newPin: newPin }));
+            //   }
+            // });
+            console.log(pins);
             break;
           default:
         }
       });
     });
-  };
+  }
 
   return (
     <>
