@@ -192,52 +192,50 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
-def webappDir = "$projectDir/src/main/frontend"
+def frontendDir = "$projectDir/src/main/frontend"
+
 sourceSets {
     main {
         resources {
-            srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+            srcDirs = ["$projectDir/src/main/resources"]
         }
     }
 }
-processResources {
-    dependsOn "buildReact"
-}
-task buildReact(type: Exec) {
-    dependsOn "installReact"
-    workingDir "$webappDir"
-    inputs.dir "$webappDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows'))
-    {
-        commandLine "npm.cmd", "run-script", "build"
-    }
-    else {
-        commandLine "npm", "run-script", "build"
-    }
-}
+
 task installReact(type: Exec) {
-    workingDir "$webappDir"
-    inputs.dir "$webappDir"
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
     group = BasePlugin.BUILD_GROUP
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
         commandLine "npm.cmd", "audit", "fix"
-        commandLine 'npm.cmd', 'install'}
-    else {
+        commandLine 'npm.cmd', 'install'
+    } else {
         commandLine "npm", "audit", "fix"
         commandLine 'npm', 'install'
     }
 }
 
-test {
-    useJUnitPlatform()
+task buildReact(type: Exec) {
+    dependsOn "installReact"
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine "npm.cmd", "run-script", "build"
+    } else {
+        commandLine "npm", "run-script", "build"
+    }
 }
 
-jar {
-    manifest{
-        attributes 'Main-Class': 'com.ssafy.GroupCallApplication'
-    }
+task copyReactBuildFiles(type: Copy) {
+    dependsOn "buildReact"
+    from "$frontendDir/build"
+    into "$buildDir/resources/main/static"
+}
+
+tasks.bootJar {
+    dependsOn "copyReactBuildFiles"
 }
