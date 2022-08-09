@@ -35,7 +35,14 @@ export const pinListSlice = createSlice({
         }
       });
     },
-  },
+    DELETE_PIN: (state, action) => {
+      state.pinList.map((pin, idx) => {
+        if (pin.seq === action.payload.pinSeq) {
+          state.pinList.splice(idx, 1)
+        }
+      });
+      }
+    },
 });
 
 export const { SET_PINLIST, ADD_PIN, SET_PIN, CLICK_PIN } =
