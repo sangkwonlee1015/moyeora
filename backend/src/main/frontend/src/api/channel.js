@@ -31,8 +31,11 @@ function deleteChannel(channelSeq, token, success, error) {
     .catch(error);
 }
 
-function getChannelInfo(channelSeq, success, error) {
-  instance.get(`/channel/${channelSeq}`, {}).then(success).catch(error);
+function getChannelInfo(channelSeq, token, success, error) {
+  instance
+    .get(`/channel/${channelSeq}`, { headers: createHeaders(token) })
+    .then(success)
+    .catch(error);
 }
 
 export {
