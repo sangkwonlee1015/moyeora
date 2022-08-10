@@ -1,7 +1,7 @@
 import * as React from 'react';
-import './Header.css'
-import {Link} from 'react-router-dom'
-
+import './Header.css';
+import {Link} from 'react-router-dom';
+import { useState } from 'react';
 // react-icon
 import { FaHome, FaPlus, FaSearch, FaCog } from "react-icons/fa";
 // mui
@@ -11,10 +11,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
 import ChannelTest from './ChannelTest'
+import { Checkbox } from '@mui/material';
+
+// redux
+import { useSelector } from "react-redux";
+
+
+import { registerChannel } from "../../api/channel";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -25,9 +34,38 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+
+
+
+
 export default function Header(){
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
+
+  const [channelName, setChannelName] = React.useState("");
+  const [channelDesc, setChannelDesc] = React.useState("");
+  const [channelTag, setChannelTag] = React.useState("");
+  const [channelPassword, setChannelPassword] = React.useState("");
+
+  const token = useSelector((state) => state.UserInfo.accessToken);
+
+
+  const onChannelName = (event) => { 
+    setChannelName(event.target.value)
+  }
+  const onChannelDesc = (event) => { 
+    setChannelDesc(event.target.value)
+  }
+  const onChannelTag = (event) => { 
+    setChannelTag(event.target.value)
+  }
+  const onChannelPassword = (event) => { 
+    setChannelPassword(event.target.value)
+  }
+
+  const onSecret = () => setChecked((current) => !current);
 
   const handleClickOpenUser = () => {
     setOpenUser(true);
@@ -44,6 +82,30 @@ export default function Header(){
   const handleClose = () => {
     setOpen(false);
   };
+
+  const createChannel = () => {
+    const channelInfo = {
+      channelName,
+      channelDesc,
+      channelTag,
+      channelPassword,
+    }
+  
+    console.log(channelInfo)
+
+    const success = () => {
+      console.log("성공")
+      handleClose()
+      // part
+    }
+
+    const error = () => {
+      console.log("실패")
+      handleClose()
+    }
+
+    registerChannel(channelInfo, token, success, error)
+  }
     return (
         // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
         <div className="container">
@@ -64,20 +126,36 @@ export default function Header(){
               keepMounted
               onClose={handleCloseUser}
               aria-describedby="alert-dialog-slide-description"
+              className='dialog'
             >
-              <DialogTitle>{"사용자 설정"}</DialogTitle>
-              <DialogContent>
+              <DialogTitle className="dialogtext">{"사용자 설정"}</DialogTitle>
+              <DialogContent className="dialogtext">
                 <DialogContentText id="alert-dialog-slide-description">
+                <div className="dialogtext">
                   사용자 설정...<br/>
                   Let Google help apps determine location. This means sending anonymous
                   location data to Google, even when no apps are running.
+                  </div>
                 </DialogContentText>
               </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseUser}>Disagree</Button>
-                <Button onClick={handleCloseUser}>Agree</Button>
+              <DialogActions className="option-cell">
+                <div className="cancel-button" >
+                  <Button onClick={handleCloseUser}>
+                    <div className="cancel-button-text">
+                      Disagree
+                    </div>
+                  </Button>
+                </div>
+                <div className="accept-button" >
+                  <Button onClick={handleCloseUser}>
+                    <div className="accept-button-text">
+                      Agree
+                    </div>
+                  </Button>
+                </div>
               </DialogActions>
             </Dialog>
+
             <Dialog
               open={open}
               TransitionComponent={Transition}
@@ -85,17 +163,38 @@ export default function Header(){
               onClose={handleClose}
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle>{"채널 추가하기"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  채널 추가하기 ...<br/>
-                  Let Google help apps determine location. This means sending anonymous
-                  location data to Google, even when no apps are running.
+              <DialogTitle className="dialog-title">{"채널 추가하기"}</DialogTitle>
+              <DialogContent className="dialog-content">
+                <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
+                    
+                    <label for="channelName" className="input-label">채널명</label><br/>
+                    <Input value={channelName} id="channelName" className="input" onChange={onChannelName}></Input><br/><br/>
+                    <label htmlFor="channelDesc" className="input-label">채널소개</label><br/>
+                    <Input value={channelDesc} id="channelDesc" className="input" onChange={onChannelDesc}></Input><br/><br/>
+                    <label htmlFor="channelTag" className="input-label">Tag</label><br/>
+                    <Input value={channelTag} id="channelTag" className="input" onChange={onChannelTag}></Input><br/><br/>
+                    <label htmlFor="channelSecret" className="input-label">비밀방</label>
+                    <Checkbox id="channelSecret" onClick={onSecret}></Checkbox>
+                    <label htmlFor="channelSecret" className="input-label">비밀번호</label>
+                    <Input value={channelPassword} id="channelPassword" className="input" onChange={onChannelPassword} disabled={checked === false}></Input><br/>
+                    
                 </DialogContentText>
               </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose}>Agree</Button>
+              <DialogActions className="option-cell">
+                <div className="cancel-button">
+                  <Button onClick={handleClose}>
+                    <div className="cancel-button-text">
+                      CANCEL
+                    </div>  
+                  </Button>
+                </div>
+                <div className="accept-button">
+                  <Button onClick={createChannel}>
+                    <div className="accept-button-text">
+                      ACCEPT
+                    </div>
+                  </Button>
+                </div>
               </DialogActions>
             </Dialog>
         </div>

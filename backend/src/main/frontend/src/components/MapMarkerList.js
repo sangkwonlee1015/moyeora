@@ -124,12 +124,12 @@ function MapMarkerList() {
               return (
                 <div
                   style={{
-                    backgroundColor: "#202225", // 리스트 박스 글자색
+                    backgroundColor: "#202225", // 리스트 박스색
                     color: "#e2e3e4", // 리스트 박스(최종선택, 후보) 글자색
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: 470,
+                    height: "auto",  // 420 에서는 리스트 개수에 따라 망가짐
                   }}
                   key={columnId}
                 >
@@ -173,7 +173,7 @@ function MapMarkerList() {
                                           margin: "0 0 8px 0",
                                           minHeight: "40px",
                                           backgroundColor: snapshot.isDragging
-                                            ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
+                                            ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5, black
                                             : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
                                           color: snapshot.isDragging
                                             ? "#e2e3e4" // 리스트 드래그 했을때 글자색 // e2e3e4
