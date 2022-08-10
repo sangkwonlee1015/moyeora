@@ -53,10 +53,18 @@
   border-radius: 30%;
 }
 
+/* 채널목록 후버 */
+.headerSetting2 a:hover{
+  background: #5865f2;
+  border-radius: 30%;
+}
+
 /* 채널추가하기 채널살펴보기 사용자설정 후버 색깔*/
 .headerSetting a:hover svg{
+  color: #e2e3e4;
   /* color: white; */
 }
+
 
 /* 홈 아이콘 위치 */
 .header_items .home_svg{
@@ -95,4 +103,85 @@
 .header_items a:hover .tooltiptext {
   visibility: visible;
   overflow: visible;
+}
+
+
+.dialog{
+}
+
+.dialogtext{
+  color: #dcddde; 
+  background-color: #2f3136;
+}
+
+.dialog-title{
+  color: #dcddde; 
+  background-color: #2f3136;
+}
+.dialog-content{
+  color: #dcddde; 
+  background-color: #2f3136;
+  padding-top: 20px;
+  /* margin-top: 10px; */
+}
+
+/* .dialog-content-text{
+  color: #dcddde; 
+  padding-top: 200px;
+
+  
+
+} */
+
+
+.option-cell{
+  background-color: #2f3136;
+}
+.cancel-button{
+  background-color: #4f545c;
+  width: 288px;
+  height: 60px;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+}
+.accept-button{
+  background-color: #5865f2;
+  width: 288px;
+  height: 60px;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+}
+.cancel-button-text{
+  color: #dcddde;
+  font-size: 13pt;
+  margin: 0 90px;
+}
+.accept-button-text{
+  color: #dcddde;
+  font-size: 13pt;
+  margin: 0 90px;
+}
+
+.input {
+  color: #dcddde;
+  width: max-content;
+  /* background-color: green */
+}
+/* #42464d; */
+
+.input :focus{
+  color: #dcddde;
+  background-color: #42464d;
+}
+/* #42464d; */
+
+.input-label{
+  color: #dcddde;
+}
+.input-label :focus{
+  /* color: "warning"; */
 }
