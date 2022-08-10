@@ -4,10 +4,6 @@ export const tokenSlice = createSlice({
   name: "channelList",
   initialState: {
     channelList: [
-      {
-        channelId: 1,
-        channelName: "ch1",
-      },
     ],
     stomp: null,
   },

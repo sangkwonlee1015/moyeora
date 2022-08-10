@@ -47,6 +47,8 @@ public class ParticipantController {
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "unauthenticated"));
 
         Channel channel = channelService.findByChannelSeq(registerInfo.getChannelSeq());
+        System.out.println("/////=============" + channel.toString());
+        System.out.println("////////////////////" + registerInfo.toString());
         if (channel.getChannelPassword() != null && !registerInfo.getChannelPassword().equals(channel.getChannelPassword()))
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "비밀번호가 일치하지 않습니다."));
 

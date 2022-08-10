@@ -21,9 +21,13 @@ import { Checkbox } from '@mui/material';
 
 // redux
 import { useSelector } from "react-redux";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
+import { useDispatch } from "react-redux";
 
-
+import { getParticipantListByUser } from "../../api/participant";
 import { registerChannel } from "../../api/channel";
+import { getChannelInfo } from "../../api/channel";
+import { registerParticipant } from "../../api/participant"
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -48,6 +52,8 @@ export default function Header(){
   const [channelDesc, setChannelDesc] = React.useState("");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
+
+  const dispatch = useDispatch();
 
   const token = useSelector((state) => state.UserInfo.accessToken);
 
@@ -91,20 +97,59 @@ export default function Header(){
       channelPassword,
     }
   
-    console.log(channelInfo)
+    const success = (res) => {
+      console.log(res.data.channelSeq)
 
-    const success = () => {
+      const channelSeq = res.data.channelSeq
+      // const channelPassword = res.data.channelPassword
+      const participantInfo = {
+        channelPassword: channelPassword,
+        channelSeq,
+      }
+      console.log(participantInfo)
+      registerParticipant(participantInfo, token, success, error)
       console.log("성공")
+      console.log("여기서 성고!!!!")
       handleClose()
       // part
     }
 
     const error = () => {
       console.log("실패")
+      console.log("여기서 실패")
       handleClose()
     }
 
-    registerChannel(channelInfo, token, success, error)
+    registerChannel(channelInfo, token, success, error)   // 채널 만들고,
+
+    let list = [];
+    getParticipantListByUser(
+      token,
+      (response) => {
+        response.data.list.map((participant) => {
+          getChannelInfo(
+            participant.participantsId.channelSeq,
+            token,
+            ({ data }) => {
+              let channel = {
+                channelSeq: participant.participantsId.channelSeq,
+                channelDesc: data.channelDesc,
+                channelName: data.channelName,
+                channelTag: data.channelTag,
+              };
+              list = list.concat(channel);
+              dispatch(SET_CHANNELLIST(list));
+            },
+            (error) => {
+              console.log("error", error);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
     return (
         // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
