@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
@@ -6,39 +6,7 @@ import { v4 as uuid } from "uuid";
 import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
 
-const itemsFromBackend = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-  { id: uuid(), content: "Fifth task" },
-
-  // { id: pins.id, content: pins.content}
-];
-
-const columnsFromBackend = {
-  [uuid()]: {
-    name: "최종선택",
-    items: [],
-  },
-  [uuid()]: {
-    name: "후보",
-    items: itemsFromBackend,
-  },
-  // [uuid()]: {
-  //   name: "In Progress",
-  //   items: []
-  // },
-};
+const columnsFromBackend = {};
 
 const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
@@ -81,6 +49,67 @@ function MapMarkerList() {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const [columns, setColumns] = useState(columnsFromBackend);
+  let itemsCandi = [            // 다 지우고 빈 리스트로 만들기
+    { id: uuid(), content: "First task" },
+    { id: uuid(), content: "Second task" },
+  ];
+  let itemsFinal = [
+  ];
+
+
+  pins.map((pin) => {           // store에서 pin 가져와서 초기 세팅해주기
+    let item = { 
+      id: uuid(),
+      content: pin.pinContent,  // title로 바꾸기
+      pinSeq: pin.pinSeq,
+      pinOrder: pin.pinOrder,   // pin index
+      pinFlag: pin.pinFlag,     // 최종선택: 1 or 후보: 0
+    }
+    if (item.pinOrder === 1) {
+      itemsFinal.push(item)
+    } else {itemsCandi.push(item)}
+  })
+
+
+  itemsCandi.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+    if (a.pinOrder > b.pinOrder) {
+      return 1;
+    }
+    if (a.pinOrder < b.pinOrder) {
+      return -1;
+    }
+    // a must be equal to b
+    return 0;
+  });
+
+  itemsFinal.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+    if (a.pinOrder > b.pinOrder) {
+      return 1;
+    }
+    if (a.pinOrder < b.pinOrder) {
+      return -1;
+    }
+    // a must be equal to b
+    return 0;
+  });
+  
+  const itemsFinalId = uuid()         // id 변수에 저장
+  const itemsCandiId = uuid()
+
+  useEffect(() => {                   // 초기 세팅하고
+    setColumns({
+      [itemsFinalId]: {
+        name: "최종선택",
+        items: itemsFinal,
+      },
+      [itemsCandiId]: {
+        name: "후보",
+        items: itemsCandi,
+      },
+    });
+  }, [pins]);                         // pins 정보 바뀌면 rerender
+
+  // pin 안에 index, order 정보 넣어주기
 
   return (
     <div className="mapmarkerlist">
@@ -90,17 +119,17 @@ function MapMarkerList() {
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
         >
-          <div className="hi">
+          <div className="hi" style={{backgroundColor: "#202225"}}>
             {Object.entries(columns).map(([columnId, column], index) => {
               return (
                 <div
                   style={{
-                    backgroundColor: "#202225", // 리스트 박스 글자색
+                    backgroundColor: "#202225", // 리스트 박스색
                     color: "#e2e3e4", // 리스트 박스(최종선택, 후보) 글자색
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: 420,
+                    height: "auto",  // 420 에서는 리스트 개수에 따라 망가짐
                   }}
                   key={columnId}
                 >
@@ -115,13 +144,13 @@ function MapMarkerList() {
                             ref={provided.innerRef}
                             style={{
                               background: snapshot.isDraggingOver
-                                ? "lightblue" // 리스트 드래그 했을때 배경 색
-                                : "#2f3136", // 리스트 배경색
+                                ? "#2f3136" // 리스트 드래그 했을때 배경 색
+                                : "#202225", // 리스트 배경색
                               // color: "red",
                               padding: 4,
                               width: 200,
-                              minHeight: 200,
-                              maxHeight: 400,
+                              minHeight: 360,
+                              maxHeight: 360,
                               overflow: "auto",
                             }}
                           >
@@ -144,7 +173,7 @@ function MapMarkerList() {
                                           margin: "0 0 8px 0",
                                           minHeight: "40px",
                                           backgroundColor: snapshot.isDragging
-                                            ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5
+                                            ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5, black
                                             : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
                                           color: snapshot.isDragging
                                             ? "#e2e3e4" // 리스트 드래그 했을때 글자색 // e2e3e4
