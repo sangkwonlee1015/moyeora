@@ -87,6 +87,10 @@ export default function Header(){
 
   const handleClose = () => {
     setOpen(false);
+    setChannelName("");
+    setChannelDesc("");
+    setChannelTag("");
+    setChannelPassword("");
   };
 
   const createChannel = () => {
@@ -109,14 +113,12 @@ export default function Header(){
       console.log(participantInfo)
       registerParticipant(participantInfo, token, success, error)
       console.log("성공")
-      console.log("여기서 성고!!!!")
       handleClose()
       // part
     }
 
     const error = () => {
       console.log("실패")
-      console.log("여기서 실패")
       handleClose()
     }
 
