@@ -87,7 +87,7 @@ export default function Header(){
 
   const handleClose = () => {
     setOpen(false);
-    setChannelName("");
+    setChannelName("");                     // value 비우기
     setChannelDesc("");
     setChannelTag("");
     setChannelPassword("");
