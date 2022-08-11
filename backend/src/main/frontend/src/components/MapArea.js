@@ -75,9 +75,12 @@ function MapArea({ channelSeq, stomp }) {
         {pins.map((marker, index) => (
           <MapMarker
             key={`${index}`}
-            position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+            position={{
+              lat: Number(marker.pinLat),
+              lng: Number(marker.pinLng),
+            }}
             onClick={() => {
-              dispatch(CLICK_PIN({ pinSeq: marker.seq }));
+              dispatch(CLICK_PIN({ pinSeq: marker.pinSeq }));
             }}
           >
             {marker.isVisible && (
