@@ -26,6 +26,7 @@ export default function ChannelTest() {
         response.data.list.map((participant) => {
           getChannelInfo(
             participant.participantsId.channelSeq,
+            token,
             ({ data }) => {
               let channel = {
                 channelSeq: participant.participantsId.channelSeq,
