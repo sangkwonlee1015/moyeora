@@ -7,6 +7,7 @@ import UserInfo from "./UserInfo";
 
 function Sidebar(props) {
   const mapList = useSelector((state) => state.MapList.mapList);
+
   return (
     <div className="sidebar">
       <Chatting />
@@ -21,7 +22,8 @@ function Sidebar(props) {
         ))}
       </div>
       <Ov />
-      <UserInfo/>
+      <UserInfo
+      channelSeq={props.channelSeq}/>
     </div>
   );
 }
