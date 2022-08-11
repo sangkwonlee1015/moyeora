@@ -18,6 +18,7 @@ function MapPage() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const userInfo = useSelector((state) => state.UserInfo.userInfo);
   const channelSeq = useParams().channelSeq;
+  const mapSeq = useParams().mapSeq;
   const [visibleVideoComponent, setVisibleVideoComponent] = useState(false);
 
   useEffect(() => {

@@ -10,6 +10,8 @@ import { ADD_PIN, SET_PIN, SET_PINLIST } from "../../redux/PinList";
 import { SET_STOMP } from "../../redux/ChannelList";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
+import { getMapList } from "../../api/map";
+import { SET_MAPLIST } from "../../redux/MapList";
 /// setStomp 이거 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 export default function ChannelTest() {
@@ -57,8 +59,17 @@ export default function ChannelTest() {
     const sock = new SockJs("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
-    // dispatch(SET_STOMP(stomp));
-    // console.log("stomp : ", stomp);
+    getMapList(
+      id,
+      "channel",
+      token,
+      (response) => {
+        dispatch(SET_MAPLIST(response.data.mapsList));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     console.log("pins 1 : ", pins);
     stomp.connect({}, (e) => {
@@ -110,7 +121,10 @@ export default function ChannelTest() {
     <>
       <ul className="header_items">
         {channelList.map((channel) => (
-          <li key={channel.channelSeq} className="header_items_2 headerSetting2">
+          <li
+            key={channel.channelSeq}
+            className="header_items_2 headerSetting2"
+          >
             <Link
               to={`/serverpage/${channel.channelSeq}`}
               onClick={() => enterChannel(channel.channelSeq)}

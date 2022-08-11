@@ -15,6 +15,7 @@ public class ChatMessage {
     private String lat;
     //내용
     private String lng;
+    private String pinTitle;
     private String pinContent;
     private String pinColor;
     private String mapSeq;
