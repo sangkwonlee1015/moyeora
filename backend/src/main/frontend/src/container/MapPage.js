@@ -11,8 +11,8 @@ import { getChannelInfo } from "../api/channel";
 import { useSelector } from "react-redux";
 
 function MapPage() {
-  // const sock = new SockJs("http://localhost:8080/ws");
-  const sock = new SockJs("https://i7a407.p.ssafy.io/ws");
+  const sock = new SockJs("http://localhost:8080/ws");
+  // const sock = new SockJs("https://i7a407.p.ssafy.io/ws");
   const stomp = StompJs.over(sock);
   const [channelToken, setChannelToken] = useState("");
   const token = useSelector((state) => state.UserInfo.accessToken);
