@@ -4,7 +4,7 @@
     display: flex;
     overflow: hidden;
 }
-/* .comp > button {
+.comp > button {
   position: absolute;
   cursor: pointer;
   right: 210px;
@@ -20,7 +20,7 @@
   position: absolute;
   right: 0;
   top: 0;
-} */
+}
 .comp-ver{
     width: 100%;
     display: flex;
