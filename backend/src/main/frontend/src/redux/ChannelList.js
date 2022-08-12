@@ -13,7 +13,7 @@ export const tokenSlice = createSlice({
     },
     SET_CHANNELLIST: (state, action) => {
       state.channelList = action.payload;
-    },
+    }
   },
 });
 
