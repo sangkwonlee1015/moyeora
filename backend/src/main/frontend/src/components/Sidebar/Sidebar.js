@@ -3,12 +3,18 @@ import Chatting from "./Chatting";
 import Map from "./Map";
 import Ov from "./OV";
 import "./Sidebar.css";
-import { registerMap } from "../../api/map";
+import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "./UserInfo";
+import { useEffect } from "react";
+import { SET_MAPLIST } from "../../redux/MapList";
+import { useDispatch } from "react-redux";
 
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const mapList = useSelector((state) => state.MapList.mapList);
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
+  const dispatch = useDispatch();
+  
   
   const createMap = () => {
     const mapInfo = {
@@ -18,15 +24,29 @@ function Sidebar(props) {
     registerMap(
       mapInfo,
       token,
-      (response) => (console.log('맵생성 성공')),
-      (error) => (console.log('맵 생성 실패'))
+      (response) => {
+        console.log(response);
+      getMapList(
+        channelSeq,
+        "channel",
+        token,
+        (response) => {
+          dispatch(SET_MAPLIST(response.data.mapsList));
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+      (error) => (console.log(error))
       )
-  }
-
+    }
+    
   return (
     <div className="sidebar">
       <Chatting />
       <div className="mapListItem">MapList
+        <button onClick={createMap}>+</button>
         {mapList.map((map) => (
           <Map
             key={map.mapSeq}
@@ -35,7 +55,6 @@ function Sidebar(props) {
             mapName={map.mapName}
           ></Map>
         ))}
-        <button onClick={createMap}>+</button>
       </div>
       <Ov />
       <UserInfo
