@@ -16,9 +16,10 @@ import { SET_MAPLIST } from "../../redux/MapList";
 
 export default function ChannelTest() {
   const dispatch = useDispatch();
-  const [channelList, setChannelList] = useState([]);
+  // const [channelList, setChannelList] = useState([]);
   const token = useSelector((state) => state.UserInfo.accessToken);
   const pins = useSelector((state) => state.PinList.pinList);
+  const channelList = useSelector((state) => state.ChannelList.channelList);
 
   useEffect(() => {
     let list = [];
@@ -38,7 +39,7 @@ export default function ChannelTest() {
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
-              setChannelList(list);
+              // setChannelList(list);
             },
             (error) => {
               console.log("error", error);
