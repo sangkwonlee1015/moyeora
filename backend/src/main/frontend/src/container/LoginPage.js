@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { registerUser, getUserProfile } from "../api/user";
 import { doLogin } from "../api/auth";
 import { useDispatch } from "react-redux";
-import { SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
+import { SET_LOGIN, SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 
-const LoginPage = ({setLogIn}) => {
+const LoginPage = () => {
   //const navigate= useNavigate();
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ const LoginPage = ({setLogIn}) => {
           (error)=>{
             console.log(error);
           })
-        setLogIn();
+        dispatch(SET_LOGIN());
       },
       (error) => {
         console.log(error);
