@@ -38,7 +38,12 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Header() {
+
+
+
+
+
+export default function Header(){
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -93,53 +98,28 @@ export default function Header() {
       channelDesc,
       channelTag,
       channelPassword,
-    };
-
+    }
+  
     const success = (res) => {
-      const channelSeq = res.data.channelSeq;
+      console.log(res.data.channelSeq)
+
+      const channelSeq = res.data.channelSeq
+      // const channelPassword = res.data.channelPassword
       const participantInfo = {
         channelPassword: channelPassword,
         channelSeq,
-      };
-      registerParticipant(participantInfo, token, success, error);
-      let list = [];
-      getParticipantListByUser(
-        token,
-        (response) => {
-          response.data.list.map((participant) => {
-            getChannelInfo(
-              participant.participantsId.channelSeq,
-              token,
-              ({ data }) => {
-                let channel = {
-                  channelSeq: participant.participantsId.channelSeq,
-                  channelDesc: data.channelDesc,
-                  channelName: data.channelName,
-                  channelTag: data.channelTag,
-                };
-                list = list.concat(channel);
-                dispatch(SET_CHANNELLIST(list));
-                // setChannelList(list);
-              },
-              (error) => {
-                console.log("error", error);
-              }
-            );
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-      console.log("===============성공");
-      handleClose();
+      }
+      console.log(participantInfo)
+      registerParticipant(participantInfo, token, success, error)
+      console.log("성공")
+      handleClose()
       // part
     };
 
     const error = () => {
-      console.log("====================실패");
-      handleClose();
-    };
+      console.log("실패")
+      handleClose()
+    }
 
     registerChannel(channelInfo, token, success, error); // 채널 만들고,
 
@@ -160,7 +140,6 @@ export default function Header() {
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
-              console.log("채널 완성");
             },
             (error) => {
               console.log("error", error);
@@ -172,68 +151,56 @@ export default function Header() {
         console.log(error);
       }
     );
-  };
-  return (
-    // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
-    <div className="container">
-      <div className="header_items">
-        <Link to="/homepage">
-          <FaHome class="home_svg" size="40" color="#e2e3e4" />
-          <span class="tooltiptext">홈</span>
-        </Link>
-      </div>
-      <ChannelTest />
-      <div className="header_items headerSetting">
-        <Link to="" onClick={handleClickOpen}>
-          <FaPlus size="20" />
-          <span class="tooltiptext">채널 추가하기</span>
-        </Link>
-      </div>
-      <div className="header_items headerSetting">
-        <Link to="/addchannelpage">
-          <FaSearch size="20" />
-          <span class="tooltiptext">채널 살펴보기</span>
-        </Link>
-      </div>
-      <div className="header_items headerSetting">
-        <Link to="" onClick={handleClickOpenUser}>
-          <FaCog size="20" />
-          <span class="tooltiptext">사용자 설정</span>
-        </Link>
-      </div>
-
-      <Dialog
-        open={openUser}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleCloseUser}
-        aria-describedby="alert-dialog-slide-description"
-        className="dialog"
-      >
-        <DialogTitle className="dialogtext">{"사용자 설정"}</DialogTitle>
-        <DialogContent className="dialogtext">
-          <DialogContentText id="alert-dialog-slide-description">
-            <div className="dialogtext">
-              사용자 설정...
-              <br />
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </div>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions className="option-cell">
-          <div className="cancel-button">
-            <Button onClick={handleCloseUser}>
-              <div className="cancel-button-text">Disagree</div>
-            </Button>
-          </div>
-          <div className="accept-button">
-            <Button onClick={handleCloseUser}>
-              <div className="accept-button-text">Agree</div>
-            </Button>
-          </div>
-        </DialogActions>
-      </Dialog>
+  }
+    return (
+        // 라우터 설정 home, channel들, 생성,  찾기,마이페이지
+        <div className="container">
+          <div className="header_items">
+            <Link to="/homepage">
+              <FaHome class='home_svg' size="40" color="#e2e3e4"/>
+              <span class="tooltiptext">홈</span>
+            </Link>
+          </div>            
+          <ChannelTest/>
+            <div className="header_items headerSetting"><Link to="" onClick={handleClickOpen}><FaPlus size="20"/><span class="tooltiptext">채널 추가하기</span></Link></div>
+            <div className="header_items headerSetting"><Link to="/addchannelpage"><FaSearch size="20"/><span class="tooltiptext">채널 살펴보기</span></Link></div>
+            <div className="header_items headerSetting"><Link to="" onClick={handleClickOpenUser}><FaCog size="20"/><span class="tooltiptext">사용자 설정</span></Link></div>
+            
+            <Dialog
+              open={openUser}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleCloseUser}
+              aria-describedby="alert-dialog-slide-description"
+              className='dialog'
+            >
+              <DialogTitle className="dialogtext">{"사용자 설정"}</DialogTitle>
+              <DialogContent className="dialogtext">
+                <DialogContentText id="alert-dialog-slide-description">
+                <div className="dialogtext">
+                  사용자 설정...<br/>
+                  Let Google help apps determine location. This means sending anonymous
+                  location data to Google, even when no apps are running.
+                  </div>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions className="option-cell">
+                <div className="cancel-button" >
+                  <Button onClick={handleCloseUser}>
+                    <div className="cancel-button-text">
+                      Disagree
+                    </div>
+                  </Button>
+                </div>
+                <div className="accept-button" >
+                  <Button onClick={handleCloseUser}>
+                    <div className="accept-button-text">
+                      Agree
+                    </div>
+                  </Button>
+                </div>
+              </DialogActions>
+            </Dialog>
 
       <Dialog
         open={open}

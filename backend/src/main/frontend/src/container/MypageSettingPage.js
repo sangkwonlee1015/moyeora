@@ -1,15 +1,15 @@
-import MypageSideBar from "../components/Sidebar/MypageSidebar"
-import MypageSeting from "../components/Mypage/MypageSetting"
 import Header from "../components/Header/Header"
+import MypageSideBar from "../components/MypageSidebar/MypageSidebar"
+import MypageSetting from "../components/Mypage/MypageSetting"
 
-function MypageSetingPage(){
+function MypageSettingPage(){
     return (
         <div className="comp">
             <Header/>
             <MypageSideBar/>
-            <MypageSeting/>
+            <MypageSetting/>
         </div>
     )
 }
 
-export default MypageSetingPage
+export default MypageSettingPage

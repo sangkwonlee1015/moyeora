@@ -1,12 +1,27 @@
+// mui
+import Button from '@mui/material/Button';
+import { Input } from '@mui/material';
+
+// redux
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getPinList } from "../../api/pin";
-import { SET_CURRENTMAP } from "../../redux/PinList";
+import { SET_CURRENTMAP } from "../../redux/MapList";
 import { SET_PINLIST } from "../../redux/PinList";
+
+import * as React from 'react';
+
+import { Link } from "react-router-dom";
+import { registerMap } from "../../api/map";
+import { getPinList } from "../../api/pin";
 import "./Sidebar.css";
 
+
+
+
+
 function Map(props) {
+  const [mapName, setMapName] = React.useState(false);
+
   const token = useSelector((state) => state.UserInfo.accessToken);
   const dispatch = useDispatch();
 
@@ -36,6 +51,8 @@ function Map(props) {
         }}
       >
         {props.mapName}
+
+
       </Link>
     </div>
   );

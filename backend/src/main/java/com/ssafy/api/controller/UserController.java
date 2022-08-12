@@ -179,7 +179,7 @@ public class UserController {
         String userId = userDetails.getUserId();
         User user = userService.updateUser(userId, updateInfo);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        return ResponseEntity.status(200).body(UserMeGetRes.of(200, "Success", UserRes.of(user)));
     }
 
     @PatchMapping("/password")
