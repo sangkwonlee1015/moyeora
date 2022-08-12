@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux";
-import { deleteParticipant } from "../../api/participant";
+import { deleteParticipant, getParticipantListByUser } from "../../api/participant";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -31,15 +31,24 @@ function UserInfo(props){
 
   const LeaveTheChannel = () => {
     const success = (res) => {
-      console.log('삭제 성공----')
       console.log(res)
+      handleClose()
+      getParticipantListByUser(
+        token,
+        (response) => {
+          console.log(response)
+        },
+        (error) => {
+          console.log(error)
+        }
+        )
     }
     const error = (res) => {
-      console.log('삭제 실패!!!!!!!!!!!!')
       console.log(res)
+      handleClose()
     }
     console.log(channelSeq, token)
-    deleteParticipant((channelSeq, token, success, error))
+    deleteParticipant(channelSeq, token, success, error)
   }
   
   return (

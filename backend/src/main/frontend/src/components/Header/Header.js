@@ -108,13 +108,13 @@ export default function Header() {
         channelSeq,
       }
       registerParticipant(participantInfo, token, success, error)
-      console.log("성공")
+      console.log("===============성공")
       handleClose()
       // part
     }
 
     const error = () => {
-      console.log("실패")
+      console.log("====================실패")
       handleClose()
     }
 
@@ -137,6 +137,7 @@ export default function Header() {
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
+              console.log('채널 완성')
             },
             (error) => {
               console.log("error", error);
