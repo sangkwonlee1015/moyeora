@@ -46,7 +46,7 @@ function Sidebar(props) {
   
   const createMap = () => {
     const mapInfo = {
-      "channelSeq": props.channelSeq,
+      "channelSeq": channelSeq,
       "mapName": mapName,
     }
     registerMap(
@@ -98,6 +98,7 @@ function Sidebar(props) {
                 <input
                 type="text"
                 value={mapName}
+                autoFocus
                 onChange={onChangeMapName}
                 ></input>
                 <Stack
