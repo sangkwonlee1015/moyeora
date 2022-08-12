@@ -10,9 +10,12 @@ import ChattingPage from "./ChattingPage";
 import OvPage from "./OVPage";
 import MapPage from "./MapPage";
 import LoginPage from "./LoginPage";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_LOGOUT } from "../redux/UserInfo";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.UserInfo.loggedIn);
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,15 +27,11 @@ function App() {
               loggedIn ? (
                 <Homepage
                   setLogOut={() => {
-                    setLoggedIn(false);
+                    dispatch(SET_LOGOUT());
                   }}
                 />
               ) : (
-                <LoginPage
-                  setLogIn={() => {
-                    setLoggedIn(true);
-                  }}
-                ></LoginPage>
+                <LoginPage></LoginPage>
               )
             }
           />
