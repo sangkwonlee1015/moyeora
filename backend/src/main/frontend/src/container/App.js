@@ -42,7 +42,7 @@ function App() {
           <Route path="/articlepage" element={<ArticlePage />} />
           <Route path="/mypagesettingpage" element={<MypageSetingPage />} />
           <Route path="/chattingpage" element={<ChattingPage />} />
-          <Route path="/mappage/:channelSeq" element={<MapPage />} />
+          <Route path="/mappage/:channelSeq/:mapSeq" element={<MapPage />} />
           <Route path="/ovpage" element={<OvPage />} />
         </Routes>
       </BrowserRouter>

@@ -18,6 +18,7 @@ function MapPage() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const userInfo = useSelector((state) => state.UserInfo.userInfo);
   const channelSeq = useParams().channelSeq;
+  const mapSeq = useParams().mapSeq;
   const [visibleVideoComponent, setVisibleVideoComponent] = useState(false);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ function MapPage() {
       <Header />
       <Sidebar />
       <div className="comp">
-        <MapArea channelSeq={channelSeq} stomp={stomp} />
+        <MapArea channelSeq={channelSeq} mapSeq={mapSeq} stomp={stomp} />
         <button
           onClick={() => {
             setVisibleVideoComponent(!visibleVideoComponent);
@@ -54,7 +55,7 @@ function MapPage() {
           ></VideoRoomComponent>
         ) : null}
 
-        <MapMarkerList />
+        <MapMarkerList stomp={stomp} />
       </div>
     </div>
   );

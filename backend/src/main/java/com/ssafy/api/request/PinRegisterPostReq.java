@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @ApiModel("PinRegisterPostRequest")
 public class PinRegisterPostReq {
-    private String pinContent;
+    private String pinTitle;
     private String pinLat;
     private String pinLng;
     private String pinColor;

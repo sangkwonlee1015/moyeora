@@ -1,11 +1,13 @@
 .container {
-  width: auto;
+  width: 90px;
   height: 100vh;
   background-color: #202225;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   /* overflow-y: hidden; */
   }
 .container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   display: none;
 }
 .header_items {
@@ -103,7 +105,7 @@
   border-width: 10px;
   border-style: solid;
   border-color: transparent #18191c transparent transparent;
-  /* z-index: 1000; */
+  z-index: 1000;
  }
 
 .header_items a:hover .tooltiptext {

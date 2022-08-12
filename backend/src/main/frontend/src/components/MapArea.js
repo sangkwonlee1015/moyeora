@@ -8,9 +8,11 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 import Editor from "./EditorComponent";
 import { CLICK_PIN, SET_PIN } from "../redux/PinList";
+import { createHeaders } from "../api";
 
-function MapArea({ channelSeq, stomp }) {
+function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
+  const token = useSelector((state) => state.UserInfo.accessToken);
   // const sock = new SockJs("http://localhost:8080/ws");
   // const stomp = StompJs.over(sock);
   // const [testValue, setTestValue] = useState("");
@@ -30,7 +32,7 @@ function MapArea({ channelSeq, stomp }) {
         pinContent: e.getHTML(),
         // pinContent: e,
         pinColor: "test",
-        status: "MODPIN",                 // pin 정보 추가하기 (order, flag, title 추가해주기)
+        status: "MODPIN", // pin 정보 추가하기 (order, flag, title 추가해주기)
       };
       stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
     }
@@ -60,13 +62,14 @@ function MapArea({ channelSeq, stomp }) {
               receiver: channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              pinContent: "",
+              pinTitle: "새 핀",
               pinColor: "test",
+              mapSeq: mapSeq,
               status: "ADDPIN",
             };
             stomp.send(
               "/app/private-message",
-              null,
+              createHeaders(token),
               JSON.stringify(chatMessage)
             );
           }
@@ -75,9 +78,12 @@ function MapArea({ channelSeq, stomp }) {
         {pins.map((marker, index) => (
           <MapMarker
             key={`${index}`}
-            position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
+            position={{
+              lat: Number(marker.pinLat),
+              lng: Number(marker.pinLng),
+            }}
             onClick={() => {
-              dispatch(CLICK_PIN({ pinSeq: marker.seq }));
+              dispatch(CLICK_PIN({ pinSeq: marker.pinSeq }));
             }}
           >
             {marker.isVisible && (

@@ -10,13 +10,16 @@ import { ADD_PIN, SET_PIN, SET_PINLIST } from "../../redux/PinList";
 import { SET_STOMP } from "../../redux/ChannelList";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
+import { getMapList } from "../../api/map";
+import { SET_MAPLIST } from "../../redux/MapList";
 /// setStomp 이거 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 export default function ChannelTest() {
   const dispatch = useDispatch();
-  const [channelList, setChannelList] = useState([]);
+  // const [channelList, setChannelList] = useState([]);
   const token = useSelector((state) => state.UserInfo.accessToken);
   const pins = useSelector((state) => state.PinList.pinList);
+  const channelList = useSelector((state) => state.ChannelList.channelList);
 
   useEffect(() => {
     let list = [];
@@ -37,7 +40,7 @@ export default function ChannelTest() {
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
-              setChannelList(list);
+              // setChannelList(list);
             },
             (error) => {
               console.log("error", error);
@@ -58,8 +61,17 @@ export default function ChannelTest() {
     const sock = new SockJs("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
-    // dispatch(SET_STOMP(stomp));
-    // console.log("stomp : ", stomp);
+    getMapList(
+      id,
+      "channel",
+      token,
+      (response) => {
+        dispatch(SET_MAPLIST(response.data.mapsList));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     console.log("pins 1 : ", pins);
     stomp.connect({}, (e) => {
@@ -70,11 +82,14 @@ export default function ChannelTest() {
         switch (message.status) {
           case "ADDPIN":
             const newPins = {
-              seq: message.pinSeq,
-              lat: Number(message.lat),
-              lng: Number(message.lng),
-              color: message.pinColor,
-              comment: message.pinContent,
+              pinSeq: Number(message.pinSeq),
+              pinLat: message.lat,
+              pinLng: message.lng,
+              pinColor: message.pinColor,
+              pinTitle: message.pinTitle,
+              pinOrder: Number(message.pinOrder),
+              pinFlag: 0,
+              userSeq: Number(message.userSeq),
               isVisible: false,
             };
             console.log("newPins : ", newPins);
@@ -89,16 +104,6 @@ export default function ChannelTest() {
                 pinContent: message.pinContent,
               })
             );
-            // pins.map((pin, index) => {
-            //   console.log("pin : ", pin);
-            //   if (pin.seq == message.pinSeq) {
-            //     console.log("pin : ", pin);
-            //     let newPin = { ...pin };
-            //     newPin.color = message.pinColor;
-            //     newPin.comment = message.pinContent;
-            //     dispatch(SET_PIN({ index: index, newPin: newPin }));
-            //   }
-            // });
             console.log(pins);
             break;
           default:
@@ -111,7 +116,10 @@ export default function ChannelTest() {
     <>
       <ul className="header_items">
         {channelList.map((channel) => (
-          <li key={channel.channelSeq} className="header_items_2 headerSetting2">
+          <li
+            key={channel.channelSeq}
+            className="header_items_2 headerSetting2"
+          >
             <Link
               to={`/serverpage/${channel.channelSeq}`}
               onClick={() => enterChannel(channel.channelSeq)}
