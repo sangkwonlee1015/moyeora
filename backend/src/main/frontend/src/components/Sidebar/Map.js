@@ -10,7 +10,6 @@ function Map(props) {
   const dispatch = useDispatch();
   const ChannelSeq = useSelector((state) => state.ChannelList.channelSeq);
 
-
   function openMap(mapSeq) {
     getPinList(
       mapSeq,
@@ -28,16 +27,25 @@ function Map(props) {
     );
     dispatch(SET_CURRENTMAP(mapSeq));
   }
+
+  const DeleteMap = (() => console.log('맵 삭제'))
   return (
     <div>
-      <Link
-        to={`/mappage/${ChannelSeq}/${props.mapSeq}`}
-        onClick={() => {
-          openMap(props.mapSeq);
-        }}
-      >
-        {props.mapName}
-      </Link>
+      <span>
+        <Link
+          to={`/mappage/${ChannelSeq}/${props.mapSeq}`}
+          onClick={() => {
+            openMap(props.mapSeq);
+          }}
+        >
+          {props.mapName}
+        </Link>
+      </span>
+      <span>
+        <button onClick={DeleteMap}>
+          <ion-icon name="trash-outline"></ion-icon>
+        </button>
+      </span>
     </div>
   );
 }
