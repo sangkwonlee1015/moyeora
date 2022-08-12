@@ -16,7 +16,7 @@ public class Pin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pin_seq")
     private Long pinSeq = null;
-    @Column(name = "pin_titile")
+    @Column(name = "pin_title")
     private String pinTitle;
     @Column(name = "pin_content")
     private String pinContent;
