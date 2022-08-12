@@ -54,8 +54,6 @@ export default function ChannelTest() {
     );
   }, []);
 
-  console.log("pins : ", pins);
-
   function enterChannel(id) {
     console.log(id);
     const sock = new SockJs("http://localhost:8080/ws");
@@ -73,11 +71,8 @@ export default function ChannelTest() {
       }
     );
 
-    console.log("pins 1 : ", pins);
     stomp.connect({}, (e) => {
-      console.log("pins 2 : ", pins);
       stomp.subscribe("/user/" + id + "/private", (data) => {
-        console.log("pins 3 : ", pins);
         const message = JSON.parse(data.body);
         switch (message.status) {
           case "ADDPIN":
@@ -94,7 +89,6 @@ export default function ChannelTest() {
               isVisible: false,
             };
             dispatch(ADD_PIN(newPin));
-            console.log("pins 4 : ", pins);
             break;
           case "MODPIN":
             dispatch(
@@ -104,7 +98,6 @@ export default function ChannelTest() {
                 pinContent: message.pinContent,
               })
             );
-            console.log(pins);
             break;
           default:
         }
