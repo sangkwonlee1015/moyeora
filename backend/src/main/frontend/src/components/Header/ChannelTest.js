@@ -8,7 +8,7 @@ import { getParticipantListByUser } from "../../api/participant";
 import { useSelector, useDispatch } from "react-redux";
 import { ADD_PIN, SET_PIN, SET_PINLIST } from "../../redux/PinList";
 import { SET_STOMP } from "../../redux/ChannelList";
-import { SET_CHANNELLIST } from "../../redux/ChannelList";
+import { SET_CHANNELLIST, SET_CHANNELSEQ } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
 import { getMapList } from "../../api/map";
 import { SET_MAPLIST } from "../../redux/MapList";
@@ -122,7 +122,9 @@ export default function ChannelTest() {
           >
             <Link
               to={`/serverpage/${channel.channelSeq}`}
-              onClick={() => enterChannel(channel.channelSeq)}
+              onClick={() => {
+                dispatch(SET_CHANNELSEQ(channel.channelSeq))
+                enterChannel(channel.channelSeq)}}
             >
               {channel.channelName}
               <span class="tooltiptext">{channel.channelName}</span>

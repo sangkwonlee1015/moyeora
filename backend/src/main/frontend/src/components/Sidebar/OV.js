@@ -17,7 +17,7 @@ function Ov(){
   const [channelToken, setChannelToken] = useState("");
   const token = useSelector((state) => state.UserInfo.accessToken);
   const userInfo = useSelector((state) => state.UserInfo.userInfo);
-  const channelSeq = useParams().channelSeq;
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const [visibleVideoComponent, setVisibleVideoComponent] = useState(false);
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import UserInfo from "./UserInfo";
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const mapList = useSelector((state) => state.MapList.mapList);
+  
   const createMap = () => {
     const mapInfo = {
       "channelSeq": props.channelSeq,
