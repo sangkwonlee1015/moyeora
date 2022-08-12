@@ -17,6 +17,7 @@ public class ChatMessage {
     private String lng;
     private String pinTitle;
     private String pinContent;
+    private String pinOrder;
     private String pinColor;
     private String mapSeq;
     private String pinSeq;

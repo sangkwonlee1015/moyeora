@@ -79,6 +79,7 @@ public class ChatMessageController {
                 pinRegisterPostReq.setMapSeq(Long.parseLong(message.getMapSeq()));
                 Pin pin = pinService.registerPin(pinRegisterPostReq, user.getUserSeq());
                 message.setPinSeq(pin.getPinSeq().toString());
+                message.setPinOrder(pin.getPinOrder().toString());
                 chatService.sendMessagePrivate(message);
                 break;
             case MODPIN:
@@ -86,7 +87,7 @@ public class ChatMessageController {
                 pinUpdatePatchReq.setPinSeq(Long.parseLong(message.getPinSeq()));
                 pinUpdatePatchReq.setPinColor(message.getPinColor());
                 pinUpdatePatchReq.setPinContent(message.getPinContent());
-//                pinService.updatePin(pinUpdatePatchReq);
+                pinService.updatePin(pinUpdatePatchReq);
                 chatService.sendMessagePrivate(message);
                 break;
         }

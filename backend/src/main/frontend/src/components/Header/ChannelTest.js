@@ -80,11 +80,14 @@ export default function ChannelTest() {
         switch (message.status) {
           case "ADDPIN":
             const newPins = {
-              seq: message.pinSeq,
-              lat: Number(message.lat),
-              lng: Number(message.lng),
-              color: message.pinColor,
-              comment: message.pinContent,
+              pinSeq: Number(message.pinSeq),
+              pinLat: message.lat,
+              pinLng: message.lng,
+              pinColor: message.pinColor,
+              pinTitle: message.pinTitle,
+              pinOrder: Number(message.pinOrder),
+              pinFlag: 0,
+              userSeq: Number(message.userSeq),
               isVisible: false,
             };
             console.log("newPins : ", newPins);
@@ -99,16 +102,6 @@ export default function ChannelTest() {
                 pinContent: message.pinContent,
               })
             );
-            // pins.map((pin, index) => {
-            //   console.log("pin : ", pin);
-            //   if (pin.seq == message.pinSeq) {
-            //     console.log("pin : ", pin);
-            //     let newPin = { ...pin };
-            //     newPin.color = message.pinColor;
-            //     newPin.comment = message.pinContent;
-            //     dispatch(SET_PIN({ index: index, newPin: newPin }));
-            //   }
-            // });
             console.log(pins);
             break;
           default:
