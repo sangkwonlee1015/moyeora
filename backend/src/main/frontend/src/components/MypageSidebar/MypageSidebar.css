@@ -1,12 +1,12 @@
-.sidebar{
+.mypage-sidebar{
   width: 300px;
-  /* 사이드바 배경색 */
   background-color: #2f3136;
-}
+  }
+  
 .sidebar>div{
 border-radius: 10px;
-margin: 0.2rem;
-padding: 0.3rem;
+/* margin: 0.2rem; */
+/* padding: 0.3rem; */
 }
 .sidebar>div:hover{
 background-color: #42464d;
@@ -23,6 +23,10 @@ text-decoration-line: none;
 color: #e2e3e4;
 font-weight: bold;
 }
+.sidebar-mypage{
+width: 300px;
+background-color: #F2F3F5;
+}
 
 .register-map{
   font-size: 20px;
@@ -38,11 +42,11 @@ font-weight: bold;
   color: #e2e3e4;
 }
 
-.tooltip {
+/* .tooltip {
   position: relative;
 }
 
-.tooltip .tooltip-text {
+.tooltip .tooltiptext {
   visibility: hidden;
   width: max-content;
   height: max-content;
@@ -60,24 +64,26 @@ font-weight: bold;
   bottom: 150%;
   left: 50%;
   margin-left: -60px;
-  top: -45px;  /* 숫자가 작아지면 위쪽으로*/
+  top: -45px;  
   left: 0%; 
-}
+} */
 
 /* 화살표 tooltip */
-.tooltip .tooltip-text::after {
+/* 숫자가 작아지면 위쪽으로*/
+/* 숫자가 작아지면 왼쪽으로*/
+/* .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 110%;  /* 숫자가 작아지면 위쪽으로*/
-  left: 45%;  /* 숫자가 작아지면 왼쪽으로*/
+  top: 110%;  
+  left: 45%;  
   margin-top: -5px;
   border-width: 10px;
   border-style: solid;
   border-color: #18191c  transparent transparent transparent;
-}
+} */
 
 /* hover 하면 보이게 */
-.tooltip:hover .tooltip-text {
+/* .tooltip:hover .tooltiptext {
   visibility: visible;
-}
+} */
 

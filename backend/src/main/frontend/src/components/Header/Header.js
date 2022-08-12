@@ -102,23 +102,19 @@ export default function Header(){
     }
   
     const success = (res) => {
-      console.log(res.data.channelSeq)
-
       const channelSeq = res.data.channelSeq
-      // const channelPassword = res.data.channelPassword
       const participantInfo = {
         channelPassword: channelPassword,
         channelSeq,
       }
-      console.log(participantInfo)
       registerParticipant(participantInfo, token, success, error)
-      console.log("성공")
+      console.log("===============성공")
       handleClose()
       // part
     }
 
     const error = () => {
-      console.log("실패")
+      console.log("====================실패")
       handleClose()
     }
 
@@ -141,6 +137,7 @@ export default function Header(){
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
+              console.log('채널 완성')
             },
             (error) => {
               console.log("error", error);
@@ -165,9 +162,9 @@ export default function Header(){
           <ChannelTest/>
             <div className="header_items headerSetting"><Link to="" onClick={handleClickOpen}><FaPlus size="20"/><span class="tooltiptext">채널 추가하기</span></Link></div>
             <div className="header_items headerSetting"><Link to="/addchannelpage"><FaSearch size="20"/><span class="tooltiptext">채널 살펴보기</span></Link></div>
-            <div className="header_items headerSetting"><Link to="" onClick={handleClickOpenUser}><FaCog size="20"/><span class="tooltiptext">사용자 설정</span></Link></div>
+            <div className="header_items headerSetting"><Link to="/mypagesettingpage" onClick={handleClickOpenUser}><FaCog size="20"/><span class="tooltiptext">사용자 설정</span></Link></div>
             
-            <Dialog
+            {/* <Dialog
               open={openUser}
               TransitionComponent={Transition}
               keepMounted
@@ -201,7 +198,7 @@ export default function Header(){
                   </Button>
                 </div>
               </DialogActions>
-            </Dialog>
+            </Dialog> */}
 
             <Dialog
               open={open}

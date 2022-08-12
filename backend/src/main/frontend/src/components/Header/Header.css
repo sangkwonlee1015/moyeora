@@ -2,8 +2,9 @@
   width: 90px;
   height: 100vh;
   background-color: #202225;
-  /* overflow-x: scroll; */
-  /* overflow-y: hidden; */
+  /* position: absolute; */
+  /* overflow-x: ; */
+  overflow-y: scroll;
   }
 .container::-webkit-scrollbar {
   display: none;
