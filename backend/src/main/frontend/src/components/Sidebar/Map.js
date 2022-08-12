@@ -1,5 +1,4 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPinList } from "../../api/pin";
 import { SET_CURRENTMAP } from "../../redux/PinList";
@@ -9,6 +8,8 @@ import "./Sidebar.css";
 function Map(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const dispatch = useDispatch();
+  const ChannelSeq = useSelector((state) => state.ChannelList.channelSeq);
+
 
   function openMap(mapSeq) {
     getPinList(
@@ -30,7 +31,7 @@ function Map(props) {
   return (
     <div>
       <Link
-        to={`/mappage/${props.channelSeq}/${props.mapSeq}`}
+        to={`/mappage/${ChannelSeq}/${props.mapSeq}`}
         onClick={() => {
           openMap(props.mapSeq);
         }}
