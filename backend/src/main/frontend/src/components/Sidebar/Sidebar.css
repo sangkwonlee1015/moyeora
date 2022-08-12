@@ -55,10 +55,10 @@ background-color: #F2F3F5;
 
 /* openvidu css */
 .container_button {
-  flex-direction: row !important; 
-  position: fixed !important;
-  top: 820px !important; 
-  left: 320px;
+  flex-direction: row; 
+  position: fixed;
+  top: 820px ; 
+  left: 340px;
   z-index: 10;
   width: 100vh;
   height: 120px;
@@ -67,7 +67,7 @@ background-color: #F2F3F5;
   flex-direction: row !important;
   position: fixed;
   bottom: 100px;
-  left: 65px;
+  left: 75px;
   width: 250px;
 }
 .container_button video {
