@@ -55,7 +55,7 @@ function MapPage() {
           ></VideoRoomComponent>
         ) : null}
 
-        <MapMarkerList stomp={stomp} />
+        <MapMarkerList channelSeq={channelSeq} mapSeq={mapSeq} stomp={stomp} />
       </div>
     </div>
   );
