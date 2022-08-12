@@ -9,6 +9,7 @@ import { red } from "@mui/material/colors";
 const columnsFromBackend = {};
 
 const onDragEnd = (result, columns, setColumns) => {
+  console.log("result : ", result);
   if (!result.destination) return;
   const { source, destination } = result;
 
@@ -49,29 +50,27 @@ function MapMarkerList() {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const [columns, setColumns] = useState(columnsFromBackend);
-  let itemsCandi = [            // 다 지우고 빈 리스트로 만들기
-    { id: uuid(), content: "First task" },
-    { id: uuid(), content: "Second task" },
-  ];
-  let itemsFinal = [
-  ];
+  let itemsCandi = [];
+  let itemsFinal = [];
 
-
-  pins.map((pin) => {           // store에서 pin 가져와서 초기 세팅해주기
-    let item = { 
+  pins.map((pin) => {
+    // store에서 pin 가져와서 초기 세팅해주기
+    let item = {
       id: uuid(),
-      content: pin.pinContent,  // title로 바꾸기
+      content: pin.pinTitle,
       pinSeq: pin.pinSeq,
-      pinOrder: pin.pinOrder,   // pin index
-      pinFlag: pin.pinFlag,     // 최종선택: 1 or 후보: 0
+      pinOrder: pin.pinOrder, // pin index
+      pinFlag: pin.pinFlag, // 최종선택: 1 or 후보: 0
+    };
+    if (item.pinFlag === 1) {
+      itemsFinal.push(item);
+    } else {
+      itemsCandi.push(item);
     }
-    if (item.pinOrder === 1) {
-      itemsFinal.push(item)
-    } else {itemsCandi.push(item)}
-  })
+  });
 
-
-  itemsCandi.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+  itemsCandi.sort(function (a, b) {
+    // order(idx) 순서로 정렬해주기
     if (a.pinOrder > b.pinOrder) {
       return 1;
     }
@@ -82,7 +81,8 @@ function MapMarkerList() {
     return 0;
   });
 
-  itemsFinal.sort(function (a, b) {   // order(idx) 순서로 정렬해주기
+  itemsFinal.sort(function (a, b) {
+    // order(idx) 순서로 정렬해주기
     if (a.pinOrder > b.pinOrder) {
       return 1;
     }
@@ -92,11 +92,12 @@ function MapMarkerList() {
     // a must be equal to b
     return 0;
   });
-  
-  const itemsFinalId = uuid()         // id 변수에 저장
-  const itemsCandiId = uuid()
 
-  useEffect(() => {                   // 초기 세팅하고
+  const itemsFinalId = uuid(); // id 변수에 저장
+  const itemsCandiId = uuid();
+
+  useEffect(() => {
+    // 초기 세팅하고
     setColumns({
       [itemsFinalId]: {
         name: "최종선택",
@@ -107,7 +108,7 @@ function MapMarkerList() {
         items: itemsCandi,
       },
     });
-  }, [pins]);                         // pins 정보 바뀌면 rerender
+  }, [pins]); // pins 정보 바뀌면 rerender
 
   // pin 안에 index, order 정보 넣어주기
 
@@ -119,7 +120,7 @@ function MapMarkerList() {
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
         >
-          <div className="hi" style={{backgroundColor: "#202225"}}>
+          <div className="hi" style={{ backgroundColor: "#202225" }}>
             {Object.entries(columns).map(([columnId, column], index) => {
               return (
                 <div
@@ -129,7 +130,7 @@ function MapMarkerList() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    height: "auto",  // 420 에서는 리스트 개수에 따라 망가짐
+                    height: "auto", // 420 에서는 리스트 개수에 따라 망가짐
                   }}
                   key={columnId}
                 >
@@ -155,6 +156,7 @@ function MapMarkerList() {
                             }}
                           >
                             {column.items.map((item, index) => {
+                              console.log(index, " : ", item);
                               return (
                                 <Draggable
                                   key={item.id}

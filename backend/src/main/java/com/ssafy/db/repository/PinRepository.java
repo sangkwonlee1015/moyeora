@@ -14,5 +14,6 @@ import java.util.Optional;
 public interface PinRepository extends JpaRepository<Pin, Long> {
     List<Pin> findByMapSeq(Long mapSeq);
     Optional<Pin> findByPinSeq(Long pinSeq);
+    Integer countByMapSeqAndPinFlag(Long mapSeq, int pinFlag);
 
 }

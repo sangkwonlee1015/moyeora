@@ -8,9 +8,11 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 import Editor from "./EditorComponent";
 import { CLICK_PIN, SET_PIN } from "../redux/PinList";
+import { createHeaders } from "../api";
 
-function MapArea({ channelSeq, stomp }) {
+function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
+  const token = useSelector((state) => state.UserInfo.accessToken);
   // const sock = new SockJs("http://localhost:8080/ws");
   // const stomp = StompJs.over(sock);
   // const [testValue, setTestValue] = useState("");
@@ -60,13 +62,14 @@ function MapArea({ channelSeq, stomp }) {
               receiver: channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              pinContent: "",
+              pinTitle: "새 핀",
               pinColor: "test",
+              mapSeq: mapSeq,
               status: "ADDPIN",
             };
             stomp.send(
               "/app/private-message",
-              null,
+              createHeaders(token),
               JSON.stringify(chatMessage)
             );
           }

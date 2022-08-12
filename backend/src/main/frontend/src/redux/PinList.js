@@ -29,7 +29,7 @@ export const pinListSlice = createSlice({
     },
     CLICK_PIN: (state, action) => {
       state.pinList.map((pin) => {
-        if (pin.seq === action.payload.pinSeq) {
+        if (pin.pinSeq === action.payload.pinSeq) {
           pin.isVisible = !pin.isVisible;
         }
       });
