@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getChannelList } from "../api/channel";
-import { registerParticipant } from "../api/participant";
+import { getChannelInfo, getChannelList } from "../api/channel";
+import {
+  getParticipantListByUser,
+  registerParticipant,
+} from "../api/participant";
+import { SET_CHANNELLIST } from "../redux/ChannelList";
 
 function AddChannel() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [searchName, setSearchName] = useState("");
   const [channellistview, setChannellist] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("useeffect start channellistview", channellistview);
@@ -61,6 +67,36 @@ function AddChannel() {
       channel,
       token,
       (response) => {
+        let list = [];
+        getParticipantListByUser(
+          token,
+          (response) => {
+            response.data.list.map((participant) => {
+              console.log(participant);
+              getChannelInfo(
+                participant.participantsId.channelSeq,
+                token,
+                ({ data }) => {
+                  let channel = {
+                    channelSeq: participant.participantsId.channelSeq,
+                    channelDesc: data.channelDesc,
+                    channelName: data.channelName,
+                    channelTag: data.channelTag,
+                  };
+                  list = list.concat(channel);
+                  dispatch(SET_CHANNELLIST(list));
+                  // setChannelList(list);
+                },
+                (error) => {
+                  console.log("error", error);
+                }
+              );
+            });
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
         console.log("채널 추가  ", response.data);
       },
       (error) => {
