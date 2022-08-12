@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
 
-function MapMarkerList({ stomp }) {
+function MapMarkerList({ channelSeq, mapSeq, stomp }) {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const [columns, setColumns] = useState([]);
@@ -17,6 +17,8 @@ function MapMarkerList({ stomp }) {
     console.log("result : ", result);
     if (!result.destination) return;
     const { source, destination } = result;
+
+    let chatMessage = { receiver: channelSeq, mapSeq: mapSeq };
 
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId];
@@ -49,6 +51,11 @@ function MapMarkerList({ stomp }) {
         },
       });
     }
+    chatMessage = {
+      receiver: channelSeq,
+      mapSeq: mapSeq,
+    };
+    stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
   };
 
   pins.map((pin) => {
