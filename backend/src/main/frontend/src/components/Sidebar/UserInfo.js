@@ -29,7 +29,7 @@ function UserInfo(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.UserInfo.accessToken);
-  const channelSeq = props.channelSeq;
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
 
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
