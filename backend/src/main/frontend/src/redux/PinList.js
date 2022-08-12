@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const pinListSlice = createSlice({
   name: "pinList",
   initialState: {
+    currentMap: -1,
     pinList: [],
   },
   reducers: {
@@ -11,8 +12,8 @@ export const pinListSlice = createSlice({
       console.log("state.pinList : ", state.pinList);
     },
     ADD_PIN: (state, action) => {
-      // state.pinList.push(action.payload);
-      state.pinList = [...state.pinList, action.payload];
+      if (state.currentMap == action.payload.mapSeq)
+        state.pinList = [...state.pinList, action.payload];
     },
     SET_PIN: (state, action) => {
       console.log(action.payload);
@@ -41,10 +42,13 @@ export const pinListSlice = createSlice({
         }
       });
     },
+    SET_CURRENTMAP: (state, action) => {
+      state.currentMap = action.payload;
+    },
   },
 });
 
-export const { SET_PINLIST, ADD_PIN, SET_PIN, CLICK_PIN } =
+export const { SET_PINLIST, ADD_PIN, SET_PIN, CLICK_PIN, SET_CURRENTMAP } =
   pinListSlice.actions;
 // export const pinsSelector = (state) => state.pinList;
 

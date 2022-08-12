@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPinList } from "../../api/pin";
-import { SET_CURRENTMAP } from "../../redux/MapList";
+import { SET_CURRENTMAP } from "../../redux/PinList";
 import { SET_PINLIST } from "../../redux/PinList";
 import "./Sidebar.css";
 
@@ -25,7 +25,7 @@ function Map(props) {
         console.log(error);
       }
     );
-    // dispatch(SET_CURRENTMAP(mapSeq));
+    dispatch(SET_CURRENTMAP(mapSeq));
   }
   return (
     <div>

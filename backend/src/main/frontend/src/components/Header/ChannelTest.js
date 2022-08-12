@@ -80,7 +80,7 @@ export default function ChannelTest() {
         const message = JSON.parse(data.body);
         switch (message.status) {
           case "ADDPIN":
-            const newPins = {
+            const newPin = {
               pinSeq: Number(message.pinSeq),
               pinLat: message.lat,
               pinLng: message.lng,
@@ -88,11 +88,11 @@ export default function ChannelTest() {
               pinTitle: message.pinTitle,
               pinOrder: Number(message.pinOrder),
               pinFlag: 0,
+              mapSeq: Number(message.mapSeq),
               userSeq: Number(message.userSeq),
               isVisible: false,
             };
-            console.log("newPins : ", newPins);
-            dispatch(ADD_PIN(newPins));
+            dispatch(ADD_PIN(newPin));
             console.log("pins 4 : ", pins);
             break;
           case "MODPIN":
