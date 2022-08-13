@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
+
+import SearchPinDialog from "../components/SearchPinDialog/SearchPinDialog";
 // import SockJs from "sockjs-client";
 // import StompJs from "stompjs";
 
@@ -15,6 +17,14 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   const centerLat = useSelector((state) => state.PinList.centerLat);
   const centerLng = useSelector((state) => state.PinList.centerLng);
   const token = useSelector((state) => state.UserInfo.accessToken);
+
+  //pinSearchDialog 관련
+  const [visibleSearchPinDialog, setVisibleSearchPinDialog] = useState(false);
+
+  // const sock = new SockJs("http://localhost:8080/ws");
+  // const stomp = StompJs.over(sock);
+  // const [testValue, setTestValue] = useState("");
+
   const dispatch = useDispatch();
 
   // console.log(
@@ -112,6 +122,24 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
           </MapMarker>
         ))}
       </Map>
+
+      <button
+        style={{ position: "fixed", zIndex: 1, top: 10, left: 350 }}
+        onClick={() => {
+          setVisibleSearchPinDialog(true);
+        }}
+      >
+        Pin 검색
+      </button>
+      <SearchPinDialog
+        open={visibleSearchPinDialog}
+        setVisibleSearchPinDialog={() => {
+          setVisibleSearchPinDialog(false);
+        }}
+        stomp={stomp}
+        mapSeq={mapSeq}
+        channelSeq={channelSeq}
+      ></SearchPinDialog>
     </div>
   );
 }
