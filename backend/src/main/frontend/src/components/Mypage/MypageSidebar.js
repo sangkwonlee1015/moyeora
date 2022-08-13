@@ -51,32 +51,32 @@ function MypageSideBar(props){
     console.log(mapName);
   };
 
-  const createMap = () => {
-    const mapInfo = {
-      channelSeq: channelSeq,
-      mapName: mapName,
-    };
-    registerMap(
-      mapInfo,
-      token,
-      (response) => {
-        console.log(response);
-        getMapList(
-          channelSeq,
-          "channel",
-          token,
-          (response) => {
-            dispatch(SET_MAPLIST(response.data.mapsList));
-            handleClose();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      },
-      (error) => console.log(error)
-    );
-  };
+  // const createMap = () => {
+  //   const mapInfo = {
+  //     channelSeq: channelSeq,
+  //     mapName: mapName,
+  //   };
+  //   registerMap(
+  //     mapInfo,
+  //     token,
+  //     (response) => {
+  //       console.log(response);
+  //       getMapList(
+  //         channelSeq,
+  //         "channel",
+  //         token,
+  //         (response) => {
+  //           dispatch(SET_MAPLIST(response.data.mapsList));
+  //           handleClose();
+  //         },
+  //         (error) => {
+  //           console.log(error);
+  //         }
+  //       );
+  //     },
+  //     (error) => console.log(error)
+  //   );
+  // };
 
   return (
     <div className="sidebar">
@@ -121,7 +121,8 @@ function MypageSideBar(props){
                 spacing={2}
                 style={{ marginTop: "2rem" }}
               >
-                <Button variant="outlined" color="success" onClick={createMap}>
+              {/* onClick={createMap} */}
+                <Button variant="outlined" color="success" > 
                   맵 만들기
                 </Button>
                 <Button onClick={handleClose} variant="outlined" color="error">
