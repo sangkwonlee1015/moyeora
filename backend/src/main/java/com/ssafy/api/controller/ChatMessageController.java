@@ -138,6 +138,19 @@ public class ChatMessageController {
                 pinRepository.save(pin);
                 chatService.sendMessagePrivate(message);
                 break;
+            case DEL_PIN:
+                pin = pinRepository.findByMapSeqAndPinFlagAndPinOrder(Long.parseLong(message.getMapSeq()),
+                        Integer.parseInt(message.getPinFlag()), Integer.parseInt(message.getSourceOrder())).get();
+                pinRepository.delete(pin);
+                List<Pin> delList = pinRepository.findByMapSeqAndPinFlagAndPinOrderGreaterThan(
+                        Long.parseLong(message.getMapSeq()), Integer.parseInt(message.getPinFlag()),
+                        Integer.parseInt(message.getSourceOrder()));
+                delList.forEach(p -> {
+                    p.setPinOrder(p.getPinOrder() - 1);
+                    pinRepository.save(p);
+                });
+                chatService.sendMessagePrivate(message);
+                break;
         }
     }
 

@@ -17,6 +17,7 @@ import SockJS from "sockjs-client";
 import StompJs from "stompjs";
 import {
   ADD_PIN,
+  DELETE_PIN,
   SET_PIN,
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
@@ -87,6 +88,14 @@ function Sidebar(props) {
               })
             );
             break;
+          case "DEL_PIN":
+            dispatch(
+              DELETE_PIN({
+                mapSeq: Number(message.mapSeq),
+                pinFlag: Number(message.pinFlag),
+                sourceOrder: Number(message.sourceOrder),
+              })
+            );
           default:
         }
       });
