@@ -5,7 +5,7 @@ import Homepage from "./Homepage";
 import ChannelHomePage from "./ChannelHomePage";
 import AddChannelPage from "./AddChannelPage";
 import ArticlePage from "./ArticlePage";
-import MypageSetingPage from "./MypageSettingPage";
+import MypageSettingPage from "./MypageSettingPage";
 import ChattingPage from "./ChattingPage";
 import OvPage from "./OVPage";
 import MapPage from "./MapPage";
@@ -39,7 +39,7 @@ function App() {
           <Route path="/serverpage/:serverid" element={<ChannelHomePage />} />
           <Route path="/addchannelpage" element={<AddChannelPage />} />
           <Route path="/articlepage" element={<ArticlePage />} />
-          <Route path="/mypagesettingpage" element={<MypageSetingPage />} />
+          <Route path="/mypagesettingpage" element={<MypageSettingPage />} />
           <Route path="/chattingpage" element={<ChattingPage />} />
           <Route path="/mappage/:channelSeq/:mapSeq" element={<MapPage />} />
           <Route path="/ovpage" element={<OvPage />} />
