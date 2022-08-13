@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
 
 import SearchPinDialog from "../components/SearchPinDialog/SearchPinDialog";
@@ -21,19 +21,27 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   //pinSearchDialog 관련
   const [visibleSearchPinDialog, setVisibleSearchPinDialog] = useState(false);
 
-  // const sock = new SockJs("http://localhost:8080/ws");
-  // const stomp = StompJs.over(sock);
-  // const [testValue, setTestValue] = useState("");
+  // 최종 리스트 경로 표시
+  const [polylineList, setPolylineList] = useState([]);
 
   const dispatch = useDispatch();
 
-  // console.log(
-  //   "~~~~~~~~~~~  center : ",
-  //   centerLat,
-  //   ", ",
-  //   centerLng,
-  //   "~~~~~~~~~~~~"
-  // );
+  useEffect(() => {
+    let polys = [];
+    pins.map((pin) => {
+      if (pin.pinFlag == 1) {
+        polys.push(pin);
+      }
+    });
+    polys.sort((a, b) => {
+      return a.pinOrder - b.pinOrder;
+    });
+    let polysList = [];
+    polys.map((poly) => {
+      polysList.push({ lat: poly.pinLat, lng: poly.pinLng });
+    });
+    setPolylineList(polysList);
+  }, [pins]);
 
   const commentChange = (index, e) => {
     console.log(e);
@@ -105,22 +113,18 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
                   onChange={commentChange}
                   index={index}
                 />
-                {/* <TextareaAutosize
-                  aria-label="minimum height"
-                  minRows={3}
-                  placeholder=""
-                  style={{ width: 200 }}
-                  onInput={(e) => {
-                    console.log(e.target.value);
-                    commentChange(index, e.target.value);
-                  }}
-                  // value={marker.comment}
-                  defaultValue={marker.comment}
-                ></TextareaAutosize> */}
               </div>
             )}
           </MapMarker>
         ))}
+        <Polyline
+          path={[polylineList]}
+          strokeWeight={5} // 선의 두께
+          strokeColor={"#FFAE00"} // 선의 색깔
+          strokeOpacity={0.7} // 선의 불투명도(0~1)
+          strokeStyle={"solid"} // 선의 스타일
+          endArrow={true} // 화살표 여부
+        />
       </Map>
 
       <button
