@@ -17,10 +17,13 @@ public class ChatMessage {
     private String lng;
     private String pinTitle;
     private String pinContent;
+    private String pinFlag;
     private String pinOrder;
     private String pinColor;
     private String mapSeq;
     private String pinSeq;
+    private String sourceOrder;
+    private String destinationOrder;
 
     public ChatMessage(Status status, String sender, String receiver, String lat, String lng, String pinContent, String pinColor, String mapSeq, String pinSeq) {
         this.status = status;
