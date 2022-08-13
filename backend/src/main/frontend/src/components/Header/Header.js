@@ -196,13 +196,13 @@ export default function Header() {
         </Link>
       </div>
       <div className="header_items headerSetting">
-        <Link to="" onClick={handleClickOpenUser}>
+        <Link to="/mypagesettingpage" onClick={handleClickOpenUser}>
           <FaCog size="20" />
           <span class="tooltiptext">사용자 설정</span>
         </Link>
       </div>
 
-      <Dialog
+      {/* <Dialog
         open={openUser}
         TransitionComponent={Transition}
         keepMounted
@@ -233,7 +233,7 @@ export default function Header() {
             </Button>
           </div>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
 
       <Dialog
         open={open}
