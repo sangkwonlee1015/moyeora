@@ -1,9 +1,12 @@
+/*global kakao */
 import { createSlice } from "@reduxjs/toolkit";
 
 export const pinListSlice = createSlice({
   name: "pinList",
   initialState: {
     currentMap: -1,
+    centerLat: 36.5,
+    centerLng: 127.5,
     pinList: [],
   },
   reducers: {
@@ -11,6 +14,19 @@ export const pinListSlice = createSlice({
       console.log(action.payload);
       if (state.currentMap == action.payload.mapSeq)
         state.pinList = action.payload.pinList;
+      if (state.pinList.length > 0) {
+        let bounds = new kakao.maps.LatLngBounds();
+        state.pinList.map((pin) => {
+          bounds.extend(new kakao.maps.LatLng(pin.pinLat, pin.pinLng));
+        });
+        state.centerLat =
+          (bounds.getSouthWest().getLat() + bounds.getNorthEast().getLat()) / 2;
+        state.centerLng =
+          (bounds.getSouthWest().getLng() + bounds.getNorthEast().getLng()) / 2;
+      } else {
+        state.centerLat = 36.5;
+        state.centerLng = 127.5;
+      }
       console.log("state.pinList : ", state.pinList);
     },
     ADD_PIN: (state, action) => {
