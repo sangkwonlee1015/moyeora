@@ -147,7 +147,14 @@ function Sidebar(props) {
       <Chatting />
       <div className="mapListItem">
         MapList
-        <Button onClick={handleOpen}>+</Button>
+        
+        <button onClick={handleOpen} className="mapPlusButton tooltip" >
+          +
+          <span className="tooltip-text">
+            Map 추가
+          </span>
+        </button>
+        
         <Modal
           open={open}
           onClose={handleClose}
