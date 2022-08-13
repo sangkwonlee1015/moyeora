@@ -14,39 +14,6 @@ export default function ChannelTest() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const channelList = useSelector((state) => state.ChannelList.channelList);
 
-  useEffect(() => {
-    let list = [];
-    getParticipantListByUser(
-      token,
-      (response) => {
-        response.data.list.map((participant) => {
-          console.log(participant);
-          getChannelInfo(
-            participant.participantsId.channelSeq,
-            token,
-            ({ data }) => {
-              let channel = {
-                channelSeq: participant.participantsId.channelSeq,
-                channelDesc: data.channelDesc,
-                channelName: data.channelName,
-                channelTag: data.channelTag,
-              };
-              list = list.concat(channel);
-              dispatch(SET_CHANNELLIST(list));
-              // setChannelList(list);
-            },
-            (error) => {
-              console.log("error", error);
-            }
-          );
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
-
   function enterChannel(id) {
     console.log(id);
     getMapList(
