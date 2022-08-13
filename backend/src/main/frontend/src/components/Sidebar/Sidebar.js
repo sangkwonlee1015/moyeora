@@ -17,6 +17,7 @@ import SockJS from "sockjs-client";
 import StompJs from "stompjs";
 import {
   ADD_PIN,
+  DELETE_PIN,
   SET_PIN,
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
@@ -87,6 +88,14 @@ function Sidebar(props) {
               })
             );
             break;
+          case "DEL_PIN":
+            dispatch(
+              DELETE_PIN({
+                mapSeq: Number(message.mapSeq),
+                pinFlag: Number(message.pinFlag),
+                sourceOrder: Number(message.sourceOrder),
+              })
+            );
           default:
         }
       });
@@ -151,7 +160,14 @@ function Sidebar(props) {
       <Chatting />
       <div className="mapListItem">
         MapList
-        <Button onClick={handleOpen}>+</Button>
+        
+        <button onClick={handleOpen} className="mapPlusButton tooltip" >
+          +
+          <span className="tooltip-text">
+            Map 추가
+          </span>
+        </button>
+        
         <Modal
           open={open}
           onClose={handleClose}

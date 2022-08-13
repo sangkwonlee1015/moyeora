@@ -30,6 +30,10 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
       }
       chatMessage.status = "MOD_PINLIST_SAMEFLAG";
     }
+
+    if (destination.droppableId == 2) {
+      chatMessage.status = "DEL_PIN";
+    }
     chatMessage.pinFlag = source.droppableId ^ 1; // 이동 전 flag
     chatMessage.sourceOrder = source.index;
     chatMessage.destinationOrder = destination.index;
@@ -82,6 +86,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
 
   const itemsFinalId = 0; // id 변수에 저장
   const itemsCandiId = 1;
+  const itemsDeleteId = 2;
 
   useEffect(() => {
     // 초기 세팅하고
@@ -93,6 +98,10 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
       [itemsCandiId]: {
         name: "후보",
         items: itemsCandi,
+      },
+      [itemsDeleteId]: {
+        name: "삭제",
+        items: [],
       },
     });
   }, [pins]); // pins 정보 바뀌면 rerender
@@ -137,8 +146,8 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                               // color: "red",
                               padding: 4,
                               width: 200,
-                              minHeight: 360,
-                              maxHeight: 360,
+                              minHeight: "30vh",
+                              maxHeight: "30vh",
                               overflow: "auto",
                             }}
                           >
@@ -148,6 +157,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                   key={item.id}
                                   draggableId={item.id}
                                   index={index}
+                                  pinSeq={item.pinSeq}
                                 >
                                   {(provided, snapshot) => {
                                     return (

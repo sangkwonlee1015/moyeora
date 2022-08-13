@@ -4,6 +4,7 @@
   background-color: #2f3136;
   position: relative;
   overflow: scroll;
+  padding-top: 0.5rem;
 }
 .sidebar>div{
 border-radius: 10px;
@@ -25,6 +26,66 @@ background-color: #42464d;
 }
 .mapListItem>div:hover{
   background-color: #42464d;
+}
+
+.mapPlusButton {
+  float: right ;
+  color: rgb(120, 120, 120);
+  background-color: rgba( 255, 255, 255, 0 );
+  border: none;
+  font-size: 20px;
+  padding: 0 15px;
+}
+
+.mapPlusButton:hover{
+  font-size: 20px;
+  border: none;
+  color: #e2e3e4;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  font-size: 15px;
+  visibility: hidden;
+  width: max-content;
+  height: max-content;
+  background-color: #18191c;
+  font-weight: bold;
+
+  color: #dcddde;
+  text-align: center;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: #18191c;
+  
+  padding: 5px 5px;
+  position: absolute;
+  bottom: 150%;
+  left: 78% !important;
+  margin-left: -60px;
+  top: -45px;  /* 숫자가 작아지면 위쪽으로*/
+  left: 50%; 
+  z-index:3 !important;
+}
+
+/* 화살표 tooltip */
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 110%;  /* 숫자가 작아지면 위쪽으로*/
+  left: 45%;  /* 숫자가 작아지면 왼쪽으로*/
+  margin-top: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #18191c  transparent transparent transparent;
+}
+
+/* hover 하면 보이게 */
+.tooltip:hover .tooltip-text {
+  visibility: visible;
 }
 
 /* .sidebar-test>a:hover{

@@ -54,11 +54,19 @@ export const pinListSlice = createSlice({
       });
     },
     DELETE_PIN: (state, action) => {
-      state.pinList.map((pin, idx) => {
-        if (pin.seq === action.payload.pinSeq) {
-          state.pinList.splice(idx, 1);
-        }
-      });
+      let delIndex;
+      if (state.currentMap == action.payload.mapSeq) {
+        state.pinList.map((pin, idx) => {
+          if (pin.pinFlag == action.payload.pinFlag) {
+            if (pin.pinOrder == action.payload.sourceOrder) {
+              delIndex = idx;
+            } else if (pin.pinOrder > action.payload.sourceOrder) {
+              pin.pinOrder -= 1;
+            }
+          }
+        });
+      }
+      state.pinList.splice(delIndex, 1);
     },
     SET_PINORDER_DIFFLAG: (state, action) => {
       if (state.currentMap === action.payload.mapSeq) {
@@ -78,12 +86,6 @@ export const pinListSlice = createSlice({
         });
       }
     },
-    //   if(출발지 index가 도착지 index보다 작다면)
-    // 	출발지 index 초과, 도착지 index 이하의 index인 핀을 -1
-    // 	출발지 index의 핀의 index를 도착지 index로 변경
-    // if(출발지 index가 도착지 index보다 크다면)
-    // 	출발지 index 미만, 도착지 index 이상의 index인 핀을 +1
-    // 	출발지 index의 핀의 index를 도착지 index로 변경
     SET_PINORDER_SAMEFLAG: (state, action) => {
       if (state.currentMap === action.payload.mapSeq) {
         state.pinList.map((pin) => {
@@ -124,6 +126,7 @@ export const {
   ADD_PIN,
   SET_PIN,
   CLICK_PIN,
+  DELETE_PIN,
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
   SET_CURRENTMAP,
