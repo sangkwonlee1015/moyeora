@@ -31,8 +31,8 @@ const LoginPage = () => {
         dispatch(SET_TOKEN(response.data.accessToken));
         getUserProfile(response.data.accessToken,
           (response) =>{
-            dispatch(SET_USERINFO(response.data));
-            console.log("profile get", response.data);
+            dispatch(SET_USERINFO(response.data.userRes));
+            console.log("profile get", response.data.userRes);
           },
           (error)=>{
             console.log(error);
