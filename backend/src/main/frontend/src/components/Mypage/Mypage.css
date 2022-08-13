@@ -86,14 +86,24 @@
 /* 원래 우리 프로젝트에서는 잘 안쓰는 색인데
 디스코드 따라함 */
 .dialog-title{
-  color: #ffffff; 
-  font-size: 20pt;
+  color: #ffffff !important; 
+  font-size: 20pt !important;
 }
 .dialog-content{
-  color: #b9bbbe;
+  color: #b9bbbe !important;
+  
 }
 .dialog-content-text{
-  color: #b9bbbe;
-  font-size: 10pt;
+  color: #b9bbbe !important;
+  font-size: 10pt !important;
 
+}
+/* input focus 시 밑줄 색깔 */
+.css-1tcs2i1-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: 2px solid #5865f2 !important;
+}
+
+.dialog-input :focus{
+  color: #dcddde;
+  background-color: #42464d;
 }
