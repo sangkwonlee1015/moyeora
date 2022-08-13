@@ -12,16 +12,18 @@ import { createHeaders } from "../api";
 
 function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
+  const centerLat = useSelector((state) => state.PinList.centerLat);
+  const centerLng = useSelector((state) => state.PinList.centerLng);
   const token = useSelector((state) => state.UserInfo.accessToken);
-  // const sock = new SockJs("http://localhost:8080/ws");
-  // const stomp = StompJs.over(sock);
-  // const [testValue, setTestValue] = useState("");
-
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   stomp.connect({}, (e) => {});
-  // }, []);
+  // console.log(
+  //   "~~~~~~~~~~~  center : ",
+  //   centerLat,
+  //   ", ",
+  //   centerLng,
+  //   "~~~~~~~~~~~~"
+  // );
 
   const commentChange = (index, e) => {
     console.log(e);
@@ -47,14 +49,14 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
       <Map // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
-          lat: 33.450701,
-          lng: 126.570667,
+          lat: centerLat,
+          lng: centerLng,
         }}
         style={{
           width: "100%",
           height: "100%",
         }}
-        level={5} // 지도의 확대 레벨
+        level={pins.length > 0 ? 11 : 13} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) => {
           console.log("pins", pins);
           if (stomp) {
