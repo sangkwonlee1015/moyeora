@@ -32,7 +32,7 @@ function updateUser(updateUserInfo, token, success, error) {
 function updateUserPassword(updateUserPasswordInfo, token, success, error) {
   instance
     .patch(`/users/password`, updateUserPasswordInfo, {
-      header: createHeaders(token),
+      headers: createHeaders(token),
     })
     .then(success)
     .catch(error);
