@@ -55,10 +55,10 @@ export const pinListSlice = createSlice({
     },
     DELETE_PIN: (state, action) => {
       let delIndex;
-      if (state.currentMap == action.payload.mapSeq) {
+      if (state.currentMap === action.payload.mapSeq) {
         state.pinList.map((pin, idx) => {
-          if (pin.pinFlag == action.payload.pinFlag) {
-            if (pin.pinOrder == action.payload.sourceOrder) {
+          if (pin.pinFlag === action.payload.pinFlag) {
+            if (pin.pinOrder === action.payload.sourceOrder) {
               delIndex = idx;
             } else if (pin.pinOrder > action.payload.sourceOrder) {
               pin.pinOrder -= 1;

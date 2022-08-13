@@ -44,12 +44,12 @@ function MapPage() {
       <Header />
       <Sidebar />
       <div className="comp">
-        <MapArea channelSeq={channelSeq} mapSeq={mapSeq} stomp={stomp} />
-        <button
+        <MapArea  stomp={stomp} />
+        {/* <button
           onClick={() => {
             setVisibleVideoComponent(!visibleVideoComponent);
           }}
-        ></button>
+        ></button> */}
         {visibleVideoComponent ? (
           <VideoRoomComponent
             sessionName={channelSeq}
