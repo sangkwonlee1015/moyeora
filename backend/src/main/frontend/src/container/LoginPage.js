@@ -3,6 +3,9 @@ import { registerUser, getUserProfile } from "../api/user";
 import { doLogin } from "../api/auth";
 import { useDispatch } from "react-redux";
 import { SET_LOGIN, SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
+import { getParticipantListByUser } from "../api/participant";
+import { getChannelInfo } from "../api/channel";
+import { SET_CHANNELLIST } from "../redux/ChannelList";
 
 const LoginPage = () => {
   //const navigate= useNavigate();
@@ -15,12 +18,15 @@ const LoginPage = () => {
       userId: userId,
       userPassword: userPass,
     };
-    registerUser(data, (response) => {
-      console.log(response.data)
-    },
-    (error) => {
-      console.log(error);
-    })
+    registerUser(
+      data,
+      (response) => {
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
   const onSubmitLoginForm = (event) => {
     event.preventDefault();
@@ -29,14 +35,46 @@ const LoginPage = () => {
       (response) => {
         console.log(response.data);
         dispatch(SET_TOKEN(response.data.accessToken));
-        getUserProfile(response.data.accessToken,
-          (response) =>{
+        let token = response.data.accessToken;
+        getUserProfile(
+          response.data.accessToken,
+          (response) => {
             dispatch(SET_USERINFO(response.data.userRes));
             console.log("profile get", response.data.userRes);
+            let list = [];
+            getParticipantListByUser(
+              token,
+              (response) => {
+                response.data.list.map((participant) => {
+                  console.log(participant);
+                  getChannelInfo(
+                    participant.participantsId.channelSeq,
+                    token,
+                    ({ data }) => {
+                      let channel = {
+                        channelSeq: participant.participantsId.channelSeq,
+                        channelDesc: data.channelDesc,
+                        channelName: data.channelName,
+                        channelTag: data.channelTag,
+                      };
+                      list = list.concat(channel);
+                      dispatch(SET_CHANNELLIST(list));
+                    },
+                    (error) => {
+                      console.log("error", error);
+                    }
+                  );
+                });
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
           },
-          (error)=>{
+          (error) => {
             console.log(error);
-          })
+          }
+        );
         dispatch(SET_LOGIN());
       },
       (error) => {
@@ -52,15 +90,22 @@ const LoginPage = () => {
             <label htmlFor="UserID" className="sr-only">
               User ID
             </label>
-            <input id="userid" value={userId} onChange={(e) => setUserId(e.target.value)} type="text"
-              placeholder="Password"></input>
+            <input
+              id="userid"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              type="text"
+              placeholder="Password"
+            ></input>
           </div>
           <div>
             <label htmlFor="password" className="sr-only">
               Password
             </label>
             <input
-              id="userpass" value={userPass} onChange={(e)=> setUserPass(e.target.value)}
+              id="userpass"
+              value={userPass}
+              onChange={(e) => setUserPass(e.target.value)}
               type="text"
               placeholder="Password"
             />
@@ -71,13 +116,17 @@ const LoginPage = () => {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-           로그인
+            로그인
           </button>
         </div>
       </form>
 
       <form onSubmit={onSubmitRegisterForm}>
-        <input id="userid" value={userId} onChange={(e) => setUserId(e.target.value)}></input>
+        <input
+          id="userid"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+        ></input>
         <input
           id="userPassword"
           value={userPass}
