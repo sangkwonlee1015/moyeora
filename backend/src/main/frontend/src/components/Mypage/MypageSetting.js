@@ -12,6 +12,7 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import TextField from '@mui/material/TextField';
 
 // redux
 import { useSelector } from "react-redux";
@@ -219,15 +220,32 @@ function MypageSetting(){
                   id="alert-dialog-slide-description"
                   className="dialog-content-text">
 
-                  <label for="currentPassword">현재 비밀번호</label>
+                  <label for="currentPassword" >현재 비밀번호</label>
                   <div>
-                    <Input value={currentPassword} id="currentPassword" onChange={onCurrentPassword}></Input>
+                    <Input 
+                      value={currentPassword} 
+                      id="currentPassword"
+                      className="dialog-input"
+                      onChange={onCurrentPassword}
+                      // autoFocus 이렇게 하기
+                      inputRef={(input) => {
+                        if(input != null) {
+                           input.focus();
+                        }
+                      }}
+                    ></Input>
                   </div>
                   <br/>
 
                   <label for="newPassword">새 비밀번호</label>
                   <div>
-                    <Input value={newPassword} id="newPassword" onChange={onNewPassword}></Input>
+                    <Input
+                      value={newPassword}
+                      id="newPassword"
+                      className="dialog-input"
+
+                      onChange={onNewPassword}
+                      ></Input>
                   </div>
 
                 </DialogContentText>
@@ -245,7 +263,6 @@ function MypageSetting(){
                 </div>
               </DialogActions>
             </Dialog>
-
 
           </div>
         </div>
