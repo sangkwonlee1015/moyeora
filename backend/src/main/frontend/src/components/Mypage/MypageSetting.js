@@ -2,7 +2,16 @@ import "./Mypage.css";
 import { CLICK_PIN, SET_PIN } from "../../redux/PinList";
 import React, { useEffect, useState } from "react";
 // mui
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
 
 // redux
 import { useSelector } from "react-redux";
@@ -12,8 +21,14 @@ import { stringify } from "uuid";
 import { updateUser, updateUserPassword } from "../../api/user";
 import { Link } from "react-router-dom";
 
-// import LoginPage from "./LoginPage";
-
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>,
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 function MypageSetting(){
@@ -23,7 +38,6 @@ function MypageSetting(){
   const userNick = userInfo.userNick
   const userPhone = userInfo.userPhone
 
-
   const [newUserName, setNewUserName] = React.useState(userName);
   const [newUserNick, setNewUserNick] = React.useState(userNick);
   const [newUserPhone, setNewUserPhone] = React.useState(userPhone);
@@ -31,6 +45,9 @@ function MypageSetting(){
   const [currentPassword, setCurrentPassword] = React.useState();
   const [newPassword, setNewPassword] = React.useState();
   
+  const [openChangePassword, setOpenChangePassword] = React.useState(false);
+
+
   const onNewUserName = (event) => {
     setNewUserName(event.target.value)
   }
@@ -47,6 +64,14 @@ function MypageSetting(){
   const onNewPassword = (event) => {
     setNewPassword(event.target.value)
   }
+  const handleOpenChangePassword = () => {
+    setOpenChangePassword(true);
+  };
+  const handleCloseChangePassword = () => {
+    setOpenChangePassword(false);
+    setCurrentPassword("")
+    setNewPassword("")
+  };
 
   const dispatch = useDispatch();
 
@@ -161,22 +186,67 @@ function MypageSetting(){
             </div>
             <hr></hr>
 
-            <div>
-              현재 비밀번호
-              <input onChange={onCurrentPassword}></input>
-            </div>
-
-            <div>새 비밀번호</div>
-            <input onChange={onNewPassword}></input>
             <div className="button-submit">
-            <Button onClick={onSubmitPassword}>
-              <div className="button-text-color">제출</div>
+            <Button onClick={handleOpenChangePassword}>
+              <div className="button-text-color">비밀번호 변경하기</div>
             </Button>
             </div>
 
-            <Link to="/">
-              <Button onClick={logOut}>로그아웃</Button>
-            </Link>
+            <div className="button-logout">
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Button onClick={logOut}>
+                  <div className="button-text-color">로그아웃</div>
+                </Button>
+              </Link>
+            </div>
+
+            <Dialog
+              open={openChangePassword}
+              TransitionComponent={Transition}
+              keepMounted  //??
+              onClose={handleCloseChangePassword}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle className="dialog-title">{"비밀번호를 바꿔주세요"}</DialogTitle>
+              <DialogContent className="dialog-content">
+                <div>
+                  현재 비밀번호와 새 비밀번호를 입력하세요.
+                  <br />
+                  <br />
+                  <br />
+                </div>
+                <DialogContentText 
+                  id="alert-dialog-slide-description"
+                  className="dialog-content-text">
+
+                  <label for="currentPassword">현재 비밀번호</label>
+                  <div>
+                    <Input value={currentPassword} id="currentPassword" onChange={onCurrentPassword}></Input>
+                  </div>
+                  <br/>
+
+                  <label for="newPassword">새 비밀번호</label>
+                  <div>
+                    <Input value={newPassword} id="newPassword" onChange={onNewPassword}></Input>
+                  </div>
+
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions className="option-cell">
+                <div className="cancel-button">
+                  <Button onClick={handleCloseChangePassword}>
+                    <div className="cancel-button-text">취소</div>
+                  </Button>
+                </div>
+                <div className="accept-button">
+                  <Button onClick={onSubmitPassword}>
+                    <div className="accept-button-text">완료</div>
+                  </Button>
+                </div>
+              </DialogActions>
+            </Dialog>
+
+
           </div>
         </div>
     )

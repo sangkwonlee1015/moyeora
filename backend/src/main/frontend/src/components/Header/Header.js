@@ -15,9 +15,9 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import { Checkbox } from "@mui/material";
 
 import ChannelTest from "./ChannelTest";
-import { Checkbox } from "@mui/material";
 
 // redux
 import { useSelector } from "react-redux";
