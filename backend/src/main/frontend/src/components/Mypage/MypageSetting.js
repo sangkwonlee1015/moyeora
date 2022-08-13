@@ -6,10 +6,13 @@ import Button from '@mui/material/Button';
 
 // redux
 import { useSelector } from "react-redux";
-import UserInfo, { SET_USERINFO } from "../../redux/UserInfo";
+import UserInfo, { SET_USERINFO, SET_LOGOUT, SET_TOKEN } from "../../redux/UserInfo";
 import { useDispatch } from "react-redux";
 import { stringify } from "uuid";
 import { updateUser, updateUserPassword } from "../../api/user";
+import { Link } from "react-router-dom";
+
+// import LoginPage from "./LoginPage";
 
 
 
@@ -98,8 +101,16 @@ function MypageSetting(){
   }
   
   const logOut = () => {
-    // dispatch.setLogOut()  유저인포안에
+    dispatch(SET_LOGOUT());
+    const updateUserInfo = {
+      userName: null,
+      userNick: null,
+      userPhone: null,
+    }
+    dispatch(SET_USERINFO(updateUserInfo));
+    dispatch(SET_TOKEN(null));
   }
+
 
   const test = () => {
     console.log(userInfo)
@@ -162,10 +173,10 @@ function MypageSetting(){
               <div className="button-text-color">제출</div>
             </Button>
             </div>
-            
 
-            <Button onClick={logOut}>로그아웃</Button>
-
+            <Link to="/">
+              <Button onClick={logOut}>로그아웃</Button>
+            </Link>
           </div>
         </div>
     )
