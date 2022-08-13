@@ -44,7 +44,7 @@ function MapPage() {
       <Header />
       <Sidebar />
       <div className="comp">
-        <MapArea  stomp={stomp} />
+        <MapArea channelSeq={channelSeq} mapSeq={mapSeq} stomp={stomp} />
         {/* <button
           onClick={() => {
             setVisibleVideoComponent(!visibleVideoComponent);
