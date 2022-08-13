@@ -11,6 +11,7 @@ function Map(props) {
   const ChannelSeq = useSelector((state) => state.ChannelList.channelSeq);
 
   function openMap(mapSeq) {
+    dispatch(SET_CURRENTMAP(mapSeq));
     getPinList(
       mapSeq,
       token,
@@ -19,16 +20,15 @@ function Map(props) {
         pinList.map((pin) => {
           pin.isVisible = false;
         });
-        dispatch(SET_PINLIST(pinList));
+        dispatch(SET_PINLIST({ pinList: pinList, mapSeq: mapSeq }));
       },
       (error) => {
         console.log(error);
       }
     );
-    dispatch(SET_CURRENTMAP(mapSeq));
   }
 
-  const DeleteMap = (() => console.log('맵 삭제'))
+  const DeleteMap = () => console.log("맵 삭제");
   return (
     <div>
       <span>

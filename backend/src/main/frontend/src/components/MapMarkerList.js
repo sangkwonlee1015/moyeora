@@ -5,10 +5,12 @@ import { v4 as uuid } from "uuid";
 
 import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
+import { createHeaders } from "../api";
 
 function MapMarkerList({ channelSeq, mapSeq, stomp }) {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
+  const token = useSelector((state) => state.UserInfo.accessToken);
   const [columns, setColumns] = useState([]);
   let itemsCandi = [];
   let itemsFinal = [];
@@ -21,41 +23,49 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
     let chatMessage = { receiver: channelSeq, mapSeq: mapSeq };
 
     if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...sourceColumn,
-          items: sourceItems,
-        },
-        [destination.droppableId]: {
-          ...destColumn,
-          items: destItems,
-        },
-      });
+      // const sourceColumn = columns[source.droppableId];
+      // const destColumn = columns[destination.droppableId];
+      // const sourceItems = [...sourceColumn.items];
+      // const destItems = [...destColumn.items];
+      // const [removed] = sourceItems.splice(source.index, 1);
+      // destItems.splice(destination.index, 0, removed);
+      // setColumns({
+      //   ...columns,
+      //   [source.droppableId]: {
+      //     ...sourceColumn,
+      //     items: sourceItems,
+      //   },
+      //   [destination.droppableId]: {
+      //     ...destColumn,
+      //     items: destItems,
+      //   },
+      // });
+      chatMessage.status = "MOD_PINLIST_DIFFLAG";
     } else {
-      const column = columns[source.droppableId];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...column,
-          items: copiedItems,
-        },
-      });
+      // const column = columns[source.droppableId];
+      // const copiedItems = [...column.items];
+      // const [removed] = copiedItems.splice(source.index, 1);
+      // copiedItems.splice(destination.index, 0, removed);
+      // setColumns({
+      //   ...columns,
+      //   [source.droppableId]: {
+      //     ...column,
+      //     items: copiedItems,
+      //   },
+      // });
+      if (source.index == destination.index) {
+        return;
+      }
+      chatMessage.status = "MOD_PINLIST_SAMEFLAG";
     }
-    chatMessage = {
-      receiver: channelSeq,
-      mapSeq: mapSeq,
-    };
-    stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
+    chatMessage.pinFlag = source.droppableId ^ 1; // 이동 전 flag
+    chatMessage.sourceOrder = source.index;
+    chatMessage.destinationOrder = destination.index;
+    stomp.send(
+      "/app/private-message",
+      createHeaders(token),
+      JSON.stringify(chatMessage)
+    );
   };
 
   pins.map((pin) => {
@@ -98,8 +108,8 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
     return 0;
   });
 
-  const itemsFinalId = uuid(); // id 변수에 저장
-  const itemsCandiId = uuid();
+  const itemsFinalId = 0; // id 변수에 저장
+  const itemsCandiId = 1;
 
   useEffect(() => {
     // 초기 세팅하고
@@ -127,6 +137,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
         >
           <div className="hi" style={{ backgroundColor: "#202225" }}>
             {Object.entries(columns).map(([columnId, column], index) => {
+              console.log("columnid : ", columnId);
               return (
                 <div
                   style={{

@@ -15,5 +15,8 @@ public interface PinRepository extends JpaRepository<Pin, Long> {
     List<Pin> findByMapSeq(Long mapSeq);
     Optional<Pin> findByPinSeq(Long pinSeq);
     Integer countByMapSeqAndPinFlag(Long mapSeq, int pinFlag);
-
+    List<Pin> findByMapSeqAndPinFlagAndPinOrderGreaterThan(Long mapSeq, int pinFlag, int pinOrder);
+    List<Pin> findByMapSeqAndPinFlagAndPinOrderGreaterThanEqual(Long mapSeq, int pinFlag, int pinOrder);
+    Optional<Pin> findByMapSeqAndPinFlagAndPinOrder(Long mapSeq, int pinFlag, int pinOrder);
+    List<Pin> findByMapSeqAndPinFlagAndPinOrderBetween(Long mapSeq, int pinFlag, int fromInt, int toInt);
 }
