@@ -12,7 +12,7 @@ export const pinListSlice = createSlice({
   reducers: {
     SET_PINLIST: (state, action) => {
       console.log(action.payload);
-      if (state.currentMap == action.payload.mapSeq)
+      if (state.currentMap === action.payload.mapSeq)
         state.pinList = action.payload.pinList;
       if (state.pinList.length > 0) {
         let bounds = new kakao.maps.LatLngBounds();
@@ -30,7 +30,7 @@ export const pinListSlice = createSlice({
       console.log("state.pinList : ", state.pinList);
     },
     ADD_PIN: (state, action) => {
-      if (state.currentMap == action.payload.mapSeq)
+      if (state.currentMap === action.payload.mapSeq)
         state.pinList = [...state.pinList, action.payload];
     },
     SET_PIN: (state, action) => {
@@ -61,12 +61,12 @@ export const pinListSlice = createSlice({
       });
     },
     SET_PINORDER_DIFFLAG: (state, action) => {
-      if (state.currentMap == action.payload.mapSeq) {
+      if (state.currentMap === action.payload.mapSeq) {
         state.pinList.map((pin) => {
-          if (pin.pinFlag == action.payload.pinFlag) {
+          if (pin.pinFlag === action.payload.pinFlag) {
             if (pin.pinOrder > action.payload.sourceOrder) {
               pin.pinOrder -= 1;
-            } else if (pin.pinOrder == action.payload.sourceOrder) {
+            } else if (pin.pinOrder === action.payload.sourceOrder) {
               pin.pinFlag = pin.pinFlag ^ 1;
               pin.pinOrder = action.payload.destinationOrder;
             }
@@ -85,9 +85,9 @@ export const pinListSlice = createSlice({
     // 	출발지 index 미만, 도착지 index 이상의 index인 핀을 +1
     // 	출발지 index의 핀의 index를 도착지 index로 변경
     SET_PINORDER_SAMEFLAG: (state, action) => {
-      if (state.currentMap == action.payload.mapSeq) {
+      if (state.currentMap === action.payload.mapSeq) {
         state.pinList.map((pin) => {
-          if (pin.pinFlag == action.payload.pinFlag) {
+          if (pin.pinFlag === action.payload.pinFlag) {
             if (action.payload.sourceOrder < action.payload.destinationOrder) {
               // 출발 order가 도착 order보다 작다면
               if (
@@ -95,7 +95,7 @@ export const pinListSlice = createSlice({
                 pin.pinOrder <= action.payload.destinationOrder
               ) {
                 pin.pinOrder -= 1;
-              } else if (pin.pinOrder == action.payload.sourceOrder) {
+              } else if (pin.pinOrder === action.payload.sourceOrder) {
                 pin.pinOrder = action.payload.destinationOrder;
               }
             } else {
@@ -105,7 +105,7 @@ export const pinListSlice = createSlice({
                 pin.pinOrder < action.payload.sourceOrder
               ) {
                 pin.pinOrder += 1;
-              } else if (pin.pinOrder == action.payload.sourceOrder) {
+              } else if (pin.pinOrder === action.payload.sourceOrder) {
                 pin.pinOrder = action.payload.destinationOrder;
               }
             }

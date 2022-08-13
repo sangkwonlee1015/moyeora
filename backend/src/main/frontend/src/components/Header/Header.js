@@ -257,12 +257,11 @@ export default function Header() {
               id="channelName"
               className="input"
               onChange={onChannelName}
-              // autoFocus 이렇게 하기
-              inputRef={(input) => {
-                if(input != null) {
-                   input.focus();
-                }
-              }}
+              // inputRef={(input) => {
+              //   if(input != null) {
+              //      input.focus();
+              //   }
+              // }}
             ></Input>
             <br />
             <br />

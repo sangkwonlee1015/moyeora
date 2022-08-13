@@ -25,7 +25,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
     if (source.droppableId !== destination.droppableId) {
       chatMessage.status = "MOD_PINLIST_DIFFLAG";
     } else {
-      if (source.index == destination.index) {
+      if (source.index === destination.index) {
         return;
       }
       chatMessage.status = "MOD_PINLIST_SAMEFLAG";

@@ -112,8 +112,13 @@ function Sidebar(props) {
 
   const onChangeMapName = (e) => {
     setMapName(e.target.value);
-    console.log(mapName);
   };
+
+  const enterKey = e => {
+    if (e.key === 'Enter') {
+      createMap()
+    }
+  }
 
   const createMap = () => {
     const mapInfo = {
@@ -124,7 +129,6 @@ function Sidebar(props) {
       mapInfo,
       token,
       (response) => {
-        console.log(response);
         getMapList(
           channelSeq,
           "channel",
@@ -172,6 +176,7 @@ function Sidebar(props) {
                 value={mapName}
                 autoFocus
                 onChange={onChangeMapName}
+                onKeyPress={enterKey}
               ></input>
               <Stack
                 direction="row"

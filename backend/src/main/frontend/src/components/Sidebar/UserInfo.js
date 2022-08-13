@@ -37,7 +37,6 @@ function UserInfo(props) {
 
   const LeaveTheChannel = () => {
     const success = (res) => {
-      console.log(res);
       handleClose();
       let list = [];
       getParticipantListByUser(
