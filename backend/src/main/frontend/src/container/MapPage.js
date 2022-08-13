@@ -34,6 +34,9 @@ function MapPage() {
         console.log(error);
       }
     );
+    return () => {
+      stomp.disconnect(() => {});
+    };
   }, []);
 
   return (
