@@ -19,8 +19,9 @@ import { useSelector } from "react-redux";
 import UserInfo, { SET_USERINFO, SET_LOGOUT, SET_TOKEN } from "../../redux/UserInfo";
 import { useDispatch } from "react-redux";
 import { stringify } from "uuid";
-import { updateUser, updateUserPassword } from "../../api/user";
+import { deleteUser, updateUser, updateUserPassword } from "../../api/user";
 import { Link } from "react-router-dom";
+import { deleteParticipant, getParticipantListByUser } from "../../api/participant";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -47,7 +48,8 @@ function MypageSetting(){
   const [newPassword, setNewPassword] = React.useState();
   
   const [openChangePassword, setOpenChangePassword] = React.useState(false);
-
+  const [openDeleteUser, setOpenDeleteUser] = React.useState(false);
+  
 
   const onNewUserName = (event) => {
     setNewUserName(event.target.value)
@@ -74,6 +76,13 @@ function MypageSetting(){
     setNewPassword("")
   };
 
+  const handleOpenDeleteUser = () => {
+    setOpenDeleteUser(true);
+  };
+  const handleCloseDeleteUser = () => {
+    setOpenDeleteUser(false);
+  };
+  
   const dispatch = useDispatch();
 
   const [onOff, setOnOff] = React.useState(false)
@@ -81,11 +90,7 @@ function MypageSetting(){
   const updateTry = () => {
     setOnOff((current) => !current);
     console.log("수정버튼 누름")
-    // const userNick = UserInfo.userNick;
     console.log(userInfo);
-    // console.log("유저이름:", userName)
-    // console.log("유저닉네임:", userNick)
-    // console.log("유저번호:", userPhone)
   }
 
   const onSubmit = () => {
@@ -120,6 +125,7 @@ function MypageSetting(){
       console.log("비밀번호 변경 성공", res)
 
     }
+    <Link to="/"></Link>
     const error = (res) => {
       console.log("비밀번호 변경 실패", res)
     }
@@ -137,19 +143,77 @@ function MypageSetting(){
     dispatch(SET_TOKEN(null));
   }
 
+  const onDeleteUser = () => {
 
-  const test = () => {
-    console.log(userInfo)
-    console.log(userInfo.userRes.userName)
-    console.log(userNick)
-    console.log(userPhone)
+    const success2 = (res2) => {
+      console.log("참여채널 조회성공", res2.data.list);
+      const listHaveToDelete = res2.data.list;
+      const success1 = (res1) => {
+        console.log("tb_participants 에서 삭제 성공", res1)
+      }
+      const error1 = (res1) => {
+        console.log("tb_participants 에서 삭제 실패", res1)
+      }
+      for (const item of listHaveToDelete) {
+        console.log(item.participantsId.channelSeq);
+        deleteParticipant(item.participantsId.channelSeq, token, success1, error1)
+      }
+
+      const success3 = (res3) => {
+        dispatch(SET_LOGOUT());
+        const updateUserInfo = {
+          userName: null,
+          userNick: null,
+          userPhone: null,
+        }
+        dispatch(SET_USERINFO(updateUserInfo));
+        dispatch(SET_TOKEN(null));
+        handleCloseDeleteUser(false);
+        console.log("회원탈퇴 성공", res3);
+      }
+      const error3 = (res3) => {
+        console.log("회원탈퇴 실패", res3);
+      }
+      deleteUser(token, success3, error3);
+    }
+
+    const error2 = (res2) => {
+      console.log("참여채널 조회실패", res2);
+    }
+
+    getParticipantListByUser(token, success2, error2)
+
+    
   }
+
+
+  const test2 = () => {
+    const success2 = (res2) => {
+      console.log("참여채널 조회성공", res2.data.list);
+      const listHaveToDelete = res2.data.list;
+      const success1 = (res1) => {
+        console.log("tb_participants 에서 삭제 성공", res1)
+      }
+      const error1 = (res1) => {
+        console.log("tb_participants 에서 삭제 실패", res1)
+      }
+      for (const item of listHaveToDelete) {
+        console.log(item.participantsId.channelSeq);
+        deleteParticipant(item.participantsId.channelSeq, token, success1, error1)
+      }
+    }
+    const error2 = (res2) => {
+      console.log("참여채널 조회실패", res2);
+    }
+    getParticipantListByUser(token, success2, error2)
+
+  }
+  
     return (
       
         <div className="mypage-setting"> 
           <div className="background"></div>
           <div className="big-circle"></div>
-          <Button onClick={test}>테스트</Button>
 
           <div className="user-name"> {`이름 : ${userName} 입니다`}</div>
           <div className="background2">
@@ -193,12 +257,25 @@ function MypageSetting(){
             </Button>
             </div>
 
+            {/* style={{ textDecoration: 'none' } 는 to 때문에 생기는 밑줄 없애는 코드 */}
             <div className="button-logout">
               <Link to="/" style={{ textDecoration: 'none' }}>
                 <Button onClick={logOut}>
                   <div className="button-text-color">로그아웃</div>
                 </Button>
               </Link>
+            </div>
+
+            <div className="button-logout">
+                <Button onClick={handleOpenDeleteUser}>
+                  <div className="button-text-color">계정 삭제하기</div>
+                </Button>
+            </div>
+
+            <div className="button-logout">
+                <Button onClick={test2}>
+                  <div className="button-text-color">테스트</div>
+                </Button>
             </div>
 
             <Dialog
@@ -254,6 +331,43 @@ function MypageSetting(){
                   <Button onClick={onSubmitPassword}>
                     <div className="accept-button-text">완료</div>
                   </Button>
+                </div>
+              </DialogActions>
+            </Dialog>
+
+            <Dialog
+              open={openDeleteUser}
+              TransitionComponent={Transition}
+              keepMounted  //??
+              onClose={handleCloseDeleteUser}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle className="dialog-title">{"계정 삭제하기"}</DialogTitle>
+              <DialogContent className="dialog-content">
+                <div>
+                  정말로 계정을 삭제하시겠어요? 즉시 계정에서 로그아웃되며 다시 로그인 하실 수 없어요.
+                  <br />
+                  <br />
+                  <br />
+                </div>
+                <DialogContentText 
+                  id="alert-dialog-slide-description"
+                  className="dialog-content-text">
+
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions className="option-cell">
+                <div className="cancel-button">
+                  <Button onClick={handleCloseDeleteUser}>
+                    <div className="cancel-button-text">취소</div>
+                  </Button>
+                </div>
+                <div className="accept-button">
+                  <Link to="/">
+                    <Button onClick={onDeleteUser}>
+                      <div className="accept-button-text">계정 삭제</div>
+                    </Button>
+                  </Link>
                 </div>
               </DialogActions>
             </Dialog>
