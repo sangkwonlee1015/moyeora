@@ -71,6 +71,7 @@ function AddChannel() {
         getParticipantListByUser(
           token,
           (response) => {
+            dispatch(SET_CHANNELLIST(list))
             response.data.list.map((participant) => {
               console.log(participant);
               getChannelInfo(

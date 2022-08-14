@@ -42,6 +42,7 @@ function UserInfo(props) {
       getParticipantListByUser(
         token,
         (response) => {
+          dispatch(SET_CHANNELLIST(list))
           response.data.list.map((participant) => {
             getChannelInfo(
               participant.participantsId.channelSeq,
@@ -62,8 +63,8 @@ function UserInfo(props) {
                 console.log("error", error);
               }
             );
-          });
-        },
+          })
+          navigate("/homepage");},
         (error) => {
           console.log(error);
         }

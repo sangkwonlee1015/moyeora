@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getParticipantListByUser } from "../../api/participant";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { SET_CHANNELLIST, SET_CHANNELSEQ } from "../../redux/ChannelList";
+import { SET_CHANNELSEQ } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
 import { getMapList } from "../../api/map";
 import { SET_MAPLIST } from "../../redux/MapList";
