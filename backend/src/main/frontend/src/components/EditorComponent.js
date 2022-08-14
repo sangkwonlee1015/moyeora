@@ -20,7 +20,7 @@ class EditorComponent extends Component {
       //   ],
       //   ["link", "image"],
       //   [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-      ["clean"],
+      // ["clean"],
     ],
   };
 
@@ -45,11 +45,25 @@ class EditorComponent extends Component {
   render() {
     const { value, onChange, index } = this.props;
     return (
-      <div style={{ width: "200px", height: "200px" }}>
+      <div style={{ width: "200px", height: "210px" }}>
+        <ReactQuill
+          style={{ width: "200px", height: "50px" }}
+          theme="snow"
+          modules={{
+            toolbar: false,
+          }}
+          formats={this.formats}
+          value={value || ""}
+          // onChange={(content, delta, source, editor) => {
+          //   onChange(index, editor);
+          // }}
+        />
         <ReactQuill
           style={{ width: "200px", height: "160px" }}
           theme="snow"
-          modules={this.modules}
+          modules={{
+            toolbar: false,
+          }}
           formats={this.formats}
           value={value || ""}
           onChange={(content, delta, source, editor) => {

@@ -28,7 +28,6 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
   const centerLat = useSelector((state) => state.PinList.centerLat);
   const centerLng = useSelector((state) => state.PinList.centerLng);
-  const mapLevel = useSelector((state) => state.PinList.mapLevel);
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [_pinColor, _setPinColor] = useState(PinBlack);
 
@@ -37,6 +36,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
 
   // 최종 리스트 경로 표시
   const [polylineList, setPolylineList] = useState([]);
+  const [currentMapLevel, setCurrentMapLevel] = useState(12);
   const mapRef = useRef();
   const dispatch = useDispatch();
 
@@ -116,8 +116,13 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
         }}
         // onCreate={mapCreate}
         onCreate={() => {
+          console.log("~~~mapCreate~~~");
           const map = mapRef.current;
-          if (map) map.setLevel(mapLevel);
+          if (map) map.setLevel(currentMapLevel);
+        }}
+        onZoomChanged={() => {
+          const map = mapRef.current;
+          setCurrentMapLevel(map.getLevel());
         }}
       >
         {pins.map((marker, index) => (
