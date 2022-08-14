@@ -28,6 +28,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
   const centerLat = useSelector((state) => state.PinList.centerLat);
   const centerLng = useSelector((state) => state.PinList.centerLng);
+  const mapLevel = useSelector((state) => state.PinList.mapLevel);
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [_pinColor, _setPinColor] = useState(PinBlack);
 
@@ -36,7 +37,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
 
   // 최종 리스트 경로 표시
   const [polylineList, setPolylineList] = useState([]);
-
+  const mapRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,6 +71,10 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
     }
   };
 
+  const mapCreate = () => {
+    console.log("mapCreate");
+  };
+
   function getPinColorObj(str) {}
 
   return (
@@ -88,7 +93,8 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
           width: "100%",
           height: "100%",
         }}
-        level={pins.length > 0 ? 11 : 13} // 지도의 확대 레벨
+        level={3} // 지도의 확대 레벨
+        ref={mapRef}
         onClick={(_t, mouseEvent) => {
           console.log("pins", pins);
           if (stomp) {
@@ -107,6 +113,11 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
               JSON.stringify(chatMessage)
             );
           }
+        }}
+        // onCreate={mapCreate}
+        onCreate={() => {
+          const map = mapRef.current;
+          if (map) map.setLevel(mapLevel);
         }}
       >
         {pins.map((marker, index) => (
