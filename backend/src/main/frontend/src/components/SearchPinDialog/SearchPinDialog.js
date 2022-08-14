@@ -17,6 +17,7 @@ function SearchPinDialog({
   stomp,
   mapSeq,
   channelSeq,
+  pinColor,
 }) {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
@@ -201,7 +202,7 @@ function SearchPinDialog({
                             lat: item.y,
                             lng: item.x,
                             pinTitle: item.place_name,
-                            pinColor: "test",
+                            pinColor: pinColor,
                             mapSeq: mapSeq,
                             status: "ADDPIN",
                           };
