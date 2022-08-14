@@ -12,11 +12,24 @@ import Editor from "./EditorComponent";
 import { CLICK_PIN, SET_PIN } from "../redux/PinList";
 import { createHeaders } from "../api";
 
+import SelectPin from "./SelectPin/SelectPin";
+import PinOrange from "./SelectPin/asset/PinOrange.svg";
+import PinRed from "./SelectPin/asset/PinRed.svg";
+import PinBlack from "./SelectPin/asset/PinBlack.svg";
+import PinYellow from "./SelectPin/asset/PinYellow.svg";
+import PinGreen from "./SelectPin/asset/PinGreen.svg";
+import PinWhale from "./SelectPin/asset/PinWhale.svg";
+import PinBlue from "./SelectPin/asset/PinBlue.svg";
+import PinPurple from "./SelectPin/asset/PinPurple.svg";
+import PinSky from "./SelectPin/asset/PinSky.svg";
+import PinPink from "./SelectPin/asset/PinPink.svg";
+
 function MapArea({ channelSeq, mapSeq, stomp }) {
   const pins = useSelector((state) => state.PinList.pinList);
   const centerLat = useSelector((state) => state.PinList.centerLat);
   const centerLng = useSelector((state) => state.PinList.centerLng);
   const token = useSelector((state) => state.UserInfo.accessToken);
+  const [_pinColor, _setPinColor] = useState(PinBlack);
 
   //pinSearchDialog 관련
   const [visibleSearchPinDialog, setVisibleSearchPinDialog] = useState(false);
@@ -44,7 +57,6 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   }, [pins]);
 
   const commentChange = (index, e) => {
-    console.log(e);
     if (stomp) {
       let chatMessage = {
         receiver: channelSeq,
@@ -57,6 +69,8 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
       stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
     }
   };
+
+  function getPinColorObj(str) {}
 
   return (
     <div
@@ -83,7 +97,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
               pinTitle: "새 핀",
-              pinColor: "test",
+              pinColor: _pinColor,
               mapSeq: mapSeq,
               status: "ADDPIN",
             };
@@ -104,6 +118,19 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
             }}
             onClick={() => {
               dispatch(CLICK_PIN({ pinSeq: marker.pinSeq }));
+            }}
+            image={{
+              src: marker.pinColor, // 마커이미지의 주소입니다
+              size: {
+                width: 36,
+                height: 36,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 18,
+                  y: 36,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
             }}
           >
             {marker.isVisible && (
@@ -135,6 +162,11 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
       >
         Pin 검색
       </button>
+      <SelectPin
+        active={(param) => {
+          _setPinColor(param);
+        }}
+      ></SelectPin>
       <SearchPinDialog
         open={visibleSearchPinDialog}
         setVisibleSearchPinDialog={() => {
