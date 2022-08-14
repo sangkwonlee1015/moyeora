@@ -1,7 +1,16 @@
-.mypage-sidebar{
-  background-color:red;
+.mapListItem {
+  color: #e2e3e4;
+  font-weight: bold;
 }
-
+.mapListItem>div{
+  border-radius: 10px;
+  margin-left: 2rem;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+.mapListItem>div:hover{
+  background-color: #42464d;
+}
 
 /* ---------------------------- */
 .mypage-setting{
