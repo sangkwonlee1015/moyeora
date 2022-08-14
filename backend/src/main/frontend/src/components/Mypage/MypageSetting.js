@@ -227,12 +227,7 @@ function MypageSetting(){
                       id="currentPassword"
                       className="dialog-input"
                       onChange={onCurrentPassword}
-                      // autoFocus 이렇게 하기
-                      inputRef={(input) => {
-                        if(input != null) {
-                           input.focus();
-                        }
-                      }}
+
                     ></Input>
                   </div>
                   <br/>
@@ -243,7 +238,6 @@ function MypageSetting(){
                       value={newPassword}
                       id="newPassword"
                       className="dialog-input"
-
                       onChange={onNewPassword}
                       ></Input>
                   </div>
