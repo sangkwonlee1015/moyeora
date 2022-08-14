@@ -6,6 +6,7 @@ import { SET_LOGIN, SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 import { getParticipantListByUser } from "../api/participant";
 import { getChannelInfo } from "../api/channel";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
+import FindPassword from "../components/FindPassword";
 
 const LoginPage = () => {
   //const navigate= useNavigate();
@@ -134,6 +135,8 @@ const LoginPage = () => {
         ></input>
         <button type="submit">Register</button>
       </form>
+    
+      <FindPassword></FindPassword>
     </div>
   );
 };
