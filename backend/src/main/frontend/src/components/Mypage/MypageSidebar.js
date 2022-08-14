@@ -1,24 +1,28 @@
-import { useSelector } from "react-redux";
+import "./Mypage.css";
 import Map from "./Map";
 import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "../Sidebar/UserInfo";
+import StompJs from "stompjs";
+import SockJS from "sockjs-client";
 import { useEffect, useState } from "react";
-import { SET_MAPLIST } from "../../redux/MapList";
-import { useDispatch } from "react-redux";
+
+// mui
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
-import SockJS from "sockjs-client";
-import StompJs from "stompjs";
+
+// redux
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { SET_MAPLIST } from "../../redux/MapList";
 import {
   ADD_PIN,
   SET_PIN,
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
 } from "../../redux/PinList";
-import "./Mypage.css";
 
 
 function MypageSideBar(props){
