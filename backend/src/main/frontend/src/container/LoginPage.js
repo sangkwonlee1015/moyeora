@@ -6,23 +6,48 @@ import { SET_LOGIN, SET_TOKEN, SET_USERINFO } from "../redux/UserInfo";
 import { getParticipantListByUser } from "../api/participant";
 import { getChannelInfo } from "../api/channel";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
-import FindPassword from "../components/FindPassword";
+import "./LoginSignup.css";
+
 
 const LoginPage = () => {
   //const navigate= useNavigate();
   const dispatch = useDispatch();
-
+  const [IsSignUp, setIsSignUp] = useState(false);
   const [userId, setUserId] = useState("");
   const [userPass, setUserPass] = useState("");
-  const onSubmitRegisterForm = () => {
+  const [userName, setUserName] = useState("");
+  const [userNick, setUserNick] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+
+  const LoginOrSignUp = (e) => {        // 로그인 창 -> 회원가입 창 왔다갔다.
+    e.preventDefault()                  // form 제출 막고
+    setUserId("")                       // id, password 입력하던거 초기화
+    setUserPass("")
+    setUserName("")
+    setUserNick("")
+    setUserPhone("")
+    const newValue = !IsSignUp          
+    setIsSignUp(newValue)               // true -> false 변경
+  }
+
+  const onSubmitRegisterForm = (event) => {
+    event.preventDefault();
     const data = {
       userId: userId,
       userPassword: userPass,
+      userName: userName,
+      userNick: userNick,
+      userPhone: userPhone
     };
     registerUser(
       data,
       (response) => {
-        console.log(response.data);
+        setUserId("");                        // id, password 입력하던거 초기화
+        setUserPass("");
+        setUserName("");
+        setUserNick("");
+        setUserPhone("");
+        setIsSignUp(false)
       },
       (error) => {
         console.log(error);
@@ -46,6 +71,7 @@ const LoginPage = () => {
             getParticipantListByUser(
               token,
               (response) => {
+                dispatch(SET_CHANNELLIST(list))
                 response.data.list.map((participant) => {
                   console.log(participant);
                   getChannelInfo(
@@ -84,59 +110,98 @@ const LoginPage = () => {
     );
   };
   return (
-    <div>
-      <form className="mt-8 space-y-6" onSubmit={onSubmitLoginForm}>
-        <div className="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label htmlFor="UserID" className="sr-only">
-              User ID
-            </label>
-            <input
-              id="userid"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-              type="text"
-              placeholder="Password"
+    <div className="LoginSignUp">
+      { IsSignUp ? 
+      <div class="center">
+        <h1>SignUp</h1>
+        <form method="post" onSubmit={onSubmitRegisterForm}>
+          <div class="txt_field">
+            <input 
+            type="text" 
+            required
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
             ></input>
+            <span></span>
+            <label>User ID</label>
           </div>
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              id="userpass"
-              value={userPass}
-              onChange={(e) => setUserPass(e.target.value)}
-              type="text"
-              placeholder="Password"
-            />
+          <div class="txt_field">
+            <input 
+            type="password" 
+            required
+            value={userPass}
+            onChange={(e) => setUserPass(e.target.value)}
+            ></input>
+            <span></span>
+            <label>Password</label>
           </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            로그인
-          </button>
-        </div>
-      </form>
-
-      <form onSubmit={onSubmitRegisterForm}>
-        <input
-          id="userid"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-        ></input>
-        <input
-          id="userPassword"
-          value={userPass}
-          onChange={(e) => setUserPass(e.target.value)}
-        ></input>
-        <button type="submit">Register</button>
-      </form>
-    
-      <FindPassword></FindPassword>
+          <div class="txt_field">
+            <input 
+            type="text" 
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            ></input>
+            <span></span>
+            <label>YourName</label>
+          </div>
+          <div class="txt_field">
+            <input 
+            type="text" 
+            value={userNick}
+            onChange={(e) => setUserNick(e.target.value)}
+            ></input>
+            <span></span>
+            <label>NickName</label>
+          </div>
+          <div class="txt_field">
+            <input 
+            type="text" 
+            value={userPhone}
+            onChange={(e) => setUserPhone(e.target.value)}
+            ></input>
+            <span></span>
+            <label>PhoneNumber</label>
+          </div>
+          <input type="submit" value="SignUp"></input>
+          <div class="signup_link">
+            already a member? <button onClick={LoginOrSignUp}>Login</button>
+          </div>
+        </form>
+      </div>
+      :
+      <div class="center">
+        <h1>Login</h1>
+        <form method="post" onSubmit={onSubmitLoginForm}>
+          <div class="txt_field">
+            <input 
+            type="text" 
+            required
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            // placeholder="Password"
+            ></input>
+            <span></span>
+            <label>User ID</label>
+          </div>
+          <div class="txt_field">
+            <input 
+            type="password" 
+            required
+            value={userPass}
+            onChange={(e) => setUserPass(e.target.value)}
+            ></input>
+            <span></span>
+            <label>Password</label>
+          </div>
+          <div class="pass">Forgot Password?</div>
+          <input type="submit" value="Login"></input>
+          <div class="signup_link">
+            Not a member? <button onClick={LoginOrSignUp}>Signup</button>
+          </div>
+        </form>
+      </div>
+      }
+      
     </div>
   );
 };
