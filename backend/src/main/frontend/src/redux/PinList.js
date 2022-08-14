@@ -37,9 +37,9 @@ export const pinListSlice = createSlice({
       console.log(action.payload);
       state.pinList.map((pin) => {
         if (pin.seq === action.payload.pinSeq) {
-          pin.color = action.payload.pinColor
+          pin.pinColor = action.payload.pinColor
             ? action.payload.pinColor
-            : pin.color;
+            : pin.pinColor;
           pin.comment = action.payload.pinContent
             ? action.payload.pinContent
             : pin.comment;

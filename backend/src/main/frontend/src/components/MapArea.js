@@ -175,6 +175,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
         stomp={stomp}
         mapSeq={mapSeq}
         channelSeq={channelSeq}
+        pinColor={_pinColor}
       ></SearchPinDialog>
     </div>
   );
