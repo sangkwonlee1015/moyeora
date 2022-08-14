@@ -106,6 +106,7 @@ export default function Header() {
       getParticipantListByUser(
         token,
         (response) => {
+          dispatch(SET_CHANNELLIST(list))
           response.data.list.map((participant) => {
             getChannelInfo(
               participant.participantsId.channelSeq,
@@ -147,6 +148,7 @@ export default function Header() {
     getParticipantListByUser(
       token,
       (response) => {
+        dispatch(SET_CHANNELLIST(list))
         response.data.list.map((participant) => {
           getChannelInfo(
             participant.participantsId.channelSeq,
