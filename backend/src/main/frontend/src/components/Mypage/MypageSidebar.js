@@ -1,5 +1,5 @@
-import "./Mypage.css";
 import Map from "./Map";
+import "./Mypage.css";
 import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "../Sidebar/UserInfo";
 import StompJs from "stompjs";
@@ -55,36 +55,36 @@ function MypageSideBar(props){
     console.log(mapName);
   };
 
-  // const createMap = () => {
-  //   const mapInfo = {
-  //     channelSeq: channelSeq,
-  //     mapName: mapName,
-  //   };
-  //   registerMap(
-  //     mapInfo,
-  //     token,
-  //     (response) => {
-  //       console.log(response);
-  //       getMapList(
-  //         channelSeq,
-  //         "channel",
-  //         token,
-  //         (response) => {
-  //           dispatch(SET_MAPLIST(response.data.mapsList));
-  //           handleClose();
-  //         },
-  //         (error) => {
-  //           console.log(error);
-  //         }
-  //       );
-  //     },
-  //     (error) => console.log(error)
-  //   );
-  // };
+  const createMap = () => {
+    const mapInfo = {
+      userSeq: 1,
+      mapName: mapName,
+    };
+    registerMap(
+      mapInfo,
+      token,
+      (response) => {
+        console.log(response);
+        getMapList(
+          1,
+          "user",
+          token,
+          (response) => {
+            dispatch(SET_MAPLIST(response.data.mapsList));
+            handleClose();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      },
+      (error) => console.log(error)
+    );
+  };
 
   return (
     <div className="sidebar">
-      <div className="mypage-sidebar">
+      <div className="mapListItem">
         MapList
         <button onClick={handleOpen} className="mapPlusButton tooltip" >
           +
@@ -125,8 +125,7 @@ function MypageSideBar(props){
                 spacing={2}
                 style={{ marginTop: "2rem" }}
               >
-              {/* onClick={createMap} */}
-                <Button variant="outlined" color="success" > 
+                <Button variant="outlined" color="success" onClick={createMap} > 
                   맵 만들기
                 </Button>
                 <Button onClick={handleClose} variant="outlined" color="error">
@@ -138,11 +137,17 @@ function MypageSideBar(props){
           
           </Box>
         </Modal>
+        
 
 
-        <div className="mypage-sidebar">
-          <Map channelSeq={props.channelSeq} />
-        </div>
+        {mapList.map((map) => (
+          <Map
+            key={map.mapSeq}
+            userSeq={props.userSeq}
+            mapSeq={map.mapSeq}
+            mapName={map.mapName}
+          ></Map>
+        ))}
 
       </div>
     </div>
