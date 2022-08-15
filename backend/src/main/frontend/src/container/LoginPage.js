@@ -7,6 +7,7 @@ import { getParticipantListByUser } from "../api/participant";
 import { getChannelInfo } from "../api/channel";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import "./LoginSignup.css";
+import FindPassword from "../components/FindPassword";
 
 
 const LoginPage = () => {
@@ -194,6 +195,7 @@ const LoginPage = () => {
             <label>Password</label>
           </div>
           <div class="pass">Forgot Password?</div>
+          <FindPassword></FindPassword>
           <input type="submit" value="Login"></input>
           <div class="signup_link">
             Not a member? <button onClick={LoginOrSignUp}>Signup</button>

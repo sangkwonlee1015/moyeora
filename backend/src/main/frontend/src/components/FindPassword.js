@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from "react";
 import { TransitionProps } from "@mui/material/transitions";
 import { useEffect, useState } from "react";
+import { findUserPassword } from "../api/user";
 
 
 const Transition = React.forwardRef(function Transition(
@@ -43,10 +44,28 @@ function FindPassword (){
   }
   const handleCloseFindPassword = () => {
     setOpenFindPassword(false);
+    setUserId("");
+    setUserName("");
+    setUserPhone("");
+    setNewPassword("");
+    
   }
 
   const test = () => {
-    console.log("테스트")
+    const findUserPasswordInfo = {
+      userId: userId,
+      userName: userName,
+      userPhone: userPhone,
+      newPassword: newPassword,
+    }
+    const success = (res) => {
+      console.log(res)
+      handleCloseFindPassword()
+    }
+    const error = (res) => {
+      console.log(res)
+    }
+    findUserPassword(findUserPasswordInfo, success, error)
   }
 
   return (
@@ -78,10 +97,10 @@ function FindPassword (){
             <label for="userId" >아이디</label>
             <div>
               <Input 
-                // value={currentPassword} 
+                value={userId} 
                 id="userId"
                 className="dialog-input"
-                // onChange={onCurrentPassword}
+                onChange={onUserId}
               ></Input>
             </div>
             <br/>
@@ -89,10 +108,10 @@ function FindPassword (){
             <label for="userName" >이름</label>
             <div>
               <Input 
-                // value={currentPassword} 
+                value={userName} 
                 id="userName"
                 className="dialog-input"
-                // onChange={onCurrentPassword}
+                onChange={onUserName}
               ></Input>
             </div>
             <br/>
@@ -100,10 +119,10 @@ function FindPassword (){
             <label for="userPhone" >전화번호</label>
             <div>
               <Input 
-                // value={currentPassword} 
+                value={userPhone} 
                 id="userPhone"
                 className="dialog-input"
-                // onChange={onCurrentPassword}
+                onChange={onUserPhone}
               ></Input>
             </div>
             <br/>
@@ -111,10 +130,10 @@ function FindPassword (){
             <label for="newPassword">새 비밀번호</label>
             <div>
               <Input
-                // value={newPassword}
+                value={newPassword}
                 id="newPassword"
                 className="dialog-input"
-                // onChange={onNewPassword}
+                onChange={onNewPassword}
                 ></Input>
             </div>
           </DialogContentText>
