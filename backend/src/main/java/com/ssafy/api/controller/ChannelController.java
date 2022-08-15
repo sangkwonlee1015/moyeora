@@ -66,6 +66,9 @@ public class ChannelController {
     @ApiResponses({@ApiResponse(code = 200, message = "성공"),})
     public ResponseEntity<ChannelSearchGetRes> search(@RequestParam(required = false) String channelName, @RequestParam(required = false) String channelTag) {
         List<Channel> channelList = channelService.findByChannelNameContainingAndChannelTagContaining(channelName, channelTag);
+        channelList.forEach(channel -> {
+            channel.setChannelPassword(channel.getChannelPassword() == null? "" : "password");
+        });
 
         return ResponseEntity.status(200).body(ChannelSearchGetRes.of(200, "success", channelList));
     }
