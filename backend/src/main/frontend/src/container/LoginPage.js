@@ -9,8 +9,6 @@ import { getParticipantListByUser } from "../api/participant";
 import { getChannelInfo } from "../api/channel";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import "./LoginSignup.css";
-import FindPassword from "../components/FindPassword";
-import FindUserId from "../components/FindUserId";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Modal, Slide, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 

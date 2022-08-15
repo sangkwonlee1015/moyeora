@@ -8,7 +8,7 @@ function ChannelHomePage() {
     <div className="comp">
       <Header />
       <Sidebar channelSeq={useParams().serverid} />
-      <ChannelHome />
+      <ChannelHome channelSeq={useParams().serverid}/>
     </div>
   );
 }
