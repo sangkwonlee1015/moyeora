@@ -28,15 +28,15 @@ const style = {
 
 function FindUserId (){
 
-  const [userName, setUserName] = useState("");
-  const [userPhone, setUserPhone] = useState("");
+  const [findUserName, setFindUserName] = useState("");
+  const [findUserPhone, setFindUserPhone] = useState("");
   const [foundUserId, setFoundUserId] = useState("");
   
-  const onUserName = (event) => {
-    setUserName(event.target.value)
+  const onFindUserName = (event) => {
+    setFindUserName(event.target.value)
   }
-  const onUserPhone = (event) => {
-    setUserPhone(event.target.value)
+  const onFindUserPhone = (event) => {
+    setFindUserPhone(event.target.value)
   }
 
 
@@ -48,8 +48,8 @@ function FindUserId (){
   }
   const handleCloseFindUserId = () => {
     setOpenFindUserId(false);
-    setUserName("");
-    setUserPhone("");    
+    setFindUserName("");
+    setFindUserPhone("");    
   }
 
   const handleOpenResponseUserId = () => {
@@ -58,7 +58,6 @@ function FindUserId (){
   const handleCloseResponseUserId = () => {
     setOpenResponseUserId(false);
     handleCloseFindUserId()
-
   }
 
   const onFindUserId = () => {
@@ -78,7 +77,7 @@ function FindUserId (){
   }
 
   return (
-    <div>
+    <div class="pass">
       <div className="button-logout">
           <Button onClick={handleOpenFindUserId}>
             <div className="button-text-color">아이디 찾기</div>
@@ -107,10 +106,10 @@ function FindUserId (){
             <label for="userName" >이름</label>
             <div>
               <Input 
-                value={userName} 
+                value={findUserName} 
                 id="userName"
                 className="dialog-input"
-                onChange={onUserName}
+                onChange={onFindUserName}
               ></Input>
             </div>
             <br/>
@@ -118,10 +117,10 @@ function FindUserId (){
             <label for="userPhone" >전화번호</label>
             <div>
               <Input 
-                value={userPhone} 
+                value={findUserPhone} 
                 id="userPhone"
                 className="dialog-input"
-                onChange={onUserPhone}
+                onChange={onFindUserPhone}
               ></Input>
             </div>
             <br/>
