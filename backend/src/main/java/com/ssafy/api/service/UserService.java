@@ -18,4 +18,5 @@ public interface UserService {
 	User updateUserPassword(String userId, UserPasswordPatchReq passwordInfo);
 	User getUserByUserPhone(String userPhone);
 	User findUserPassword(String userId, UserFindUserPasswordPostReq userInfo);
+	User findUserBySeq(Long userSeq);
 }

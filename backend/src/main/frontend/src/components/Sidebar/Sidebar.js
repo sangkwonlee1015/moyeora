@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import Chatting from "./Chatting";
 import Map from "./Map";
-import Ov from "./OV";
 import "./Sidebar.css";
 import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "./UserInfo";
@@ -229,7 +228,6 @@ function Sidebar(props) {
           ></Map>
         ))}
       </div>
-      <Ov />
       <UserInfo channelSeq={props.channelSeq} />
     </div>
   );

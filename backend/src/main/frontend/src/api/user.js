@@ -54,6 +54,10 @@ function findUserPassword(findUserPasswordInfo, success, error) {
     .catch(error);
 }
 
+function getUserNick(userSeq, success, error) {
+  instance.get(`/users/getNick/${userSeq}`, {}).then(success).catch(error);
+}
+
 export {
   registerUser,
   checkDuplicatedUserId,
@@ -63,4 +67,5 @@ export {
   updateUserPassword,
   deleteUser,
   findUserPassword,
+  getUserNick,
 };
