@@ -21,11 +21,13 @@ import {
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
 } from "../../redux/PinList";
+import VideoRoomComponent from "../Openvidu/VideoRoomComponent";
 
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const mapList = useSelector((state) => state.MapList.mapList);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
+  const userNick = useSelector((state) => state.UserInfo.userInfo.userNick);
   const dispatch = useDispatch();
   const [mapName, setMapName] = useState("");
   const [open, setOpen] = useState(false);
@@ -34,6 +36,8 @@ function Sidebar(props) {
     setMapName("");
   };
   const handleOpen = () => setOpen(true);
+
+  console.log("channelSeq: " + props.channelSeq + " / userNick: " + userNick);
 
   useEffect(() => {
     const sock = new SockJS("http://localhost:8080/ws");
@@ -229,6 +233,10 @@ function Sidebar(props) {
         ))}
       </div>
       <UserInfo channelSeq={props.channelSeq} />
+      <VideoRoomComponent
+        sessionName={props.channelSeq}
+        user={userNick}
+      ></VideoRoomComponent>
     </div>
   );
 }
