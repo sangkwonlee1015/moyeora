@@ -1,8 +1,14 @@
 import "./Home.css";
 import React from "react";
+import { useNavigate } from "react-router";
 export default function Home() {
-  const CreateChannel = () => {};
-  const SearchChannel = () => {};
+  const navigate = useNavigate();
+  const CreateChannel = () => {
+    navigate("/");
+  };
+  const SearchChannel = () => {
+    navigate("/searchchannelpage");
+  };
   return (
     <div className="container_intro">
       <h1>Pin to Pin</h1>

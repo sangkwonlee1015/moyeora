@@ -192,7 +192,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="header_items headerSetting">
-        <Link to="/addchannelpage">
+        <Link to="/searchchannelpage">
           <FaSearch size="20" />
           <span class="tooltiptext">채널 살펴보기</span>
         </Link>

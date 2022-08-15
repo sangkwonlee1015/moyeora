@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Homepage from "./Homepage";
 import ChannelHomePage from "./ChannelHomePage";
-import AddChannelPage from "./AddChannelPage";
+import SearchChannelPage from "./SearchChannelPage";
 import ArticlePage from "./ArticlePage";
 import MypageSettingPage from "./MypageSettingPage";
 import ChattingPage from "./ChattingPage";
@@ -37,7 +37,7 @@ function App() {
           />
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/serverpage/:serverid" element={<ChannelHomePage />} />
-          <Route path="/addchannelpage" element={<AddChannelPage />} />
+          <Route path="/searchchannelpage" element={<SearchChannelPage />} />
           <Route path="/articlepage" element={<ArticlePage />} />
           <Route path="/mypagesettingpage" element={<MypageSettingPage />} />
           <Route path="/chattingpage" element={<ChattingPage />} />

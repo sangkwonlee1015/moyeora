@@ -1,3 +1,4 @@
+import "./SearchChannel.css";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -7,12 +8,19 @@ import {
   registerParticipant,
 } from "../api/participant";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
+import Pagination from "./Pagination";
+import styled from "styled-components";
 
-function AddChannel() {
+function SearchChannel() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [searchName, setSearchName] = useState("");
   const [channellistview, setChannellist] = useState([]);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   const dispatch = useDispatch();
+
+  console.log(searchName, channellistview, limit, page, offset);
 
   useEffect(() => {
     console.log("useeffect start channellistview", channellistview);
@@ -30,20 +38,6 @@ function AddChannel() {
       }
     );
   }, []);
-  // useEffect(() => {
-  //   getChannelList(
-  //     searchName,
-  //     null,
-  //     token,
-  //     (response) => {
-  //       console.log(response.data);
-  //       setChannellist(response.data);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }, []);
   const onSubmitSearchForm = () => {
     console.log(token);
     console.log("searchName ", searchName);
@@ -71,7 +65,7 @@ function AddChannel() {
         getParticipantListByUser(
           token,
           (response) => {
-            dispatch(SET_CHANNELLIST(list))
+            dispatch(SET_CHANNELLIST(list));
             response.data.list.map((participant) => {
               console.log(participant);
               getChannelInfo(
@@ -109,7 +103,7 @@ function AddChannel() {
     setSearchName(e.target.value);
   };
   return (
-    <div>
+    <Layout>
       <div className="article-search">
         <input
           type="text"
@@ -120,25 +114,73 @@ function AddChannel() {
           검색
         </button>
       </div>
-      <ul className="header_items">
-        {channellistview.map((channel) => (
-          <li
-            key={channel.channelSeq}
-            className="header_items_2 headerSetting2"
-          >
-            <h2>{channel.channelName}</h2>
-            <button
-              onClick={() => {
-                onRegisterChannel(channel);
-              }}
-            >
-              {channel.channelName} 채널 들어가기
-            </button>
-          </li>
+
+      <label>
+        페이지 당 표시할 게시물 수:&nbsp;
+        <select
+          type="number"
+          value={limit}
+          onChange={({ target: { value } }) => setLimit(Number(value))}
+        >
+          <option value="10">10</option>
+          <option value="12">12</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </label>
+
+      <div className="main">
+        {channellistview.slice(offset, offset + limit).map((channel) => (
+          <div className="card">
+            <div className="card-header">
+              <div className="card-header-is_closed">
+                <div className="card-header-text"> 모집중 </div>
+                <div className="card-header-number"> 2 / 5 </div>
+              </div>
+            </div>
+
+            <div className="card-body">
+              <div className="card-body-header">
+                <h1>채널 제목 : {channel.channelName}</h1>
+                <p className="card-body-hashtag">
+                  채널 태그 : {channel.channelTag}
+                </p>
+                <p className="card-body-nickname">
+                  채널장: {channel.userSeq} (일단은 userSeq)
+                </p>
+              </div>
+              <p className="card-body-description">
+                채널 설명 :{channel.channelDesc}
+              </p>
+              <button
+                onClick=
+                {() => {
+                  onRegisterChannel(channel);
+                }}
+                >{channel.channelName} 채널 들어가기
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+      <footer>
+        <Pagination
+          total={channellistview.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
+      </footer>
+    </Layout>
   );
 }
 
-export default AddChannel;
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+export default SearchChannel;
