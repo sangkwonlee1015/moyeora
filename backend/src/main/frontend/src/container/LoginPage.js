@@ -12,6 +12,7 @@ import "./LoginSignup.css";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Modal, Slide, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -292,7 +293,7 @@ const LoginPage = () => {
           </div>
           <input type="submit" value="SignUp"></input>
           <div class="signup_link">
-            already a member? <button onClick={LoginOrSignUp}>Login</button>
+            already a member? <span className="LoginOrout" onClick={LoginOrSignUp}>Login</span>
           </div>
         </form>
       </div>
@@ -321,11 +322,13 @@ const LoginPage = () => {
             <span></span>
             <label>Password</label>
           </div>
-          <div class="pass" onClick={handleOpenFindUserId}>Forgot Id?</div>
-          <div class="pass" onClick={handleOpenFindPassword}>Forgot Password?</div>
+          <div style={{display: "flex" , justifyContent: "space-between"}}>
+            <div class="pass" onClick={handleOpenFindUserId}>Forgot Id?</div>
+            <div class="pass password" onClick={handleOpenFindPassword}>Forgot Password?</div>
+          </div>
           <input type="submit" value="Login"></input>
           <div class="signup_link">
-            Not a member? <button onClick={LoginOrSignUp}>Signup</button>
+            Not a member? <span className="LoginOrout" onClick={LoginOrSignUp}>Signup</span>
           </div>
         </form>
       </div>
