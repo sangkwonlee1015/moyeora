@@ -46,7 +46,14 @@ function deleteUser(token, success, error) {
     .catch(error);
 }
 
-// 비밀번호를 잊은 사람이 변경 가능한 API 추가 필요
+// 비밀번호를 잊은 사람이 변경 가능한 API(비로그인 상태)
+function findUserPassword(findUserPasswordInfo, success, error) {
+  instance
+    .post(`/users/find/password`, findUserPasswordInfo, {})
+    .then(success)
+    .catch(error);
+}
+
 export {
   registerUser,
   checkDuplicatedUserId,
@@ -55,4 +62,5 @@ export {
   updateUser,
   updateUserPassword,
   deleteUser,
+  findUserPassword,
 };
