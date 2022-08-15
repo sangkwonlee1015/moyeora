@@ -1,4 +1,3 @@
-import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
