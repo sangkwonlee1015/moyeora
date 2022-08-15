@@ -8,9 +8,18 @@ class EditorComponent extends Component {
   render() {
     const { value, onChange, index } = this.props;
     return (
-      <div style={{ width: "200px", height: "210px" }}>
+      <div
+        style={{
+          width: "200px",
+          height: "200px",
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "center",
+          alignItems: "center",
+        }}
+      >
         <input
-          style={{ width: "190px", height: "30px" }}
+          style={{ width: "190px", height: "25px" }}
           value={value.title || ""}
           onChange={(e) => {
             onChange(index, e.target.value, "title");

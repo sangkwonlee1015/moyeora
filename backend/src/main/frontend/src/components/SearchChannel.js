@@ -1,5 +1,5 @@
 import "./SearchChannel.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
@@ -10,11 +10,34 @@ import {
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Input,
+  Slide,
+} from "@mui/material";
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>,
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function SearchChannel() {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [searchName, setSearchName] = useState("");
   const [channellistview, setChannellist] = useState([]);
+  const [secretChannel, setSecretChannel] = useState({});
+  const [channelPassword, setChannelPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -38,6 +61,20 @@ function SearchChannel() {
       }
     );
   }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+    setChannelPassword("");
+    setIsWrongPassword(false);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setChannelPassword("");
+    setSecretChannel({});
+    setIsWrongPassword(false);
+  };
+
   const onSubmitSearchForm = () => {
     console.log(token);
     console.log("searchName ", searchName);
@@ -66,6 +103,7 @@ function SearchChannel() {
           token,
           (response) => {
             dispatch(SET_CHANNELLIST(list));
+            handleClose();
             response.data.list.map((participant) => {
               console.log(participant);
               getChannelInfo(
@@ -96,6 +134,9 @@ function SearchChannel() {
       },
       (error) => {
         console.log(error);
+        if (error.response.status === 400) {
+          setIsWrongPassword(true);
+        }
       }
     );
   };
@@ -154,11 +195,14 @@ function SearchChannel() {
                 채널 설명 :{channel.channelDesc}
               </p>
               <button
-                onClick=
-                {() => {
-                  onRegisterChannel(channel);
+                onClick={() => {
+                  if (channel.channelPassword) {
+                    handleOpen();
+                    setSecretChannel(channel);
+                  } else onRegisterChannel(channel);
                 }}
-                >{channel.channelName} 채널 들어가기
+              >
+                {channel.channelName} 채널 들어가기
               </button>
             </div>
           </div>
@@ -172,6 +216,57 @@ function SearchChannel() {
           setPage={setPage}
         />
       </footer>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle className="dialog-title">{"비밀번호 입력"}</DialogTitle>
+        <DialogContent className="dialog-content">
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            className="dialog-content-text"
+          >
+            <label htmlFor="channelSecret" className="input-label">
+              비밀번호
+            </label>
+            <Input
+              value={channelPassword}
+              id="channelPassword"
+              className="input"
+              onChange={(e) => {
+                setChannelPassword(e.target.value);
+              }}
+            ></Input>
+            <br />
+            {isWrongPassword && (
+              <label className="input-label" style={{ color: "#d32f2f" }}>
+                비밀번호가 일치하지 않습니다
+              </label>
+            )}
+            <br />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions className="option-cell">
+          <div className="cancel-button">
+            <Button onClick={handleClose}>
+              <div className="cancel-button-text">CANCEL</div>
+            </Button>
+          </div>
+          <div className="accept-button">
+            <Button
+              onClick={() => {
+                secretChannel.channelPassword = channelPassword;
+                onRegisterChannel(secretChannel);
+              }}
+            >
+              <div className="accept-button-text">ACCEPT</div>
+            </Button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 }
