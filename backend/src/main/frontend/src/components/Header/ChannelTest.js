@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { SET_CHANNELSEQ, SET_CHANNELTOKEN } from "../../redux/ChannelList";
+import { SET_CHANNELSEQ } from "../../redux/ChannelList";
 import { getChannelInfo } from "../../api/channel";
 import { getMapList } from "../../api/map";
 import { SET_MAPLIST } from "../../redux/MapList";
@@ -39,16 +39,6 @@ export default function ChannelTest() {
             <Link
               to={`/serverpage/${channel.channelSeq}`}
               onClick={() => {
-                getChannelInfo(
-                  channel.channelSeq,
-                  token,
-                  (response) => {
-                    dispatch(SET_CHANNELTOKEN(response.data.token));
-                  },
-                  (error) => {
-                    console.log(error);
-                  }
-                );
                 dispatch(SET_CHANNELSEQ(channel.channelSeq));
                 enterChannel(channel.channelSeq);
               }}

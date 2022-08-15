@@ -30,7 +30,6 @@ function Sidebar(props) {
   const mapList = useSelector((state) => state.MapList.mapList);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const userNick = useSelector((state) => state.UserInfo.userInfo.userNick);
-  const channelToken = useSelector((state) => state.ChannelList.channelToken);
   const dispatch = useDispatch();
   const [mapName, setMapName] = useState("");
   const [open, setOpen] = useState(false);
@@ -40,7 +39,7 @@ function Sidebar(props) {
   };
   const handleOpen = () => setOpen(true);
 
-  console.log("channelSeq: " + props.channelSeq + " / userNick: " + userNick);
+  console.log("channelSeq: " + channelSeq + " / userNick: " + userNick);
 
   useEffect(() => {
     const sock = new SockJS("http://localhost:8080/ws");
@@ -229,18 +228,17 @@ function Sidebar(props) {
         {mapList.map((map) => (
           <Map
             key={map.mapSeq}
-            channelSeq={props.channelSeq}
+            channelSeq={channelSeq}
             mapSeq={map.mapSeq}
             mapName={map.mapName}
           ></Map>
         ))}
       </div>
       {/* <Ov /> */}
-      <UserInfo channelSeq={props.channelSeq} />
+      <UserInfo channelSeq={channelSeq} />
       <VideoRoomComponent
-        sessionName={props.channelSeq}
+        sessionName={channelSeq}
         user={userNick}
-        token={channelToken}
       ></VideoRoomComponent>
     </div>
   );

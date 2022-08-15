@@ -38,10 +38,25 @@ function getChannelInfo(channelSeq, token, success, error) {
     .catch(error);
 }
 
+function getOutOpenvidu(sessionName, token, success, error) {
+  instance
+    .post(
+      "/channel/removeUser",
+      {
+        sessionName: sessionName,
+        token: token,
+      },
+      {}
+    )
+    .then(success)
+    .catch(error);
+}
+
 export {
   registerChannel,
   getChannelList,
   updateChannel,
   deleteChannel,
   getChannelInfo,
+  getOutOpenvidu,
 };

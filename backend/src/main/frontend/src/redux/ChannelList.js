@@ -6,7 +6,6 @@ export const tokenSlice = createSlice({
     channelList: [],
     stomp: null,
     channelSeq: null,
-    channelToken: null,
   },
   reducers: {
     SET_STOMP: (state, action) => {
@@ -19,9 +18,6 @@ export const tokenSlice = createSlice({
     },
     SET_CHANNELSEQ: (state, action) => {
       state.channelSeq = action.payload;
-    },
-    SET_CHANNELTOKEN: (state, action) => {
-      state.channelToken = action.payload;
     },
   },
 });
