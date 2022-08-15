@@ -51,7 +51,7 @@ function FindPassword (){
     
   }
 
-  const test = () => {
+  const onFindPassword = () => {
     const findUserPasswordInfo = {
       userId: userId,
       userName: userName,
@@ -146,7 +146,7 @@ function FindPassword (){
             </Button>
           </div>
           <div className="accept-button">
-            <Button onClick={test}>
+            <Button onClick={onFindPassword}>
               <div className="accept-button-text">완료</div>
             </Button>
           </div>
