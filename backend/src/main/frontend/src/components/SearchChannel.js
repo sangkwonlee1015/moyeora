@@ -1,4 +1,3 @@
-import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -144,7 +143,7 @@ function SearchChannel() {
     setSearchName(e.target.value);
   };
   return (
-    <Layout>
+    <div>
       <div className="article-search">
         <input
           type="text"
@@ -267,15 +266,8 @@ function SearchChannel() {
           </div>
         </DialogActions>
       </Dialog>
-    </Layout>
+    </div>
   );
 }
 
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto;
-`;
 export default SearchChannel;
