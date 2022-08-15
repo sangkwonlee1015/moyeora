@@ -22,7 +22,7 @@ class VideoRoomComponent extends Component {
     this.remotes = [];
     this.localUserAccessAllowed = false;
     this.state = {
-      mySessionId: props.sessionName,
+      mySessionId: String(props.sessionName),
       myUserName: props.userNick,
       // channelToken: props.channelToken,
       session: undefined,
@@ -295,7 +295,6 @@ class VideoRoomComponent extends Component {
   render() {
     const mySessionId = this.state.mySessionId;
     const localUser = this.state.localUser;
-    var chatDisplay = { display: this.state.chatDisplay };
 
     return (
       <div className="container_button">
