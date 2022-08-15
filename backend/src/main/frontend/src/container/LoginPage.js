@@ -263,6 +263,7 @@ const LoginPage = () => {
           <div class="txt_field">
             <input 
             type="text" 
+            required
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             ></input>
@@ -273,6 +274,7 @@ const LoginPage = () => {
             <input 
             type="text" 
             value={userNick}
+            required
             onChange={(e) => setUserNick(e.target.value)}
             ></input>
             <span></span>
@@ -281,6 +283,7 @@ const LoginPage = () => {
           <div class="txt_field">
             <input 
             type="text" 
+            required
             value={userPhone}
             onChange={(e) => setUserPhone(e.target.value)}
             ></input>
