@@ -59,14 +59,29 @@ function Sidebar(props) {
             };
             dispatch(ADD_PIN(newPin));
             break;
-          case "MODPIN":
-            dispatch(
-              SET_PIN({
-                pinSeq: message.pinSeq,
-                pinColor: message.pinColor,
-                pinContent: message.pinContent,
-              })
-            );
+          case "MODPIN_TITLE":
+            if (`Bearer ${token}` != message.sender) {
+              dispatch(
+                SET_PIN({
+                  pinSeq: Number(message.pinSeq),
+                  type: "title",
+                  pinTitle: message.pinTitle,
+                  mapSeq: Number(message.mapSeq),
+                })
+              );
+            }
+            break;
+          case "MODPIN_CONTENT":
+            if (`Bearer ${token}` != message.sender) {
+              dispatch(
+                SET_PIN({
+                  pinSeq: Number(message.pinSeq),
+                  type: "content",
+                  pinContent: message.pinContent,
+                  mapSeq: Number(message.mapSeq),
+                })
+              );
+            }
             break;
           case "MOD_PINLIST_DIFFLAG":
             dispatch(
@@ -123,11 +138,11 @@ function Sidebar(props) {
     setMapName(e.target.value);
   };
 
-  const enterKey = e => {
-    if (e.key === 'Enter') {
-      createMap()
+  const enterKey = (e) => {
+    if (e.key === "Enter") {
+      createMap();
     }
-  }
+  };
 
   const createMap = () => {
     const mapInfo = {
@@ -160,14 +175,9 @@ function Sidebar(props) {
       <Chatting />
       <div className="mapListItem">
         MapList
-        
-        <button onClick={handleOpen} className="mapPlusButton tooltip" >
-          +
-          <span className="tooltip-text">
-            Map 추가
-          </span>
+        <button onClick={handleOpen} className="mapPlusButton tooltip">
+          +<span className="tooltip-text">Map 추가</span>
         </button>
-        
         <Modal
           open={open}
           onClose={handleClose}
