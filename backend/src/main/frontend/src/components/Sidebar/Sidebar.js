@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Chatting from "./Chatting";
 import Map from "./Map";
 import "./Sidebar.css";
+// import Ov from "./Ov";
 import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "./UserInfo";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import SockJS from "sockjs-client";
 import StompJs from "stompjs";
+import { getChannelInfo } from "../../api/channel";
 import {
   ADD_PIN,
   DELETE_PIN,
@@ -28,6 +30,7 @@ function Sidebar(props) {
   const mapList = useSelector((state) => state.MapList.mapList);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const userNick = useSelector((state) => state.UserInfo.userInfo.userNick);
+  const channelToken = useSelector((state) => state.ChannelList.channelToken);
   const dispatch = useDispatch();
   const [mapName, setMapName] = useState("");
   const [open, setOpen] = useState(false);
@@ -232,11 +235,12 @@ function Sidebar(props) {
           ></Map>
         ))}
       </div>
+      {/* <Ov /> */}
       <UserInfo channelSeq={props.channelSeq} />
       <VideoRoomComponent
         sessionName={props.channelSeq}
         user={userNick}
-        token={token}
+        token={channelToken}
       ></VideoRoomComponent>
     </div>
   );
