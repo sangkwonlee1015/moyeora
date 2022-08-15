@@ -6,9 +6,11 @@ import com.ssafy.api.response.ChannelRegisterPostRes;
 import com.ssafy.api.response.ChannelSearchGetRes;
 import com.ssafy.api.response.GetChannelInfoRes;
 import com.ssafy.api.service.ChannelService;
+import com.ssafy.api.service.ParticipantsService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Channel;
+import com.ssafy.db.entity.ChannelSearchObj;
 import com.ssafy.db.entity.User;
 import io.openvidu.java.client.*;
 import io.swagger.annotations.*;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,6 +36,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChannelController {
     @Autowired
     ChannelService channelService;
+
+    @Autowired
+    ParticipantsService participantsService;
 
     private OpenVidu openVidu;
     private Map<String, Session> mapSessions = new ConcurrentHashMap<>();
@@ -66,11 +72,16 @@ public class ChannelController {
     @ApiResponses({@ApiResponse(code = 200, message = "성공"),})
     public ResponseEntity<ChannelSearchGetRes> search(@RequestParam(required = false) String channelName, @RequestParam(required = false) String channelTag) {
         List<Channel> channelList = channelService.findByChannelNameContainingAndChannelTagContaining(channelName, channelTag);
+        List<ChannelSearchObj> searchList = new ArrayList<ChannelSearchObj>();
         channelList.forEach(channel -> {
             channel.setChannelPassword(channel.getChannelPassword() == null? "" : "password");
+            ChannelSearchObj obj = new ChannelSearchObj();
+            obj.setChannel(channel);
+            obj.setParticipantsCount(participantsService.getParticipantsByChannelSeq(channel.getChannelSeq()).size());
+            searchList.add(obj);
         });
 
-        return ResponseEntity.status(200).body(ChannelSearchGetRes.of(200, "success", channelList));
+        return ResponseEntity.status(200).body(ChannelSearchGetRes.of(200, "success", searchList));
     }
 
     @GetMapping("/{channelSeq}")
