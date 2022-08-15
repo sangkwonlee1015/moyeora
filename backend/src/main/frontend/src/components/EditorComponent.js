@@ -1,75 +1,29 @@
 import React, { Component } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 class EditorComponent extends Component {
   constructor(props) {
     super(props);
   }
 
-  modules = {
-    toolbar: [
-      //[{ 'font': [] }],
-      //   [{ header: [1, 2, false] }],
-      //   ["bold", "italic", "underline", "strike", "blockquote"],
-      //   [
-      //     { list: "ordered" },
-      //     { list: "bullet" },
-      //     { indent: "-1" },
-      //     { indent: "+1" },
-      //   ],
-      //   ["link", "image"],
-      //   [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-      // ["clean"],
-    ],
-  };
-
-  formats = [
-    //'font',
-    // "header",
-    // "bold",
-    // "italic",
-    // "underline",
-    // "strike",
-    // "blockquote",
-    // "list",
-    // "bullet",
-    // "indent",
-    // "link",
-    // "image",
-    // "align",
-    // "color",
-    // "background",
-  ];
-
   render() {
     const { value, onChange, index } = this.props;
     return (
       <div style={{ width: "200px", height: "210px" }}>
-        <ReactQuill
-          style={{ width: "200px", height: "50px" }}
-          theme="snow"
-          modules={{
-            toolbar: false,
+        <input
+          style={{ width: "190px", height: "30px" }}
+          value={value.title || ""}
+          onChange={(e) => {
+            onChange(index, e.target.value, "title");
           }}
-          formats={this.formats}
-          value={value || ""}
-          // onChange={(content, delta, source, editor) => {
-          //   onChange(index, editor);
-          // }}
-        />
-        <ReactQuill
-          style={{ width: "200px", height: "160px" }}
-          theme="snow"
-          modules={{
-            toolbar: false,
+        ></input>
+        <textarea
+          placeholder="여기에 입력하세요"
+          style={{ width: "190px", height: "160px", resize: "none" }}
+          value={value.content || ""}
+          onChange={(e) => {
+            onChange(index, e.target.value, "content");
           }}
-          formats={this.formats}
-          value={value || ""}
-          onChange={(content, delta, source, editor) => {
-            onChange(index, editor);
-          }}
-        />
+        ></textarea>
       </div>
     );
   }

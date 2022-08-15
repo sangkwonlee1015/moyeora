@@ -34,17 +34,17 @@ export const pinListSlice = createSlice({
         state.pinList = [...state.pinList, action.payload];
     },
     SET_PIN: (state, action) => {
-      console.log(action.payload);
-      state.pinList.map((pin) => {
-        if (pin.seq === action.payload.pinSeq) {
-          pin.pinColor = action.payload.pinColor
-            ? action.payload.pinColor
-            : pin.pinColor;
-          pin.comment = action.payload.pinContent
-            ? action.payload.pinContent
-            : pin.comment;
-        }
-      });
+      if (state.currentMap === action.payload.mapSeq) {
+        state.pinList.map((pin) => {
+          if (pin.pinSeq == action.payload.pinSeq) {
+            if (action.payload.type == "title") {
+              pin.pinTitle = action.payload.pinTitle;
+            } else if (action.payload.type == "content") {
+              pin.pinContent = action.payload.pinContent;
+            }
+          }
+        });
+      }
     },
     CLICK_PIN: (state, action) => {
       state.pinList.map((pin) => {

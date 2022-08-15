@@ -87,12 +87,18 @@ public class ChatMessageController {
                 message.setPinOrder(pin.getPinOrder().toString());
                 chatService.sendMessagePrivate(message);
                 break;
-            case MODPIN:
-                PinUpdatePatchReq pinUpdatePatchReq = new PinUpdatePatchReq();
-                pinUpdatePatchReq.setPinSeq(Long.parseLong(message.getPinSeq()));
-                pinUpdatePatchReq.setPinColor(message.getPinColor());
-                pinUpdatePatchReq.setPinContent(message.getPinContent());
-                pinService.updatePin(pinUpdatePatchReq);
+            case MODPIN_TITLE:
+                pin = pinRepository.findByPinSeq(Long.parseLong(message.getPinSeq())).get();
+                pin.setPinTitle(message.getPinTitle());
+                pinRepository.save(pin);
+                message.setSender(token);
+                chatService.sendMessagePrivate(message);
+                break;
+            case MODPIN_CONTENT:
+                pin = pinRepository.findByPinSeq(Long.parseLong(message.getPinSeq())).get();
+                pin.setPinContent(message.getPinContent());
+                pinRepository.save(pin);
+                message.setSender(token);
                 chatService.sendMessagePrivate(message);
                 break;
             case MOD_PINLIST_DIFFLAG:

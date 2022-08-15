@@ -57,17 +57,42 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
     setPolylineList(polysList);
   }, [pins]);
 
-  const commentChange = (index, e) => {
+  const editorChange = (index, value, type) => {
+    console.log("type : ", type);
     if (stomp) {
       let chatMessage = {
         receiver: channelSeq,
-        pinSeq: pins.at(index).seq,
-        pinContent: e.getHTML(),
-        // pinContent: e,
-        pinColor: "test",
-        status: "MODPIN", // pin 정보 추가하기 (order, flag, title 추가해주기)
+        pinSeq: pins.at(index).pinSeq,
+        mapSeq: Number(mapSeq),
       };
-      stomp.send("/app/private-message", null, JSON.stringify(chatMessage));
+      if (type == "title") {
+        chatMessage.pinTitle = value;
+        chatMessage.status = "MODPIN_TITLE";
+        dispatch(
+          SET_PIN({
+            pinSeq: pins.at(index).pinSeq,
+            type: "title",
+            pinTitle: value,
+            mapSeq: Number(mapSeq),
+          })
+        );
+      } else if (type == "content") {
+        chatMessage.pinContent = value;
+        chatMessage.status = "MODPIN_CONTENT";
+        dispatch(
+          SET_PIN({
+            pinSeq: pins.at(index).pinSeq,
+            type: "content",
+            pinContent: value,
+            mapSeq: Number(mapSeq),
+          })
+        );
+      }
+      stomp.send(
+        "/app/private-message",
+        createHeaders(token),
+        JSON.stringify(chatMessage)
+      );
     }
   };
 
@@ -152,8 +177,11 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
             {marker.isVisible && (
               <div>
                 <Editor
-                  value={marker.comment}
-                  onChange={commentChange}
+                  value={{
+                    title: marker.pinTitle,
+                    content: marker.pinContent,
+                  }}
+                  onChange={editorChange}
                   index={index}
                 />
               </div>
@@ -163,7 +191,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
         <Polyline
           path={[polylineList]}
           strokeWeight={5} // 선의 두께
-          strokeColor={"#FFAE00"} // 선의 색깔
+          strokeColor={"#d90429"} // 선의 색깔
           strokeOpacity={0.7} // 선의 불투명도(0~1)
           strokeStyle={"solid"} // 선의 스타일
           endArrow={true} // 화살표 여부
