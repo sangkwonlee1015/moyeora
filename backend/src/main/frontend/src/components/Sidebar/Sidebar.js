@@ -236,6 +236,7 @@ function Sidebar(props) {
       <VideoRoomComponent
         sessionName={props.channelSeq}
         user={userNick}
+        token={token}
       ></VideoRoomComponent>
     </div>
   );
