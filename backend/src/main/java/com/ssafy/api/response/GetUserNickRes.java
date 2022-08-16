@@ -10,12 +10,15 @@ import lombok.Setter;
 public class GetUserNickRes extends BaseResponseBody {
 //    User user;
 
-    UserParticipantsRes userParticipantsRes;
-    public static GetUserNickRes of(Integer statusCode, String message, UserParticipantsRes userParticipantsRes){
+//    UserParticipantsRes userParticipantsRes;
+    private String userName;
+    private String userNick;
+    public static GetUserNickRes of(Integer statusCode, String message, String userName, String userNick){
         GetUserNickRes res = new GetUserNickRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
-        res.setUserParticipantsRes(userParticipantsRes);
+        res.setUserName(userName);
+        res.setUserNick(userNick);
         return res;
     }
 }

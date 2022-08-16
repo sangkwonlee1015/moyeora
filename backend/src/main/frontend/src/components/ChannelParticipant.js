@@ -1,26 +1,35 @@
 import { useEffect, useState } from "react";
+import { getUserNick } from "../api/user";
 
+function ChannelParticipant({ userSeq }) {
+  const [participantInfo, setParticipantInfo] = useState({
+    userName: "",
+    userNick: "",
+  });
+  console.log(participantInfo);
 
-
-function ChannelParticipant(props){
-  console.log(props, "props 받음")
-  // const userName = props.userName;
-  // const userNick = props.userNick;
-
-  const [userName, setUserName] = useState("")
-  const [userNick, setUserNick] = useState("")
-  
   useEffect(() => {
-    setUserName(props.userName);
-    setUserNick(props.userNick);
-  },[])
+    getUserNick(
+      userSeq,
+      (response) => {
+        console.log(response);
+        setParticipantInfo({
+          userName: response.data.userName,
+          userNick: response.data.userNick,
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, [userSeq]);
 
   return (
-      <div>
-        <div>참여자 이름 {userName}</div>
-        <div>참여자 닉네임 {userNick}</div>
-      </div>
-  )
+    <div>
+      <div>참여자 이름 {participantInfo.userName}</div>
+      <div>참여자 닉네임 {participantInfo.userNick}</div>
+    </div>
+  );
 }
 
-export default ChannelParticipant
+export default ChannelParticipant;
