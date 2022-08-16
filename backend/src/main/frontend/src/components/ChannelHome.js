@@ -76,14 +76,16 @@ function ChannelHome(props) {
         <div>
           <br />
           현재 채널 참여자 목록:{" "}
-          {pList.map((item, index) => {
-            return (
-              <ChannelParticipant
-                key={index}
-                userSeq={item.participantsId.userSeq}
-              ></ChannelParticipant>
-            );
-          })}
+          <div style={{ display: "flex", margin: "3px"}}>
+            {pList.map((item, index) => {
+              return (
+                <ChannelParticipant
+                  key={index}
+                  userSeq={item.participantsId.userSeq}
+                ></ChannelParticipant>
+              );
+            })}
+          </div>
           <br />
           {/* 현재 채널 참여자 정보: */}
           {channelInfo ? (
