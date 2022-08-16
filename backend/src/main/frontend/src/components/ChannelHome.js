@@ -62,14 +62,18 @@ function ChannelHome(props) {
   return (
     <div className="channel-home">
       <div className="channel-background">
-        <h2>채널소개</h2>
+        {/* <h2>채널소개</h2> */}
         <br />
-        채널 이름 {channelName} {"("}#{channelSeq}
-        {")"}
+        <div className="channel-name">
+          {channelName} {"("}#{channelSeq}{")"} {/*채널이름*/} {/*채널seq*/}
+        </div>
         <br />
-        채널 설명 {channelDesc}
+        <div className="channel-desc">
+          {channelDesc} {/*채널설명*/}
+        </div>
         <br />
-        채널 태그 {channelTag}
+        <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
+          
         <br />
         <br />
         <br />
