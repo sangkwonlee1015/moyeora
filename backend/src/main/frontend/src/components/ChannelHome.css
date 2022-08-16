@@ -1,0 +1,15 @@
+.channel-home{
+  width: 100%;
+  background-color: coral;
+}
+
+.channel-background{
+  width: 80%;
+  height: 80%;
+  background-color: gray;
+  position: relative;
+  left: 10%;
+  top: 10%;
+  border-radius: 20px;
+}
+

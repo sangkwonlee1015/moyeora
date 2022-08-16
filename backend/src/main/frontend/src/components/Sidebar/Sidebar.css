@@ -135,3 +135,30 @@ background-color: #F2F3F5;
 .container_button video {
   padding-left: 0.5rem;
 }
+
+.trash-outline {
+  color: rgb(120, 120, 120);;
+  background: none;
+  border: none;
+  font-size: 20px;
+  float: right ;
+  z-index: 1;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+
+}
+.settings-outline{
+  color: rgb(120, 120, 120);;
+  background: none;
+  border: none;
+  font-size: 20px;
+  float: right ;
+  z-index: 1;
+}
+.trash-outline:hover{
+  color: #e2e3e4;
+}
+.settings-outline:hover{
+  color: #e2e3e4;
+}
+

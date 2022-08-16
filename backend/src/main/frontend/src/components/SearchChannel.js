@@ -114,7 +114,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
-                    channelImageId: data.channelImageId,
+                    channelImageId: data.uploadedImage,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
@@ -174,39 +174,42 @@ function SearchChannel() {
       <div className="main">
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
-            <div className="card-header">
+            <div
+              style={{
+                background: `url("data:image;base64, " + {channel.uploadedImage})`,
+              }}
+            >
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number">
-                  {" "}
-                  {channel.participantsCount} / 6
-                </div>
+                <div className="card-header-number"> {channel.participantsCount} / 6</div>
               </div>
             </div>
+            <Box
+              className="card-header"
+              component="img"
+              sx={{
+                height: 270,
+                width: 350,
+                maxHeight: { xs: 270, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={"data:image;base64, " + channel.uploadedImage}
+            ></Box>
 
             <div className="card-body">
               <div className="card-body-header">
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
                 <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
                 <p className="card-body-nickname">
-                  채널장: {channel.channel.userSeq} (일단은 userSeq)
+                  채널장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지 네임으로 하던지)
                 </p>
               </div>
               <div className="card-body-description">
-                채널 설명 :{channel.channel.channelDesc}
+                <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
-              
-              <Box
-                component="img"
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-                alt="The house from the offer."
-                src={"data:image;base64, " + channel.uploadedImage}
-              />
+            </div>
+            <div>
               <button
                 onClick={() => {
                   if (channel.channel.channelPassword) {
@@ -215,21 +218,8 @@ function SearchChannel() {
                   } else onRegisterChannel(channel.channel);
                 }}
               >
-                {channel.channel.channelName} 채널 들어가기
+                채널 추가
               </button>
-                <div>
-                  <button
-                    onClick={() => {
-                      if (channel.channel.channelPassword) {
-                        handleOpen();
-                        setSecretChannel(channel.channel);
-                      } else onRegisterChannel(channel.channel);
-                    }}
-                  >
-                    채널 추가
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         ))}
