@@ -16,12 +16,12 @@ import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { Checkbox, TextField, Box } from "@mui/material";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
 
 import ChannelTest from "./ChannelTest";
 
 // redux
 import { useSelector } from "react-redux";
-import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { useDispatch } from "react-redux";
 
 import { getParticipantListByUser } from "../../api/participant";
@@ -127,7 +127,7 @@ export default function Header() {
                   channelDesc: data.channelDesc,
                   channelName: data.channelName,
                   channelTag: data.channelTag,
-                  channelImageId: data.channelImageId,
+                  channelImageId: data.uploadedImage,
                 };
                 list = list.concat(channel);
                 dispatch(SET_CHANNELLIST(list));
@@ -170,7 +170,7 @@ export default function Header() {
                 channelDesc: data.channelDesc,
                 channelName: data.channelName,
                 channelTag: data.channelTag,
-                channelImageId: data.channelImageId,
+                channelImageId: data.uploadedImage,
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));

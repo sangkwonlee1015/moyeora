@@ -112,15 +112,17 @@ function Map(props) {
           }}
         >
           {props.mapName}
+          <button onClick={handleOpen} className="trash-outline">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+          <button onClick={handleOpen2} className="settings-outline">
+            <ion-icon name="settings-outline"></ion-icon>
+          </button>
         </Link>
       </span>
       <span>
-        <button onClick={handleOpen}>
-          <ion-icon name="trash-outline"></ion-icon>
-        </button>
-        <button onClick={handleOpen2}>
-          <ion-icon name="settings-outline"></ion-icon>
-        </button>
+
+
         <Modal
           open={open2}
           onClose={handleClose}
