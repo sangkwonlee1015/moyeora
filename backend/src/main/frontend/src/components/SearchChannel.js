@@ -202,7 +202,7 @@ function SearchChannel() {
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
                 <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
                 <p className="card-body-nickname">
-                  채널장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지 네임으로 하던지)
+                  채널주인장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지 네임으로 하던지)
                 </p>
               </div>
               <div className="card-body-description">
