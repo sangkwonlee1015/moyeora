@@ -12,7 +12,6 @@ import "./LoginSignup.css";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Modal, Slide, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-
 const style = {
   position: "absolute",
   top: "50%",
