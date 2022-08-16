@@ -184,7 +184,10 @@ function SearchChannel() {
             >
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+                <div className="card-header-number">
+                  {" "}
+                  {channel.participantsCount} / 6
+                </div>
               </div>
             </div>
             <Box
@@ -207,14 +210,13 @@ function SearchChannel() {
                   채널 태그 : {channel.channel.channelTag}
                 </p>
                 <p className="card-body-nickname">
-                  채널장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지 네임으로 하던지)
+                  채널장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지
+                  네임으로 하던지)
                 </p>
               </div>
               <div className="card-body-description">
                 <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
-<<<<<<< HEAD
-
               <Box
                 component="img"
                 sx={{
@@ -226,10 +228,6 @@ function SearchChannel() {
                 alt="The house from the offer."
                 src={"data:image;base64, " + channel.uploadedImage}
               />
-=======
-            </div>
-            <div>
->>>>>>> c96bca94bfc6b239590f8dc7e8a0c9ec2eb7bede
               <button
                 onClick={() => {
                   if (channel.channel.channelPassword) {
@@ -240,7 +238,6 @@ function SearchChannel() {
               >
                 채널 추가
               </button>
-<<<<<<< HEAD
               <div>
                 <button
                   onClick={() => {
@@ -253,8 +250,6 @@ function SearchChannel() {
                   채널 추가
                 </button>
               </div>
-=======
->>>>>>> c96bca94bfc6b239590f8dc7e8a0c9ec2eb7bede
             </div>
           </div>
         ))}
