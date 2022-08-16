@@ -3,7 +3,7 @@ import "./Sidebar.css"
 
 function Chatting(){
   return (
-    <div className="sidebar-test"><Link to="/chattingpage">Chatting</Link></div>
+    <div className="chatting-bar"><Link to="/chattingpage">Chatting</Link></div>
   )
 }
 
