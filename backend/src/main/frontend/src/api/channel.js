@@ -38,10 +38,20 @@ function getChannelInfo(channelSeq, token, success, error) {
     .catch(error);
 }
 
+function getTextList(channelSeq, token, success, error) {
+  instance
+    .get(`/channel/text/${channelSeq}`, {
+      headers: createHeaders(token),
+    })
+    .then(success)
+    .catch(error);
+}
+
 export {
   registerChannel,
   getChannelList,
   updateChannel,
   deleteChannel,
   getChannelInfo,
+  getTextList,
 };
