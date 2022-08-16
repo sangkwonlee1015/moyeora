@@ -117,7 +117,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
-                    channelImageId: data.channelImageId,
+                    channelImageId: data.uploadedImage,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
