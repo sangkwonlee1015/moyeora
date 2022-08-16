@@ -3,10 +3,7 @@ import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
-import {
-  getParticipantListByUser,
-  registerParticipant,
-} from "../api/participant";
+import { getParticipantListByUser, registerParticipant } from "../api/participant";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
@@ -177,22 +174,33 @@ function SearchChannel() {
       <div className="main">
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
-            <div className="card-header">
+            <div
+              style={{
+                background: `url("data:image;base64, " + {channel.uploadedImage})`,
+              }}
+            >
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number">
-                  {" "}
-                  {channel.participantsCount} / 6
-                </div>
+                <div className="card-header-number"> {channel.participantsCount} / 6</div>
               </div>
             </div>
+            <Box
+              className="card-header"
+              component="img"
+              sx={{
+                height: 270,
+                width: 350,
+                maxHeight: { xs: 270, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={"data:image;base64, " + channel.uploadedImage}
+            ></Box>
 
             <div className="card-body">
               <div className="card-body-header">
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
-                <p className="card-body-hashtag">
-                  채널 태그 : {channel.channel.channelTag}
-                </p>
+                <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
                 <p className="card-body-nickname">
                   채널장: {channel.channel.userSeq} (일단은 userSeq)
                 </p>
@@ -201,28 +209,6 @@ function SearchChannel() {
                 <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
             </div>
-            <Box
-              component="img"
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-              alt="The house from the offer."
-              src={"data:image;base64, " + channel.uploadedImage}
-            />
-
-            <button
-              onClick={() => {
-                if (channel.channel.channelPassword) {
-                  handleOpen();
-                  setSecretChannel(channel.channel);
-                } else onRegisterChannel(channel.channel);
-              }}
-            >
-              {channel.channel.channelName} 채널 들어가기
-            </button>
             <div>
               <button
                 onClick={() => {
@@ -239,12 +225,7 @@ function SearchChannel() {
         ))}
       </div>
       <footer>
-        <Pagination
-          total={channellistview.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
+        <Pagination total={channellistview.length} limit={limit} page={page} setPage={setPage} />
       </footer>
       <Dialog
         open={open}
@@ -255,10 +236,7 @@ function SearchChannel() {
       >
         <DialogTitle className="dialog-title">{"비밀번호 입력"}</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText
-            id="alert-dialog-slide-description"
-            className="dialog-content-text"
-          >
+          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
             <label htmlFor="channelSecret" className="input-label">
               비밀번호
             </label>
