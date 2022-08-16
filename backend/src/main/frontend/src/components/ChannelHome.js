@@ -44,7 +44,7 @@ function ChannelHome(props) {
           );
         })}
         <br />
-        현재 채널 참여자 정보:
+        {/* 현재 채널 참여자 정보: */}
       </div>
     </div>
   );

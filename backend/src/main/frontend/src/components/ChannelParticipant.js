@@ -1,3 +1,4 @@
+import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { getUserNick } from "../api/user";
 
@@ -26,8 +27,10 @@ function ChannelParticipant({ userSeq }) {
 
   return (
     <div>
-      <div>참여자 이름 {participantInfo.userName}</div>
-      <div>참여자 닉네임 {participantInfo.userNick}</div>
+      {/* <Box> */}
+        <div>참여자 이름 {participantInfo.userName}</div>
+        <div>참여자 닉네임 {participantInfo.userNick}</div>
+      {/* </Box> */}
     </div>
   );
 }
