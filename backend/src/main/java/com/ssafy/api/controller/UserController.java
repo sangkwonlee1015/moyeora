@@ -245,6 +245,6 @@ public class UserController {
     @GetMapping("/getNick/{userSeq}")
     public ResponseEntity<? extends BaseResponseBody> getNick(@PathVariable Long userSeq){
         User user = userService.findUserBySeq(userSeq);
-        return ResponseEntity.status(200).body(GetUserNickRes.of(200, "success", user.getUserNick()));
+        return ResponseEntity.status(200).body(GetUserNickRes.of(200, "success", user.getUserName(), user.getUserNick()));
     }
 }

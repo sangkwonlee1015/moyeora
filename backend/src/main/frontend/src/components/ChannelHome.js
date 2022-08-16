@@ -1,54 +1,53 @@
-import { deleteParticipant, getParticipantListByChannel } from "../api/participant"
+import {
+  deleteParticipant,
+  getParticipantListByChannel,
+} from "../api/participant";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import ChannelParticipant from "./ChannelParticipant";
 
-function ChannelHome (props){
-  
-  const channelSeq = props.channelSeq
+function ChannelHome(props) {
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
   const token = useSelector((state) => state.UserInfo.accessToken);
-  
-  const [participantsList, setParticipantsList] = useState([])
-  
-  
+
+  const [pList, setPList] = useState([]);
+
+  console.log(pList);
+
   useEffect(() => {
-    const success = (res) => {
-      console.log("유즈이펙트 성공: 현재 채널 참여자 목록", res.data.list)// 현재 채널 참여자 목록"
-      // setParticipantsList(list)
-      const list = []
-      res.data.list.map((res) => {
-        console.log("list test ",res.participantsId.userSeq);
-        list.push(res.participantsId.userSeq)
-        })
-      console.log(list)
-      setParticipantsList(list)
-
-      // for (const item of participantsList) {
-        // console.log(item);
-        // const participantSeq = item.participantsId.userSeq  // 현재 채널 참여자 1명
-        // console.log(participantSeq)
-        // deleteParticipant(item.participantsId.channelSeq, token, success1, error1)
-      // }
-    }
-    const error = (res) => {
-      console.log("유즈이펙트 실패", res)
-    }
-    console.log(channelSeq, "현재 채널--------------")
-    getParticipantListByChannel(channelSeq, token, success, error)
-  }, [])
-
-
+    getParticipantListByChannel(
+      channelSeq,
+      token,
+      (response) => {
+        setPList(response.data.list);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, [channelSeq]);
 
   return (
     <div className="server-home">
       <h2>서버홈</h2>
       <div>
         채널Seq: {channelSeq}
-        <br/>
-        현재 채널 참여자 목록: {participantsList}
+        <br />
+        현재 채널 참여자 목록:{" "}
+        {pList.map((item, index) => {
+          return (
+            <ChannelParticipant
+              key={index}
+              userSeq={item.participantsId.userSeq}
+            ></ChannelParticipant>
+          );
+        })}
+        <br />
+        {/* 현재 채널 참여자 정보: */}
       </div>
     </div>
-  )
+  );
 }
 
-export default ChannelHome
+export default ChannelHome;
