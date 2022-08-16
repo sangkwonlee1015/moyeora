@@ -170,6 +170,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                           // padding: 16,
                                           margin: "0 0 8px 0",
                                           minHeight: "40px",
+                                          width: "175px",
                                           backgroundColor: snapshot.isDragging
                                             ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5, black
                                             : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
