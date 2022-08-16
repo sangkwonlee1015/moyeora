@@ -1,11 +1,9 @@
+import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
-import {
-  getParticipantListByUser,
-  registerParticipant,
-} from "../api/participant";
+import { getParticipantListByUser, registerParticipant } from "../api/participant";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
@@ -18,6 +16,7 @@ import {
   DialogTitle,
   Input,
   Slide,
+  TextField,
 } from "@mui/material";
 
 const Transition = forwardRef(function Transition(
@@ -144,15 +143,15 @@ function SearchChannel() {
   };
   return (
     <div className="Layout">
-      <div className="article-search">
-        <input
-          type="text"
-          value={searchName}
+      <div className="search">
+        <TextField
+          id="outlined-basic"
           onChange={onChangeSearchName}
-        ></input>
-        <button type="text" onClick={onSubmitSearchForm}>
-          검색
-        </button>
+          onKeyUp={onSubmitSearchForm}
+          variant="outlined"
+          fullWidth
+          label="채널 이름 검색"
+        />
       </div>
 
       <label>
@@ -183,37 +182,32 @@ function SearchChannel() {
             <div className="card-body">
               <div className="card-body-header">
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
-                <p className="card-body-hashtag">
-                  채널 태그 : {channel.channel.channelTag}
-                </p>
+                <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
                 <p className="card-body-nickname">
                   채널장: {channel.channel.userSeq} (일단은 userSeq)
                 </p>
               </div>
-              <p className="card-body-description">
+              <div className="card-body-description">
                 채널 설명 :{channel.channel.channelDesc}
-              </p>
-              <button
-                onClick={() => {
-                  if (channel.channel.channelPassword) {
-                    handleOpen();
-                    setSecretChannel(channel.channel);
-                  } else onRegisterChannel(channel.channel);
-                }}
-              >
-                {channel.channel.channelName} 채널 들어가기
-              </button>
+                <div>
+                  <button
+                    onClick={() => {
+                      if (channel.channel.channelPassword) {
+                        handleOpen();
+                        setSecretChannel(channel.channel);
+                      } else onRegisterChannel(channel.channel);
+                    }}
+                  >
+                    채널 추가
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}
       </div>
       <footer>
-        <Pagination
-          total={channellistview.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
+        <Pagination total={channellistview.length} limit={limit} page={page} setPage={setPage} />
       </footer>
       <Dialog
         open={open}
@@ -224,10 +218,7 @@ function SearchChannel() {
       >
         <DialogTitle className="dialog-title">{"비밀번호 입력"}</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText
-            id="alert-dialog-slide-description"
-            className="dialog-content-text"
-          >
+          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
             <label htmlFor="channelSecret" className="input-label">
               비밀번호
             </label>
