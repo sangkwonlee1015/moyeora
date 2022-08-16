@@ -16,6 +16,7 @@ import {
   DialogTitle,
   Input,
   Slide,
+  Box,
   TextField,
 } from "@mui/material";
 
@@ -50,7 +51,7 @@ function SearchChannel() {
       "",
       token,
       (response) => {
-        console.log(response.data);
+        console.log(response.data.channelList);
         setChannellist(response.data.channelList);
         console.log("useeffect channellistview", channellistview);
       },
@@ -113,6 +114,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
+                    channelImageId: data.channelImageId,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
@@ -175,7 +177,10 @@ function SearchChannel() {
             <div className="card-header">
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+                <div className="card-header-number">
+                  {" "}
+                  {channel.participantsCount} / 6
+                </div>
               </div>
             </div>
 
@@ -189,6 +194,29 @@ function SearchChannel() {
               </div>
               <div className="card-body-description">
                 채널 설명 :{channel.channel.channelDesc}
+              </div>
+              
+              <Box
+                component="img"
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+                alt="The house from the offer."
+                src={"data:image;base64, " + channel.uploadedImage}
+              />
+              <button
+                onClick={() => {
+                  if (channel.channel.channelPassword) {
+                    handleOpen();
+                    setSecretChannel(channel.channel);
+                  } else onRegisterChannel(channel.channel);
+                }}
+              >
+                {channel.channel.channelName} 채널 들어가기
+              </button>
                 <div>
                   <button
                     onClick={() => {

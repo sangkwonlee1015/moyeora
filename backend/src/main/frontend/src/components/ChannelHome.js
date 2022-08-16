@@ -4,13 +4,17 @@ import {
 } from "../api/participant";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { getChannelInfo } from "../api/channel";
 
 import ChannelParticipant from "./ChannelParticipant";
 import { getChannelInfo } from "../api/channel";
 
+import { Box } from "@mui/material";
+
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
   const token = useSelector((state) => state.UserInfo.accessToken);
+  const [channelInfo, setChannelInfo] = useState(undefined);
 
   const [pList, setPList] = useState([]);
   // const [channelInfo, setChannelInfo] = useState([객체배열 포맷]);
@@ -33,23 +37,9 @@ function ChannelHome(props) {
         console.log(error);
       }
     );
-
-    getChannelInfo(
-      channelSeq,
-      token,
-      (response) => {
-        console.log("채널정보 불러오기 성공", response.data)
-        // setChannelInfo(response.data)
-        setChannelDesc(response.data.channelDesc)
-        setChannelName(response.data.channelName)
-        setChannelTag(response.data.channelTag)
-      },
-      (error) => {
-        console.log("채널정보 불러오기 에러", error)
-      }
-
-    )
-
+    getChannelInfo(channelSeq, token, (response) => {
+      setChannelInfo(response.data);
+    });
   }, [channelSeq]);
 
   return (
@@ -79,7 +69,21 @@ function ChannelHome(props) {
             ></ChannelParticipant>
           );
         })}
-
+        <br />
+        {/* 현재 채널 참여자 정보: */}
+        {channelInfo ? (
+          <Box
+            component="img"
+            sx={{
+              height: 233,
+              width: 350,
+              maxHeight: { xs: 233, md: 167 },
+              maxWidth: { xs: 350, md: 250 },
+            }}
+            alt="The house from the offer."
+            src={"data:image;base64, " + channelInfo.channelImageId}
+          />
+        ) : null}
       </div>
     </div>
   );

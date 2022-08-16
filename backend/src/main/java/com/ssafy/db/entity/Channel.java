@@ -25,4 +25,6 @@ public class Channel {
     private String channelTag;
     @Column(nullable = false, name = "user_seq")
     private Long userSeq;
+    @Column(name="channel_imageId")
+    private String channelImageId;
 }
