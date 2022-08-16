@@ -52,48 +52,54 @@ function ChannelHome(props) {
     );
     getChannelInfo(channelSeq, token, (response) => {
       setChannelInfo(response.data);
+      console.log("&&&&&&&&&&&&&&", response.data);
+      setChannelDesc(response.data.channelDesc);
+      setChannelName(response.data.channelName);
+      setChannelTag(response.data.channelTag);
     });
   }, [channelSeq]);
 
   return (
-    <div className="server-home">
-      <h2>서버홈</h2>
-      <br />
-      채널 이름 {channelName} {"("}#{channelSeq}
-      {")"}
-      <br />
-      채널 설명 {channelDesc}
-      <br />
-      채널 태그 {channelTag}
-      <br />
-      <br />
-      <br />
-      <div>
+    <div className="channel-home">
+      <div className="channel-background">
+        <h2>채널소개</h2>
         <br />
-        현재 채널 참여자 목록:{" "}
-        {pList.map((item, index) => {
-          return (
-            <ChannelParticipant
-              key={index}
-              userSeq={item.participantsId.userSeq}
-            ></ChannelParticipant>
-          );
-        })}
+        채널 이름 {channelName} {"("}#{channelSeq}
+        {")"}
         <br />
-        {/* 현재 채널 참여자 정보: */}
-        {channelInfo ? (
-          <Box
-            component="img"
-            sx={{
-              height: 233,
-              width: 350,
-              maxHeight: { xs: 233, md: 167 },
-              maxWidth: { xs: 350, md: 250 },
-            }}
-            alt="The house from the offer."
-            src={"data:image;base64, " + channelInfo.uploadedImage}
-          />
-        ) : null}
+        채널 설명 {channelDesc}
+        <br />
+        채널 태그 {channelTag}
+        <br />
+        <br />
+        <br />
+        <div>
+          <br />
+          현재 채널 참여자 목록:{" "}
+          {pList.map((item, index) => {
+            return (
+              <ChannelParticipant
+                key={index}
+                userSeq={item.participantsId.userSeq}
+              ></ChannelParticipant>
+            );
+          })}
+          <br />
+          {/* 현재 채널 참여자 정보: */}
+          {channelInfo ? (
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 233, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={"data:image;base64, " + channelInfo.uploadedImage}
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   );
