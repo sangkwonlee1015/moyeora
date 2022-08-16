@@ -3,6 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import Button from '@mui/material/Button';
 
 function RoadView({
   visibleRoadViewDialog,
@@ -30,13 +31,15 @@ function RoadView({
           />
         </DialogContent>
         <DialogActions>
-          <button
+          <Button
+            size="small"
+            variant="contained"
             onClick={() => {
               setVisibleRoadViewDialog();
             }}
           >
             끄기
-          </button>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

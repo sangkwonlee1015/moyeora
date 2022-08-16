@@ -112,31 +112,31 @@ input[type="submit"]:hover{
 .signup_link a:hover{
   text-decoration: underline;
 }
+.LoginOrout {
+  color: #2691d9;
+  cursor: pointer;
+}
 
 @keyframes change{
   0%
   {
     background-image: url("../assets/LoginBackground1.png")
   }
-  17%
+  20%
   {
     background-image: url("../assets/LoginBackground2.png")
   }
-  34%
+  40%
   {
     background-image: url("../assets/LoginBackground3.png")
   }
-  51%
+  60%
   {
     background-image: url("../assets/LoginBackground4.png")
   }
-  68%
+  80%
   {
     background-image: url("../assets/LoginBackground5.png")
-  }
-  85%
-  {
-    background-image: url("../assets/LoginBackground6.png")
   }
   100%
   {

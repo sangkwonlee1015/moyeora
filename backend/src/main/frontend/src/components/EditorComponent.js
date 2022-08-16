@@ -11,7 +11,7 @@ class EditorComponent extends Component {
       <div
         style={{
           width: "200px",
-          height: "200px",
+          height: "150px",
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
@@ -19,15 +19,16 @@ class EditorComponent extends Component {
         }}
       >
         <input
-          style={{ width: "190px", height: "25px" }}
+          style={{ width: "195px", height: "30px", border: "1px solid", backgroundColor: "#fff2ab" }}
           value={value.title || ""}
+          placeholder="위치를 입력해 주세요"
           onChange={(e) => {
             onChange(index, e.target.value, "title");
           }}
         ></input>
         <textarea
-          placeholder="여기에 입력하세요"
-          style={{ width: "190px", height: "160px", resize: "none" }}
+          placeholder="메모를 남겨주세요"
+          style={{ width: "195px", height: "165px", resize: "none", border: "1px solid", backgroundColor: "#fff7d1" }}
           value={value.content || ""}
           onChange={(e) => {
             onChange(index, e.target.value, "content");
