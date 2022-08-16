@@ -76,7 +76,7 @@ form .txt_field{
   width: 100%;
 }
 .pass{
-  margin: -5px 0 20px 5px;
+  margin: -5px 0 10px 5px;
   color: #a6a6a6;
   cursor: pointer;
 }
@@ -118,23 +118,23 @@ input[type="submit"]:hover{
   {
     background-image: url("../assets/LoginBackground1.png")
   }
-  15%
+  17%
   {
     background-image: url("../assets/LoginBackground2.png")
   }
-  30%
+  34%
   {
     background-image: url("../assets/LoginBackground3.png")
   }
-  45%
+  51%
   {
     background-image: url("../assets/LoginBackground4.png")
   }
-  60%
+  68%
   {
     background-image: url("../assets/LoginBackground5.png")
   }
-  75%
+  85%
   {
     background-image: url("../assets/LoginBackground6.png")
   }
