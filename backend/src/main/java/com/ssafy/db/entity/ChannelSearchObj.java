@@ -12,4 +12,5 @@ import lombok.Setter;
 public class ChannelSearchObj {
     private Channel channel;
     private int participantsCount;
+    private byte[] uploadedImage;
 }

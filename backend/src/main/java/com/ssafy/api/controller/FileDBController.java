@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.response.FileRegisterPostRes;
 import com.ssafy.api.response.GetFileRes;
 import com.ssafy.api.service.FileDBService;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -21,9 +22,8 @@ public class FileDBController {
     public ResponseEntity<? extends BaseResponseBody> register(@RequestParam("file") MultipartFile file){
         String message = "";
         try {
-            fileDBService.store(file);
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, message));
+            FileDB f = fileDBService.store(file);
+            return ResponseEntity.status(200).body(FileRegisterPostRes.of(200, "success", f.getId()));
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(415).body(BaseResponseBody.of(415, message));
