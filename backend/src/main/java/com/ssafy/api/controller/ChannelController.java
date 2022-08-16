@@ -7,11 +7,13 @@ import com.ssafy.api.response.ChannelRegisterPostRes;
 import com.ssafy.api.response.ChannelSearchGetRes;
 import com.ssafy.api.response.GetChannelInfoRes;
 import com.ssafy.api.service.ChannelService;
+import com.ssafy.api.service.FileDBService;
 import com.ssafy.api.service.ParticipantsService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Channel;
 import com.ssafy.db.entity.ChannelSearchObj;
+import com.ssafy.db.entity.FileDB;
 import com.ssafy.db.entity.User;
 import io.openvidu.java.client.*;
 import io.swagger.annotations.*;
@@ -31,12 +33,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.ssafy.db.entity.QChannel.channel;
+
 @Api(value = "채널 API", tags = {"Channel"})
 @RestController
 @RequestMapping("/api/channel")
 public class ChannelController {
     @Autowired
     ChannelService channelService;
+
+    @Autowired
+    FileDBService fileDBService;
 
     @Autowired
     ParticipantsService participantsService;
@@ -79,6 +86,13 @@ public class ChannelController {
             ChannelSearchObj obj = new ChannelSearchObj();
             obj.setChannel(channel);
             obj.setParticipantsCount(participantsService.getParticipantsByChannelSeq(channel.getChannelSeq()).size());
+            FileDB f = fileDBService.getFile(channel.getChannelImageId());
+            if (f == null) {
+                byte[] temp = new byte[1];
+                obj.setUploadedImage(temp);
+            }else
+                obj.setUploadedImage(f.getData());
+
             searchList.add(obj);
         });
 
@@ -108,7 +122,12 @@ public class ChannelController {
 //
 //                // Update our collection storing the new token
 //                this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
-        return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag()));
+        FileDB f = fileDBService.getFile(channel.getChannelImageId());
+        if (f == null){
+            byte[] temp = new byte[1];
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp));
+        }else
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData()));
 
 //            } catch (OpenViduJavaClientException e1) {
 //                // If internal error generate an error message and return it to client

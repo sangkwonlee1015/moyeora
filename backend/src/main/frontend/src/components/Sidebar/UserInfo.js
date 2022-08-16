@@ -42,7 +42,7 @@ function UserInfo(props) {
       getParticipantListByUser(
         token,
         (response) => {
-          dispatch(SET_CHANNELLIST(list))
+          dispatch(SET_CHANNELLIST(list));
           response.data.list.map((participant) => {
             getChannelInfo(
               participant.participantsId.channelSeq,
@@ -53,6 +53,7 @@ function UserInfo(props) {
                   channelDesc: data.channelDesc,
                   channelName: data.channelName,
                   channelTag: data.channelTag,
+                  channelImageId: data.uploadedImage,
                 };
                 list = list.concat(channel);
                 dispatch(SET_CHANNELLIST(list));
@@ -63,8 +64,9 @@ function UserInfo(props) {
                 console.log("error", error);
               }
             );
-          })
-          navigate("/homepage");},
+          });
+          navigate("/homepage");
+        },
         (error) => {
           console.log(error);
         }

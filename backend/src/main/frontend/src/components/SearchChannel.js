@@ -1,3 +1,4 @@
+import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -18,6 +19,8 @@ import {
   DialogTitle,
   Input,
   Slide,
+  Box,
+  TextField,
 } from "@mui/material";
 
 const Transition = forwardRef(function Transition(
@@ -51,7 +54,7 @@ function SearchChannel() {
       "",
       token,
       (response) => {
-        console.log(response.data);
+        console.log(response.data.channelList);
         setChannellist(response.data.channelList);
         console.log("useeffect channellistview", channellistview);
       },
@@ -114,6 +117,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
+                    channelImageId: data.uploadedImage,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
@@ -144,15 +148,15 @@ function SearchChannel() {
   };
   return (
     <div className="Layout">
-      <div className="article-search">
-        <input
-          type="text"
-          value={searchName}
+      <div className="search">
+        <TextField
+          id="outlined-basic"
           onChange={onChangeSearchName}
-        ></input>
-        <button type="text" onClick={onSubmitSearchForm}>
-          검색
-        </button>
+          onKeyUp={onSubmitSearchForm}
+          variant="outlined"
+          fullWidth
+          label="채널 이름 검색"
+        />
       </div>
 
       <label>
@@ -176,7 +180,10 @@ function SearchChannel() {
             <div className="card-header">
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+                <div className="card-header-number">
+                  {" "}
+                  {channel.participantsCount} / 6
+                </div>
               </div>
             </div>
 
@@ -190,9 +197,33 @@ function SearchChannel() {
                   채널장: {channel.channel.userSeq} (일단은 userSeq)
                 </p>
               </div>
-              <p className="card-body-description">
-                채널 설명 :{channel.channel.channelDesc}
-              </p>
+              <div className="card-body-description">
+                <p>채널 설명 :{channel.channel.channelDesc}</p>
+              </div>
+            </div>
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 233, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={"data:image;base64, " + channel.uploadedImage}
+            />
+
+            <button
+              onClick={() => {
+                if (channel.channel.channelPassword) {
+                  handleOpen();
+                  setSecretChannel(channel.channel);
+                } else onRegisterChannel(channel.channel);
+              }}
+            >
+              {channel.channel.channelName} 채널 들어가기
+            </button>
+            <div>
               <button
                 onClick={() => {
                   if (channel.channel.channelPassword) {
@@ -201,7 +232,7 @@ function SearchChannel() {
                   } else onRegisterChannel(channel.channel);
                 }}
               >
-                {channel.channel.channelName} 채널 들어가기
+                채널 추가
               </button>
             </div>
           </div>
