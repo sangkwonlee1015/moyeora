@@ -16,12 +16,13 @@ import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { Checkbox, TextField, Box } from "@mui/material";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
 
 import ChannelTest from "./ChannelTest";
 
 // redux
 import { useSelector } from "react-redux";
-import {} from "../../redux/ChannelList";
+// import { } from "../../redux/ChannelList";
 import { useDispatch } from "react-redux";
 
 import { getParticipantListByUser } from "../../api/participant";
