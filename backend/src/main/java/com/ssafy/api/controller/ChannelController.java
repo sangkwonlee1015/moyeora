@@ -92,7 +92,6 @@ public class ChannelController {
                 obj.setUploadedImage(temp);
             }else
                 obj.setUploadedImage(f.getData());
-
             searchList.add(obj);
         });
 
