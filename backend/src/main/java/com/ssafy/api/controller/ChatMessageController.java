@@ -13,11 +13,9 @@ import com.ssafy.common.auth.JwtAuthenticationFilter;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
-import com.ssafy.db.entity.ChatMessage;
-import com.ssafy.db.entity.Pin;
-import com.ssafy.db.entity.Status;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.PinRepository;
+import com.ssafy.db.repository.TextStorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.Message;
@@ -45,6 +43,9 @@ public class ChatMessageController {
     private PinService pinService;
     @Autowired
     private PinRepository pinRepository;
+
+    @Autowired
+    private TextStorageRepository textStorageRepository;
 
     @Autowired
     private UserService userService;
@@ -155,6 +156,19 @@ public class ChatMessageController {
                     p.setPinOrder(p.getPinOrder() - 1);
                     pinRepository.save(p);
                 });
+                chatService.sendMessagePrivate(message);
+                break;
+            case ADD_TEXT:
+                TextStorage addTextStorage = new TextStorage();
+                addTextStorage.setChannelSeq(Long.parseLong(message.getChannelSeq()));
+                addTextStorage.setTextContent(message.getTextContent());
+                addTextStorage.setUser(user);
+                addTextStorage = textStorageRepository.save(addTextStorage);
+                message.setTextSeq(addTextStorage.getTextSeq().toString());
+                chatService.sendMessagePrivate(message);
+                break;
+            case DEL_TEXT:
+                textStorageRepository.deleteById(Long.parseLong(message.getTextSeq()));
                 chatService.sendMessagePrivate(message);
                 break;
         }
