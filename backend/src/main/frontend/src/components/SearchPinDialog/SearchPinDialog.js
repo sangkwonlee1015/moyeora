@@ -1,5 +1,4 @@
 /*global kakao*/
-
 import { useState, useEffect, createElement } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -10,6 +9,7 @@ import "./SearchPinDialog.css";
 import RoadView from "./RoadView";
 import { createHeaders } from "../../api";
 import { useSelector } from "react-redux";
+import Button from '@mui/material/Button';
 
 function SearchPinDialog({
   open,
@@ -81,14 +81,25 @@ function SearchPinDialog({
           setMarkers((current) => {
             return [...current, marker];
           });
+
+          
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          
         }
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
       }
     });
+  }
+
+  function mouseOver(item) {
+    console.log(console.log(item))
+  }
+  
+  function mouseOut(index) {
+    console.log(index)
   }
 
   function removeMarker() {
@@ -142,17 +153,21 @@ function SearchPinDialog({
           <div id="menu_wrap" className="bg_white">
             <div className="option">
               <div>
-                <form onSubmit={searchPlaces}>
-                  <input
-                    type="text"
-                    value={searchBarInput}
-                    onChange={(e) => {
-                      setSearchBarInput(e.target.value);
-                    }}
-                    id="keyword"
-                    size="15"
-                  ></input>
-                  <button type="submit">검색하기</button>
+                <form onSubmit={searchPlaces} style={{lineHeight: "center", textAlign: "center"}}>
+                  <div className="search_box">
+                    <input
+                      type="text"
+                      placeholder="장소, 주소 검색"
+                      value={searchBarInput}
+                      onChange={(e) => {
+                        setSearchBarInput(e.target.value);
+                      }}
+                      id="keyword"
+                      size="17"
+                      style={{height: "24px"}}
+                    ></input>
+                    <button type="submit"><ion-icon name="search"/></button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -172,6 +187,7 @@ function SearchPinDialog({
                 return (
                   <li key={index} className={"item"}>
                     <button
+                      className="SearchPinButton"
                       onClick={(e) => {
                         e.preventDefault();
                         setRoadViewX(item.x);
@@ -182,6 +198,7 @@ function SearchPinDialog({
                       로드뷰 보기
                     </button>
                     <button
+                      className="SearchPinButton"
                       onClick={(e) => {
                         e.preventDefault();
                         setMapCenter({
@@ -194,6 +211,7 @@ function SearchPinDialog({
                       찾기
                     </button>
                     <button
+                      className="SearchPinButton"
                       onClick={(e) => {
                         e.preventDefault();
                         if (stomp) {
@@ -258,7 +276,7 @@ function SearchPinDialog({
 
                     <span className={"markerbg marker_" + (index + 1)}></span>
                     <div className={"info"}>
-                      <h5>{item.place_name}</h5>
+                      <h3>{item.place_name}</h3>
                       <span>{item.road_address_name}</span>
                       <span className={"jibun gray"}>{item.address_name}</span>
                       <span className={"tel"}>{item.phone}</span>
@@ -279,13 +297,18 @@ function SearchPinDialog({
           ></RoadView>
         </DialogContent>
         <DialogActions>
-          <button
+          <Button
+            size="small"
+            variant="contained"
             onClick={() => {
               setVisibleSearchPinDialog();
+              setSearchBarInput("");
+              setPagination(undefined);
+              setSearchResult([]);
             }}
           >
             검색 종료
-          </button>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

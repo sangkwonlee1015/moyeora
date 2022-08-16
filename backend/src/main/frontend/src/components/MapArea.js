@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 
 import SearchPinDialog from "../components/SearchPinDialog/SearchPinDialog";
 // import SockJs from "sockjs-client";
@@ -127,7 +128,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
               receiver: channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              pinTitle: "새 핀",
+              pinTitle: "New Pin",
               pinColor: _pinColor,
               mapSeq: mapSeq,
               status: "ADDPIN",
@@ -141,7 +142,6 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
         }}
         // onCreate={mapCreate}
         onCreate={() => {
-          console.log("~~~mapCreate~~~");
           const map = mapRef.current;
           if (map) map.setLevel(currentMapLevel);
         }}
@@ -198,14 +198,15 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
         />
       </Map>
 
-      <button
+      <Button
+        variant="contained"
         style={{ position: "fixed", zIndex: 1, top: 10, left: 350 }}
         onClick={() => {
           setVisibleSearchPinDialog(true);
         }}
       >
         Pin 검색
-      </button>
+      </Button>
       <SelectPin
         active={(param) => {
           _setPinColor(param);
