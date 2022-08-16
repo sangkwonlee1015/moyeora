@@ -3,12 +3,26 @@ import {
   getParticipantListByChannel,
 } from "../api/participant";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getChannelInfo } from "../api/channel";
+import React, { useEffect, useState } from "react";
 
 import ChannelParticipant from "./ChannelParticipant";
+import { deleteChannel, getChannelInfo } from "../api/channel";
+import "./ChannelHome.css"
 
-import { Box } from "@mui/material";
+// mui
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
+import TextField from '@mui/material/TextField';
+import { Link } from "react-router-dom";
+import { Stack } from "@mui/material";
 
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
