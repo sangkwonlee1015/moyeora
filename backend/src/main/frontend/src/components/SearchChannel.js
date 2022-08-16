@@ -3,7 +3,10 @@ import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
-import { getParticipantListByUser, registerParticipant } from "../api/participant";
+import {
+  getParticipantListByUser,
+  registerParticipant,
+} from "../api/participant";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
@@ -187,26 +190,40 @@ function SearchChannel() {
             <div className="card-body">
               <div className="card-body-header">
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
-                <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
+                <p className="card-body-hashtag">
+                  채널 태그 : {channel.channel.channelTag}
+                </p>
                 <p className="card-body-nickname">
                   채널장: {channel.channel.userSeq} (일단은 userSeq)
                 </p>
               </div>
               <div className="card-body-description">
-                채널 설명 :{channel.channel.channelDesc}
+                <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
-              
-              <Box
-                component="img"
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-                alt="The house from the offer."
-                src={"data:image;base64, " + channel.uploadedImage}
-              />
+            </div>
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 233, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={"data:image;base64, " + channel.uploadedImage}
+            />
+
+            <button
+              onClick={() => {
+                if (channel.channel.channelPassword) {
+                  handleOpen();
+                  setSecretChannel(channel.channel);
+                } else onRegisterChannel(channel.channel);
+              }}
+            >
+              {channel.channel.channelName} 채널 들어가기
+            </button>
+            <div>
               <button
                 onClick={() => {
                   if (channel.channel.channelPassword) {
@@ -215,27 +232,19 @@ function SearchChannel() {
                   } else onRegisterChannel(channel.channel);
                 }}
               >
-                {channel.channel.channelName} 채널 들어가기
+                채널 추가
               </button>
-                <div>
-                  <button
-                    onClick={() => {
-                      if (channel.channel.channelPassword) {
-                        handleOpen();
-                        setSecretChannel(channel.channel);
-                      } else onRegisterChannel(channel.channel);
-                    }}
-                  >
-                    채널 추가
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         ))}
       </div>
       <footer>
-        <Pagination total={channellistview.length} limit={limit} page={page} setPage={setPage} />
+        <Pagination
+          total={channellistview.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </footer>
       <Dialog
         open={open}
@@ -246,7 +255,10 @@ function SearchChannel() {
       >
         <DialogTitle className="dialog-title">{"비밀번호 입력"}</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            className="dialog-content-text"
+          >
             <label htmlFor="channelSecret" className="input-label">
               비밀번호
             </label>

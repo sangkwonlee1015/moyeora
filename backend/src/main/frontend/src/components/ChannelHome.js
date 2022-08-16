@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { getChannelInfo } from "../api/channel";
 
 import ChannelParticipant from "./ChannelParticipant";
-import { getChannelInfo } from "../api/channel";
 
 import { Box } from "@mui/material";
 
@@ -22,7 +21,6 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
-
 
   console.log(pList);
 
@@ -45,19 +43,16 @@ function ChannelHome(props) {
   return (
     <div className="server-home">
       <h2>서버홈</h2>
-
       <br />
-      채널 이름 {channelName} {'('}#{channelSeq}{')'}
+      채널 이름 {channelName} {"("}#{channelSeq}
+      {")"}
       <br />
       채널 설명 {channelDesc}
       <br />
       채널 태그 {channelTag}
-
       <br />
       <br />
       <br />
-
-
       <div>
         <br />
         현재 채널 참여자 목록:{" "}
