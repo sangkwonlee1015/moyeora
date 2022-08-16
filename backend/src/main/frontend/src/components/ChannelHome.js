@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 import ChannelParticipant from "./ChannelParticipant";
 import { deleteChannel, getChannelInfo } from "../api/channel";
-import "./ChannelHome.css"
+import "./ChannelHome.css";
 
 // mui
 import Button from "@mui/material/Button";
@@ -20,9 +20,10 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
