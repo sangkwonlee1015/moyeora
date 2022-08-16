@@ -31,6 +31,8 @@ import { registerParticipant } from "../../api/participant";
 
 import { getFile, registerFile } from "../../api/file";
 
+// import UpdateChannelInfoDialog from "../UpdateChannelInfoDialog";
+
 // const Transition = React.forwardRef(function Transition(
 //   props: TransitionProps & {
 //     children: React.ReactElement<any, any>,
@@ -214,6 +216,8 @@ export default function Header() {
         </Link>
       </div>
 
+      {/* <UpdateChannelInfoDialog open={true}></UpdateChannelInfoDialog> */}
+
       {/* <Dialog
         open={openUser}
         TransitionComponent={Transition}
@@ -261,71 +265,15 @@ export default function Header() {
             id="alert-dialog-slide-description"
             className="dialog-content-text"
           >
-            <label for="channelName" className="input-label">
-              채널 이름
-            </label>
-            <br />
-            <TextField
-              id="channelName"
-              className="input"
-              label="Outlined"
-              variant="outlined"
-              onChange={onChannelName}
-              value={channelName}
-            />
-            {/* <Input
-              value={channelName}
-              id="channelName"
-              className="input"
-              onChange={onChannelName}
-              // inputRef={(input) => {
-              //   if(input != null) {
-              //      input.focus();
-              //   }
-              // }}
-            ></Input> */}
-            <br />
-            <br />
-            <label htmlFor="channelDesc" className="input-label">
-              채널 소개글
-            </label>
-            <br />
-            <TextField
-              id="channelDesc"
-              multiline
-              rows={4}
-              defaultValue="간단한 채널 소개를 적어주세요~"
-              onChange={onChannelDesc}
-              value={channelDesc}
-            />
-            {/* <Input
-              value={channelDesc}
-              id="channelDesc"
-              className="input"
-              onChange={onChannelDesc}
-            ></Input> */}
-            <br />
-            <br />
-            <label htmlFor="channelTag" className="input-label">
-              태그
-            </label>
-            <br />
-            <Input
-              value={channelTag}
-              id="channelTag"
-              className="input"
-              onChange={onChannelTag}
-            ></Input>
-            <br />
-            <br />
             <Box
               component="img"
               sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
+                border: "3px solid #000000",
+                // height: "auto",
+                width: "100%",
+                borderRadius: 3,
               }}
+              // className="gradient-border"
               alt="The house from the offer."
               src={uploadedFile}
             />
@@ -361,7 +309,60 @@ export default function Header() {
               ></input>
             </Button>
             <br />
+            <label for="channelName" className="input-label">
+              채널 이름
+            </label>
             <br />
+            <br />
+            <Input
+              sx={{ width: "535px" }}
+              value={channelName}
+              id="channelName"
+              className="input"
+              onChange={onChannelName}
+              // inputRef={(input) => {
+              //   if(input != null) {
+              //      input.focus();
+              //   }
+              // }}
+            ></Input>
+            <br />
+            <br />
+            <label htmlFor="channelDesc" className="input-label">
+              채널 소개글
+            </label>
+            <br />
+            <TextField
+              sx={{ width: "535px" }}
+              id="channelDesc"
+              multiline
+              rows={4}
+              defaultValue="간단한 채널 소개를 적어주세요~"
+              onChange={onChannelDesc}
+              value={channelDesc}
+            />
+            {/* <Input
+              value={channelDesc}
+              id="channelDesc"
+              className="input"
+              onChange={onChannelDesc}
+            ></Input> */}
+            <br />
+            <br />
+            <label htmlFor="channelTag" className="input-label">
+              태그
+            </label>
+            <br />
+            <Input
+              sx={{ width: "535px" }}
+              value={channelTag}
+              id="channelTag"
+              className="input"
+              onChange={onChannelTag}
+            ></Input>
+            <br />
+            <br />
+
             <label htmlFor="channelSecret" className="input-label">
               비밀방
             </label>
@@ -370,6 +371,7 @@ export default function Header() {
               비밀번호
             </label>
             <Input
+              sx={{ width: "368px", marginLeft: "30px" }}
               value={channelPassword}
               id="channelPassword"
               className="input"
