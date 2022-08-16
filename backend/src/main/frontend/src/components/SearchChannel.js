@@ -2,6 +2,7 @@ import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
+import { getFile } from "../api/file";
 import {
   getParticipantListByUser,
   registerParticipant,
@@ -18,6 +19,7 @@ import {
   DialogTitle,
   Input,
   Slide,
+  Box,
 } from "@mui/material";
 
 const Transition = forwardRef(function Transition(
@@ -51,7 +53,7 @@ function SearchChannel() {
       "",
       token,
       (response) => {
-        console.log(response.data);
+        console.log(response.data.channelList);
         setChannellist(response.data.channelList);
         console.log("useeffect channellistview", channellistview);
       },
@@ -114,6 +116,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
+                    channelImageId: data.channelImageId,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
@@ -176,7 +179,10 @@ function SearchChannel() {
             <div className="card-header">
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+                <div className="card-header-number">
+                  {" "}
+                  {channel.participantsCount} / 6
+                </div>
               </div>
             </div>
 
@@ -193,6 +199,17 @@ function SearchChannel() {
               <p className="card-body-description">
                 채널 설명 :{channel.channel.channelDesc}
               </p>
+              <Box
+                component="img"
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+                alt="The house from the offer."
+                src={"data:image;base64, " + channel.uploadedImage}
+              />
               <button
                 onClick={() => {
                   if (channel.channel.channelPassword) {
