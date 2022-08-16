@@ -22,7 +22,6 @@ import ChannelTest from "./ChannelTest";
 
 // redux
 import { useSelector } from "react-redux";
-import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { useDispatch } from "react-redux";
 
 import { getParticipantListByUser } from "../../api/participant";
