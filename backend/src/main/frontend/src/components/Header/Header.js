@@ -17,6 +17,7 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { Checkbox, TextField, Box } from "@mui/material";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
+// import { makeStyles } from "@material-ui/core/styles";
 
 import ChannelTest from "./ChannelTest";
 
@@ -40,13 +41,20 @@ import { getFile, registerFile } from "../../api/file";
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 
-export default function Header() {
+// const useStyles = makeStyles({
+//   input: {
+//     color: "white",
+//   },
+// });
+
+export default function Header(props) {
+  // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] = React.useState("");
+  const [channelDesc, setChannelDesc] = React.useState("간단한 채널 소개를 적어주세요~");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
 
@@ -257,18 +265,18 @@ export default function Header() {
       >
         <DialogTitle className="dialog-title">Channel Register</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText
-            id="alert-dialog-slide-description"
-            className="dialog-content-text"
-          >
+          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
             <label for="channelName" className="input-label">
               채널 이름
             </label>
             <br />
             <TextField
+              // inputProps={{ className: classes.input }}
+              required
+              fullWidth
               id="channelName"
               className="input"
-              label="Outlined"
+              label="새로운 채널"
               variant="outlined"
               onChange={onChannelName}
               value={channelName}
@@ -291,12 +299,17 @@ export default function Header() {
             </label>
             <br />
             <TextField
-              id="channelDesc"
+              // inputProps={{ className: classes.input }}
+              required
+              id="outlined-multiline-static"
               multiline
               rows={4}
-              defaultValue="간단한 채널 소개를 적어주세요~"
               onChange={onChannelDesc}
               value={channelDesc}
+              fullWidth
+              label="채널 소개"
+              sx={{ input: { color: "red" } }}
+              defaultValue="간단한 채널 소개를 적어주세요~"
             />
             {/* <Input
               value={channelDesc}
@@ -315,8 +328,13 @@ export default function Header() {
               id="channelTag"
               className="input"
               onChange={onChannelTag}
+              fullWidth
             ></Input>
             <br />
+            <br />
+            <label htmlFor="channelTag" className="input-label">
+              채널 이미지
+            </label>
             <br />
             <Box
               component="img"
@@ -342,9 +360,7 @@ export default function Header() {
                       getFile(
                         response.data.id,
                         (response) => {
-                          setUploadedFile(
-                            "data:image;base64, " + response.data.data
-                          );
+                          setUploadedFile("data:image;base64, " + response.data.data);
                         },
                         (error) => {
                           console.log(error);
@@ -367,7 +383,7 @@ export default function Header() {
             </label>
             <Checkbox id="channelSecret" onClick={onSecret}></Checkbox>
             <label htmlFor="channelSecret" className="input-label">
-              비밀번호
+              비밀번호{" "}
             </label>
             <Input
               value={channelPassword}
