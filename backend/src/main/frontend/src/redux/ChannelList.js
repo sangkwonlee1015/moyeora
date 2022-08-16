@@ -5,7 +5,7 @@ export const tokenSlice = createSlice({
   initialState: {
     channelList: [],
     stomp: null,
-    channelSeq: null
+    channelSeq: null,
   },
   reducers: {
     SET_STOMP: (state, action) => {
@@ -22,6 +22,7 @@ export const tokenSlice = createSlice({
   },
 });
 
-export const { SET_STOMP, SET_CHANNELLIST, SET_CHANNELSEQ } = tokenSlice.actions;
+export const { SET_STOMP, SET_CHANNELLIST, SET_CHANNELSEQ, SET_CHANNELTOKEN } =
+  tokenSlice.actions;
 
 export default tokenSlice.reducer;

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import Chatting from "./Chatting";
 import Map from "./Map";
-import Ov from "./OV";
 import "./Sidebar.css";
+// import Ov from "./Ov";
 import { getMapList, registerMap } from "../../api/map";
 import UserInfo from "./UserInfo";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import SockJS from "sockjs-client";
 import StompJs from "stompjs";
+import { getChannelInfo } from "../../api/channel";
 import {
   ADD_PIN,
   DELETE_PIN,
@@ -24,11 +25,13 @@ import {
 } from "../../redux/PinList";
 import { getTextList } from "../../api/channel";
 import { SET_TEXTLIST } from "../../redux/TextList";
+import VideoRoomComponent from "../Openvidu/VideoRoomComponent";
 
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const mapList = useSelector((state) => state.MapList.mapList);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
+  const userNick = useSelector((state) => state.UserInfo.userInfo.userNick);
   const dispatch = useDispatch();
   const [mapName, setMapName] = useState("");
   const [open, setOpen] = useState(false);
@@ -37,6 +40,8 @@ function Sidebar(props) {
     setMapName("");
   };
   const handleOpen = () => setOpen(true);
+
+  console.log("channelSeq: " + channelSeq + " / userNick: " + userNick);
 
   useEffect(() => {
     const sock = new SockJS("http://localhost:8080/ws");
@@ -252,14 +257,18 @@ function Sidebar(props) {
         {mapList.map((map) => (
           <Map
             key={map.mapSeq}
-            channelSeq={props.channelSeq}
+            channelSeq={channelSeq}
             mapSeq={map.mapSeq}
             mapName={map.mapName}
           ></Map>
         ))}
       </div>
-      <Ov />
-      <UserInfo channelSeq={props.channelSeq} />
+      {/* <Ov /> */}
+      <UserInfo channelSeq={channelSeq} />
+      <VideoRoomComponent
+        sessionName={channelSeq}
+        user={userNick}
+      ></VideoRoomComponent>
     </div>
   );
 }

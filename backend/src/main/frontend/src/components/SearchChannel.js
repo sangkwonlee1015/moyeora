@@ -1,4 +1,3 @@
-import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -144,7 +143,7 @@ function SearchChannel() {
     setSearchName(e.target.value);
   };
   return (
-    <Layout>
+    <div className="Layout">
       <div className="article-search">
         <input
           type="text"
@@ -177,32 +176,32 @@ function SearchChannel() {
             <div className="card-header">
               <div className="card-header-is_closed">
                 <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> 2 / 5 </div>
+                <div className="card-header-number"> {channel.participantsCount} / 6</div>
               </div>
             </div>
 
             <div className="card-body">
               <div className="card-body-header">
-                <h1>채널 제목 : {channel.channelName}</h1>
+                <h1>채널 제목 : {channel.channel.channelName}</h1>
                 <p className="card-body-hashtag">
-                  채널 태그 : {channel.channelTag}
+                  채널 태그 : {channel.channel.channelTag}
                 </p>
                 <p className="card-body-nickname">
-                  채널장: {channel.userSeq} (일단은 userSeq)
+                  채널장: {channel.channel.userSeq} (일단은 userSeq)
                 </p>
               </div>
               <p className="card-body-description">
-                채널 설명 :{channel.channelDesc}
+                채널 설명 :{channel.channel.channelDesc}
               </p>
               <button
                 onClick={() => {
-                  if (channel.channelPassword) {
+                  if (channel.channel.channelPassword) {
                     handleOpen();
-                    setSecretChannel(channel);
-                  } else onRegisterChannel(channel);
+                    setSecretChannel(channel.channel);
+                  } else onRegisterChannel(channel.channel);
                 }}
               >
-                {channel.channelName} 채널 들어가기
+                {channel.channel.channelName} 채널 들어가기
               </button>
             </div>
           </div>
@@ -267,15 +266,7 @@ function SearchChannel() {
           </div>
         </DialogActions>
       </Dialog>
-    </Layout>
+    </div>
   );
 }
-
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto;
-`;
 export default SearchChannel;

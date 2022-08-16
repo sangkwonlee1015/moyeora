@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.ChannelRegisterPostReq;
+import com.ssafy.api.request.ChannelSessionOutReq;
 import com.ssafy.api.request.ChannelUpdatePatchReq;
 import com.ssafy.api.response.ChannelRegisterPostRes;
 import com.ssafy.api.response.ChannelSearchGetRes;
@@ -94,57 +95,57 @@ public class ChannelController {
 
         SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
-        String serverData = "{\"serverData\": \"" + user.getUserSeq() + "\"}";
-        ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(OpenViduRole.PUBLISHER).build();
+//        String serverData = "{\"serverData\": \"" + user.getUserSeq() + "\"}";
+//        ConnectionProperties connectionProperties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data(serverData).role(OpenViduRole.PUBLISHER).build();
 
 
-        String sessionName = channel.getChannelSeq().toString();
-        String token;
-        if (this.mapSessions.get(sessionName) != null) {
-            // Session already exists
-            System.out.println("Existing session " + sessionName);
-            try {
+//        String sessionName = channel.getChannelSeq().toString();
+//        String token;
+//        if (this.mapSessions.get(sessionName) != null) {
+//            // Session already exists
+//            System.out.println("Existing session " + sessionName);
+//            try {
+//
+//                // Generate a new Connection with the recently created connectionProperties
+//                token = this.mapSessions.get(sessionName).createConnection(connectionProperties).getToken();
+//
+//                // Update our collection storing the new token
+//                this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
+        return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag()));
 
-                // Generate a new Connection with the recently created connectionProperties
-                token = this.mapSessions.get(sessionName).createConnection(connectionProperties).getToken();
-
-                // Update our collection storing the new token
-                this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
-                return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), token));
-
-            } catch (OpenViduJavaClientException e1) {
-                // If internal error generate an error message and return it to client
-                return ResponseEntity.status(400).body(BaseResponseBody.of(400, e1.toString()));
-            } catch (OpenViduHttpException e2) {
-                if (404 == e2.getStatus()) {
-                    // Invalid sessionId (user left unexpectedly). Session object is not valid
-                    // anymore. Clean collections and continue as new session
-                    this.mapSessions.remove(sessionName);
-                    this.mapSessionNamesTokens.remove(sessionName);
-                }
-            }
-        }
-
-        // New session
-        System.out.println("New session " + sessionName);
-        try {
-
-            // Create a new OpenVidu Session
-            Session session = this.openVidu.createSession();
-            // Generate a new Connection with the recently created connectionProperties
-            token = session.createConnection(connectionProperties).getToken();
-
-            // Store the session and the token in our collections
-            this.mapSessions.put(sessionName, session);
-            this.mapSessionNamesTokens.put(sessionName, new ConcurrentHashMap<>());
-            this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
-
-            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), token));
-
-        } catch (Exception e) {
-            // If error generate an error message and return it to client
-            return ResponseEntity.status(400).body(BaseResponseBody.of(400, e.toString()));
-        }
+//            } catch (OpenViduJavaClientException e1) {
+//                // If internal error generate an error message and return it to client
+//                return ResponseEntity.status(400).body(BaseResponseBody.of(400, e1.toString()));
+//            } catch (OpenViduHttpException e2) {
+//                if (404 == e2.getStatus()) {
+//                    // Invalid sessionId (user left unexpectedly). Session object is not valid
+//                    // anymore. Clean collections and continue as new session
+//                    this.mapSessions.remove(sessionName);
+//                    this.mapSessionNamesTokens.remove(sessionName);
+//                }
+//            }
+//        }
+//
+//        // New session
+//        System.out.println("New session " + sessionName);
+//        try {
+//
+//            // Create a new OpenVidu Session
+//            Session session = this.openVidu.createSession();
+//            // Generate a new Connection with the recently created connectionProperties
+//            token = session.createConnection(connectionProperties).getToken();
+//
+//            // Store the session and the token in our collections
+//            this.mapSessions.put(sessionName, session);
+//            this.mapSessionNamesTokens.put(sessionName, new ConcurrentHashMap<>());
+//            this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
+//
+//            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), token));
+//
+//        } catch (Exception e) {
+//            // If error generate an error message and return it to client
+//            return ResponseEntity.status(400).body(BaseResponseBody.of(400, e.toString()));
+//        }
     }
 
     @PatchMapping()
@@ -181,9 +182,10 @@ public class ChannelController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
-    @GetMapping(value = "/remove-user/{sessionName}/{token}")
-    public ResponseEntity<? extends BaseResponseBody> removeUser(@PathVariable String sessionName, @PathVariable String token) {
-
+    @PostMapping(value = "/removeUser")
+    public ResponseEntity<? extends BaseResponseBody> removeUser(@RequestBody ChannelSessionOutReq req) {
+        String sessionName = req.getSessionName();
+        String token = req.getToken();
         System.out.println("Removing user | {sessionName, token}=");
 
         // If the session exists

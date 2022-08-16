@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getPinList } from "../../api/pin";
 import { SET_CURRENTMAP } from "../../redux/PinList";
 import { SET_PINLIST } from "../../redux/PinList";
-import { deleteMap, getMapList } from "../../api/map";
+import { deleteMap, getMapList, updateMap } from "../../api/map";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -30,8 +30,12 @@ function Map(props) {
   const dispatch = useDispatch();
   const ChannelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [newMapName, setNewMapName] = useState(props.mapName)
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
+  const handleClose2 = () => setOpen2(false);
+  const handleOpen2 = () => setOpen2(true);
 
   function openMap(mapSeq) {
     dispatch(SET_CURRENTMAP(mapSeq));
@@ -50,6 +54,32 @@ function Map(props) {
       }
     );
   }
+  const onChangeNewMapName = (e) => {
+    setNewMapName(e.target.value);
+  };
+
+  const UpdateMap = () => {
+    const updateMapInfo = {
+      mapName: newMapName,
+      mapSeq: props.mapSeq
+    }
+    updateMap(
+      updateMapInfo,
+      token,()=>{
+        getMapList(                       // 성공하면 맵 리스트 불러와서
+        ChannelSeq,
+        "channel",
+        token,
+        (response) => {                 
+          const list = response.data.mapsList;
+          console.log(list)
+          dispatch(SET_MAPLIST(list));  // 맵 redux에 다시 저장
+          handleClose2();
+        },
+        (error) => {console.log(error)})
+      },
+      (error) => {console.log(error)}
+    )};
 
   const DeleteMap = () => {             // 맵 삭제 함수
     const mapSeq = props.mapSeq
@@ -88,6 +118,52 @@ function Map(props) {
         <button onClick={handleOpen}>
           <ion-icon name="trash-outline"></ion-icon>
         </button>
+        <button onClick={handleOpen2}>
+          <ion-icon name="settings-outline"></ion-icon>
+        </button>
+        <Modal
+          open={open2}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={style}
+            style={{ backgroundColor: "#202225", borderRadius: "10px" }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              color="white"
+            >
+              <br/>
+              맵 이름 수정하기
+              <br/>
+              <input
+                type="text"
+                value={newMapName}
+                autoFocus
+                onChange={onChangeNewMapName}
+              ></input>
+              <Stack
+                direction="row-reverse"
+                alignItems="center"
+                spacing={2}
+                style={{ marginTop: "2rem" }}
+              >
+                <Button onClick={handleClose2}>취소</Button>
+                <Button
+                  onClick={UpdateMap}
+                  variant="outlined"
+                  color="success"
+                >
+                  맵 수정하기
+                </Button>
+              </Stack>
+            </Typography>
+          </Box>
+        </Modal>
         <Modal
           open={open}
           onClose={handleClose}
