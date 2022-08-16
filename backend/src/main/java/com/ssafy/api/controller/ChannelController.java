@@ -86,7 +86,13 @@ public class ChannelController {
             ChannelSearchObj obj = new ChannelSearchObj();
             obj.setChannel(channel);
             obj.setParticipantsCount(participantsService.getParticipantsByChannelSeq(channel.getChannelSeq()).size());
-            obj.setUploadedImage(fileDBService.getFile(channel.getChannelImageId()).getData());
+            FileDB f = fileDBService.getFile(channel.getChannelImageId());
+            if (f == null) {
+                byte[] temp = new byte[1];
+                obj.setUploadedImage(temp);
+            }else
+                obj.setUploadedImage(f.getData());
+
             searchList.add(obj);
         });
 
@@ -117,8 +123,11 @@ public class ChannelController {
 //                // Update our collection storing the new token
 //                this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
         FileDB f = fileDBService.getFile(channel.getChannelImageId());
-        System.out.println("data: " + f.getData());
-        return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData()));
+        if (f == null){
+            byte[] temp = new byte[1];
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp));
+        }else
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData()));
 
 //            } catch (OpenViduJavaClientException e1) {
 //                // If internal error generate an error message and return it to client

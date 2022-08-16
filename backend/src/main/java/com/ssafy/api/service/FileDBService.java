@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -20,7 +21,11 @@ public class FileDBService {
         return fileDBRepository.save(FileDB);
     }
     public FileDB getFile(String id) {
-        return fileDBRepository.findById(id).get();
+        Optional<FileDB> f = fileDBRepository.findById(id);
+        if (f.isPresent())
+            return f.get();
+        else
+            return null;
     }
 
     public Stream<FileDB> getAllFiles() {

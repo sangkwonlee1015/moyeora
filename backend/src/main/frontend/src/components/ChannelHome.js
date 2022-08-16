@@ -76,7 +76,7 @@ function ChannelHome(props) {
               maxWidth: { xs: 350, md: 250 },
             }}
             alt="The house from the offer."
-            src={"data:image;base64, " + channelInfo.channelImageId}
+            src={"data:image;base64, " + channelInfo.uploadedImage}
           />
         ) : null}
       </div>
