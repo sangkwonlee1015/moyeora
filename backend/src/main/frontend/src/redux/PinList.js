@@ -5,8 +5,8 @@ export const pinListSlice = createSlice({
   name: "pinList",
   initialState: {
     currentMap: -1,
-    centerLat: 36.5,
-    centerLng: 127.5,
+    centerLat: 37.5013068,
+    centerLng: 127.0396597,
     pinList: [],
   },
   reducers: {
@@ -24,8 +24,8 @@ export const pinListSlice = createSlice({
         state.centerLng =
           (bounds.getSouthWest().getLng() + bounds.getNorthEast().getLng()) / 2;
       } else {
-        state.centerLat = state.centerLat == 36.5 ? 36.5000000001 : 36.5;
-        state.centerLng = state.centerLat == 127.5 ? 127.5000000001 : 127.5;
+        state.centerLat = state.centerLat === 37.5013068 ? 37.5013068001 : 37.5013068;
+        state.centerLng = state.centerLat === 127.0396597 ? 127.0396597001 : 127.0396597;
       }
       console.log("state.pinList : ", state.pinList);
     },
