@@ -114,6 +114,7 @@ background-color: red;
 }
 .userinfo {
   display: flex;
+  width: 210px;
   align-items: space-between;
   position: fixed;
   bottom: 0px;
@@ -121,10 +122,15 @@ background-color: red;
   background-color: #202225;
 }
 .userinfo_name {
-  margin-right: 5rem;
+  /* margin-right: 5rem; */
 }
 .exit-channel {
   color: #e2e3e4;
+  left: 100px
+}
+.exit-channel-margin{
+  width: 100px;
+  margin-left: 100px;
 }
 
 /* openvidu css */
