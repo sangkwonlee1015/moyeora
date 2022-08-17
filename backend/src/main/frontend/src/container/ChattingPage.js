@@ -20,7 +20,7 @@ function ChattingPage() {
     <div className="comp">
       <Header />
       <Sidebar />
-      <ChattingArea stomp stomp={stomp} />
+      <ChattingArea stomp={stomp} />
     </div>
   );
 }

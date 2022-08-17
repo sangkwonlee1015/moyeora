@@ -1,10 +1,11 @@
-import { Button, TextareaAutosize } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { createHeaders } from "../api";
 import { getTextList } from "../api/channel";
 import { SET_TEXTLIST } from "../redux/TextList";
+import "./ChattingArea.css";
 
 function ChattingArea({ stomp }) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
@@ -54,7 +55,7 @@ function ChattingArea({ stomp }) {
 
   return (
     <div className="chattingarea">
-      <div>
+      <div class="show-area">
         {textList.map((text) => (
           <div>
             <span>
@@ -81,11 +82,11 @@ function ChattingArea({ stomp }) {
           </div>
         ))}
       </div>
-      <div>
+      <div style={{ textAlign: "center" }}>
         <TextareaAutosize
+          class="textarea-input"
           placeholder={"메시지 입력"}
           style={{
-            width: "90%",
             lineHeight: "25px",
             resize: "none",
           }}
