@@ -28,12 +28,16 @@ import { getTextList } from "../../api/channel";
 import { SET_TEXTLIST } from "../../redux/TextList";
 import VideoRoomComponent from "../Openvidu/VideoRoomComponent";
 import { createHeaders } from "../../api";
+import { getParticipantListByUser } from "../../api/participant";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
+import { useNavigate } from "react-router";
 
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const mapList = useSelector((state) => state.MapList.mapList);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const userNick = useSelector((state) => state.UserInfo.userInfo.userNick);
+  const userSeq = useSelector((state) => state.UserInfo.userInfo.userSeq);
   const dispatch = useDispatch();
   const [mapName, setMapName] = useState("");
   const [open, setOpen] = useState(false);
@@ -45,6 +49,7 @@ function Sidebar(props) {
   const [backdropOpen, setBackdropOpen] = useState(true);
   const sock = new SockJS("http://localhost:8080/ws");
   const stomp = StompJs.over(sock);
+  const navigate = useNavigate();
 
   console.log("channelSeq: " + channelSeq + " / userNick: " + userNick);
 
@@ -162,6 +167,42 @@ function Sidebar(props) {
             );
             break;
           case "KICKOUT_CHANNEL":
+            if (userSeq == Number(message.targetUserSeq)) {
+              let list = [];
+              getParticipantListByUser(
+                token,
+                (response) => {
+                  dispatch(SET_CHANNELLIST(list));
+                  response.data.list.map((participant) => {
+                    getChannelInfo(
+                      participant.participantsId.channelSeq,
+                      token,
+                      ({ data }) => {
+                        let channel = {
+                          channelSeq: participant.participantsId.channelSeq,
+                          channelDesc: data.channelDesc,
+                          channelName: data.channelName,
+                          channelTag: data.channelTag,
+                          channelImageId: data.uploadedImage,
+                        };
+                        list = list.concat(channel);
+                        console.log("dispatch");
+                        dispatch(SET_CHANNELLIST(list));
+                        navigate("/homepage");
+                        // setChannelList(list);
+                      },
+                      (error) => {
+                        console.log("error", error);
+                      }
+                    );
+                  });
+                  navigate("/homepage");
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+            }
             break;
           default:
         }
@@ -242,11 +283,10 @@ function Sidebar(props) {
           width: "100vw",
           height: "100vh",
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          opacity: 1
+          opacity: 1,
         }}
         open={backdropOpen}
-      >
-      </Backdrop>
+      ></Backdrop>
       <Chatting />
       <div className="mapListItem">
         MapList

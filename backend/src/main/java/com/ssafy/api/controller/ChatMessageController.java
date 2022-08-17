@@ -174,6 +174,9 @@ public class ChatMessageController {
             case CHANGE_MAP:
                 chatService.sendMessagePrivate(message);
                 break;
+            case KICKOUT_CHANNEL:
+                chatService.sendMessagePrivate(message);
+                break;
         }
     }
 
