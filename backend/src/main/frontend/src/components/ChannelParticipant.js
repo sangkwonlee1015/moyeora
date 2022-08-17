@@ -6,10 +6,6 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { deleteParticipantByLeader } from "../api/participant";
 import { useSelector } from "react-redux";
-import SockJS from "sockjs-client";
-import StompJs from "stompjs";
-import { getChannelInfo } from "../api/channel";
-import { SET_CHANNELTOKEN } from "../redux/ChannelList";
 import { createHeaders } from "../api";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -32,7 +28,7 @@ const style = {
   p: 4,
 };
 
-function ChannelParticipant({ userSeq, leader }) {
+function ChannelParticipant({ userSeq, leader, stomp }) {
   console.log(leader);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const accessToken = useSelector((state) => state.UserInfo.accessToken);
@@ -40,28 +36,25 @@ function ChannelParticipant({ userSeq, leader }) {
     userName: "",
     userNick: "",
   });
-  // const sock = new SockJS("http://localhost:8080/ws");
-  const sock = new SockJS("https://i7a407.p.ssafy.io/ws");
-  const stomp = StompJs.over(sock);
   console.log(participantInfo);
 
-  useEffect(() => {
-    stomp.connect({}, (e) => {});
-    getChannelInfo(
-      channelSeq,
-      accessToken,
-      (response) => {
-        SET_CHANNELTOKEN(response.data.token);
-        console.log("channelToken: " + response.data.token);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    return () => {
-      stomp.disconnect(() => {});
-    };
-  }, []);
+  // useEffect(() => {
+  //   stomp.connect({}, (e) => {});
+  //   getChannelInfo(
+  //     channelSeq,
+  //     accessToken,
+  //     (response) => {
+  //       SET_CHANNELTOKEN(response.data.token);
+  //       console.log("channelToken: " + response.data.token);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  //   return () => {
+  //     stomp.disconnect(() => {});
+  //   };
+  // }, []);
 
   useEffect(() => {
     getUserNick(
@@ -94,7 +87,7 @@ function ChannelParticipant({ userSeq, leader }) {
             backgroundColor: "#94dadd",
           }}
         >
-          <div style={{color: "black", fontWeight: "600"}}>
+          <div style={{ color: "black", fontWeight: "600" }}>
             이름: {participantInfo.userName} <br />
             닉네임: {participantInfo.userNick}
           </div>
