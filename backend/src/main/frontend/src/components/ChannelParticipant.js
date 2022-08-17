@@ -58,18 +58,17 @@ function ChannelParticipant({ userSeq, leader }) {
   return (
     <div>
       <div className="abc">
-        <Item
-          sx={{
-            width: 250,
-            height: "auto",
-            color: "white",
-            backgroundColor: "#202225",
-            "&:hover": {
-              backgroundColor: "#2f3136",
-              opacity: [0.9, 0.8, 0.7],
-            },
-          }}
-        >
+        <Item sx={{
+          width: 200,
+          height: "auto",
+          color: "#455874",
+          margin: "3px",
+          backgroundColor: '#202225',
+          '&:hover': {
+            backgroundColor: '#2f3136',
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}>
           <div>
             참여자 이름: {participantInfo.userName} <br />
             참여자 닉네임: {participantInfo.userNick}

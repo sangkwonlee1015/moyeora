@@ -196,7 +196,8 @@
 }
 .header_chName {
   width: max-content;
-  transform: translateX(-30%);
+  transform: translateX(-20%);
+  font-size: medium;
 }
 .textField {
   background-color: white;

@@ -41,20 +41,6 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
-  const [channelUserSeq, setChannelUserSeq] = useState();
-  const [channelImage, setChannelImage] = useState(
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-  );
-
-  console.log("로그인한 유저 seq:" + userInfo.userSeq);
-  console.log("방장Seq:" + channelUserSeq);
-  const setImage = () => {
-    const image =
-      channelInfo.uploadedImage === "AA=="
-        ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-        : "data:image;base64, " + channelInfo.uploadedImage;
-    setChannelImage(image);
-  };
 
   useEffect(() => {
     getParticipantListByChannel(
@@ -74,82 +60,71 @@ function ChannelHome(props) {
       setChannelTag(response.data.channelTag);
       setChannelUserSeq(response.data.userSeq);
     });
-    setImage();
-  }, [channelSeq, channelImage]);
+  }, [channelSeq]);
 
-  const ChannelHomePage = styled.div`
-    width: 100%;
-    background-image: url(${channelImage});
-    background-size: cover;
-  `;
 
   return (
-    <ChannelHomePage>
-      <button
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        채널정보수정
-      </button>
-      <UpdateChannelInfoDialog
-        open={open}
-        setOpen={(b) => {
-          setOpen(b);
-        }}
-      ></UpdateChannelInfoDialog>
-      <div className="channel-background">
-        {/* <h2>채널소개</h2> */}
-        <br />
-        <div className="channel-name">
-          {channelName} {"("}#{channelSeq}
-          {")"} {/*채널이름*/} {/*채널seq*/}
-        </div>
-        <br />
-        <div className="channel-desc">
-          {channelDesc} {/*채널설명*/}
-        </div>
-        <br />
-        <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
-        <br />
-        <br />
-        <br />
-        <div>
-          <br />
-          현재 채널 참여자 목록:{" "}
-          <div style={{ display: "flex", margin: "3px", flexWrap: "wrap" }}>
-            {pList.map((item, index) => {
-              return (
-                <ChannelParticipant
-                  key={index}
-                  userSeq={item.participantsId.userSeq}
-                  leader={userInfo.userSeq === channelUserSeq}
-                ></ChannelParticipant>
-              );
-            })}
+    <div className="channel_homepage">
+      <div className="channelHome_main">
+        <UpdateChannelInfoDialog
+          open={open}
+          setOpen={(b) => {
+            setOpen(b);
+          }}
+        ></UpdateChannelInfoDialog>
+        <div className="channel-background">
+          {/* <h2>채널소개</h2> */}
+          <div className="channel-name">
+            {channelName} {/*채널이름*/} {/*채널seq*/}
           </div>
+          <hr />
           <br />
-          {/* 현재 채널 참여자 정보: */}
-          {channelInfo ? (
-            <Box
-              component="img"
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-              alt="The house from the offer."
-              src={
-                channelInfo.uploadedImage === "AA=="
-                  ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-                  : "data:image;base64, " + channelInfo.uploadedImage
-              }
-            />
-          ) : null}
+          <div className="channel-desc">
+            {channelDesc} {/*채널설명*/}
+          </div>
+          <hr />
+          <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
+          <hr />
+          <div>
+            <br />
+            채널 참여자 목록:{" "}
+            <div className="userFlex" style={{ display: "flex", margin: "3px"}}>
+              {pList.map((item, index) => {
+                return (
+                  <ChannelParticipant
+                    key={index}
+                    userSeq={item.participantsId.userSeq}
+                  ></ChannelParticipant>
+                );
+              })}
+            </div>
+            <br />
+            {/* 현재 채널 참여자 정보: */}
+            {/* {channelInfo ? (
+              <Box
+                component="img"
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+                alt="The house from the offer."
+                src={channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage}
+              />
+            ) : null} */}
+          </div>
+          <button
+            className="channel_Home_Button"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            채널정보수정
+          </button>
         </div>
       </div>
-    </ChannelHomePage>
+    </div>
   );
 }
 
