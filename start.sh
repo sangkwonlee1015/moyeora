@@ -44,7 +44,7 @@ sed -i 's/httpss/https/g' /home/ubuntu/$folder/backend/src/main/frontend/src/con
 
 
 
-rm -rf deployfolder
+sudo rm -rf deployfolder
 mkdir deployfolder
 cd ./backend
 #build
@@ -69,7 +69,7 @@ cp -r build ../../../../deployfolder
 #ls -al deploy
 
 
-kill -9 `ps -ef|grep ssafy|awk '{print $2}'`
+
 #nohup java -jar *.jar &
 
 
