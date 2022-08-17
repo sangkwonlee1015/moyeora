@@ -60,6 +60,8 @@ h1 {
 }
 
 .card-body {
+  height: 270px;
+  overflow: scroll;
 }
 
 .card-body-header {
@@ -86,7 +88,8 @@ h1 {
   margin: 5px 20px;
 }
 
-.card:hover .card-body-description, .card:hover .card-body-button{
+.card:hover .card-body-description,
+.card:hover .card-body-button {
   opacity: 1;
   -webkit-transition: 0.5s ease-in-out;
   -moz-transition: 0.5s ease-in-out;
