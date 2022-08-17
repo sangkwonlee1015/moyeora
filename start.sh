@@ -54,10 +54,10 @@ cd src/main/frontend
 
 #build
 npm install
-#npm run build
+npm run build
 
-#rm -rf ../../../../deploy/build
-#cp -r build ../../../../deploy
+rm -rf ../../../../deployfolder/build
+cp -r build ../../../../deployfolder
 #cd ../../../../
 #ls -al
 #ls -al deploy
