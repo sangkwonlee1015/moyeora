@@ -22,4 +22,5 @@ public class ChannelUpdatePatchReq {
     String channelTag;
     @ApiModelProperty(name="채널 비밀번호(비공개 방일 경우)", example="Channel Password(nullable)")
     String channelPassword;
+    String channelImageId;
 }

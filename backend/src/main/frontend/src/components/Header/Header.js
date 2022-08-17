@@ -15,13 +15,14 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { Checkbox } from "@mui/material";
+import { Checkbox, TextField, Box } from "@mui/material";
+import { SET_CHANNELLIST } from "../../redux/ChannelList";
+// import { makeStyles } from "@material-ui/core/styles";
 
 import ChannelTest from "./ChannelTest";
 
 // redux
 import { useSelector } from "react-redux";
-import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { useDispatch } from "react-redux";
 
 import { getParticipantListByUser } from "../../api/participant";
@@ -29,24 +30,40 @@ import { registerChannel } from "../../api/channel";
 import { getChannelInfo } from "../../api/channel";
 import { registerParticipant } from "../../api/participant";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>,
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import { getFile, registerFile } from "../../api/file";
 
-export default function Header() {
+// import UpdateChannelInfoDialog from "../UpdateChannelInfoDialog";
+
+// const Transition = React.forwardRef(function Transition(
+//   props: TransitionProps & {
+//     children: React.ReactElement<any, any>,
+//   },
+//   ref: React.Ref<unknown>
+// ) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
+
+// const useStyles = makeStyles({
+//   input: {
+//     color: "white",
+//   },
+// });
+
+export default function Header(props) {
+  // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] = React.useState("");
+  const [channelDesc, setChannelDesc] = React.useState("간단한 채널 소개를 적어주세요~");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
+
+  const [uploadedFile, setUploadedFile] = React.useState(
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+  );
+  const [channelImageId, setChannelImageId] = React.useState("");
 
   const dispatch = useDispatch();
 
@@ -93,6 +110,7 @@ export default function Header() {
       channelDesc,
       channelTag,
       channelPassword,
+      channelImageId,
     };
 
     const success = (res) => {
@@ -106,7 +124,7 @@ export default function Header() {
       getParticipantListByUser(
         token,
         (response) => {
-          dispatch(SET_CHANNELLIST(list))
+          dispatch(SET_CHANNELLIST(list));
           response.data.list.map((participant) => {
             getChannelInfo(
               participant.participantsId.channelSeq,
@@ -117,6 +135,7 @@ export default function Header() {
                   channelDesc: data.channelDesc,
                   channelName: data.channelName,
                   channelTag: data.channelTag,
+                  channelImageId: data.uploadedImage,
                 };
                 list = list.concat(channel);
                 dispatch(SET_CHANNELLIST(list));
@@ -148,7 +167,7 @@ export default function Header() {
     getParticipantListByUser(
       token,
       (response) => {
-        dispatch(SET_CHANNELLIST(list))
+        dispatch(SET_CHANNELLIST(list));
         response.data.list.map((participant) => {
           getChannelInfo(
             participant.participantsId.channelSeq,
@@ -159,6 +178,7 @@ export default function Header() {
                 channelDesc: data.channelDesc,
                 channelName: data.channelName,
                 channelTag: data.channelTag,
+                channelImageId: data.uploadedImage,
               };
               list = list.concat(channel);
               dispatch(SET_CHANNELLIST(list));
@@ -204,6 +224,8 @@ export default function Header() {
         </Link>
       </div>
 
+      {/* <UpdateChannelInfoDialog open={true}></UpdateChannelInfoDialog> */}
+
       {/* <Dialog
         open={openUser}
         TransitionComponent={Transition}
@@ -239,22 +261,69 @@ export default function Header() {
 
       <Dialog
         open={open}
-        TransitionComponent={Transition}
+        // TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        className="dialog"
       >
-        <DialogTitle className="dialog-title">{"채널 추가하기"}</DialogTitle>
+        <DialogTitle className="dialog-title">Channel Register</DialogTitle>
         <DialogContent className="dialog-content">
           <DialogContentText
             id="alert-dialog-slide-description"
             className="dialog-content-text"
           >
+            <Box
+              component="img"
+              sx={{
+                border: "3px solid #000000",
+                // height: "auto",
+                width: "100%",
+                borderRadius: 3,
+              }}
+              // className="gradient-border"
+              alt="The house from the offer."
+              src={uploadedFile}
+            />
+            <br />
+            <Button variant="contained" component="label">
+              Upload File
+              <input
+                type="file"
+                onChange={(e) => {
+                  registerFile(
+                    e.target.files[0],
+                    (response) => {
+                      setChannelImageId(response.data.id);
+                      getFile(
+                        response.data.id,
+                        (response) => {
+                          setUploadedFile(
+                            "data:image;base64, " + response.data.data
+                          );
+                        },
+                        (error) => {
+                          console.log(error);
+                        }
+                      );
+                      // console.log(response.data);
+                    },
+                    (error) => {
+                      console.log(error);
+                    }
+                  );
+                }}
+                hidden
+              ></input>
+            </Button>
+            <br />
             <label for="channelName" className="input-label">
-              채널명
+              채널 이름
             </label>
             <br />
+            <br />
             <Input
+              sx={{ width: "535px" }}
               value={channelName}
               id="channelName"
               className="input"
@@ -268,37 +337,53 @@ export default function Header() {
             <br />
             <br />
             <label htmlFor="channelDesc" className="input-label">
-              채널소개
+              채널 소개글
             </label>
             <br />
-            <Input
+            <TextField
+              sx={{ width: "535px" }}
+              id="channelDesc"
+              multiline
+              rows={4}
+              onChange={onChannelDesc}
+              value={channelDesc}
+              fullWidth
+              label="채널 소개"
+              sx={{ input: { color: "red" } }}
+              defaultValue="간단한 채널 소개를 적어주세요~"
+            />
+            {/* <Input
               value={channelDesc}
               id="channelDesc"
               className="input"
               onChange={onChannelDesc}
-            ></Input>
+            ></Input> */}
             <br />
             <br />
             <label htmlFor="channelTag" className="input-label">
-              Tag
+              태그
             </label>
             <br />
             <Input
+              sx={{ width: "535px" }}
               value={channelTag}
               id="channelTag"
               className="input"
               onChange={onChannelTag}
+              fullWidth
             ></Input>
             <br />
             <br />
+
             <label htmlFor="channelSecret" className="input-label">
               비밀방
             </label>
             <Checkbox id="channelSecret" onClick={onSecret}></Checkbox>
             <label htmlFor="channelSecret" className="input-label">
-              비밀번호
+              비밀번호{" "}
             </label>
             <Input
+              sx={{ width: "368px", marginLeft: "30px" }}
               value={channelPassword}
               id="channelPassword"
               className="input"

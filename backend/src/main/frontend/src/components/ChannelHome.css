@@ -1,0 +1,28 @@
+.channel-home{
+  width: 100%;
+  background-color: coral;
+}
+
+
+.channel-background{
+  width: 80%;
+  height: 80%;
+  background-color: gray;
+  position: relative;
+  left: 10%;
+  top: 10%;
+  border-radius: 20px;
+}
+
+.channel-name{
+  font-size: 30pt;
+  font-weight: 1000;
+}
+
+.channel-desc{
+  font-size: 15pt;
+}
+
+.channel-tag{
+  font-size: 15pt;
+}
