@@ -200,7 +200,11 @@ function SearchChannel() {
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={channel.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channel.uploadedImage}
+              src={
+                channel.uploadedImage === "AA=="
+                  ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+                  : "data:image;base64, " + channel.uploadedImage
+              }
             ></Box>
 
             <div className="card-body">
@@ -210,8 +214,7 @@ function SearchChannel() {
                   채널 태그 : {channel.channel.channelTag}
                 </p>
                 <p className="card-body-nickname">
-                  채널주인장: {channel.channel.userSeq} (일단은 userSeq ->
-                  없애던지 네임으로 하던지)
+                  채널 주인 : {channel.userNick}
                 </p>
               </div>
               <div className="card-body-description">
