@@ -80,7 +80,7 @@ function ChattingArea({ stomp }) {
                     );
                   }}
                 >
-                  <ion-icon></ion-icon>
+                  <ion-icon name="trash-outline"></ion-icon>
                 </button>
               )}
             </div>

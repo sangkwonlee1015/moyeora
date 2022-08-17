@@ -45,3 +45,7 @@
 .chatting-trash-outline:hover {
   color: #2f3136;
 }
+
+.pre-text {
+  white-space: pre-wrap;
+}

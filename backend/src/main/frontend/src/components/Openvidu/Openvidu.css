@@ -6,8 +6,8 @@
 .component-video-all{
   display: flex;
   position: fixed;
-  left: 330px;
-  top: 600px;
+  left: 35vh;
+  bottom: 1vh;
   z-index: 3;
 }
 .component-video-mine{
