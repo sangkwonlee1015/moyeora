@@ -50,13 +50,13 @@ function MapPage() {
             setVisibleVideoComponent(!visibleVideoComponent);
           }}
         ></button> */}
-        {visibleVideoComponent ? (
+        {/* {visibleVideoComponent ? (
           <VideoRoomComponent
             sessionName={channelSeq}
             user={userInfo.userNick}
             token={channelToken}
           ></VideoRoomComponent>
-        ) : null}
+        ) : null} */}
 
         <MapMarkerList channelSeq={channelSeq} mapSeq={mapSeq} stomp={stomp} />
       </div>

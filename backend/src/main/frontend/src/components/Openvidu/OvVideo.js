@@ -41,7 +41,7 @@ export default class OvVideoComponent extends Component {
   render() {
     return (
       <video
-        style={{ width: 100, height: 100 }}
+        style={{ width: 140, height: 105 }}
         autoPlay={true}
         id={"video-" + this.props.user.getStreamManager().stream.streamId}
         ref={this.videoRef}
