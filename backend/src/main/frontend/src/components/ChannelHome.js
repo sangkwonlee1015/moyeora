@@ -98,6 +98,7 @@ function ChannelHome(props) {
                     key={index}
                     userSeq={item.participantsId.userSeq}
                     leader={channelUserSeq === userInfo.userSeq}
+                    stomp={props.stomp}
                   ></ChannelParticipant>
                 );
               })}
