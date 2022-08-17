@@ -33,6 +33,7 @@ function ChannelHome(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [channelInfo, setChannelInfo] = useState({});
   const [open, setOpen] = useState(false);
+  const userInfo = useSelector((state) => state.UserInfo.userInfo);
 
   const [pList, setPList] = useState([]);
   // const [channelInfo, setChannelInfo] = useState([객체배열 포맷]);
@@ -57,6 +58,7 @@ function ChannelHome(props) {
       setChannelDesc(response.data.channelDesc);
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
+      setChannelUserSeq(response.data.userSeq);
     });
   }, [channelSeq]);
 
@@ -125,6 +127,5 @@ function ChannelHome(props) {
     </div>
   );
 }
-
 
 export default ChannelHome;
