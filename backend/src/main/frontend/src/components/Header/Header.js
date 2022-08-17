@@ -301,7 +301,7 @@ export default function Header(props) {
               src={uploadedFile}
             />
             <br />
-            <Button variant="contained" component="label">
+            <Button variant="contained" component="label" style={{ marginBottom: "10px"}}>
               Upload File
               <input
                 type="file"

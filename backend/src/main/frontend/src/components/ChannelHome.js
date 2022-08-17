@@ -42,6 +42,7 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
+  // const [backImage, setBackImage] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
 
   useEffect(() => {
     getParticipantListByChannel(
@@ -61,10 +62,12 @@ function ChannelHome(props) {
       setChannelTag(response.data.channelTag);
       setChannelUserSeq(response.data.userSeq);
     });
+    // const backimageurl = channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage
+    // setBackImage(backimageurl)
   }, [channelSeq]);
-
+  
   return (
-    <div className="channel_homepage">
+    <div className="channel_homepage backImage">
       <div className="channelHome_main">
         <UpdateChannelInfoDialog
           open={open}

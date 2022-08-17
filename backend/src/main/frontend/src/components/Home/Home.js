@@ -174,11 +174,11 @@ export default function Home() {
       <h1>Pin to Pin</h1>
       <h2>지도 공통작업을 통해 여행 계획을 효율적으로 세워보세요!</h2>
       <div>
-          <button onClick={handleClickOpen} className="homepage-create-channel">채널을 생성해보세요</button>
+          <button onClick={handleClickOpen} className="homepage-create-channel w-btn-neon2">채널을 생성해보세요</button>
       </div>
       <br/>
       <div>
-          <button onClick={SearchChannel} className="homepage-search-channel">원하는 채널을 찾아보세요</button>
+          <button onClick={SearchChannel} className="homepage-search-channel w-btn-neon2">원하는 채널을 찾아보세요</button>
       </div>
       <Dialog
         open={open}

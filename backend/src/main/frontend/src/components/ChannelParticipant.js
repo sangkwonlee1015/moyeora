@@ -33,7 +33,6 @@ const style = {
 };
 
 function ChannelParticipant({ userSeq, leader }) {
-  console.log(leader);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const accessToken = useSelector((state) => state.UserInfo.accessToken);
   const [participantInfo, setParticipantInfo] = useState({
@@ -43,7 +42,6 @@ function ChannelParticipant({ userSeq, leader }) {
   // const sock = new SockJS("http://localhost:8080/ws");
   const sock = new SockJS("https://i7a407.p.ssafy.io/ws");
   const stomp = StompJs.over(sock);
-  console.log(participantInfo);
 
   useEffect(() => {
     stomp.connect({}, (e) => {});
@@ -67,7 +65,6 @@ function ChannelParticipant({ userSeq, leader }) {
     getUserNick(
       userSeq,
       (response) => {
-        console.log(response);
         setParticipantInfo({
           userName: response.data.userName,
           userNick: response.data.userNick,
@@ -79,8 +76,6 @@ function ChannelParticipant({ userSeq, leader }) {
       }
     );
   }, [userSeq]);
-
-  console.log(participantInfo, "--------------");
 
   return (
     <div>
@@ -107,7 +102,6 @@ function ChannelParticipant({ userSeq, leader }) {
                   userSeq,
                   accessToken,
                   (response) => {
-                    console.log(response.data);
                     if (stomp) {
                       let chatMessage = {
                         receiver: channelSeq,
