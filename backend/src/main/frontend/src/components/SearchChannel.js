@@ -223,7 +223,9 @@ function SearchChannel() {
               <div className="card-body-button">
                 <button
                   onClick={() => {
-                    if (channel.channel.channelPassword) {
+                    if (channel.participantsCount >= 6) {
+                      alert("정원 초과입니다");
+                    } else if (channel.channel.channelPassword) {
                       handleOpen();
                       setSecretChannel(channel.channel);
                     } else onRegisterChannel(channel.channel);
