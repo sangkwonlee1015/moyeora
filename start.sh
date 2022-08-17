@@ -11,7 +11,7 @@ sed -i 's/8080/8081/g' ./backend/src/main/resources/application.properties
 sed -i 's/1234/ssafy/g' ./backend/src/main/resources/application.properties
 sed -i 's/root/ssafy/g' ./backend/src/main/resources/application.properties
 sed -i 's/4443/8443/g' ./backend/src/main/resources/application.properties
-sed -i 's/https:\/\/localhost/https:\/\/i7a407.p.ssafy.io:8443/g' ./backend/src/main/resources/application.properties
+sed -i 's/https:\/\/localhost/https:\/\/i7a407.p.ssafy.io/g' ./backend/src/main/resources/application.properties
 
 
 
