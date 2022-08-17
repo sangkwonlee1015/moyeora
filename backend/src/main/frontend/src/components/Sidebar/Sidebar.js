@@ -242,10 +242,10 @@ function Sidebar(props) {
           width: "100vw",
           height: "100vh",
           zIndex: (theme) => theme.zIndex.drawer + 1,
+          opacity: 1
         }}
         open={backdropOpen}
       >
-        <CircularProgress />
       </Backdrop>
       <Chatting />
       <div className="mapListItem">
