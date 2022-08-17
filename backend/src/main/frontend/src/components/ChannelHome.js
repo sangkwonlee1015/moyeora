@@ -33,6 +33,7 @@ function ChannelHome(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [channelInfo, setChannelInfo] = useState({});
   const [open, setOpen] = useState(false);
+  const userInfo = useSelector((state) => state.UserInfo.userInfo);
 
   const [pList, setPList] = useState([]);
   // const [channelInfo, setChannelInfo] = useState([객체배열 포맷]);
@@ -40,12 +41,20 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
-  const [channelImage, setChannelImage] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
+  const [channelUserSeq, setChannelUserSeq] = useState();
+  const [channelImage, setChannelImage] = useState(
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+  );
 
+  console.log("로그인한 유저 seq:" + userInfo.userSeq);
+  console.log("방장Seq:" + channelUserSeq);
   const setImage = () => {
-    const image = channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage
-    setChannelImage(image)
-  }
+    const image =
+      channelInfo.uploadedImage === "AA=="
+        ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+        : "data:image;base64, " + channelInfo.uploadedImage;
+    setChannelImage(image);
+  };
 
   useEffect(() => {
     getParticipantListByChannel(
@@ -63,15 +72,16 @@ function ChannelHome(props) {
       setChannelDesc(response.data.channelDesc);
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
+      setChannelUserSeq(response.data.userSeq);
     });
-    setImage()
+    setImage();
   }, [channelSeq, channelImage]);
 
   const ChannelHomePage = styled.div`
-  width: 100%;
-  background-image: url(${channelImage});
-  background-size: cover;
-`;
+    width: 100%;
+    background-image: url(${channelImage});
+    background-size: cover;
+  `;
 
   return (
     <ChannelHomePage>
@@ -92,7 +102,8 @@ function ChannelHome(props) {
         {/* <h2>채널소개</h2> */}
         <br />
         <div className="channel-name">
-          {channelName} {"("}#{channelSeq}{")"} {/*채널이름*/} {/*채널seq*/}
+          {channelName} {"("}#{channelSeq}
+          {")"} {/*채널이름*/} {/*채널seq*/}
         </div>
         <br />
         <div className="channel-desc">
@@ -100,19 +111,19 @@ function ChannelHome(props) {
         </div>
         <br />
         <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
-          
         <br />
         <br />
         <br />
         <div>
           <br />
           현재 채널 참여자 목록:{" "}
-          <div style={{ display: "flex", margin: "3px"}}>
+          <div style={{ display: "flex", margin: "3px" }}>
             {pList.map((item, index) => {
               return (
                 <ChannelParticipant
                   key={index}
                   userSeq={item.participantsId.userSeq}
+                  leader={userInfo.userSeq === channelUserSeq}
                 ></ChannelParticipant>
               );
             })}
@@ -129,7 +140,11 @@ function ChannelHome(props) {
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage}
+              src={
+                channelInfo.uploadedImage === "AA=="
+                  ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+                  : "data:image;base64, " + channelInfo.uploadedImage
+              }
             />
           ) : null}
         </div>
@@ -137,6 +152,5 @@ function ChannelHome(props) {
     </ChannelHomePage>
   );
 }
-
 
 export default ChannelHome;
