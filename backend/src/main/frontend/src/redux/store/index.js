@@ -21,6 +21,7 @@ import userInfoReducer from "../UserInfo";
 import channelListReducer from "../ChannelList";
 import mapListReducer from "../MapList";
 import pinListReducer from "../PinList";
+import textListReducer from "../TextList";
 
 const persistConfig = {
   key: "root",
@@ -33,10 +34,10 @@ const rootReducer = combineReducers({
   ChannelList: channelListReducer,
   MapList: mapListReducer,
   PinList: pinListReducer,
+  TextList: textListReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -45,8 +46,8 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    // }).concat(logger),
-  }),
+      // }).concat(logger),
+    }),
 });
 export const persistor = persistStore(store);
 export default store;

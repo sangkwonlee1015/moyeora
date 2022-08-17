@@ -1,19 +1,28 @@
 .sidebar{
-  width: 300px;
+  width: 1000px;
   /* 사이드바 배경색 */
   background-color: #2f3136;
   position: relative;
   overflow: scroll;
   padding-top: 0.5rem;
+  padding-left: 0.5rem;
 }
 .sidebar>div{
 border-radius: 10px;
 margin: 0.2rem;
 padding: 0.3rem;
 }
-.sidebar-test:hover{
+
+.chatting-bar:hover{
 background-color: #42464d;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+
 .mapListItem {
   color: #e2e3e4;
   font-weight: bold;
@@ -114,27 +123,41 @@ background-color: #F2F3F5;
 .userinfo_name {
   margin-right: 5rem;
 }
+.exit-channel {
+  color: #e2e3e4;
+}
 
 /* openvidu css */
 .container_button {
   flex-direction: row; 
-  position: fixed;
-  top: 820px ; 
-  left: 340px;
-  z-index: 10;
+  position: relative;
+  /* top: 820px ; 
+  left: 340px; */
   width: 100vh;
   height: 120px;
 }
+.container_button > button {
+  background-color: #2f3136;
+  border: 0;
+  padding-left: 0;
+  color: #e2e3e4;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+.container_button > button:hover {
+  color: #e2e3e4;
+}
 .buttonsContent {
-  flex-direction: row !important;
+  /* flex-direction: row !important; */
   position: fixed;
   bottom: 100px;
   left: 75px;
   width: 250px;
 }
-.container_button video {
+/* .container_button video {
   padding-left: 0.5rem;
-}
+} */
 
 .trash-outline {
   color: rgb(120, 120, 120);;

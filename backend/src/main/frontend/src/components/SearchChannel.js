@@ -146,6 +146,12 @@ function SearchChannel() {
   const onChangeSearchName = (e) => {
     setSearchName(e.target.value);
   };
+
+  // const ImageView = (image)=>{
+  //   if (image === "AA=="){
+  //     return (<img src=`url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2")`/>)
+  //   }
+  // }
   return (
     <div className="Layout">
       <div className="search">
@@ -166,41 +172,35 @@ function SearchChannel() {
           value={limit}
           onChange={({ target: { value } }) => setLimit(Number(value))}
         >
+          <option value="6">6</option>
           <option value="10">10</option>
-          <option value="12">12</option>
           <option value="20">20</option>
           <option value="50">50</option>
-          <option value="100">100</option>
         </select>
       </label>
 
       <div className="main">
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
-            <div
-              style={{
-                background: `url("data:image;base64, " + {channel.uploadedImage})`,
-              }}
-            >
-              <div className="card-header-is_closed">
-                <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number">
-                  {" "}
-                  {channel.participantsCount} / 6
-                </div>
+            <div className="card-header-is_closed">
+              <div className="card-header-text"> 모집중 </div>
+              <div className="card-header-number">
+                {" "}
+                {channel.participantsCount} / 6
               </div>
             </div>
+            {/* {ImageView(channel.uploadedImage)} */}
             <Box
               className="card-header"
               component="img"
               sx={{
                 height: 270,
                 width: 350,
-                maxHeight: { xs: 270, md: 167 },
+                maxHeight: { xs: 270, md: 250 },
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={"data:image;base64, " + channel.uploadedImage}
+              src={channel.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channel.uploadedImage}
             ></Box>
 
             <div className="card-body">
@@ -210,35 +210,14 @@ function SearchChannel() {
                   채널 태그 : {channel.channel.channelTag}
                 </p>
                 <p className="card-body-nickname">
-                  채널장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지
-                  네임으로 하던지)
+                  채널주인장: {channel.channel.userSeq} (일단은 userSeq ->
+                  없애던지 네임으로 하던지)
                 </p>
               </div>
               <div className="card-body-description">
                 <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
-              <Box
-                component="img"
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-                alt="The house from the offer."
-                src={"data:image;base64, " + channel.uploadedImage}
-              />
-              <button
-                onClick={() => {
-                  if (channel.channel.channelPassword) {
-                    handleOpen();
-                    setSecretChannel(channel.channel);
-                  } else onRegisterChannel(channel.channel);
-                }}
-              >
-                채널 추가
-              </button>
-              <div>
+              <div className="card-body-button">
                 <button
                   onClick={() => {
                     if (channel.channel.channelPassword) {

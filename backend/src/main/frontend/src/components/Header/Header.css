@@ -131,10 +131,10 @@
   /* margin-top: 10px; */
 }
 
-/* .dialog-content-text{
-  color: #dcddde; 
-  padding-top: 200px;
-} */
+.dialog-content-text {
+  color: #dcddde;
+  /* padding-top: 50px; */
+}
 
 .option-cell {
   background-color: #2f3136;
@@ -170,8 +170,9 @@
 
 .input {
   color: #dcddde;
-  /* width: max-content; */
-  /* background-color: green */
+  font-style: initial;
+  width: max-content;
+  background-color: rgb(32, 30, 30);
 }
 /* #42464d; */
 

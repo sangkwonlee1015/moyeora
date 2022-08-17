@@ -83,9 +83,12 @@ function UserInfo(props) {
   return (
     // <div className="sidebar_test">
     <div className="userinfo">
-      <div className="userinfo_name">hi</div>
+      <div className="userinfo_name"></div>
       <div>
-        <Button onClick={handleOpen}>채널 나가기</Button>
+        
+        <Button onClick={handleOpen}>
+        <div className="exit-channel">채널 나가기</div></Button>
+        
         <Modal
           open={open}
           onClose={handleClose}

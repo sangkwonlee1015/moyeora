@@ -38,16 +38,11 @@ function getChannelInfo(channelSeq, token, success, error) {
     .catch(error);
 }
 
-function getOutOpenvidu(sessionName, token, success, error) {
+function getTextList(channelSeq, token, success, error) {
   instance
-    .post(
-      "/channel/removeUser",
-      {
-        sessionName: sessionName,
-        token: token,
-      },
-      {}
-    )
+    .get(`/channel/text/${channelSeq}`, {
+      headers: createHeaders(token),
+    })
     .then(success)
     .catch(error);
 }
@@ -58,5 +53,5 @@ export {
   updateChannel,
   deleteChannel,
   getChannelInfo,
-  getOutOpenvidu,
+  getTextList,
 };

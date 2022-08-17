@@ -77,28 +77,34 @@ function ChannelHome(props) {
         }}
       ></UpdateChannelInfoDialog>
       <div className="channel-background">
-        <h2>채널소개</h2>
+        {/* <h2>채널소개</h2> */}
         <br />
-        채널 이름 {channelName} {"("}#{channelSeq}
-        {")"}
+        <div className="channel-name">
+          {channelName} {"("}#{channelSeq}{")"} {/*채널이름*/} {/*채널seq*/}
+        </div>
         <br />
-        채널 설명 {channelDesc}
+        <div className="channel-desc">
+          {channelDesc} {/*채널설명*/}
+        </div>
         <br />
-        채널 태그 {channelTag}
+        <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
+          
         <br />
         <br />
         <br />
         <div>
           <br />
           현재 채널 참여자 목록:{" "}
-          {pList.map((item, index) => {
-            return (
-              <ChannelParticipant
-                key={index}
-                userSeq={item.participantsId.userSeq}
-              ></ChannelParticipant>
-            );
-          })}
+          <div style={{ display: "flex", margin: "3px"}}>
+            {pList.map((item, index) => {
+              return (
+                <ChannelParticipant
+                  key={index}
+                  userSeq={item.participantsId.userSeq}
+                ></ChannelParticipant>
+              );
+            })}
+          </div>
           <br />
           {/* 현재 채널 참여자 정보: */}
           {channelInfo ? (

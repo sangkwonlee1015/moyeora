@@ -17,6 +17,7 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { Checkbox, TextField, Box } from "@mui/material";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
+// import { makeStyles } from "@material-ui/core/styles";
 
 import ChannelTest from "./ChannelTest";
 
@@ -42,13 +43,20 @@ import { getFile, registerFile } from "../../api/file";
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 
-export default function Header() {
+// const useStyles = makeStyles({
+//   input: {
+//     color: "white",
+//   },
+// });
+
+export default function Header(props) {
+  // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] = React.useState("");
+  const [channelDesc, setChannelDesc] = React.useState("간단한 채널 소개를 적어주세요~");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
 
@@ -337,9 +345,12 @@ export default function Header() {
               id="channelDesc"
               multiline
               rows={4}
-              defaultValue="간단한 채널 소개를 적어주세요~"
               onChange={onChannelDesc}
               value={channelDesc}
+              fullWidth
+              label="채널 소개"
+              sx={{ input: { color: "red" } }}
+              defaultValue="간단한 채널 소개를 적어주세요~"
             />
             {/* <Input
               value={channelDesc}
@@ -359,6 +370,7 @@ export default function Header() {
               id="channelTag"
               className="input"
               onChange={onChannelTag}
+              fullWidth
             ></Input>
             <br />
             <br />
@@ -368,7 +380,7 @@ export default function Header() {
             </label>
             <Checkbox id="channelSecret" onClick={onSecret}></Checkbox>
             <label htmlFor="channelSecret" className="input-label">
-              비밀번호
+              비밀번호{" "}
             </label>
             <Input
               sx={{ width: "368px", marginLeft: "30px" }}

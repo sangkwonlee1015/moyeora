@@ -85,9 +85,10 @@ const LoginPage = () => {
         setUserNick("");
         setUserPhone("");
         setIsSignUp(false);
+        alert("회원가입 성공!");
       },
       (error) => {
-        console.log(error);
+        alert(error.response.data.message);
       }
     );
   };

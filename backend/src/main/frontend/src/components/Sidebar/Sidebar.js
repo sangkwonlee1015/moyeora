@@ -23,6 +23,8 @@ import {
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
 } from "../../redux/PinList";
+import { getTextList } from "../../api/channel";
+import { SET_TEXTLIST } from "../../redux/TextList";
 import VideoRoomComponent from "../Openvidu/VideoRoomComponent";
 
 function Sidebar(props) {
@@ -116,6 +118,33 @@ function Sidebar(props) {
                 sourceOrder: Number(message.sourceOrder),
               })
             );
+            break;
+          case "ADD_TEXT":
+            getTextList(
+              channelSeq,
+              token,
+              (response) => {
+                console.log("response : ", response.data.textStorageList);
+                dispatch(SET_TEXTLIST(response.data.textStorageList));
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+            break;
+          case "DEL_TEXT":
+            getTextList(
+              channelSeq,
+              token,
+              (response) => {
+                console.log("response : ", response.data.textStorageList);
+                dispatch(SET_TEXTLIST(response.data.textStorageList));
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+            break;
           default:
         }
       });

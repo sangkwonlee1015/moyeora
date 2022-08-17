@@ -6,6 +6,7 @@ import com.ssafy.api.request.ChannelUpdatePatchReq;
 import com.ssafy.api.response.ChannelRegisterPostRes;
 import com.ssafy.api.response.ChannelSearchGetRes;
 import com.ssafy.api.response.GetChannelInfoRes;
+import com.ssafy.api.response.GetTextListRes;
 import com.ssafy.api.service.ChannelService;
 import com.ssafy.api.service.FileDBService;
 import com.ssafy.api.service.ParticipantsService;
@@ -47,6 +48,9 @@ public class ChannelController {
 
     @Autowired
     ParticipantsService participantsService;
+
+    @Autowired
+    TextStorageRepository textStorageRepository;
 
     private OpenVidu openVidu;
     private Map<String, Session> mapSessions = new ConcurrentHashMap<>();
@@ -224,5 +228,20 @@ public class ChannelController {
             System.out.println("Problems in the app server: the SESSION does not exist");
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "session does not exist"));
         }
+    }
+
+    @GetMapping("/text/{channelSeq}")
+    public ResponseEntity<? extends BaseResponseBody> getTextList(@ApiIgnore Authentication authentication, @PathVariable Long channelSeq) {
+        if (authentication == null) return ResponseEntity.status(401).body(BaseResponseBody.of(401, "unauthenticated"));
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+
+        ParticipantsId participantsId = new ParticipantsId(user.getUserSeq(), channelSeq);
+        if (!participantsService.getParticipantsById(participantsId).isPresent())
+            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "unauthorized"));
+
+        List<Object[]> list = textStorageRepository.findTextInfoByChannelSeq(channelSeq);
+
+        return ResponseEntity.status(200).body(GetTextListRes.of(200, "success", list));
     }
 }
