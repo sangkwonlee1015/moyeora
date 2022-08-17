@@ -117,7 +117,7 @@ function ChannelHome(props) {
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={"data:image;base64, " + channelInfo.uploadedImage}
+              src={channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage}
             />
           ) : null}
         </div>
