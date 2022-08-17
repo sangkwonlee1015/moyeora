@@ -26,11 +26,12 @@ import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import UpdateChannelInfoDialog from "./UpdateChannelInfoDialog";
+import styled from "styled-components";
 
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
   const token = useSelector((state) => state.UserInfo.accessToken);
-  const [channelInfo, setChannelInfo] = useState(undefined);
+  const [channelInfo, setChannelInfo] = useState({});
   const [open, setOpen] = useState(false);
 
   const [pList, setPList] = useState([]);
@@ -39,8 +40,12 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
+  const [channelImage, setChannelImage] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
 
-  console.log(pList);
+  const setImage = () => {
+    const image = channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage
+    setChannelImage(image)
+  }
 
   useEffect(() => {
     getParticipantListByChannel(
@@ -59,10 +64,17 @@ function ChannelHome(props) {
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
     });
-  }, [channelSeq]);
+    setImage()
+  }, [channelSeq, channelImage]);
+
+  const ChannelHomePage = styled.div`
+  width: 100%;
+  background-image: url(${channelImage});
+  background-size: cover;
+`;
 
   return (
-    <div className="server-home">
+    <ChannelHomePage>
       <button
         onClick={() => {
           setOpen(true);
@@ -117,13 +129,14 @@ function ChannelHome(props) {
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={"data:image;base64, " + channelInfo.uploadedImage}
+              src={channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage}
             />
           ) : null}
         </div>
       </div>
-    </div>
+    </ChannelHomePage>
   );
 }
+
 
 export default ChannelHome;

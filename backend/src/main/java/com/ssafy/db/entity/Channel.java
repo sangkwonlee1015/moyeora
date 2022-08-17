@@ -17,7 +17,7 @@ public class Channel {
     @Column(nullable = false, name = "channel_name")
     @NotBlank
     private String channelName;
-    @Column(name = "channel_desc")
+    @Column(name = "channel_desc",length = 1000)
     private String channelDesc;
     @Column(name = "channel_password")
     private String channelPassword;

@@ -10,12 +10,11 @@ import com.ssafy.api.response.GetTextListRes;
 import com.ssafy.api.service.ChannelService;
 import com.ssafy.api.service.FileDBService;
 import com.ssafy.api.service.ParticipantsService;
+import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Channel;
-import com.ssafy.db.entity.ChannelSearchObj;
-import com.ssafy.db.entity.FileDB;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.*;
+import com.ssafy.db.repository.TextStorageRepository;
 import io.openvidu.java.client.*;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,9 @@ public class ChannelController {
 
     @Autowired
     TextStorageRepository textStorageRepository;
+
+    @Autowired
+    UserService userService;
 
     private OpenVidu openVidu;
     private Map<String, Session> mapSessions = new ConcurrentHashMap<>();
@@ -96,6 +98,7 @@ public class ChannelController {
                 obj.setUploadedImage(temp);
             }else
                 obj.setUploadedImage(f.getData());
+            obj.setUserNick(userService.findUserBySeq(channel.getUserSeq()).getUserNick());
             searchList.add(obj);
         });
 
