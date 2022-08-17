@@ -64,9 +64,8 @@ function ChattingArea({ stomp }) {
             <div class="paper-top">
               {text.at(2)}{" "}
               {text.at(3) && (
-                <Button
-                  variant="outlined"
-                  color="error"
+                <button
+                  className="chatting-trash-outline"
                   onClick={() => {
                     let chatMessage = {
                       receiver: channelSeq,
@@ -81,8 +80,8 @@ function ChattingArea({ stomp }) {
                     );
                   }}
                 >
-                  삭제
-                </Button>
+                  <ion-icon></ion-icon>
+                </button>
               )}
             </div>
             <pre class="pre-text">{text.at(1)}</pre>
