@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import UpdateChannelInfoDialog from "./UpdateChannelInfoDialog";
+import styled from "styled-components";
 
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
@@ -39,9 +40,7 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
-  const [channelImage, setChannelImage] = useState();
-
-  
+  const [channelImage, setChannelImage] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
 
   const setImage = () => {
     const image = channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage
@@ -65,12 +64,17 @@ function ChannelHome(props) {
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
     });
-    console.log(channelInfo.uploadedImage,'=====================');
     setImage()
-  }, [channelSeq]);
+  }, [channelSeq, channelImage]);
+
+  const ChannelHomePage = styled.div`
+  width: 100%;
+  background-image: url(${channelImage});
+  background-size: cover;
+`;
 
   return (
-    <div className="channel-home">
+    <ChannelHomePage>
       <button
         onClick={() => {
           setOpen(true);
@@ -130,8 +134,9 @@ function ChannelHome(props) {
           ) : null}
         </div>
       </div>
-    </div>
+    </ChannelHomePage>
   );
 }
+
 
 export default ChannelHome;
