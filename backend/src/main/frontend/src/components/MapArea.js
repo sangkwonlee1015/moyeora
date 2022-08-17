@@ -37,7 +37,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
 
   // 최종 리스트 경로 표시
   const [polylineList, setPolylineList] = useState([]);
-  const [currentMapLevel, setCurrentMapLevel] = useState(12);
+  const [currentMapLevel, setCurrentMapLevel] = useState(5);
   const mapRef = useRef();
   const dispatch = useDispatch();
 
