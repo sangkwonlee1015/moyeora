@@ -238,11 +238,11 @@ function Sidebar(props) {
   return (
     <div className="sidebar">
       <Backdrop
+        invisible="true"
         sx={{
           width: "100vw",
           height: "100vh",
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          opacity: 1
         }}
         open={backdropOpen}
       >
