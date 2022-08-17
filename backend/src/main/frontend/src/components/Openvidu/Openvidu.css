@@ -5,8 +5,10 @@
 }
 .component-video-test{
   display: flex;
-  position: relative;
-
+  position: fixed;
+  left: 350px;
+  top: 550px;
+  z-index: 3;
 }
 .statusIcons{
   width: fit-content;
