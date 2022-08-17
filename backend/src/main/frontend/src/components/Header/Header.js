@@ -32,6 +32,8 @@ import { registerParticipant } from "../../api/participant";
 
 import { getFile, registerFile } from "../../api/file";
 
+// import UpdateChannelInfoDialog from "../UpdateChannelInfoDialog";
+
 // const Transition = React.forwardRef(function Transition(
 //   props: TransitionProps & {
 //     children: React.ReactElement<any, any>,
@@ -222,6 +224,8 @@ export default function Header(props) {
         </Link>
       </div>
 
+      {/* <UpdateChannelInfoDialog open={true}></UpdateChannelInfoDialog> */}
+
       {/* <Dialog
         open={openUser}
         TransitionComponent={Transition}
@@ -265,23 +269,61 @@ export default function Header(props) {
       >
         <DialogTitle className="dialog-title">Channel Register</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            className="dialog-content-text"
+          >
+            <Box
+              component="img"
+              sx={{
+                border: "3px solid #000000",
+                // height: "auto",
+                width: "100%",
+                borderRadius: 3,
+              }}
+              // className="gradient-border"
+              alt="The house from the offer."
+              src={uploadedFile}
+            />
+            <br />
+            <Button variant="contained" component="label">
+              Upload File
+              <input
+                type="file"
+                onChange={(e) => {
+                  registerFile(
+                    e.target.files[0],
+                    (response) => {
+                      setChannelImageId(response.data.id);
+                      getFile(
+                        response.data.id,
+                        (response) => {
+                          setUploadedFile(
+                            "data:image;base64, " + response.data.data
+                          );
+                        },
+                        (error) => {
+                          console.log(error);
+                        }
+                      );
+                      // console.log(response.data);
+                    },
+                    (error) => {
+                      console.log(error);
+                    }
+                  );
+                }}
+                hidden
+              ></input>
+            </Button>
+            <br />
             <label for="channelName" className="input-label">
               채널 이름
             </label>
             <br />
-            <TextField
-              // inputProps={{ className: classes.input }}
-              required
-              fullWidth
-              id="channelName"
-              className="input"
-              label="새로운 채널"
-              variant="outlined"
-              onChange={onChannelName}
-              value={channelName}
-            />
-            {/* <Input
+            <br />
+            <Input
+              sx={{ width: "535px" }}
               value={channelName}
               id="channelName"
               className="input"
@@ -291,7 +333,7 @@ export default function Header(props) {
               //      input.focus();
               //   }
               // }}
-            ></Input> */}
+            ></Input>
             <br />
             <br />
             <label htmlFor="channelDesc" className="input-label">
@@ -299,9 +341,8 @@ export default function Header(props) {
             </label>
             <br />
             <TextField
-              // inputProps={{ className: classes.input }}
-              required
-              id="outlined-multiline-static"
+              sx={{ width: "535px" }}
+              id="channelDesc"
               multiline
               rows={4}
               onChange={onChannelDesc}
@@ -324,6 +365,7 @@ export default function Header(props) {
             </label>
             <br />
             <Input
+              sx={{ width: "535px" }}
               value={channelTag}
               id="channelTag"
               className="input"
@@ -332,52 +374,7 @@ export default function Header(props) {
             ></Input>
             <br />
             <br />
-            <label htmlFor="channelTag" className="input-label">
-              채널 이미지
-            </label>
-            <br />
-            <Box
-              component="img"
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-              alt="The house from the offer."
-              src={uploadedFile}
-            />
-            <br />
-            <Button variant="contained" component="label">
-              Upload File
-              <input
-                type="file"
-                onChange={(e) => {
-                  registerFile(
-                    e.target.files[0],
-                    (response) => {
-                      setChannelImageId(response.data.id);
-                      getFile(
-                        response.data.id,
-                        (response) => {
-                          setUploadedFile("data:image;base64, " + response.data.data);
-                        },
-                        (error) => {
-                          console.log(error);
-                        }
-                      );
-                      // console.log(response.data);
-                    },
-                    (error) => {
-                      console.log(error);
-                    }
-                  );
-                }}
-                hidden
-              ></input>
-            </Button>
-            <br />
-            <br />
+
             <label htmlFor="channelSecret" className="input-label">
               비밀방
             </label>
@@ -386,6 +383,7 @@ export default function Header(props) {
               비밀번호{" "}
             </label>
             <Input
+              sx={{ width: "368px", marginLeft: "30px" }}
               value={channelPassword}
               id="channelPassword"
               className="input"
