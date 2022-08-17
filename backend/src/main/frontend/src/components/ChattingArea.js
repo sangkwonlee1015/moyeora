@@ -1,4 +1,4 @@
-import { TextareaAutosize } from "@mui/material";
+import { Paper, TextareaAutosize } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -38,6 +38,9 @@ function ChattingArea({ stomp }) {
     }
     if (event.key === "Enter") {
       event.preventDefault();
+      if (!event.target.value.trim()) {
+        return;
+      }
       let chatMessage = {
         receiver: channelSeq,
         channelSeq: channelSeq,
@@ -57,29 +60,56 @@ function ChattingArea({ stomp }) {
     <div className="chattingarea">
       <div class="show-area">
         {textList.map((text) => (
-          <div>
-            <span>
+          <Paper elevation={3} class="paper">
+            <div class="paper-top">
               {text.at(2)}{" "}
-              <button
-                onClick={() => {
-                  let chatMessage = {
-                    receiver: channelSeq,
-                    channelSeq: channelSeq,
-                    textSeq: text.at(0),
-                    status: "DEL_TEXT",
-                  };
-                  stomp.send(
-                    "/app/private-message",
-                    createHeaders(token),
-                    JSON.stringify(chatMessage)
-                  );
-                }}
-              >
-                삭제
-              </button>
-            </span>
+              {text.at(3) && (
+                <button
+                  onClick={() => {
+                    let chatMessage = {
+                      receiver: channelSeq,
+                      channelSeq: channelSeq,
+                      textSeq: text.at(0),
+                      status: "DEL_TEXT",
+                    };
+                    stomp.send(
+                      "/app/private-message",
+                      createHeaders(token),
+                      JSON.stringify(chatMessage)
+                    );
+                  }}
+                >
+                  삭제
+                </button>
+              )}
+            </div>
             <pre>{text.at(1)}</pre>
-          </div>
+          </Paper>
+          // <div>
+          //   <span>
+          //     {text.at(2)}{" "}
+          //     {text.at(3) && (
+          //       <button
+          //         onClick={() => {
+          //           let chatMessage = {
+          //             receiver: channelSeq,
+          //             channelSeq: channelSeq,
+          //             textSeq: text.at(0),
+          //             status: "DEL_TEXT",
+          //           };
+          //           stomp.send(
+          //             "/app/private-message",
+          //             createHeaders(token),
+          //             JSON.stringify(chatMessage)
+          //           );
+          //         }}
+          //       >
+          //         삭제
+          //       </button>
+          //     )}
+          //   </span>
+          //   <pre>{text.at(1)}</pre>
+          // </div>
         ))}
       </div>
       <div style={{ textAlign: "center" }}>
@@ -96,6 +126,7 @@ function ChattingArea({ stomp }) {
           onKeyDown={handleKeyDown}
         />
       </div>
+      <div></div>
     </div>
   );
 }

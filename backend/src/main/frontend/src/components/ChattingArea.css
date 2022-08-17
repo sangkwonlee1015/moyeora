@@ -10,9 +10,23 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .textarea-input {
   width: 100%;
   margin-top: 30px;
+}
+
+.paper {
+  background-color: azure;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.paper-top {
+  display: flex;
+  justify-content: space-between;
 }
