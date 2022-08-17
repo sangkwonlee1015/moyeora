@@ -23,8 +23,8 @@
 .header_items_2 {
   list-style: none;
   padding-left: 0px;
-  margin: 0.7rem 0 0 0;
-  overflow: hidden;
+  margin: 0 0 0 0;
+  overflow: visible;
   position: relative;
 }
 

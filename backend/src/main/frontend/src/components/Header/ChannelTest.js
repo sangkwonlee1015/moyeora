@@ -72,7 +72,7 @@ export default function ChannelTest() {
         {channelList.map((channel) => (
           <li
             key={channel.channelSeq}
-            className="header_items_2 headerSetting2"
+            className="header_items_2"
           >
             <Link
               to={`/serverpage/${channel.channelSeq}`}
@@ -81,8 +81,8 @@ export default function ChannelTest() {
                 enterChannel(channel.channelSeq);
               }}
             >
-              <div className="header_chName">{channel.channelName}</div>
-              <span class="tooltiptext">{channel.channelName}</span>
+              <div className="header_chName">{channel.channelName.substr(0,2)}</div>
+              <span className="tooltiptext">{channel.channelName}</span>
             </Link>
           </li>
         ))}
