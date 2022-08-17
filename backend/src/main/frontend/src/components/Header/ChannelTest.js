@@ -43,7 +43,9 @@ export default function ChannelTest() {
                 enterChannel(channel.channelSeq);
               }}
             >
-              {channel.channelName}
+              <div className="header_chName">
+                {channel.channelName}
+              </div>
               <span class="tooltiptext">{channel.channelName}</span>
             </Link>
           </li>
