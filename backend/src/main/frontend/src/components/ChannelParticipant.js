@@ -91,19 +91,16 @@ function ChannelParticipant({ userSeq, leader }) {
             height: "auto",
             color: "#455874",
             margin: "3px",
-            backgroundColor: "#202225",
-            "&:hover": {
-              backgroundColor: "#2f3136",
-              opacity: [0.9, 0.8, 0.7],
-            },
+            backgroundColor: "#94dadd",
           }}
         >
-          <div>
-            참여자 이름: {participantInfo.userName} <br />
-            참여자 닉네임: {participantInfo.userNick}
+          <div style={{color: "black", fontWeight: "600"}}>
+            이름: {participantInfo.userName} <br />
+            닉네임: {participantInfo.userNick}
           </div>
           {leader ? (
             <button
+              className="kickBotton"
               onClick={() => {
                 deleteParticipantByLeader(
                   channelSeq,
