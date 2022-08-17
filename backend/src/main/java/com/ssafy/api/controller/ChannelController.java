@@ -132,9 +132,9 @@ public class ChannelController {
         FileDB f = fileDBService.getFile(channel.getChannelImageId());
         if (f == null){
             byte[] temp = new byte[0];
-            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp, channel.getChannelPassword()));
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp, channel.getChannelPassword(), channel.getUserSeq()));
         }else
-            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData(), channel.getChannelPassword()));
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData(), channel.getChannelPassword(), channel.getUserSeq()));
 
 //            } catch (OpenViduJavaClientException e1) {
 //                // If internal error generate an error message and return it to client
