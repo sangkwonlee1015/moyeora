@@ -1,7 +1,7 @@
 .buttonsContent{
   display: flex;
-  margin-left: 10px;
   bottom: 60px;
+  margin-left: 5px;
 }
 .component-video-all{
   display: flex;
@@ -41,15 +41,16 @@
 
 /* ---------------------------------------------------------- */
 .css-78trlr-MuiButtonBase-root-MuiIconButton-root{
-  right: 10px;
+  left: 13px;
   bottom: 10px;
 }
 .navMicButton{
   color: #5ab376;
-  /* font-size: 40px; */
+  position: relative;
 }
 .navCamButton{
   color: #5ab376;
+  position: relative;
 }
 .navLeaveButton{
   color: #202225  !important;
@@ -57,63 +58,65 @@
 
 .VideocamOffIcon{
   color: #202225 !important;
+  position: relative;
 }
 .MicOff{
   color: #202225 !important;
+  position: relative;
 }
 /* ---------------------------------------------------------- */
-.navMicButton_circle{
+.navMicButton_rectangle{
   list-style: none;
   padding-left: 0px;
   margin: 0.5rem;
   position: relative;
-  width: 20px;
+  width: 65px;
   height: 20px;
   text-decoration-line: none;
   font-size: 18px;
-  border-radius: 50%;
+  border-radius: 10px;
   font-family: inherit;
   background-color: rgb(120, 120, 120);
   padding: 1.1rem;
   margin-top: 0.5rem;
   transition: 0.3s ease-in-out;
 }
-.navMicButton_circle:hover {
+.navMicButton_rectangle:hover {
   background: #3ba55d;
-  border-radius: 30%;
+  border-radius: 10px;
 }
-.navMicButton_circle:hover svg{
+.navMicButton_rectangle:hover svg{
   color: #e2e3e4;
 }
 
 /* ---------------------------------------------------------- */
 
-.navCamButton_circle{
+.navCamButton_rectangle{
   list-style: none;
   padding-left: 0px;
   margin: 0.5rem;
   position: relative;
-  width: 20px;
+  width: 65px;
   height: 20px;
   text-decoration-line: none;
   font-size: 18px;
-  border-radius: 50%;
+  border-radius: 10px;
   font-family: inherit;
   background-color: rgb(120, 120, 120);
   padding: 1.1rem;
   margin-top: 0.5rem;
   transition: 0.3s ease-in-out;
 }
-.navCamButton_circle:hover {
+.navCamButton_rectangle:hover {
   background: #3ba55d;
-  border-radius: 30%;
+  border-radius: 10px;
 }
-.navCamButton_circle:hover svg{
+.navCamButton_rectangle:hover svg{
   color: #e2e3e4;
 }
 /* ---------------------------------------------------------- */
 
-.navLeaveButton_circle{
+.navLeaveButton_rectangle{
   list-style: none;
   padding-left: 0px;
   margin: 0.5rem;
@@ -122,17 +125,17 @@
   height: 20px;
   text-decoration-line: none;
   font-size: 18px;
-  border-radius: 50%;
+  border-radius: 30%;
   font-family: inherit;
   background-color: rgb(120, 120, 120);
   padding: 1.1rem;
   margin-top: 0.5rem;
   transition: 0.3s ease-in-out;
 }
-.navLeaveButton_circle:hover {
+.navLeaveButton_rectangle:hover {
   background: #3ba55d;
-  border-radius: 30%;
+  border-radius: 700%;
 }
-.navLeaveButton_circle:hover svg{
+.navLeaveButton_rectangle:hover svg{
   color: #e2e3e4;
 }
