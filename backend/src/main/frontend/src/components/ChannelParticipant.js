@@ -60,7 +60,6 @@ function ChannelParticipant({ userSeq, leader, stomp }) {
     getUserNick(
       userSeq,
       (response) => {
-        console.log(response);
         setParticipantInfo({
           userName: response.data.userName,
           userNick: response.data.userNick,
@@ -72,8 +71,6 @@ function ChannelParticipant({ userSeq, leader, stomp }) {
       }
     );
   }, [userSeq]);
-
-  console.log(participantInfo, "--------------");
 
   return (
     <div>
@@ -100,7 +97,6 @@ function ChannelParticipant({ userSeq, leader, stomp }) {
                   userSeq,
                   accessToken,
                   (response) => {
-                    console.log(response.data);
                     if (stomp) {
                       let chatMessage = {
                         receiver: channelSeq,
