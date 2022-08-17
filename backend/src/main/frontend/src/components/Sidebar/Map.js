@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 import "./Sidebar.css";
 import { useState } from "react";
 import { SET_MAPLIST } from "../../redux/MapList";
+import { createHeaders } from "../../api";
 
 const style = {
   position: "absolute",
@@ -31,11 +32,12 @@ function Map(props) {
   const ChannelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [newMapName, setNewMapName] = useState(props.mapName)
+  const [newMapName, setNewMapName] = useState(props.mapName);
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose2 = () => setOpen2(false);
   const handleOpen2 = () => setOpen2(true);
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
 
   function openMap(mapSeq) {
     dispatch(SET_CURRENTMAP(mapSeq));
@@ -61,46 +63,79 @@ function Map(props) {
   const UpdateMap = () => {
     const updateMapInfo = {
       mapName: newMapName,
-      mapSeq: props.mapSeq
-    }
+      mapSeq: props.mapSeq,
+    };
     updateMap(
       updateMapInfo,
-      token,()=>{
-        getMapList(                       // 성공하면 맵 리스트 불러와서
-        ChannelSeq,
-        "channel",
-        token,
-        (response) => {                 
-          const list = response.data.mapsList;
-          console.log(list)
-          dispatch(SET_MAPLIST(list));  // 맵 redux에 다시 저장
-          handleClose2();
-        },
-        (error) => {console.log(error)})
+      token,
+      () => {
+        getMapList(
+          // 성공하면 맵 리스트 불러와서
+          ChannelSeq,
+          "channel",
+          token,
+          (response) => {
+            const list = response.data.mapsList;
+            console.log(list);
+            dispatch(SET_MAPLIST(list)); // 맵 redux에 다시 저장
+            handleClose2();
+            if (props.stomp) {
+              let chatMessage = {
+                receiver: channelSeq,
+                status: "CHANGE_MAP",
+              };
+              props.stomp.send(
+                "/app/private-message",
+                createHeaders(token),
+                JSON.stringify(chatMessage)
+              );
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
-      (error) => {console.log(error)}
-    )};
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
-  const DeleteMap = () => {             // 맵 삭제 함수
-    const mapSeq = props.mapSeq
+  const DeleteMap = () => {
+    // 맵 삭제 함수
+    const mapSeq = props.mapSeq;
     // 맵삭제
     deleteMap(
-      mapSeq, 
+      mapSeq,
       token,
-      getMapList(                       // 성공하면 맵 리스트 불러와서
+      getMapList(
+        // 성공하면 맵 리스트 불러와서
         ChannelSeq,
         "channel",
         token,
-        (response) => {                 // 삭제한 맵이 response에 담겨옴 (문제 발생)
+        (response) => {
+          // 삭제한 맵이 response에 담겨옴 (문제 발생)
           const list = response.data.mapsList;
-          const arr = list.filter(data => data.mapSeq !== mapSeq);  // fliter로 해결!
-          dispatch(SET_MAPLIST(arr));  // 맵 redux에 다시 저장
+          const arr = list.filter((data) => data.mapSeq !== mapSeq); // fliter로 해결!
+          dispatch(SET_MAPLIST(arr)); // 맵 redux에 다시 저장
           handleClose();
-        },
-      ), 
-      (error) => console.log(error)     // 실패하면
-    )
-  }
+          if (props.stomp) {
+            let chatMessage = {
+              receiver: channelSeq,
+              status: "CHANGE_MAP",
+            };
+            props.stomp.send(
+              "/app/private-message",
+              createHeaders(token),
+              JSON.stringify(chatMessage)
+            );
+          }
+        }
+      ),
+      (error) => console.log(error) // 실패하면
+    );
+  };
 
   return (
     <div>
@@ -121,8 +156,6 @@ function Map(props) {
         </Link>
       </span>
       <span>
-
-
         <Modal
           open={open2}
           onClose={handleClose}
@@ -139,9 +172,9 @@ function Map(props) {
               component="h2"
               color="white"
             >
-              <br/>
+              <br />
               맵 이름 수정하기
-              <br/>
+              <br />
               <input
                 type="text"
                 value={newMapName}
@@ -155,11 +188,7 @@ function Map(props) {
                 style={{ marginTop: "2rem" }}
               >
                 <Button onClick={handleClose2}>취소</Button>
-                <Button
-                  onClick={UpdateMap}
-                  variant="outlined"
-                  color="success"
-                >
+                <Button onClick={UpdateMap} variant="outlined" color="success">
                   맵 수정하기
                 </Button>
               </Stack>
@@ -190,11 +219,7 @@ function Map(props) {
                 style={{ marginTop: "2rem" }}
               >
                 <Button onClick={handleClose}>취소</Button>
-                <Button
-                  onClick={DeleteMap}
-                  variant="outlined"
-                  color="error"
-                >
+                <Button onClick={DeleteMap} variant="outlined" color="error">
                   맵 삭제하기
                 </Button>
               </Stack>
