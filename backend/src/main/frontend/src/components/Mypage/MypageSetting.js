@@ -322,6 +322,13 @@ function MypageSetting({ open, setOpen }) {
               <div className="button-text-color">계정 삭제하기</div>
             </Button>
           </div>
+          <div className="button-logout">
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Button onClick={logOut}>
+                <div className="button-text-color">로그아웃</div>
+              </Button>
+            </Link>
+          </div>
         </DialogActions>
       </Dialog>
       <Dialog
