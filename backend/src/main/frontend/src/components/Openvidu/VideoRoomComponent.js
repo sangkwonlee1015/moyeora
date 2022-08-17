@@ -306,10 +306,10 @@ class VideoRoomComponent extends Component {
           micStatusChanged={this.micStatusChanged}
           leaveSession={this.leaveSession}
         />
-        <div className="component-video-test">
+        <div className="component-video-all">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div>
+              <div className="component-video-mine">
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}
@@ -317,7 +317,7 @@ class VideoRoomComponent extends Component {
               </div>
             )}
           {this.state.subscribers.map((sub, i) => (
-            <div key={i}>
+            <div key={i} className="component-video-others">
               <StreamComponent
                 user={sub}
                 streamId={sub.streamManager.stream.streamId}
