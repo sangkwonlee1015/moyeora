@@ -11,7 +11,7 @@ import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
 import IconButton from "@mui/material/IconButton";
 
-import "./Openvidu.css"
+import "./Openvidu.css";
 
 // const logo = require("../../assets/images/openvidu_logo.png");
 
@@ -42,38 +42,30 @@ export default class ToolbarComponent extends Component {
     return (
       <div className="buttonsContent">
         <div className="navMicButton_circle">
-          <IconButton
-            onClick={this.micStatusChanged}
-          >
+          <IconButton onClick={this.micStatusChanged}>
             {localUser !== undefined && localUser.isAudioActive() ? (
-              <Mic className="navMicButton"/>
+              <Mic className="navMicButton" />
             ) : (
               <MicOff className="MicOff" />
             )}
           </IconButton>
         </div>
-        
+
         <div className="navCamButton_circle">
-          <IconButton
-            onClick={this.camStatusChanged}
-          >
+          <IconButton onClick={this.camStatusChanged}>
             {localUser !== undefined && localUser.isVideoActive() ? (
-              <Videocam className="navCamButton"/>
+              <Videocam className="navCamButton" />
             ) : (
-              <VideocamOffIcon className="VideocamOffIcon"  />
+              <VideocamOffIcon className="VideocamOffIcon" />
             )}
           </IconButton>
         </div>
-
-        <div className="navLeaveButton_circle">
-          <IconButton
-            onClick={this.leaveSession}
-          >
-            <PowerSettingsNew className="navLeaveButton"/>
+        {/* <div className="navLeaveButton_circle">
+          <IconButton onClick={this.leaveSession}>
+            <PowerSettingsNew className="navLeaveButton" />
           </IconButton>
-        </div>
+        </div> */}
       </div>
-
     );
   }
 }

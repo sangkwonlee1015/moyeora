@@ -183,7 +183,7 @@ function SearchChannel() {
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
             <div className="card-header-is_closed">
-              <div className="card-header-text"> 모집중 </div>
+              <div className="card-header-text"> {channel.participantsCount<6 ? "모집중" : "풀방"}</div>
               <div className="card-header-number">
                 {" "}
                 {channel.participantsCount} / 6
@@ -223,7 +223,9 @@ function SearchChannel() {
               <div className="card-body-button">
                 <button
                   onClick={() => {
-                    if (channel.channel.channelPassword) {
+                    if (channel.participantsCount >= 6) {
+                      alert("정원 초과입니다");
+                    } else if (channel.channel.channelPassword) {
                       handleOpen();
                       setSecretChannel(channel.channel);
                     } else onRegisterChannel(channel.channel);

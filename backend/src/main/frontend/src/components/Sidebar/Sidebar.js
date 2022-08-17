@@ -27,6 +27,7 @@ import {
 import { getTextList } from "../../api/channel";
 import { SET_TEXTLIST } from "../../redux/TextList";
 import VideoRoomComponent from "../Openvidu/VideoRoomComponent";
+import { createHeaders } from "../../api";
 
 function Sidebar(props) {
   const token = useSelector((state) => state.UserInfo.accessToken);
@@ -42,14 +43,13 @@ function Sidebar(props) {
   };
   const handleOpen = () => setOpen(true);
   const [backdropOpen, setBackdropOpen] = useState(true);
+  const sock = new SockJS("http://localhost:8080/ws");
+  const stomp = StompJs.over(sock);
 
   console.log("channelSeq: " + channelSeq + " / userNick: " + userNick);
 
   useEffect(() => {
     setBackdropOpen(true);
-    const sock = new SockJS("http://localhost:8080/ws");
-    const stomp = StompJs.over(sock);
-
     stomp.connect({}, (e) => {
       stomp.subscribe("/user/" + channelSeq + "/private", (data) => {
         const message = JSON.parse(data.body);
@@ -148,6 +148,19 @@ function Sidebar(props) {
               }
             );
             break;
+          case "CHANGE_MAP":
+            getMapList(
+              channelSeq,
+              "channel",
+              token,
+              (response) => {
+                dispatch(SET_MAPLIST(response.data.mapsList));
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+            break;
           default:
         }
       });
@@ -198,6 +211,18 @@ function Sidebar(props) {
           (response) => {
             dispatch(SET_MAPLIST(response.data.mapsList));
             handleClose();
+            if (stomp) {
+              let chatMessage = {
+                receiver: channelSeq,
+                status: "CHANGE_MAP",
+              };
+              console.log(chatMessage);
+              stomp.send(
+                "/app/private-message",
+                createHeaders(token),
+                JSON.stringify(chatMessage)
+              );
+            }
           },
           (error) => {
             console.log(error);
@@ -274,6 +299,7 @@ function Sidebar(props) {
             channelSeq={channelSeq}
             mapSeq={map.mapSeq}
             mapName={map.mapName}
+            stomp={stomp}
           ></Map>
         ))}
       </div>

@@ -42,6 +42,7 @@ class VideoRoomComponent extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.checkSize);
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -298,13 +299,6 @@ class VideoRoomComponent extends Component {
 
     return (
       <div className="container_button">
-        <button
-          onClick={() => {
-            this.joinSession();
-          }}
-        >
-          채널 참여하기
-        </button>
         <ToolbarComponent
           sessionId={mySessionId}
           user={localUser}
@@ -312,10 +306,10 @@ class VideoRoomComponent extends Component {
           micStatusChanged={this.micStatusChanged}
           leaveSession={this.leaveSession}
         />
-        <div className="component-video-test">
+        <div className="component-video-all">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div>
+              <div className="component-video-mine">
                 <StreamComponent
                   user={localUser}
                   handleNickname={this.nicknameChanged}
@@ -323,7 +317,7 @@ class VideoRoomComponent extends Component {
               </div>
             )}
           {this.state.subscribers.map((sub, i) => (
-            <div key={i}>
+            <div key={i} className="component-video-others">
               <StreamComponent
                 user={sub}
                 streamId={sub.streamManager.stream.streamId}
