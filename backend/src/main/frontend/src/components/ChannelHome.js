@@ -62,7 +62,7 @@ function ChannelHome(props) {
   }, [channelSeq]);
 
   return (
-    <div className="server-home">
+    <div className="channel-home">
       <button
         onClick={() => {
           setOpen(true);
