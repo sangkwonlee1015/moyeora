@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 
 import ChannelParticipant from "./ChannelParticipant";
+// import { getChannelInfo } from "../api/channel";
 import { deleteChannel, getChannelInfo } from "../api/channel";
 import "./ChannelHome.css";
 
@@ -24,11 +25,13 @@ import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
+import UpdateChannelInfoDialog from "./UpdateChannelInfoDialog";
 
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [channelInfo, setChannelInfo] = useState(undefined);
+  const [open, setOpen] = useState(false);
 
   const [pList, setPList] = useState([]);
   // const [channelInfo, setChannelInfo] = useState([객체배열 포맷]);
@@ -52,7 +55,6 @@ function ChannelHome(props) {
     );
     getChannelInfo(channelSeq, token, (response) => {
       setChannelInfo(response.data);
-      console.log("&&&&&&&&&&&&&&", response.data);
       setChannelDesc(response.data.channelDesc);
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
@@ -60,7 +62,20 @@ function ChannelHome(props) {
   }, [channelSeq]);
 
   return (
-    <div className="channel-home">
+    <div className="server-home">
+      <button
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        채널정보수정
+      </button>
+      <UpdateChannelInfoDialog
+        open={open}
+        setOpen={(b) => {
+          setOpen(b);
+        }}
+      ></UpdateChannelInfoDialog>
       <div className="channel-background">
         {/* <h2>채널소개</h2> */}
         <br />
