@@ -65,6 +65,7 @@ function ChattingArea({ stomp }) {
               {text.at(2)}{" "}
               {text.at(3) && (
                 <button
+                  className="chatting-trash-outline"
                   onClick={() => {
                     let chatMessage = {
                       receiver: channelSeq,
@@ -79,7 +80,7 @@ function ChattingArea({ stomp }) {
                     );
                   }}
                 >
-                  삭제
+                  <ion-icon></ion-icon>
                 </button>
               )}
             </div>
