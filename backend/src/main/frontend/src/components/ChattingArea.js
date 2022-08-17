@@ -1,4 +1,4 @@
-import { Paper, TextareaAutosize } from "@mui/material";
+import { Button, Paper, TextareaAutosize } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -64,7 +64,9 @@ function ChattingArea({ stomp }) {
             <div class="paper-top">
               {text.at(2)}{" "}
               {text.at(3) && (
-                <button
+                <Button
+                  variant="outlined"
+                  color="error"
                   onClick={() => {
                     let chatMessage = {
                       receiver: channelSeq,
@@ -80,36 +82,11 @@ function ChattingArea({ stomp }) {
                   }}
                 >
                   삭제
-                </button>
+                </Button>
               )}
             </div>
-            <pre>{text.at(1)}</pre>
+            <pre class="pre-text">{text.at(1)}</pre>
           </Paper>
-          // <div>
-          //   <span>
-          //     {text.at(2)}{" "}
-          //     {text.at(3) && (
-          //       <button
-          //         onClick={() => {
-          //           let chatMessage = {
-          //             receiver: channelSeq,
-          //             channelSeq: channelSeq,
-          //             textSeq: text.at(0),
-          //             status: "DEL_TEXT",
-          //           };
-          //           stomp.send(
-          //             "/app/private-message",
-          //             createHeaders(token),
-          //             JSON.stringify(chatMessage)
-          //           );
-          //         }}
-          //       >
-          //         삭제
-          //       </button>
-          //     )}
-          //   </span>
-          //   <pre>{text.at(1)}</pre>
-          // </div>
         ))}
       </div>
       <div style={{ textAlign: "center" }}>
