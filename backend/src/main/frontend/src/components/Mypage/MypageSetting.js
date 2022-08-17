@@ -108,6 +108,7 @@ function MypageSetting({ open, setOpen }) {
     const success = (res) => {
       console.log("유저정보변경 성공", res.data.userRes);
       dispatch(SET_USERINFO(res.data.userRes));
+      handleClose(false)
     };
 
     const error = (res) => {
@@ -118,7 +119,6 @@ function MypageSetting({ open, setOpen }) {
   };
 
   const onSubmitPassword = () => {
-    console.log("------------");
     console.log(token);
     const updateUserPasswordInfo = {
       currentPassword,
@@ -127,6 +127,8 @@ function MypageSetting({ open, setOpen }) {
     console.log(updateUserPasswordInfo);
     const success = (res) => {
       console.log("비밀번호 변경 성공", res);
+      handleClose();
+      handleCloseChangePassword();
     };
     <Link to="/"></Link>;
     const error = (res) => {
@@ -191,31 +193,6 @@ function MypageSetting({ open, setOpen }) {
     getParticipantListByUser(token, success2, error2);
   };
 
-  const test2 = () => {
-    const success2 = (res2) => {
-      console.log("참여채널 조회성공", res2.data.list);
-      const listHaveToDelete = res2.data.list;
-      const success1 = (res1) => {
-        console.log("tb_participants 에서 삭제 성공", res1);
-      };
-      const error1 = (res1) => {
-        console.log("tb_participants 에서 삭제 실패", res1);
-      };
-      for (const item of listHaveToDelete) {
-        console.log(item.participantsId.channelSeq);
-        deleteParticipant(
-          item.participantsId.channelSeq,
-          token,
-          success1,
-          error1
-        );
-      }
-    };
-    const error2 = (res2) => {
-      console.log("참여채널 조회실패", res2);
-    };
-    getParticipantListByUser(token, success2, error2);
-  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -230,75 +207,84 @@ function MypageSetting({ open, setOpen }) {
         aria-describedby="alert-dialog-slide-description"
         className="dialog"
       >
-        <DialogTitle className="dialog-title">채널 정보 수정</DialogTitle>
+        <DialogTitle className="dialog-title">사용자 정보 수정</DialogTitle>
         <DialogContent className="dialog-content">
           <DialogContentText
             id="alert-dialog-slide-description"
             className="dialog-content-text"
           >
-            <label for="userName" className="input-label">
-              이름
-            </label>
+            <div className="dialog-change-userinfo-input">
+              <label for="userName" className="input-label">
+                이름
+              </label>
+              <br />
+              <br />
+              <input
+                sx={{ width: "535px" }}
+                value={newUserName}
+                id="userName"
+                className="input"
+                onChange={onNewUserName}
+                defaultValue={userName} 
+              ></input>
+              <br />
+              <br />
+              <label for="userNick" className="input-label">
+                닉네임
+              </label>
+              <br />
+              <br />
+              <input
+                sx={{ width: "535px" }}
+                value={newUserNick}
+                id="userNick"
+                className="input"
+                onChange={onNewUserNick}
+                defaultValue={userNick} 
+              ></input>
+              {/* <Input
+                value={channelDesc}
+                id="channelDesc"
+                className="input"
+                onChange={onChannelDesc}
+              ></Input> */}
+              <br />
+              <br />
+              <label for="userPhone" className="input-label">
+                전화번호
+              </label>
+              <br />
+              <br />
+              <input
+                sx={{ width: "535px" }}
+                value={newUserPhone}
+                id="userPhone"
+                className="input"
+                onChange={onNewUserPhone}
+                defaultValue={userPhone} 
+              ></input>
+              <br />
+            </div>
             <br />
-            <br />
-            <Input
-              sx={{ width: "535px" }}
-              value={newUserName}
-              id="userName"
-              className="input"
-              onChange={onNewUserName}
-              // inputRef={(input) => {
-              //   if(input != null) {
-              //      input.focus();
-              //   }
-              // }}
-            ></Input>
-            <br />
-            <br />
-            <label for="userNick" className="input-label">
-              닉네임
-            </label>
-            <br />
-            <br />
-            <Input
-              sx={{ width: "535px" }}
-              value={newUserNick}
-              id="userNick"
-              className="input"
-              onChange={onNewUserNick}
-              // inputRef={(input) => {
-              //   if(input != null) {
-              //      input.focus();
-              //   }
-              // }}
-            ></Input>
-            {/* <Input
-              value={channelDesc}
-              id="channelDesc"
-              className="input"
-              onChange={onChannelDesc}
-            ></Input> */}
-            <br />
-            <br />
-            <label for="userPhone" className="input-label">
-              전화번호
-            </label>
-            <br />
-            <br />
-            <Input
-              sx={{ width: "535px" }}
-              value={newUserPhone}
-              id="userPhone"
-              className="input"
-              onChange={onNewUserPhone}
-              // inputRef={(input) => {
-              //   if(input != null) {
-              //      input.focus();
-              //   }
-              // }}
-            ></Input>
-            <br />
-            <br />
+            <div style={{ display: "flex"}}>
+              <div className="button-submit">
+                <Button onClick={handleOpenChangePassword}>
+                  <div className="button-text-color">비밀번호 변경하기</div>
+                </Button>
+              </div>
+              <div className="button-logout">
+                <Button onClick={handleOpenDeleteUser}>
+                  <div className="button-text-color">계정 삭제하기</div>
+                </Button>
+              </div>
+              <div className="button-logout">
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button onClick={logOut}>
+                    <div className="button-text-color">로그아웃</div>
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions className="option-cell">
@@ -308,27 +294,11 @@ function MypageSetting({ open, setOpen }) {
             </Button>
           </div>
           <div className="accept-button">
-            <Button onClick={() => {}}>
+            <Button onClick={onSubmit}>
               <div className="accept-button-text">ACCEPT</div>
             </Button>
           </div>
-          <div className="button-submit">
-            <Button onClick={handleOpenChangePassword}>
-              <div className="button-text-color">비밀번호 변경하기</div>
-            </Button>
-          </div>
-          <div className="button-logout">
-            <Button onClick={handleOpenDeleteUser}>
-              <div className="button-text-color">계정 삭제하기</div>
-            </Button>
-          </div>
-          <div className="button-logout">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <Button onClick={logOut}>
-                <div className="button-text-color">로그아웃</div>
-              </Button>
-            </Link>
-          </div>
+          
         </DialogActions>
       </Dialog>
       <Dialog
@@ -416,7 +386,7 @@ function MypageSetting({ open, setOpen }) {
             </Button>
           </div>
           <div className="accept-button">
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Button onClick={onDeleteUser}>
                 <div className="accept-button-text">계정 삭제</div>
               </Button>
