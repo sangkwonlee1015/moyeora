@@ -69,7 +69,7 @@ cp -r build ../../../../deployfolder
 #ls -al deploy
 
 
-# kill -9 `ps -ef|grep ssafy|awk '{print $2}'`
+kill -9 `ps -ef|grep ssafy|awk '{print $2}'`
 #nohup java -jar *.jar &
 
 
