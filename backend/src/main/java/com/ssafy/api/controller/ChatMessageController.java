@@ -171,6 +171,9 @@ public class ChatMessageController {
                 textStorageRepository.deleteById(Long.parseLong(message.getTextSeq()));
                 chatService.sendMessagePrivate(message);
                 break;
+            case CHANGE_MAP:
+                chatService.sendMessagePrivate(message);
+                break;
         }
     }
 
