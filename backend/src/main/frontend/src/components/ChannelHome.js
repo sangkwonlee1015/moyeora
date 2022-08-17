@@ -34,6 +34,7 @@ function ChannelHome(props) {
   const [channelInfo, setChannelInfo] = useState({});
   const [open, setOpen] = useState(false);
   const userInfo = useSelector((state) => state.UserInfo.userInfo);
+  const [channelUserSeq, setChannelUserSeq] = useState();
 
   const [pList, setPList] = useState([]);
   // const [channelInfo, setChannelInfo] = useState([객체배열 포맷]);
@@ -62,7 +63,6 @@ function ChannelHome(props) {
     });
   }, [channelSeq]);
 
-
   return (
     <div className="channel_homepage">
       <div className="channelHome_main">
@@ -88,12 +88,16 @@ function ChannelHome(props) {
           <div>
             <br />
             채널 참여자 목록:{" "}
-            <div className="userFlex" style={{ display: "flex", margin: "3px"}}>
+            <div
+              className="userFlex"
+              style={{ display: "flex", margin: "3px" }}
+            >
               {pList.map((item, index) => {
                 return (
                   <ChannelParticipant
                     key={index}
                     userSeq={item.participantsId.userSeq}
+                    leader={channelUserSeq === userInfo.userSeq}
                   ></ChannelParticipant>
                 );
               })}
