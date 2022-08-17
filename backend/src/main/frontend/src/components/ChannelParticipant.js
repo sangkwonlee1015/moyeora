@@ -55,9 +55,10 @@ function ChannelParticipant({ userSeq }) {
     <div>
       <div className="abc">
         <Item sx={{
-          width: 250,
+          width: 200,
           height: "auto",
-          color: "white",
+          color: "#455874",
+          margin: "3px",
           backgroundColor: '#202225',
           '&:hover': {
             backgroundColor: '#2f3136',
