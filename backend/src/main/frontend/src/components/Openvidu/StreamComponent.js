@@ -5,7 +5,7 @@ import OvVideoComponent from "./OvVideo";
 import MicOff from "@mui/icons-material/MicOff";
 import VideocamOff from "@mui/icons-material/VideocamOff";
 import VolumeUp from "@mui/icons-material/VolumeUp";
-import VolumeOff from "@mui/icons-material/VolumeDown";
+import VolumeOff from "@mui/icons-material/VolumeOff";
 // import FormControl from "@material-ui/core/FormControl";
 // import Input from "@material-ui/core/Input";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -95,31 +95,31 @@ export default class StreamComponent extends Component {
         {this.props.user !== undefined &&
         this.props.user.getStreamManager() !== undefined ? (
           // <div className="streamComponent">
-          <div className="component-video-test">
+          <div className="OvVideoComponent-Icon">
             <OvVideoComponent
               user={this.props.user}
               mutedSound={this.state.mutedSound}
             />
             <div className="statusIcons">
-              {!this.props.user.isVideoActive() ? (
-                <div id="statusIcons">
-                  <VideocamOff id="statusIcons" />
+              {/* {!this.props.user.isVideoActive() ? (
+                <div className="statusIcons-videocam-off">
+                  <VideocamOff/>
                 </div>
-              ) : null}
+              ) : null} */}
 
-              {!this.props.user.isAudioActive() ? (
-                <div id="statusIcons">
-                  <MicOff id="statusIcons" />
+              {/* {!this.props.user.isAudioActive() ? (
+                <div className="statusIcons-mic-off">
+                  <MicOff />
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
             <div>
               {!this.props.user.isLocal() && (
-                <IconButton id="statusIcons" onClick={this.toggleSound}>
+                <IconButton className="statusIcons-volumn" onClick={this.toggleSound}>
                   {this.state.mutedSound ? (
-                    <VolumeOff color="secondary" />
+                    <VolumeOff className="statusIcons-volumn-off" />
                   ) : (
-                    <VolumeUp />
+                    <VolumeUp className="statusIcons-volumn-on"/>
                   )}
                 </IconButton>
               )}
