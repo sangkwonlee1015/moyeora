@@ -3,7 +3,8 @@
   /* 사이드바 배경색 */
   background-color: #2f3136;
   position: relative;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding-top: 0.5rem;
   padding-left: 0.5rem;
 }
