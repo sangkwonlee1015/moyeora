@@ -1,0 +1,18 @@
+.chattingarea {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  max-height: 100%;
+  padding: 15px;
+}
+
+.show-area {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.textarea-input {
+  width: 100%;
+  margin-top: 30px;
+}
