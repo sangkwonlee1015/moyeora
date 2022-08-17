@@ -1,27 +1,66 @@
+.channel_homepage {
+  width: 100%;
+  /* background-image: url(../assets/LoginBackground2.png); */
+  /* background-size: cover; */
+  background-color: #1d3557;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 .channel-home{
   width: 100%;
 }
-
-
 .channel-background{
   width: 80%;
-  height: 80%;
-  background-color: gray;
+  min-height: 600px;
+  max-height: 800px;
+  padding: 20px;
+  background-color: #f1faee;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: relative;
-  left: 10%;
-  top: 10%;
-  border-radius: 20px;
 }
-
 .channel-name{
   font-size: 30pt;
   font-weight: 1000;
+  height: 100px;
+  overflow: scroll;
 }
-
 .channel-desc{
   font-size: 15pt;
+  height: 100px;
+  overflow: scroll;
 }
-
 .channel-tag{
-  font-size: 15pt;
+  font-size: small;
+  font-weight: bold;
+  height: 40px;
+  overflow: scroll;
+}
+.channelHome_main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.channel_Home_Button {
+  position: absolute;
+  height: 30px;
+  bottom: 5px;
+  right: 5px;
+  background-color: #457b9d;
+  border-radius: 5px;
+  border: #457b9d 1px;
+}
+.channel_Home_Button:hover {
+  background-color: #5ba8d7;
+  cursor: pointer;
+}
+.userFlex {
+  display: flex;
+  margin: 3px;
+  flex-wrap: wrap;
 }
