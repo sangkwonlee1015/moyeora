@@ -30,7 +30,7 @@ import UpdateChannelInfoDialog from "./UpdateChannelInfoDialog";
 function ChannelHome(props) {
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq); //33
   const token = useSelector((state) => state.UserInfo.accessToken);
-  const [channelInfo, setChannelInfo] = useState(undefined);
+  const [channelInfo, setChannelInfo] = useState({});
   const [open, setOpen] = useState(false);
 
   const [pList, setPList] = useState([]);
@@ -39,8 +39,14 @@ function ChannelHome(props) {
   const [channelDesc, setChannelDesc] = useState();
   const [channelName, setChannelName] = useState();
   const [channelTag, setChannelTag] = useState();
+  const [channelImage, setChannelImage] = useState();
 
-  console.log(pList);
+  
+
+  const setImage = () => {
+    const image = channelInfo.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channelInfo.uploadedImage
+    setChannelImage(image)
+  }
 
   useEffect(() => {
     getParticipantListByChannel(
@@ -59,6 +65,8 @@ function ChannelHome(props) {
       setChannelName(response.data.channelName);
       setChannelTag(response.data.channelTag);
     });
+    console.log(channelInfo.uploadedImage,'=====================');
+    setImage()
   }, [channelSeq]);
 
   return (
