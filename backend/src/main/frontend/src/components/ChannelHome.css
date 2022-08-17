@@ -64,3 +64,15 @@
   margin: 3px;
   flex-wrap: wrap;
 }
+.kickBotton {
+  background-color: #e63946;
+  border: 0;
+  border-radius: 5px;
+  height: 25px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.kickBotton:hover {
+  background-color: #e81426;
+}
