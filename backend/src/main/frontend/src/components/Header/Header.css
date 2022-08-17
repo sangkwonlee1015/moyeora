@@ -24,6 +24,7 @@
   list-style: none;
   padding-left: 0px;
   margin: 0.7rem 0 0 0;
+  overflow: hidden;
   position: relative;
 }
 
@@ -192,4 +193,8 @@
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
   color: #5865f2;
+}
+.header_chName {
+  width: max-content;
+  transform: translateX(-30%);
 }
