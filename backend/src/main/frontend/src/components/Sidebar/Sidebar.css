@@ -1,0 +1,191 @@
+.sidebar{
+  width: 300px;
+  /* 사이드바 배경색 */
+  background-color: #2f3136;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+.sidebar > div {
+  border-radius: 10px;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+
+.chatting-bar:hover {
+  background-color: #42464d;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.mapListItem {
+  color: #e2e3e4;
+  font-weight: bold;
+}
+.mapListItem > div {
+  border-radius: 10px;
+  margin-left: 2rem;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+.mapListItem > div:hover {
+  background-color: #42464d;
+}
+
+.mapPlusButton {
+  float: right;
+  color: rgb(120, 120, 120);
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  font-size: 20px;
+  padding: 0 15px;
+}
+
+.mapPlusButton:hover {
+  font-size: 20px;
+  border: none;
+  color: #e2e3e4;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  font-size: 15px;
+  visibility: hidden;
+  width: max-content;
+  height: max-content;
+  background-color: #18191c;
+  font-weight: bold;
+
+  color: #dcddde;
+  text-align: center;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: #18191c;
+
+  padding: 5px 5px;
+  position: absolute;
+  bottom: 150%;
+  left: 78% !important;
+  margin-left: -60px;
+  top: -45px; /* 숫자가 작아지면 위쪽으로*/
+  left: 50%;
+  z-index: 3 !important;
+}
+
+/* 화살표 tooltip */
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 110%; /* 숫자가 작아지면 위쪽으로*/
+  left: 45%; /* 숫자가 작아지면 왼쪽으로*/
+  margin-top: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #18191c transparent transparent transparent;
+}
+
+/* hover 하면 보이게 */
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
+/* .sidebar-test>a:hover{
+background-color: red;
+} */
+
+.sidebar a {
+  display: block;
+  text-decoration-line: none;
+  /* 사이드 바 글자색 */
+  color: #e2e3e4;
+  font-weight: bold;
+}
+.sidebar-mypage {
+  width: 300px;
+  background-color: #f2f3f5;
+}
+.userinfo {
+  display: flex;
+  width: 210px;
+  align-items: space-between;
+  position: fixed;
+  bottom: 0px;
+  border-radius: 0%;
+  background-color: #202225;
+}
+.userinfo_name {
+  /* margin-right: 5rem; */
+}
+.exit-channel {
+  color: #e2e3e4;
+  left: 100px
+}
+.exit-channel-margin{
+  width: 100px;
+  margin-left: 100px;
+}
+
+/* openvidu css */
+.container_button {
+  flex-direction: row;
+  position: relative;
+  /* top: 820px ; 
+  left: 340px; */
+  width: 100vh;
+  height: 120px;
+}
+.container_button > button {
+  background-color: #2f3136;
+  border: 0;
+  padding-left: 0;
+  color: #e2e3e4;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+.container_button > button:hover {
+  color: #e2e3e4;
+}
+.buttonsContent {
+  /* flex-direction: row !important; */
+  position: fixed;
+  bottom: 100px;
+  left: 75px;
+  width: 250px;
+}
+/* .container_button video {
+  padding-left: 0.5rem;
+} */
+
+.trash-outline {
+  color: rgb(120, 120, 120);
+  background: none;
+  border: none;
+  font-size: 20px;
+  float: right;
+  z-index: 1;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+}
+.settings-outline {
+  color: rgb(120, 120, 120);
+  background: none;
+  border: none;
+  font-size: 20px;
+  float: right;
+  z-index: 1;
+}
+.trash-outline:hover {
+  color: #e2e3e4;
+}
+.settings-outline:hover {
+  color: #e2e3e4;
+}

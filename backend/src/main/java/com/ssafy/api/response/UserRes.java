@@ -25,6 +25,7 @@ public class UserRes{
 	String userNick;
 	@ApiModelProperty(name="User Phone")
 	String userPhone;
+	Long userSeq;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -33,6 +34,7 @@ public class UserRes{
 		res.setUserName(user.getUserName());
 		res.setUserNick(user.getUserNick());
 		res.setUserPhone(user.getUserPhone());
+		res.setUserSeq(user.getUserSeq());
 
 
 		return res;

@@ -1,0 +1,80 @@
+.dialog {
+}
+
+.dialogtext {
+  color: #dcddde;
+  background-color: #2f3136;
+}
+
+.dialog-title {
+  color: #dcddde;
+  background-color: #2f3136;
+}
+.dialog-content {
+  color: #dcddde;
+  background-color: #2f3136;
+  padding-top: 20px;
+  /* margin-top: 10px; */
+}
+
+/* .dialog-content-text{
+  color: #dcddde; 
+  padding-top: 200px;
+} */
+
+.option-cell {
+  background-color: #2f3136;
+}
+.cancel-button {
+  background-color: #4f545c;
+  width: 288px;
+  height: 60px;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+}
+.accept-button {
+  background-color: #5865f2;
+  width: 288px;
+  height: 60px;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+}
+.cancel-button-text {
+  color: #dcddde;
+  font-size: 13pt;
+  margin: 0 90px;
+}
+.accept-button-text {
+  color: #dcddde;
+  font-size: 13pt;
+  margin: 0 90px;
+}
+
+.input {
+  color: black;
+  /* width: max-content; */
+  /* background-color: green */
+}
+/* #42464d; */
+
+.input :focus {
+  color: black;
+  background-color: white;
+}
+/* #42464d; */
+
+.input-label {
+  color: #dcddde;
+}
+.input-label :focus {
+  /* color: "warning"; */
+}
+
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: #5865f2;
+}

@@ -1,0 +1,123 @@
+.mapListItem {
+  color: #e2e3e4;
+  font-weight: bold;
+}
+.mapListItem>div{
+  border-radius: 10px;
+  margin-left: 2rem;
+  margin: 0.2rem;
+  padding: 0.3rem;
+}
+.mapListItem>div:hover{
+  background-color: #42464d;
+}
+
+/* ---------------------------- */
+.mypage-setting{
+  width: 100%;
+  background-color: #18191c;
+}
+
+.background{
+  width: auto;
+  height: 200px;
+  background-color: green;
+}
+
+.big-circle{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #36393f;
+  background: url(../../assets/home.png) center 100% no-repeat;
+  background-size: 200px;
+  
+  position: relative;
+  bottom: 50px;
+  left: 30px;
+
+  border: 10px solid black;
+}
+
+.user-name{
+  position: relative;
+  bottom: 200px;
+  left: 300px;
+  font-size: 20px;
+  color: #e2e3e4;
+}
+
+.background2{
+  width: 80%;
+  background-color: #36393f;
+  height: 160%;
+  position: relative;
+  left: 200px;
+  border-radius: 50pt;
+  
+}
+
+.button-update{
+  background-color: #4f545c; 
+  /* 4f545c 5865f2 */
+  width: max-content;
+  height: max-content;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+  color: #e2e3e4;
+}
+
+.button-submit{
+  background-color: #5865f2; 
+  /* 4f545c 5865f2 */
+  width: max-content;
+  height: max-content;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+  color: #e2e3e4;
+}
+
+.button-logout{
+  background-color: #5865f2; 
+  /* 4f545c 5865f2 */
+  width: max-content;
+  height: max-content;
+  margin: 8px;
+  border-radius: 5pt;
+  justify-content: center;
+  display: flex;
+  color: #e2e3e4
+}
+
+.button-text-color{
+  color:#e2e3e4;
+}
+
+/* 원래 우리 프로젝트에서는 잘 안쓰는 색인데
+디스코드 따라함 */
+.dialog-title{
+  color: #ffffff !important; 
+  font-size: 20pt !important;
+}
+.dialog-content{
+  color: #b9bbbe !important;
+  
+}
+.dialog-content-text{
+  color: #b9bbbe !important;
+  font-size: 10pt !important;
+
+}
+/* input focus 시 밑줄 색깔 */
+.css-1tcs2i1-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: 2px solid #5865f2 !important;
+}
+
+.dialog-input :focus{
+  color: #dcddde;
+  background-color: #42464d;
+}

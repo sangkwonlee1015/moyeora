@@ -1,0 +1,141 @@
+.buttonsContent{
+  display: flex;
+  bottom: 60px;
+  margin-left: 5px;
+}
+.component-video-all{
+  display: flex;
+  position: fixed;
+  left: 330px;
+  top: 600px;
+  z-index: 3;
+}
+.component-video-mine{
+  margin: 0 10px 0 0px;
+}
+.component-video-others{
+  /* margin:  */
+}
+
+.OvVideoComponent-Icon{
+  display: flex;
+}
+.statusIcons{
+
+}
+/* 자기 비디오 옆에 나오는 아이콘 없애버림 
+.statusIcons-videocam-off{
+  color: #202225;
+}
+.statusIcons-mic-off{
+  color: #202225;
+}
+*/
+.statusIcons-volumn-off{
+  color: #202225;
+}
+.statusIcons-volumn-on{
+  color: #5ab376;
+}
+
+
+/* ---------------------------------------------------------- */
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root{
+  left: 13px;
+  bottom: 10px;
+}
+.navMicButton{
+  color: #5ab376;
+  position: relative;
+}
+.navCamButton{
+  color: #5ab376;
+  position: relative;
+}
+.navLeaveButton{
+  color: #202225  !important;
+}
+
+.VideocamOffIcon{
+  color: #202225 !important;
+  position: relative;
+}
+.MicOff{
+  color: #202225 !important;
+  position: relative;
+}
+/* ---------------------------------------------------------- */
+.navMicButton_rectangle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 65px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navMicButton_rectangle:hover {
+  background: #3ba55d;
+  border-radius: 10px;
+}
+.navMicButton_rectangle:hover svg{
+  color: #e2e3e4;
+}
+
+/* ---------------------------------------------------------- */
+
+.navCamButton_rectangle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 65px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navCamButton_rectangle:hover {
+  background: #3ba55d;
+  border-radius: 10px;
+}
+.navCamButton_rectangle:hover svg{
+  color: #e2e3e4;
+}
+/* ---------------------------------------------------------- */
+
+.navLeaveButton_rectangle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 30%;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navLeaveButton_rectangle:hover {
+  background: #3ba55d;
+  border-radius: 700%;
+}
+.navLeaveButton_rectangle:hover svg{
+  color: #e2e3e4;
+}

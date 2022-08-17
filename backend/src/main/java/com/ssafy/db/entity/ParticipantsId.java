@@ -9,15 +9,15 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class ParticipantsId implements Serializable {
-    @Column(name = "room_seq")
-    private Long roomSeq;
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "channel_seq")
+    private Long channelSeq;
+    @Column(name = "user_seq")
+    private Long userSeq;
 
     public ParticipantsId(){}
 
-    public ParticipantsId(String userId, Long roomSeq) {
-        this.userId = userId;
-        this.roomSeq = roomSeq;
+    public ParticipantsId(Long userSeq, Long channelSeq) {
+        this.userSeq = userSeq;
+        this.channelSeq = channelSeq;
     }
 }

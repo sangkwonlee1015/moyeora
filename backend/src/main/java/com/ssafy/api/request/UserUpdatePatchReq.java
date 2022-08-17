@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("UserUpdatePatchReq")
+@ApiModel("UserUpdatePatchRequest")
 public class UserUpdatePatchReq {
     @ApiModelProperty(name="User Name")
     String userName;

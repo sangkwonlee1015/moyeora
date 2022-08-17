@@ -1,0 +1,20 @@
+.container_intro{
+    width: 100%;
+    text-align: center;
+    background-color: dodgerblue;
+}
+.homepage-create-channel{
+  background-color: red;
+  width: max-content;
+  border: none;
+  height: 1cm;
+}
+
+.homepage-search-channel{
+  background-color: red;
+  width: max-content;
+  border: none;
+  height: 1cm;
+
+
+}
