@@ -312,7 +312,7 @@ class VideoRoomComponent extends Component {
           micStatusChanged={this.micStatusChanged}
           leaveSession={this.leaveSession}
         />
-        <div className="component-video-test">
+        <div className="component-video-all">
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
               <div className="component-video-mine">
