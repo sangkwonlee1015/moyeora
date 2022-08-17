@@ -42,6 +42,7 @@ class VideoRoomComponent extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.checkSize);
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -298,13 +299,6 @@ class VideoRoomComponent extends Component {
 
     return (
       <div className="container_button">
-        <button
-          onClick={() => {
-            this.joinSession();
-          }}
-        >
-          채널 참여하기
-        </button>
         <ToolbarComponent
           sessionId={mySessionId}
           user={localUser}
