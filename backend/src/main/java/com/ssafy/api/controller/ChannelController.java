@@ -29,6 +29,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -244,6 +245,9 @@ public class ChannelController {
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "unauthorized"));
 
         List<Object[]> list = textStorageRepository.findTextInfoByChannelSeq(channelSeq);
+        list.forEach((arr) -> {
+            arr[3] = user.getUserSeq().equals(arr[3]);
+        });
 
         return ResponseEntity.status(200).body(GetTextListRes.of(200, "success", list));
     }
