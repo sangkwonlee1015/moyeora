@@ -38,7 +38,7 @@ sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/container/MapPage.js
 
 
 
-
+rm -rf deployfolder
 mkdir deployfolder
 cd ./backend
 #build
