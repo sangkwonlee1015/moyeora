@@ -6,13 +6,39 @@
 .component-video-test{
   display: flex;
   position: fixed;
-  left: 350px;
-  top: 550px;
+  left: 330px;
+  top: 600px;
   z-index: 3;
 }
-.statusIcons{
-  width: fit-content;
+.component-video-mine{
+  margin: 0 10px 0 0px;
 }
+.component-video-others{
+  /* margin:  */
+}
+
+.OvVideoComponent-Icon{
+  display: flex;
+}
+.statusIcons{
+
+}
+/* 자기 비디오 옆에 나오는 아이콘 없애버림 
+.statusIcons-videocam-off{
+  color: #202225;
+}
+.statusIcons-mic-off{
+  color: #202225;
+}
+*/
+.statusIcons-volumn-off{
+  color: #202225;
+}
+.statusIcons-volumn-on{
+  color: #5ab376;
+}
+
+
 /* ---------------------------------------------------------- */
 .css-78trlr-MuiButtonBase-root-MuiIconButton-root{
   right: 10px;
