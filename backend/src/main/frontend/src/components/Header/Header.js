@@ -128,41 +128,46 @@ export default function Header(props) {
         channelPassword: channelPassword,
         channelSeq,
       };
-      registerParticipant(participantInfo, token, success, error);
-      let list = [];
-      getParticipantListByUser(
+      registerParticipant(
+        participantInfo,
         token,
-        (response) => {
-          dispatch(SET_CHANNELLIST(list));
-          response.data.list.map((participant) => {
-            getChannelInfo(
-              participant.participantsId.channelSeq,
-              token,
-              ({ data }) => {
-                let channel = {
-                  channelSeq: participant.participantsId.channelSeq,
-                  channelDesc: data.channelDesc,
-                  channelName: data.channelName,
-                  channelTag: data.channelTag,
-                  channelImageId: data.uploadedImage,
-                };
-                list = list.concat(channel);
-                dispatch(SET_CHANNELLIST(list));
-                // setChannelList(list);
-              },
-              (error) => {
-                console.log("error", error);
-              }
-            );
-          });
+        (res) => {
+          let list = [];
+          getParticipantListByUser(
+            token,
+            (response) => {
+              dispatch(SET_CHANNELLIST(list));
+              response.data.list.map((participant) => {
+                getChannelInfo(
+                  participant.participantsId.channelSeq,
+                  token,
+                  ({ data }) => {
+                    let channel = {
+                      channelSeq: participant.participantsId.channelSeq,
+                      channelDesc: data.channelDesc,
+                      channelName: data.channelName,
+                      channelTag: data.channelTag,
+                      channelImageId: data.uploadedImage,
+                    };
+                    list = list.concat(channel);
+                    dispatch(SET_CHANNELLIST(list));
+                    // setChannelList(list);
+                  },
+                  (error) => {
+                    console.log("error", error);
+                  }
+                );
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+          console.log("===============성공");
+          handleClose();
         },
-        (error) => {
-          console.log(error);
-        }
+        error
       );
-      console.log("===============성공");
-      handleClose();
-
       // part
     };
 

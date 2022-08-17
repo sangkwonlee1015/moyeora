@@ -161,6 +161,8 @@ function Sidebar(props) {
               }
             );
             break;
+          case "KICKOUT_CHANNEL":
+            break;
           default:
         }
       });
