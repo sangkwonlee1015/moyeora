@@ -3,7 +3,10 @@ import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
-import { getParticipantListByUser, registerParticipant } from "../api/participant";
+import {
+  getParticipantListByUser,
+  registerParticipant,
+} from "../api/participant";
 import { SET_CHANNELLIST } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
@@ -143,6 +146,12 @@ function SearchChannel() {
   const onChangeSearchName = (e) => {
     setSearchName(e.target.value);
   };
+
+  // const ImageView = (image)=>{
+  //   if (image === "AA=="){
+  //     return (<img src=`url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2")`/>)
+  //   }
+  // }
   return (
     <div className="Layout">
       <div className="search">
@@ -163,69 +172,74 @@ function SearchChannel() {
           value={limit}
           onChange={({ target: { value } }) => setLimit(Number(value))}
         >
+          <option value="6">6</option>
           <option value="10">10</option>
-          <option value="12">12</option>
           <option value="20">20</option>
           <option value="50">50</option>
-          <option value="100">100</option>
         </select>
       </label>
 
       <div className="main">
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
-            <div
-              style={{
-                background: `url("data:image;base64, " + {channel.uploadedImage})`,
-              }}
-            >
-              <div className="card-header-is_closed">
-                <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+            <div className="card-header-is_closed">
+              <div className="card-header-text"> 모집중 </div>
+              <div className="card-header-number">
+                {" "}
+                {channel.participantsCount} / 6
               </div>
             </div>
+            {/* {ImageView(channel.uploadedImage)} */}
             <Box
               className="card-header"
               component="img"
               sx={{
                 height: 270,
                 width: 350,
-                maxHeight: { xs: 270, md: 167 },
+                maxHeight: { xs: 270, md: 250 },
                 maxWidth: { xs: 350, md: 250 },
               }}
               alt="The house from the offer."
-              src={"data:image;base64, " + channel.uploadedImage}
+              src={channel.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channel.uploadedImage}
             ></Box>
 
             <div className="card-body">
               <div className="card-body-header">
                 <h1>채널 제목 : {channel.channel.channelName}</h1>
-                <p className="card-body-hashtag">채널 태그 : {channel.channel.channelTag}</p>
+                <p className="card-body-hashtag">
+                  채널 태그 : {channel.channel.channelTag}
+                </p>
                 <p className="card-body-nickname">
-                  채널주인장: {channel.channel.userSeq} (일단은 userSeq -> 없애던지 네임으로 하던지)
+                  채널주인장: {channel.channel.userSeq} (일단은 userSeq ->
+                  없애던지 네임으로 하던지)
                 </p>
               </div>
               <div className="card-body-description">
                 <p>채널 설명 :{channel.channel.channelDesc}</p>
               </div>
-            </div>
-            <div>
-              <button
-                onClick={() => {
-                  if (channel.channel.channelPassword) {
-                    handleOpen();
-                    setSecretChannel(channel.channel);
-                  } else onRegisterChannel(channel.channel);
-                }}
-              >
-                채널 추가
-              </button>
+              <div className="card-body-button">
+                <button
+                  onClick={() => {
+                    if (channel.channel.channelPassword) {
+                      handleOpen();
+                      setSecretChannel(channel.channel);
+                    } else onRegisterChannel(channel.channel);
+                  }}
+                >
+                  채널 추가
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
       <footer>
-        <Pagination total={channellistview.length} limit={limit} page={page} setPage={setPage} />
+        <Pagination
+          total={channellistview.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </footer>
       <Dialog
         open={open}
@@ -236,7 +250,10 @@ function SearchChannel() {
       >
         <DialogTitle className="dialog-title">{"비밀번호 입력"}</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
+          <DialogContentText
+            id="alert-dialog-slide-description"
+            className="dialog-content-text"
+          >
             <label htmlFor="channelSecret" className="input-label">
               비밀번호
             </label>
