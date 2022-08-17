@@ -14,7 +14,7 @@
   padding: 0.3rem;
 }
 
-.chatting-bar:hover {
+.chatting-bar:hover { 
   background-color: #42464d;
 }
 
@@ -35,6 +35,14 @@
 }
 .mapListItem > div:hover {
   background-color: #42464d;
+}
+
+.mapListItem > div:hover .settings-outline{
+  color: rgb(120, 120, 120);
+}
+
+.mapListItem > div:hover .trash-outline{
+  color: rgb(120, 120, 120);
 }
 
 .mapPlusButton {

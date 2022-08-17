@@ -6,7 +6,7 @@
 .component-video-all{
   display: flex;
   position: fixed;
-  left: 35vh;
+  left: 35vw;
   bottom: 1vh;
   z-index: 3;
 }
