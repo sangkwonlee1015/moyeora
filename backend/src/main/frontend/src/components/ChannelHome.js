@@ -107,7 +107,7 @@ function ChannelHome(props) {
         <div>
           <br />
           현재 채널 참여자 목록:{" "}
-          <div style={{ display: "flex", margin: "3px"}}>
+          <div style={{ display: "flex", margin: "3px", flexWrap: "wrap"}}>
             {pList.map((item, index) => {
               return (
                 <ChannelParticipant
