@@ -1,9 +1,9 @@
 import React from 'react';
 //import ReactDOM from 'react-dom/client';  // react 18
 import ReactDOM from 'react-dom'; // react ~17
-// import './index.css';                   //master error
+import './index.css';
 import App from './container/App';
-// import reportWebVitals from './reportWebVitals'; //master error
+import reportWebVitals from './reportWebVitals';
 
 // redux
 import { Provider } from 'react-redux';
