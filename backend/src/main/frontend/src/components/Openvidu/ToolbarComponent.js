@@ -41,7 +41,7 @@ export default class ToolbarComponent extends Component {
     const localUser = this.props.user;
     return (
       <div className="buttonsContent">
-        <div className="navMicButton_circle">
+        <div className="navMicButton_rectangle">
           <IconButton onClick={this.micStatusChanged}>
             {localUser !== undefined && localUser.isAudioActive() ? (
               <Mic className="navMicButton" />
@@ -51,7 +51,7 @@ export default class ToolbarComponent extends Component {
           </IconButton>
         </div>
 
-        <div className="navCamButton_circle">
+        <div className="navCamButton_rectangle">
           <IconButton onClick={this.camStatusChanged}>
             {localUser !== undefined && localUser.isVideoActive() ? (
               <Videocam className="navCamButton" />
@@ -60,7 +60,7 @@ export default class ToolbarComponent extends Component {
             )}
           </IconButton>
         </div>
-        {/* <div className="navLeaveButton_circle">
+        {/* <div className="navLeaveButton_rectangle">
           <IconButton onClick={this.leaveSession}>
             <PowerSettingsNew className="navLeaveButton" />
           </IconButton>
