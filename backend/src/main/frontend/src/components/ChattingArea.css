@@ -49,6 +49,5 @@
 }
 
 .pre-text {
-  margin: 3px 0 3px 0;
-  max-width: 1000px;
+  white-space: pre-wrap;
 }
