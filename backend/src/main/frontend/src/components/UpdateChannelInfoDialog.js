@@ -9,9 +9,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Input from "@mui/material/Input";
 import { Checkbox, TextField, Box } from "@mui/material";
 
+import { getChannelInfo } from "../api/channel";
+
 import { getFile, registerFile } from "../api/file";
 
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import React, { useEffect } from "react";
 
 function UpdateChannelInfoDialog({ open, setOpen }) {
   const [channelName, setChannelName] = React.useState("");
@@ -19,10 +23,14 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
   const [checked, setChecked] = React.useState(false);
+  console.log("updateChannelDialog!");
 
-  const [uploadedFile, setUploadedFile] = React.useState(
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-  );
+  const dispatch = useDispatch();
+
+  const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
+  const accessToken = useSelector((state) => state.UserInfo.accessToken);
+
+  const [uploadedFile, setUploadedFile] = React.useState("");
   const [channelImageId, setChannelImageId] = React.useState("");
 
   const onSecret = () => setChecked((current) => !current);
@@ -47,6 +55,34 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
     setChannelTag("");
     setChannelPassword("");
   };
+
+  useEffect(() => {
+    getChannelInfo(
+      channelSeq,
+      accessToken,
+      (response) => {
+        console.log(response.data);
+        setChannelName(response.data.channelName);
+        setChannelDesc(response.data.channelDesc);
+        setChannelTag(response.data.channelTag);
+        if (response.data.uploadedImage !== "") {
+          setUploadedFile("data:image;base64, " + response.data.uploadedImage);
+        } else {
+          setUploadedFile(
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+          );
+        }
+        if (response.data.channelPassword !== "") {
+          setChannelPassword(response.data.channelPassword);
+          setChecked(true);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, [channelSeq]);
+
   return (
     <div>
       <Dialog
@@ -113,7 +149,7 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
             <br />
             <br />
             <Input
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               value={channelName}
               id="channelName"
               className="input"
@@ -131,13 +167,14 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
             </label>
             <br />
             <TextField
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               id="channelDesc"
               multiline
               rows={4}
               defaultValue="간단한 채널 소개를 적어주세요~"
               onChange={onChannelDesc}
               value={channelDesc}
+              className="textField"
             />
             {/* <Input
               value={channelDesc}
@@ -152,7 +189,7 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
             </label>
             <br />
             <Input
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               value={channelTag}
               id="channelTag"
               className="input"
@@ -169,7 +206,7 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
               비밀번호
             </label>
             <Input
-              sx={{ width: "368px", marginLeft: "30px" }}
+              sx={{ width: "69.5%", marginLeft: "30px" }}
               value={channelPassword}
               id="channelPassword"
               className="input"

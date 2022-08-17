@@ -55,15 +55,15 @@
 }
 
 .input {
-  color: #dcddde;
+  color: black;
   /* width: max-content; */
   /* background-color: green */
 }
 /* #42464d; */
 
 .input :focus {
-  color: #dcddde;
-  background-color: #42464d;
+  color: black;
+  background-color: white;
 }
 /* #42464d; */
 

@@ -15,7 +15,13 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { Checkbox, TextField, Box } from "@mui/material";
+import {
+  Checkbox,
+  TextField,
+  Box,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -31,6 +37,7 @@ import { getChannelInfo } from "../../api/channel";
 import { registerParticipant } from "../../api/participant";
 
 import { getFile, registerFile } from "../../api/file";
+import MypageSetting from "../Mypage/MypageSetting";
 
 // import UpdateChannelInfoDialog from "../UpdateChannelInfoDialog";
 
@@ -50,13 +57,15 @@ import { getFile, registerFile } from "../../api/file";
 // });
 
 export default function Header(props) {
+  const [backdropOpen, setBackdropOpen] = React.useState(true);
   // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] = React.useState("간단한 채널 소개를 적어주세요~");
+  const [channelDesc, setChannelDesc] =
+    React.useState("간단한 채널 소개를 적어주세요~");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
 
@@ -153,6 +162,7 @@ export default function Header(props) {
       );
       console.log("===============성공");
       handleClose();
+
       // part
     };
 
@@ -218,7 +228,7 @@ export default function Header(props) {
         </Link>
       </div>
       <div className="header_items headerSetting">
-        <Link to="/mypagesettingpage" onClick={handleClickOpenUser}>
+        <Link to="" onClick={handleClickOpenUser}>
           <FaCog size="20" />
           <span class="tooltiptext">사용자 설정</span>
         </Link>
@@ -323,7 +333,7 @@ export default function Header(props) {
             <br />
             <br />
             <Input
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               value={channelName}
               id="channelName"
               className="input"
@@ -341,16 +351,15 @@ export default function Header(props) {
             </label>
             <br />
             <TextField
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               id="channelDesc"
               multiline
               rows={4}
               onChange={onChannelDesc}
               value={channelDesc}
               fullWidth
-              label="채널 소개"
-              sx={{ input: { color: "red" } }}
               defaultValue="간단한 채널 소개를 적어주세요~"
+              className="textField"
             />
             {/* <Input
               value={channelDesc}
@@ -365,7 +374,7 @@ export default function Header(props) {
             </label>
             <br />
             <Input
-              sx={{ width: "535px" }}
+              sx={{ width: "100%" }}
               value={channelTag}
               id="channelTag"
               className="input"
@@ -383,7 +392,7 @@ export default function Header(props) {
               비밀번호{" "}
             </label>
             <Input
-              sx={{ width: "368px", marginLeft: "30px" }}
+              sx={{ width: "69%", marginLeft: "30px" }}
               value={channelPassword}
               id="channelPassword"
               className="input"
@@ -406,6 +415,12 @@ export default function Header(props) {
           </div>
         </DialogActions>
       </Dialog>
+      <MypageSetting
+        open={openUser}
+        setOpen={(b) => {
+          setOpenUser(b);
+        }}
+      ></MypageSetting>
     </div>
   );
 }

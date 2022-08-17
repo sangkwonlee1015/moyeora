@@ -170,16 +170,16 @@
 }
 
 .input {
-  color: #dcddde;
+  color: black;
   font-style: initial;
   width: max-content;
-  background-color: rgb(32, 30, 30);
+  background-color: white;
 }
 /* #42464d; */
 
 .input :focus {
-  color: #dcddde;
-  background-color: #42464d;
+  color: black;
+  background-color: white;
 }
 /* #42464d; */
 
@@ -197,4 +197,8 @@
 .header_chName {
   width: max-content;
   transform: translateX(-30%);
+}
+.textField {
+  background-color: white;
+  color: black;
 }

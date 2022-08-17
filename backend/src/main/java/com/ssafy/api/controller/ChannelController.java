@@ -130,10 +130,10 @@ public class ChannelController {
 //                this.mapSessionNamesTokens.get(sessionName).put(token, OpenViduRole.PUBLISHER);
         FileDB f = fileDBService.getFile(channel.getChannelImageId());
         if (f == null){
-            byte[] temp = new byte[1];
-            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp));
+            byte[] temp = new byte[0];
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), temp, channel.getChannelPassword()));
         }else
-            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData()));
+            return ResponseEntity.status(200).body(GetChannelInfoRes.of(200, "success", channel.getChannelName(), channel.getChannelDesc(), channel.getChannelTag(), f.getData(), channel.getChannelPassword()));
 
 //            } catch (OpenViduJavaClientException e1) {
 //                // If internal error generate an error message and return it to client

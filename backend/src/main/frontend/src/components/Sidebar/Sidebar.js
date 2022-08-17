@@ -15,6 +15,7 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import SockJS from "sockjs-client";
 import StompJs from "stompjs";
+import { Backdrop, CircularProgress } from "@mui/material";
 import { getChannelInfo } from "../../api/channel";
 import {
   ADD_PIN,
@@ -40,10 +41,12 @@ function Sidebar(props) {
     setMapName("");
   };
   const handleOpen = () => setOpen(true);
+  const [backdropOpen, setBackdropOpen] = useState(true);
 
   console.log("channelSeq: " + channelSeq + " / userNick: " + userNick);
 
   useEffect(() => {
+    setBackdropOpen(true);
     const sock = new SockJS("http://localhost:8080/ws");
     const stomp = StompJs.over(sock);
 
@@ -148,6 +151,7 @@ function Sidebar(props) {
           default:
         }
       });
+      setBackdropOpen(false);
     });
     return () => {
       stomp.disconnect(() => {
@@ -206,6 +210,16 @@ function Sidebar(props) {
 
   return (
     <div className="sidebar">
+      <Backdrop
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={backdropOpen}
+      >
+        <CircularProgress />
+      </Backdrop>
       <Chatting />
       <div className="mapListItem">
         MapList
