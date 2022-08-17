@@ -64,12 +64,5 @@ npm run build
 
 rm -rf ../../../../deployfolder/build
 cp -r build ../../../../deployfolder
-#cd ../../../../
-#ls -al
-#ls -al deploy
-
-
-
-#nohup java -jar *.jar &
 
 
