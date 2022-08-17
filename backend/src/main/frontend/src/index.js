@@ -1,7 +1,7 @@
 import React from 'react';
 //import ReactDOM from 'react-dom/client';  // react 18
 import ReactDOM from 'react-dom'; // react ~17
-import './index.css';
+// import './index.css';
 import App from './container/App';
 import reportWebVitals from './reportWebVitals';
 
