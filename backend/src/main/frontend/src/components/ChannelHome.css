@@ -1,6 +1,5 @@
 .channel-home{
   width: 100%;
-  background-color: coral;
 }
 
 
@@ -25,4 +24,9 @@
 
 .channel-tag{
   font-size: 15pt;
+}
+.server-home {
+  width: 100%;
+  background-image: url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
+  background-size: cover;
 }
