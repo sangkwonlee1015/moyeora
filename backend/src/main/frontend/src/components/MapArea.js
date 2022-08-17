@@ -200,7 +200,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
 
       <Button
         variant="contained"
-        style={{ position: "fixed", zIndex: 1, top: 10, left: 350 }}
+        style={{ position: "fixed", zIndex: 1, top: 10, left: 350, height: "38px", backgroundColor: "#2f3136" }}
         onClick={() => {
           setVisibleSearchPinDialog(true);
         }}

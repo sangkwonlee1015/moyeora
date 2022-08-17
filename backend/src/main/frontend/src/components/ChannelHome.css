@@ -1,20 +1,19 @@
 .channel_homepage {
   width: 100%;
-  /* background-image: url(../assets/LoginBackground2.png); */
-  /* background-size: cover; */
-  background-color: #1d3557;
+  /* background-color: #1d3557; */
   display: flex;
   justify-content: center;
   align-items: center;
-
+  background-image: url(../assets/channelHomeBack1.png);
+  background-size: cover;
 }
 .channel-home{
   width: 100%;
 }
 .channel-background{
-  width: 80%;
-  min-height: 600px;
-  max-height: 800px;
+  width: 65%;
+  min-height: 70vh;
+  max-height: 80vh;
   padding: 20px;
   background-color: #f1faee;
   border-radius: 10px;
@@ -51,12 +50,12 @@
   height: 30px;
   bottom: 5px;
   right: 5px;
-  background-color: #457b9d;
+  background-color: #5ba8d7;
   border-radius: 5px;
   border: #457b9d 1px;
 }
 .channel_Home_Button:hover {
-  background-color: #5ba8d7;
+  background-color: #3e9dd8;
   cursor: pointer;
 }
 .userFlex {
