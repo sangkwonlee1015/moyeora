@@ -11,6 +11,9 @@ sed -i 's/8080/8081/g' ./backend/src/main/resources/application.properties
 sed -i 's/1234/ssafy/g' ./backend/src/main/resources/application.properties
 sed -i 's/root/ssafy/g' ./backend/src/main/resources/application.properties
 sed -i 's/4443/8443/g' ./backend/src/main/resources/application.properties
+sed -i 's/https:\/\/localhost/https:\/\/i7a407.p.ssafy.io:8443/g' ./backend/src/main/resources/application.properties
+
+
 
 sed -i 's/localhost:8080/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/api/index.js
 sed -i 's/localhost:8080/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/components/MapArea.js
@@ -19,7 +22,7 @@ sed -i 's/localhost:8080/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/co
 sed -i 's/localhost:8080/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/container/MapPage.js
 sed -i 's/localhost/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/components/Openvidu/VideoRoomComponent.js
 sed -i 's/4443/8443/g' ./backend/src/main/frontend/src/components/Openvidu/VideoRoomComponent.js
-
+sed -i 's/localhost:8080/i7a407.p.ssafy.io/g' ./backend/src/main/frontend/src/container/ChattingPage.js
 
 
 sed -i 's/http/https/g' ./backend/src/main/frontend/src/api/index.js
@@ -27,12 +30,15 @@ sed -i 's/http/https/g' ./backend/src/main/frontend/src/components/MapArea.js
 sed -i 's/http/https/g' ./backend/src/main/frontend/src/components/Header/ChannelTest.js
 sed -i 's/http/https/g' ./backend/src/main/frontend/src/components/Sidebar/Sidebar.js
 sed -i 's/http/https/g' ./backend/src/main/frontend/src/container/MapPage.js
+sed -i 's/http/https/g' ./backend/src/main/frontend/src/container/ChattingPage.js
+
 
 sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/api/index.js
 sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/components/MapArea.js
 sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/components/Header/ChannelTest.js
 sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/components/Sidebar/Sidebar.js
 sed -i 's/httpss/https/g' ./backend/src/main/frontend/src/container/MapPage.js
+sed -i 's/httpss/https/g' /home/ubuntu/$folder/backend/src/main/frontend/src/container/ChattingPage.js
 
 
 
@@ -63,7 +69,7 @@ cp -r build ../../../../deployfolder
 #ls -al deploy
 
 
-kill -9 `ps -ef|grep ssafy|awk '{print $2}'`
+# kill -9 `ps -ef|grep ssafy|awk '{print $2}'`
 #nohup java -jar *.jar &
 
 
