@@ -8,6 +8,7 @@ export const tokenSlice = createSlice({
       userName: null,
       userNick: null,
       userPhone: null,
+      userSeq: null,
     },
     loggedIn: false,
   },
@@ -27,6 +28,7 @@ export const tokenSlice = createSlice({
   },
 });
 
-export const { SET_TOKEN, SET_USERINFO, SET_LOGIN, SET_LOGOUT } = tokenSlice.actions;
+export const { SET_TOKEN, SET_USERINFO, SET_LOGIN, SET_LOGOUT } =
+  tokenSlice.actions;
 
 export default tokenSlice.reducer;

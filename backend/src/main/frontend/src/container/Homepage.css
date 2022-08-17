@@ -50,7 +50,7 @@
 
 .chattingarea {
   width: 100%;
-  background-color: aliceblue;
+  background-color: #53a7aa;
 }
 
 .maparea {
@@ -66,4 +66,8 @@
 .mappage {
   height: 85%;
   overflow: visible;
+}
+.textarea-input {
+  border: #53a7aa 3px;
+  border-radius: 10px;
 }

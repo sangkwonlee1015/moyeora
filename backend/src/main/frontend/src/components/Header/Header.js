@@ -65,7 +65,7 @@ export default function Header(props) {
 
   const [channelName, setChannelName] = React.useState("");
   const [channelDesc, setChannelDesc] =
-    React.useState("간단한 채널 소개를 적어주세요~");
+    React.useState("");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
 
@@ -128,41 +128,46 @@ export default function Header(props) {
         channelPassword: channelPassword,
         channelSeq,
       };
-      registerParticipant(participantInfo, token, success, error);
-      let list = [];
-      getParticipantListByUser(
+      registerParticipant(
+        participantInfo,
         token,
-        (response) => {
-          dispatch(SET_CHANNELLIST(list));
-          response.data.list.map((participant) => {
-            getChannelInfo(
-              participant.participantsId.channelSeq,
-              token,
-              ({ data }) => {
-                let channel = {
-                  channelSeq: participant.participantsId.channelSeq,
-                  channelDesc: data.channelDesc,
-                  channelName: data.channelName,
-                  channelTag: data.channelTag,
-                  channelImageId: data.uploadedImage,
-                };
-                list = list.concat(channel);
-                dispatch(SET_CHANNELLIST(list));
-                // setChannelList(list);
-              },
-              (error) => {
-                console.log("error", error);
-              }
-            );
-          });
+        (res) => {
+          let list = [];
+          getParticipantListByUser(
+            token,
+            (response) => {
+              dispatch(SET_CHANNELLIST(list));
+              response.data.list.map((participant) => {
+                getChannelInfo(
+                  participant.participantsId.channelSeq,
+                  token,
+                  ({ data }) => {
+                    let channel = {
+                      channelSeq: participant.participantsId.channelSeq,
+                      channelDesc: data.channelDesc,
+                      channelName: data.channelName,
+                      channelTag: data.channelTag,
+                      channelImageId: data.uploadedImage,
+                    };
+                    list = list.concat(channel);
+                    dispatch(SET_CHANNELLIST(list));
+                    // setChannelList(list);
+                  },
+                  (error) => {
+                    console.log("error", error);
+                  }
+                );
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+          console.log("===============성공");
+          handleClose();
         },
-        (error) => {
-          console.log(error);
-        }
+        error
       );
-      console.log("===============성공");
-      handleClose();
-
       // part
     };
 
@@ -288,7 +293,7 @@ export default function Header(props) {
               sx={{
                 border: "3px solid #000000",
                 // height: "auto",
-                width: "100%",
+                width: "80%",
                 borderRadius: 3,
               }}
               // className="gradient-border"
@@ -337,6 +342,7 @@ export default function Header(props) {
               value={channelName}
               id="channelName"
               className="input"
+              placeholder="채널 이름..."
               onChange={onChannelName}
               // inputRef={(input) => {
               //   if(input != null) {
@@ -358,7 +364,7 @@ export default function Header(props) {
               onChange={onChannelDesc}
               value={channelDesc}
               fullWidth
-              defaultValue="간단한 채널 소개를 적어주세요~"
+              placeholder="간단한 채널 소개를 적어주세요~"
               className="textField"
             />
             {/* <Input
@@ -380,6 +386,7 @@ export default function Header(props) {
               className="input"
               onChange={onChannelTag}
               fullWidth
+              placeholder="#여행 #바다 #서핑..."
             ></Input>
             <br />
             <br />

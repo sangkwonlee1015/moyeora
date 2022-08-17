@@ -27,6 +27,7 @@ public class ChatMessage {
     private String textContent;
     private String channelSeq;
     private String textSeq;
+    private String targetUserSeq;
 
     public ChatMessage(Status status, String sender, String receiver, String lat, String lng, String pinContent, String pinColor, String mapSeq, String pinSeq) {
         this.status = status;
