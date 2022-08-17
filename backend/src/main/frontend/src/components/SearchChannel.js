@@ -183,7 +183,7 @@ function SearchChannel() {
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
             <div className="card-header-is_closed">
-              <div className="card-header-text"> 모집중 </div>
+              <div className="card-header-text"> {channel.participantsCount<6 ? "모집중" : "풀방"}</div>
               <div className="card-header-number">
                 {" "}
                 {channel.participantsCount} / 6
