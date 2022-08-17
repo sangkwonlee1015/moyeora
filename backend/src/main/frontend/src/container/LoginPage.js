@@ -85,6 +85,7 @@ const LoginPage = () => {
         setUserNick("");
         setUserPhone("");
         setIsSignUp(false);
+        alert("회원가입 성공!");
       },
       (error) => {
         alert(error.response.data.message);
