@@ -332,10 +332,10 @@ export default function Header(props) {
               ></input>
             </Button>
             <br />
+            <br />
             <label for="channelName" className="input-label">
               채널 이름
             </label>
-            <br />
             <br />
             <Input
               sx={{ width: "100%" }}
