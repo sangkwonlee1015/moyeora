@@ -6,6 +6,11 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { deleteParticipantByLeader } from "../api/participant";
 import { useSelector } from "react-redux";
+import SockJS from "sockjs-client";
+import StompJs from "stompjs";
+import { getChannelInfo } from "../api/channel";
+import { SET_CHANNELTOKEN } from "../redux/ChannelList";
+import { createHeaders } from "../api";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -35,7 +40,28 @@ function ChannelParticipant({ userSeq, leader }) {
     userName: "",
     userNick: "",
   });
+  // const sock = new SockJS("http://localhost:8080/ws");
+  const sock = new SockJS("https://i7a407.p.ssafy.io/ws");
+  const stomp = StompJs.over(sock);
   console.log(participantInfo);
+
+  useEffect(() => {
+    stomp.connect({}, (e) => {});
+    getChannelInfo(
+      channelSeq,
+      accessToken,
+      (response) => {
+        SET_CHANNELTOKEN(response.data.token);
+        console.log("channelToken: " + response.data.token);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    return () => {
+      stomp.disconnect(() => {});
+    };
+  }, []);
 
   useEffect(() => {
     getUserNick(
@@ -45,6 +71,7 @@ function ChannelParticipant({ userSeq, leader }) {
         setParticipantInfo({
           userName: response.data.userName,
           userNick: response.data.userNick,
+          userSeq: userSeq,
         });
       },
       (error) => {
@@ -58,17 +85,19 @@ function ChannelParticipant({ userSeq, leader }) {
   return (
     <div>
       <div className="abc">
-        <Item sx={{
-          width: 200,
-          height: "auto",
-          color: "#455874",
-          margin: "3px",
-          backgroundColor: '#202225',
-          '&:hover': {
-            backgroundColor: '#2f3136',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}>
+        <Item
+          sx={{
+            width: 200,
+            height: "auto",
+            color: "#455874",
+            margin: "3px",
+            backgroundColor: "#202225",
+            "&:hover": {
+              backgroundColor: "#2f3136",
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+        >
           <div>
             참여자 이름: {participantInfo.userName} <br />
             참여자 닉네임: {participantInfo.userNick}
@@ -82,6 +111,18 @@ function ChannelParticipant({ userSeq, leader }) {
                   accessToken,
                   (response) => {
                     console.log(response.data);
+                    if (stomp) {
+                      let chatMessage = {
+                        receiver: channelSeq,
+                        targetUserSeq: participantInfo.userSeq,
+                        status: "KICKOUT_CHANNEL",
+                      };
+                      stomp.send(
+                        "/app/private-message",
+                        createHeaders(accessToken),
+                        JSON.stringify(chatMessage)
+                      );
+                    }
                   },
                   (error) => {
                     console.log(error);
