@@ -265,11 +265,12 @@ function Sidebar(props) {
       </div>
       {/* <Ov /> */}
       <UserInfo channelSeq={channelSeq} />
-      <VideoRoomComponent
-        key={channelSeq}
-        sessionName={channelSeq}
-        user={userNick}
-      ></VideoRoomComponent>
+      <div key={channelSeq}>
+        <VideoRoomComponent
+          sessionName={channelSeq}
+          user={userNick}
+        ></VideoRoomComponent>
+      </div>
     </div>
   );
 }

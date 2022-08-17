@@ -1,0 +1,108 @@
+.buttonsContent{
+  display: flex;
+  margin-left: 10px;
+  bottom: 60px;
+}
+.component-video-test{
+  display: flex;
+}
+.statusIcons{
+  width: fit-content;
+}
+/* ---------------------------------------------------------- */
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root{
+  right: 10px;
+  bottom: 10px;
+}
+.navMicButton{
+  color: #5ab376;
+  /* font-size: 40px; */
+}
+.navCamButton{
+  color: #5ab376;
+}
+.navLeaveButton{
+  color: #202225  !important;
+}
+
+.VideocamOffIcon{
+  color: #202225 !important;
+}
+.MicOff{
+  color: #202225 !important;
+}
+/* ---------------------------------------------------------- */
+.navMicButton_circle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 50%;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navMicButton_circle:hover {
+  background: #3ba55d;
+  border-radius: 30%;
+}
+.navMicButton_circle:hover svg{
+  color: #e2e3e4;
+}
+
+/* ---------------------------------------------------------- */
+
+.navCamButton_circle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 50%;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navCamButton_circle:hover {
+  background: #3ba55d;
+  border-radius: 30%;
+}
+.navCamButton_circle:hover svg{
+  color: #e2e3e4;
+}
+/* ---------------------------------------------------------- */
+
+.navLeaveButton_circle{
+  list-style: none;
+  padding-left: 0px;
+  margin: 0.5rem;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  text-decoration-line: none;
+  font-size: 18px;
+  border-radius: 50%;
+  font-family: inherit;
+  background-color: rgb(120, 120, 120);
+  padding: 1.1rem;
+  margin-top: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.navLeaveButton_circle:hover {
+  background: #3ba55d;
+  border-radius: 30%;
+}
+.navLeaveButton_circle:hover svg{
+  color: #e2e3e4;
+}

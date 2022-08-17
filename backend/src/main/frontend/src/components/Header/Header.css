@@ -4,7 +4,7 @@
   background-color: #202225;
   /* overflow-x: scroll; */
   /* overflow-y: hidden; */
-  }
+}
 .container::-webkit-scrollbar {
   width: 0;
   height: 0;
@@ -16,7 +16,7 @@
   padding-left: 0px;
   margin: 0.7rem 0.5rem 0 0.5rem;
   position: relative;
-   /* display: inline-block; */
+  /* display: inline-block; */
 }
 
 /* 채널 목록에만 적용하는 header_item css */
@@ -25,9 +25,9 @@
   padding-left: 0px;
   margin: 0.7rem 0 0 0;
   position: relative;
- }
+}
 
-.header_items a{
+.header_items a {
   width: 20px;
   height: 20px;
   text-decoration-line: none;
@@ -36,46 +36,45 @@
   font-family: inherit;
   display: block;
   border-radius: 50%;
-  background: #36393F;
+  background: #36393f;
   padding: 1.1rem;
   margin-top: 0.5rem;
   transition: 0.3s ease-in-out;
-
 }
 
 /* 홈버튼 후버 색깔 */
-.header_items a:hover{
+.header_items a:hover {
   background: #5865f2;
   border-radius: 30%;
 }
 
 /* 채널추가하기 채널살펴보기 사용자설정 아이콘색깔 */
-.headerSetting svg{
+.headerSetting svg {
   color: #5ab376;
 }
 
 /* 채널추가하기 채널살펴보기 사용자설정 후버 */
-.headerSetting a:hover{
+.headerSetting a:hover {
   background: #3ba55d;
   border-radius: 30%;
 }
 
 /* 채널목록 후버 */
-.headerSetting2 a:hover{
+.headerSetting2 a:hover {
   background: #5865f2;
   border-radius: 30%;
 }
 
 /* 채널추가하기 채널살펴보기 사용자설정 후버 색깔*/
-.headerSetting a:hover svg{
+.headerSetting a:hover svg {
   color: #e2e3e4;
   /* color: white; */
 }
 
-
 /* 홈 아이콘 위치 */
-.header_items .home_svg{
-  position: absolute; transform: translateX(-25%) translateY(-25%);
+.header_items .home_svg {
+  position: absolute;
+  transform: translateX(-25%) translateY(-25%);
 }
 .tooltiptext {
   visibility: hidden;
@@ -93,10 +92,10 @@
   position: absolute;
   z-index: 1000;
   top: 10px;
-  left: 130%; 
- }
+  left: 130%;
+}
 
-.tooltiptext::after{
+.tooltiptext::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -106,43 +105,41 @@
   border-style: solid;
   border-color: transparent #18191c transparent transparent;
   z-index: 1000;
- }
+}
 
 .header_items a:hover .tooltiptext {
   visibility: visible;
   overflow: visible;
 }
 
-
-.dialog{
+.dialog {
 }
 
-.dialogtext{
-  color: #dcddde; 
+.dialogtext {
+  color: #dcddde;
   background-color: #2f3136;
 }
 
-.dialog-title{
-  color: #dcddde; 
+.dialog-title {
+  color: #dcddde;
   background-color: #2f3136;
 }
-.dialog-content{
-  color: #dcddde; 
+.dialog-content {
+  color: #dcddde;
   background-color: #2f3136;
   padding-top: 20px;
   /* margin-top: 10px; */
 }
 
-/* .dialog-content-text{
-  color: #dcddde; 
-  padding-top: 200px;
-} */
+.dialog-content-text {
+  color: #dcddde;
+  /* padding-top: 50px; */
+}
 
-
-.option-cell{
+.option-cell {
   background-color: #2f3136;
 }
-.cancel-button{
+.cancel-button {
   background-color: #4f545c;
   width: 288px;
   height: 60px;
@@ -151,7 +148,7 @@
   justify-content: center;
   display: flex;
 }
-.accept-button{
+.accept-button {
   background-color: #5865f2;
   width: 288px;
   height: 60px;
@@ -160,12 +157,12 @@
   justify-content: center;
   display: flex;
 }
-.cancel-button-text{
+.cancel-button-text {
   color: #dcddde;
   font-size: 13pt;
   margin: 0 90px;
 }
-.accept-button-text{
+.accept-button-text {
   color: #dcddde;
   font-size: 13pt;
   margin: 0 90px;
@@ -173,24 +170,26 @@
 
 .input {
   color: #dcddde;
+  font-style: initial;
   width: max-content;
-  /* background-color: green */
+  background-color: rgb(32, 30, 30);
 }
 /* #42464d; */
 
-.input :focus{
+.input :focus {
   color: #dcddde;
   background-color: #42464d;
 }
 /* #42464d; */
 
-.input-label{
+.input-label {
   color: #dcddde;
 }
-.input-label :focus{
+.input-label :focus {
   /* color: "warning"; */
 }
 
-.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
   color: #5865f2;
 }

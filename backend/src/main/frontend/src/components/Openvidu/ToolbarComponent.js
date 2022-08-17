@@ -9,8 +9,9 @@ import MicOff from "@mui/icons-material/MicOff";
 import Videocam from "@mui/icons-material/Videocam";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
-
 import IconButton from "@mui/material/IconButton";
+
+import "./Openvidu.css"
 
 // const logo = require("../../assets/images/openvidu_logo.png");
 
@@ -40,43 +41,39 @@ export default class ToolbarComponent extends Component {
     const localUser = this.props.user;
     return (
       <div className="buttonsContent">
-        <IconButton
-          color="inherit"
-          className="navButton"
-          id="navMicButton"
-          onClick={this.micStatusChanged}
-        >
-          {localUser !== undefined && localUser.isAudioActive() ? (
-            <Mic />
-          ) : (
-            <MicOff color="secondary" />
-          )}
-        </IconButton>
+        <div className="navMicButton_circle">
+          <IconButton
+            onClick={this.micStatusChanged}
+          >
+            {localUser !== undefined && localUser.isAudioActive() ? (
+              <Mic className="navMicButton"/>
+            ) : (
+              <MicOff className="MicOff" />
+            )}
+          </IconButton>
+        </div>
+        
+        <div className="navCamButton_circle">
+          <IconButton
+            onClick={this.camStatusChanged}
+          >
+            {localUser !== undefined && localUser.isVideoActive() ? (
+              <Videocam className="navCamButton"/>
+            ) : (
+              <VideocamOffIcon className="VideocamOffIcon"  />
+            )}
+          </IconButton>
+        </div>
 
-        <IconButton
-          color="inherit"
-          className="navButton"
-          id="navCamButton"
-          onClick={this.camStatusChanged}
-        >
-          {localUser !== undefined && localUser.isVideoActive() ? (
-            <Videocam />
-          ) : (
-            <VideocamOffIcon color="secondary" />
-          )}
-        </IconButton>
-
-        <IconButton
-          color="secondary"
-          className="navButton"
-          onClick={this.leaveSession}
-          id="navLeaveButton"
-        >
-          <PowerSettingsNew />
-        </IconButton>
+        <div className="navLeaveButton_circle">
+          <IconButton
+            onClick={this.leaveSession}
+          >
+            <PowerSettingsNew className="navLeaveButton"/>
+          </IconButton>
+        </div>
       </div>
-      // </Toolbar>
-      // </AppBar>
+
     );
   }
 }

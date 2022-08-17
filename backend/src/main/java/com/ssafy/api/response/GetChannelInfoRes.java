@@ -12,14 +12,16 @@ public class GetChannelInfoRes extends BaseResponseBody {
     private String channelName;
     private String channelDesc;
     private String channelTag;
+    private byte[] uploadedImage;
 
-    public static GetChannelInfoRes of (Integer statusCode, String message, String channelName, String channelDesc, String channelTag){
+    public static GetChannelInfoRes of (Integer statusCode, String message, String channelName, String channelDesc, String channelTag, byte[] uploadedImage){
         GetChannelInfoRes res = new GetChannelInfoRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setChannelName(channelName);
         res.setChannelDesc(channelDesc);
         res.setChannelTag(channelTag);
+        res.setUploadedImage(uploadedImage);
         return res;
     }
 

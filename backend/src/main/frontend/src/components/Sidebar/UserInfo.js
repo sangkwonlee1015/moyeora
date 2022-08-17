@@ -42,7 +42,7 @@ function UserInfo(props) {
       getParticipantListByUser(
         token,
         (response) => {
-          dispatch(SET_CHANNELLIST(list))
+          dispatch(SET_CHANNELLIST(list));
           response.data.list.map((participant) => {
             getChannelInfo(
               participant.participantsId.channelSeq,
@@ -53,6 +53,7 @@ function UserInfo(props) {
                   channelDesc: data.channelDesc,
                   channelName: data.channelName,
                   channelTag: data.channelTag,
+                  channelImageId: data.uploadedImage,
                 };
                 list = list.concat(channel);
                 dispatch(SET_CHANNELLIST(list));
@@ -63,8 +64,9 @@ function UserInfo(props) {
                 console.log("error", error);
               }
             );
-          })
-          navigate("/homepage");},
+          });
+          navigate("/homepage");
+        },
         (error) => {
           console.log(error);
         }
@@ -81,9 +83,12 @@ function UserInfo(props) {
   return (
     // <div className="sidebar_test">
     <div className="userinfo">
-      <div className="userinfo_name">hi</div>
+      <div className="userinfo_name"></div>
       <div>
-        <Button onClick={handleOpen}>채널 나가기</Button>
+        
+        <Button onClick={handleOpen}>
+        <div className="exit-channel">채널 나가기</div></Button>
+        
         <Modal
           open={open}
           onClose={handleClose}

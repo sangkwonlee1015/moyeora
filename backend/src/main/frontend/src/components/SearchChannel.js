@@ -1,3 +1,4 @@
+import "./SearchChannel.css";
 import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -18,6 +19,8 @@ import {
   DialogTitle,
   Input,
   Slide,
+  Box,
+  TextField,
 } from "@mui/material";
 
 const Transition = forwardRef(function Transition(
@@ -51,7 +54,7 @@ function SearchChannel() {
       "",
       token,
       (response) => {
-        console.log(response.data);
+        console.log(response.data.channelList);
         setChannellist(response.data.channelList);
         console.log("useeffect channellistview", channellistview);
       },
@@ -114,6 +117,7 @@ function SearchChannel() {
                     channelDesc: data.channelDesc,
                     channelName: data.channelName,
                     channelTag: data.channelTag,
+                    channelImageId: data.uploadedImage,
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
@@ -142,17 +146,23 @@ function SearchChannel() {
   const onChangeSearchName = (e) => {
     setSearchName(e.target.value);
   };
+
+  // const ImageView = (image)=>{
+  //   if (image === "AA=="){
+  //     return (<img src=`url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2")`/>)
+  //   }
+  // }
   return (
     <div className="Layout">
-      <div className="article-search">
-        <input
-          type="text"
-          value={searchName}
+      <div className="search">
+        <TextField
+          id="outlined-basic"
           onChange={onChangeSearchName}
-        ></input>
-        <button type="text" onClick={onSubmitSearchForm}>
-          검색
-        </button>
+          onKeyUp={onSubmitSearchForm}
+          variant="outlined"
+          fullWidth
+          label="채널 이름 검색"
+        />
       </div>
 
       <label>
@@ -162,23 +172,36 @@ function SearchChannel() {
           value={limit}
           onChange={({ target: { value } }) => setLimit(Number(value))}
         >
+          <option value="6">6</option>
           <option value="10">10</option>
-          <option value="12">12</option>
           <option value="20">20</option>
           <option value="50">50</option>
-          <option value="100">100</option>
         </select>
       </label>
 
       <div className="main">
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
-            <div className="card-header">
-              <div className="card-header-is_closed">
-                <div className="card-header-text"> 모집중 </div>
-                <div className="card-header-number"> {channel.participantsCount} / 6</div>
+            <div className="card-header-is_closed">
+              <div className="card-header-text"> 모집중 </div>
+              <div className="card-header-number">
+                {" "}
+                {channel.participantsCount} / 6
               </div>
             </div>
+            {/* {ImageView(channel.uploadedImage)} */}
+            <Box
+              className="card-header"
+              component="img"
+              sx={{
+                height: 270,
+                width: 350,
+                maxHeight: { xs: 270, md: 250 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              alt="The house from the offer."
+              src={channel.uploadedImage==="AA=="?"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2" : "data:image;base64, " + channel.uploadedImage}
+            ></Box>
 
             <div className="card-body">
               <div className="card-body-header">
@@ -187,22 +210,25 @@ function SearchChannel() {
                   채널 태그 : {channel.channel.channelTag}
                 </p>
                 <p className="card-body-nickname">
-                  채널장: {channel.channel.userSeq} (일단은 userSeq)
+                  채널주인장: {channel.channel.userSeq} (일단은 userSeq ->
+                  없애던지 네임으로 하던지)
                 </p>
               </div>
-              <p className="card-body-description">
-                채널 설명 :{channel.channel.channelDesc}
-              </p>
-              <button
-                onClick={() => {
-                  if (channel.channel.channelPassword) {
-                    handleOpen();
-                    setSecretChannel(channel.channel);
-                  } else onRegisterChannel(channel.channel);
-                }}
-              >
-                {channel.channel.channelName} 채널 들어가기
-              </button>
+              <div className="card-body-description">
+                <p>채널 설명 :{channel.channel.channelDesc}</p>
+              </div>
+              <div className="card-body-button">
+                <button
+                  onClick={() => {
+                    if (channel.channel.channelPassword) {
+                      handleOpen();
+                      setSecretChannel(channel.channel);
+                    } else onRegisterChannel(channel.channel);
+                  }}
+                >
+                  채널 추가
+                </button>
+              </div>
             </div>
           </div>
         ))}

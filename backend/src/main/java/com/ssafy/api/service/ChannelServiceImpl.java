@@ -22,6 +22,7 @@ public class ChannelServiceImpl implements ChannelService {
         channel.setChannelName(channelRegisterPostReq.getChannelName());
         channel.setChannelDesc(channelRegisterPostReq.getChannelDesc());
         channel.setChannelTag(channelRegisterPostReq.getChannelTag());
+        channel.setChannelImageId(channelRegisterPostReq.getChannelImageId());
         if (channelRegisterPostReq.getChannelPassword().isEmpty())
             channel.setChannelPassword(null);
         else
@@ -44,6 +45,7 @@ public class ChannelServiceImpl implements ChannelService {
             channel.setChannelName(channelUpdatePatchReq.getChannelName());
             channel.setChannelDesc(channelUpdatePatchReq.getChannelDesc());
             channel.setChannelTag(channelUpdatePatchReq.getChannelTag());
+            channel.setChannelImageId(channelUpdatePatchReq.getChannelImageId());
             if (channelUpdatePatchReq.getChannelPassword().isEmpty())
                 channel.setChannelPassword(null);
             else
