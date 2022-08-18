@@ -1,4 +1,3 @@
-
         
 # 웹/모바일(웹 기술) 스켈레톤 프로젝트
 
@@ -63,18 +62,18 @@
 <br/>
 
 ### :ship: 배포 환경
-    URL : [https://i6a201.p.ssafy.io/]
+    URL : [https://i7a407.p.ssafy.io/]
 
 
 <!-- 자유 양식 -->
 
 ## 팀 소개 
-⭐︎ 이혜민 : 팀장, 백엔드 개발 및 Jira 관리자 <br/>
- ⚝ 강수현 : 프론트엔드 개발 및 Designer <br/> 
- ⚝ 김한나 : 백엔드 개발 및 Git 관리자 <br/> 
- ⚝ 이규은 : 프론트 엔드 개발 및 발표자 <br/>
- ⚝ 손수연 : 백엔드 개발 및 UCC 제작자 <br/>
- ⚝ 최정민 : 백엔드 개발 및 AWS, CI/CD 담당자 <br/> 
+⭐︎ 이경준 : 팀장, Frontend, 발표자 <br/>
+ ⚝ 이주영 : Frontend 리더, UCC, 디자인 <br/> 
+ ⚝ 조민수 : Frontend, EC2, 배포, WebRTC <br/> 
+ ⚝ 이상권 : Backend 리더, API, KaKao MAP <br/>
+ ⚝ 유경훈 : Backend, API, DB, ERD <br/>
+ ⚝ 윤경식 : Backend, API, CRUD, WebRTC <br/> 
 <br/>
 <br/>
 
@@ -86,21 +85,21 @@
 - JIRA : 애자일 및 소프트웨어 개발 프로젝트를 기획, 트래킹 및 관리 협업 툴
 - Gitlab : 깃 저장소 및 CI/CD, 이슈 추적, 보안성 테스트 등의 기능을 갖춘 웹 기반의 데브옵스 플랫폼
 - Visual Studio Code : JavaScript 및 웹 개발을 위한 소스 코드 편집기, 다양한 확장 기능 제공
-- Eclipse : 자바를 비롯한 다양한 언어를 지원하는 프로그래밍 통합 개발 환경
+- Intellij : 자바를 비롯한 다양한 언어를 지원하는 프로그래밍 통합 개발 환경
 
 <br/>
 
 ### 🔨 기술 스택
 - Kurento Media Server, STOMP, Sock JS
-- Node.js, Vue3
-- Typescript4 (with Javascript(ECMA6))
+- Node.js, React
+- Javascript(ECMA6)
 - HTML5, CSS3
 - JAVA (Open JDK 1.8.0)
 - Spring Boot
 - MySQL 5.7, JPA
 - Serverless Cloud(AWS)
 - CI/CD (Dokcer, Jenkins)
-- Eclipse IDE 2020-06 R (Spring Tools 3, Lombok)
+- Intellij IDE 2021-03 (Spring Tools 3, Lombok)
 
 ### And Our Basic Skills 🛠️
 ---
@@ -110,15 +109,13 @@ Backend : <img src="https://img.shields.io/badge/JAVA-007396?style=flat-square&l
 Frontend : <img src="https://img.shields.io/badge/html-E34F26?style=flat-square&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=flat-square&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/jquery-0769AD?style=flat-square&logo=jquery&logoColor=white&">
-<img src="https://img.shields.io/badge/bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white">
 
 <br/>
 <br/>
 
 
 ### 🚩 시스템 구성도
-![SYSTEM.png](./img/SYSTEM.png)
+구성도
 
 <br/>
 
