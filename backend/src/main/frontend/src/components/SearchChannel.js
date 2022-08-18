@@ -123,6 +123,7 @@ function SearchChannel() {
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
                   await dispatch(SET_CHANNELSEQ(channel.channelSeq));
+                  console.log(channel.channelSeq);
                   navigate(`/serverpage/${channel.channelSeq}`);
                   // setChannelList(list);
                 },
