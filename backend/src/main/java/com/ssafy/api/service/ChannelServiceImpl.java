@@ -33,7 +33,7 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public List<Channel> findByChannelNameContainingAndChannelTagContaining(String channelName, String channelTag) {
-        return channelRepository.findByChannelNameContainingAndChannelTagContaining(channelName, channelTag);
+        return channelRepository.findByChannelNameContainingOrChannelTagContaining(channelName, channelTag);
     }
 
 
