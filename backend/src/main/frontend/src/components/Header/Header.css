@@ -75,7 +75,7 @@
 /* 홈 아이콘 위치 */
 .header_items .home_svg {
   position: absolute;
-  transform: translateX(-25%) translateY(-25%);
+  transform: translateX(-24%) translateY(-37%);
 }
 .tooltiptext {
   visibility: hidden;

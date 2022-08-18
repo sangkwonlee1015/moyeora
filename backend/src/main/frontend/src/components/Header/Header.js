@@ -1,7 +1,8 @@
 import * as React from "react";
 import "./Header.css";
+import whitePIN from "../../assets/whitePIN.png";
 import { Link } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // react-icon
 import { FaHome, FaPlus, FaSearch, FaCog } from "react-icons/fa";
 // mui
@@ -15,13 +16,7 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import {
-  Checkbox,
-  TextField,
-  Box,
-  Backdrop,
-  CircularProgress,
-} from "@mui/material";
+import { Checkbox, TextField, Box, Backdrop, CircularProgress } from "@mui/material";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -68,9 +63,7 @@ export default function Header(props) {
         console.log(error);
       }
     );
-
   }, []);
-
 
   const [backdropOpen, setBackdropOpen] = React.useState(true);
   // const classes = useStyles();
@@ -79,8 +72,7 @@ export default function Header(props) {
   const [checked, setChecked] = React.useState(false);
 
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] =
-    React.useState("");
+  const [channelDesc, setChannelDesc] = React.useState("");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
 
@@ -230,7 +222,8 @@ export default function Header(props) {
     <div className="container">
       <div className="header_items">
         <Link to="/homepage">
-          <FaHome class="home_svg" size="40" color="#e2e3e4" />
+          <img src={whitePIN} class="home_svg" style={{ width: "40px" }} />
+          {/* <FaHome class="home_svg" size="40" color="#e2e3e4" /> */}
           <span class="tooltiptext">홈</span>
         </Link>
       </div>
@@ -299,10 +292,7 @@ export default function Header(props) {
       >
         <DialogTitle className="dialog-title">Channel Register</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText
-            id="alert-dialog-slide-description"
-            className="dialog-content-text"
-          >
+          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
             <Box
               component="img"
               sx={{
@@ -310,14 +300,14 @@ export default function Header(props) {
                 // height: "auto",
                 width: "80%",
                 borderRadius: 3,
-                display: 'list-item'
+                display: "list-item",
               }}
               // className="gradient-border"
               alt="The house from the offer."
               src={uploadedFile}
             />
             <br />
-            <Button variant="contained" component="label" style={{ marginBottom: "10px"}}>
+            <Button variant="contained" component="label" style={{ marginBottom: "10px" }}>
               Upload File
               <input
                 type="file"
@@ -329,9 +319,7 @@ export default function Header(props) {
                       getFile(
                         response.data.id,
                         (response) => {
-                          setUploadedFile(
-                            "data:image;base64, " + response.data.data
-                          );
+                          setUploadedFile("data:image;base64, " + response.data.data);
                         },
                         (error) => {
                           console.log(error);

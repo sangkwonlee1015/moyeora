@@ -35,7 +35,7 @@
   z-index: 1;
   font-size: 12px;
 }
-#menu_wrap::-webkit-scrollbar{
+#menu_wrap::-webkit-scrollbar {
   width: 10px;
 }
 .bg_white {
@@ -163,7 +163,7 @@
   font-size: medium;
   color: black;
 }
-.search_box input{
+.search_box input {
   width: 90%;
   /* box-shadow: 3px 1px 1px black; */
   border: 2px solid;
@@ -198,4 +198,3 @@
   background-color: #63b9d5;
   /* color: #e3dede; */
 }
-

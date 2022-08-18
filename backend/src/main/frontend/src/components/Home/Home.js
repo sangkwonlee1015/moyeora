@@ -1,4 +1,6 @@
 import "./Home.css";
+import blackredPTPGIF from "../../assets/blackredPTPGIF.gif";
+import pintopingif from "../../assets/PinToPin.gif";
 import React from "react";
 import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
@@ -8,13 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Input from "@mui/material/Input";
-import {
-  Checkbox,
-  TextField,
-  Box,
-  Backdrop,
-  CircularProgress,
-} from "@mui/material";
+import { Checkbox, TextField, Box, Backdrop, CircularProgress } from "@mui/material";
 import { registerFile, getFile } from "../../api/file";
 
 // redux
@@ -23,17 +19,14 @@ import { useDispatch } from "react-redux";
 import { SET_CHANNELLIST } from "../../redux/ChannelList";
 import { getParticipantListByUser, registerParticipant } from "../../api/participant";
 import { getChannelInfo, registerChannel } from "../../api/channel";
-
+import { padding } from "@mui/system";
 
 export default function Home() {
-
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
-
   const [channelName, setChannelName] = React.useState("");
-  const [channelDesc, setChannelDesc] =
-    React.useState("간단한 채널 소개를 적어주세요~");
+  const [channelDesc, setChannelDesc] = React.useState("간단한 채널 소개를 적어주세요~");
   const [channelTag, setChannelTag] = React.useState("");
   const [channelPassword, setChannelPassword] = React.useState("");
   const [uploadedFile, setUploadedFile] = React.useState(
@@ -171,14 +164,27 @@ export default function Home() {
 
   return (
     <div className="container_intro">
-      <h1>Pin to Pin</h1>
-      <h2>지도 공통작업을 통해 여행 계획을 효율적으로 세워보세요!</h2>
+      <img src={pintopingif} style={{ width: "350px", marginTop: "30px", marginBottom: "80px" }} />
+
+      <h1 style={{ fontSize: "25px" }}>
+        친구들과 여행 계획을 세울 때 소통이 되지 않아 불편했던 경험이 있으신가요?
+      </h1>
+      <h1 style={{ fontSize: "25px" }}>
+        Pin to Pin은 여러 사람들과의 여행 계획이 힘든 당신을 위한 서비스입니다.
+      </h1>
+      <h1 style={{ fontSize: "25px" }}>
+        화상 회의와 지도 공동작업을 통해 여행 계획을 효율적으로 세워보세요!
+      </h1>
       <div>
-          <button onClick={handleClickOpen} className="homepage-create-channel w-btn-neon2">채널을 생성해보세요</button>
+        <button onClick={handleClickOpen} className="homepage-create-channel w-btn-neon2">
+          채널을 생성해보세요
+        </button>
       </div>
-      <br/>
+      <br />
       <div>
-          <button onClick={SearchChannel} className="homepage-search-channel w-btn-neon2">원하는 채널을 찾아보세요</button>
+        <button onClick={SearchChannel} className="homepage-search-channel w-btn-neon2">
+          원하는 채널을 찾아보세요
+        </button>
       </div>
       <Dialog
         open={open}
@@ -190,10 +196,7 @@ export default function Home() {
       >
         <DialogTitle className="dialog-title">Channel Register</DialogTitle>
         <DialogContent className="dialog-content">
-          <DialogContentText
-            id="alert-dialog-slide-description"
-            className="dialog-content-text"
-          >
+          <DialogContentText id="alert-dialog-slide-description" className="dialog-content-text">
             <Box
               component="img"
               sx={{
@@ -219,9 +222,7 @@ export default function Home() {
                       getFile(
                         response.data.id,
                         (response) => {
-                          setUploadedFile(
-                            "data:image;base64, " + response.data.data
-                          );
+                          setUploadedFile("data:image;base64, " + response.data.data);
                         },
                         (error) => {
                           console.log(error);
