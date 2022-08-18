@@ -8,7 +8,7 @@ import {
   getParticipantListByUser,
   registerParticipant,
 } from "../api/participant";
-import { SET_CHANNELLIST } from "../redux/ChannelList";
+import { SET_CHANNELLIST, SET_CHANNELSEQ } from "../redux/ChannelList";
 import Pagination from "./Pagination";
 import styled from "styled-components";
 import {
@@ -122,6 +122,7 @@ function SearchChannel() {
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
+                  dispatch(SET_CHANNELSEQ(channel.chnnelSeq));
                   navigate(`/serverpage/${channel.channelSeq}`);
                   // setChannelList(list);
                 },
@@ -184,7 +185,10 @@ function SearchChannel() {
         {channellistview.slice(offset, offset + limit).map((channel) => (
           <div className="card">
             <div className="card-header-is_closed">
-              <div className="card-header-text"> {channel.participantsCount<6 ? "모집중" : "풀방"}</div>
+              <div className="card-header-text">
+                {" "}
+                {channel.participantsCount < 6 ? "모집중" : "풀방"}
+              </div>
               <div className="card-header-number">
                 {" "}
                 {channel.participantsCount} / 6
@@ -214,14 +218,18 @@ function SearchChannel() {
                 <p className="card-body-hashtag">
                   {channel.channel.channelTag}
                 </p>
-                
-                <p className="card-body-nickname" style={{marginBottom: '0'}}>
-                  <b style={{color: 'black', marginRight: '4px'}}>방장 :</b>{channel.userNick}
+
+                <p className="card-body-nickname" style={{ marginBottom: "0" }}>
+                  <b style={{ color: "black", marginRight: "4px" }}>방장 :</b>
+                  {channel.userNick}
                 </p>
               </div>
               <div className="card-body-description">
-                <b style={{color: 'black'}}>채널 소개</b><br/>
-                <p style={{marginBottom: '40px', marginTop: '0px'}}>{channel.channel.channelDesc}</p>
+                <b style={{ color: "black" }}>채널 소개</b>
+                <br />
+                <p style={{ marginBottom: "40px", marginTop: "0px" }}>
+                  {channel.channel.channelDesc}
+                </p>
               </div>
               <div className="card-body-button">
                 <button
