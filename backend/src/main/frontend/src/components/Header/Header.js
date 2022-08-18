@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 // react-icon
 import { FaHome, FaPlus, FaSearch, FaCog } from "react-icons/fa";
 // mui
@@ -38,6 +38,7 @@ import { registerParticipant } from "../../api/participant";
 
 import { getFile, registerFile } from "../../api/file";
 import MypageSetting from "../Mypage/MypageSetting";
+import { getUserProfile } from "../../api/user";
 
 // import UpdateChannelInfoDialog from "../UpdateChannelInfoDialog";
 
@@ -57,6 +58,20 @@ import MypageSetting from "../Mypage/MypageSetting";
 // });
 
 export default function Header(props) {
+  useEffect(() => {
+    getUserProfile(
+      token,
+      (response) => {
+        console.log("", response.data.userRes);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }, []);
+
+
   const [backdropOpen, setBackdropOpen] = React.useState(true);
   // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -77,7 +92,7 @@ export default function Header(props) {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.UserInfo.accessToken);
-
+  const userInfo = useSelector((state) => state.UserInfo.userInfo);
   const onChannelName = (event) => {
     setChannelName(event.target.value);
   };
@@ -428,6 +443,7 @@ export default function Header(props) {
         setOpen={(b) => {
           setOpenUser(b);
         }}
+        userInfo={userInfo}
       ></MypageSetting>
     </div>
   );
