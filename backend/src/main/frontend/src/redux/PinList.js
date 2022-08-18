@@ -8,6 +8,7 @@ export const pinListSlice = createSlice({
     centerLat: 37.5013068,
     centerLng: 127.0396597,
     pinList: [],
+    dndLatLng: {},
   },
   reducers: {
     SET_PINLIST: (state, action) => {
@@ -24,8 +25,10 @@ export const pinListSlice = createSlice({
         state.centerLng =
           (bounds.getSouthWest().getLng() + bounds.getNorthEast().getLng()) / 2;
       } else {
-        state.centerLat = state.centerLat === 37.5013068 ? 37.5013068001 : 37.5013068;
-        state.centerLng = state.centerLat === 127.0396597 ? 127.0396597001 : 127.0396597;
+        state.centerLat =
+          state.centerLat === 37.5013068 ? 37.5013068001 : 37.5013068;
+        state.centerLng =
+          state.centerLat === 127.0396597 ? 127.0396597001 : 127.0396597;
       }
       console.log("state.pinList : ", state.pinList);
     },
@@ -118,6 +121,9 @@ export const pinListSlice = createSlice({
     SET_CURRENTMAP: (state, action) => {
       state.currentMap = action.payload;
     },
+    SET_DNDLATLNG: (state, action) => {
+      state.dndLatLng = action.payload;
+    },
   },
 });
 
@@ -130,6 +136,7 @@ export const {
   SET_PINORDER_DIFFLAG,
   SET_PINORDER_SAMEFLAG,
   SET_CURRENTMAP,
+  SET_DNDLATLNG,
 } = pinListSlice.actions;
 // export const pinsSelector = (state) => state.pinList;
 

@@ -70,7 +70,7 @@ function Sidebar(props) {
               pinFlag: 0,
               mapSeq: Number(message.mapSeq),
               userSeq: Number(message.userSeq),
-              isVisible: false,
+              isVisible: true,
             };
             dispatch(ADD_PIN(newPin));
             break;

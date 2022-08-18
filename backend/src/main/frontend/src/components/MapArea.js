@@ -1,7 +1,8 @@
+/*global kakao */
 import React, { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
 import { useSelector, useDispatch } from "react-redux";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 import SearchPinDialog from "../components/SearchPinDialog/SearchPinDialog";
 // import SockJs from "sockjs-client";
@@ -30,6 +31,7 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
   const centerLat = useSelector((state) => state.PinList.centerLat);
   const centerLng = useSelector((state) => state.PinList.centerLng);
   const token = useSelector((state) => state.UserInfo.accessToken);
+  const dndLatLng = useSelector((state) => state.PinList.dndLatLng);
   const [_pinColor, _setPinColor] = useState(PinBlack);
 
   //pinSearchDialog 관련
@@ -57,6 +59,11 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
     });
     setPolylineList(polysList);
   }, [pins]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (map) map.setCenter(new kakao.maps.LatLng(dndLatLng.lat, dndLatLng.lng));
+  }, [dndLatLng]);
 
   const editorChange = (index, value, type) => {
     console.log("type : ", type);
@@ -128,7 +135,9 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
               receiver: channelSeq,
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
-              pinTitle: "New Pin",
+              pinTitle: `New Pin ${mouseEvent.latLng
+                .getLat()
+                .toFixed(2)} ${mouseEvent.latLng.getLng().toFixed(2)}`,
               pinColor: _pinColor,
               mapSeq: mapSeq,
               status: "ADDPIN",
@@ -200,7 +209,14 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
 
       <Button
         variant="contained"
-        style={{ position: "fixed", zIndex: 1, top: 10, left: 350, height: "38px", backgroundColor: "#2f3136" }}
+        style={{
+          position: "fixed",
+          zIndex: 1,
+          top: 10,
+          left: 350,
+          height: "38px",
+          backgroundColor: "#2f3136",
+        }}
         onClick={() => {
           setVisibleSearchPinDialog(true);
         }}
