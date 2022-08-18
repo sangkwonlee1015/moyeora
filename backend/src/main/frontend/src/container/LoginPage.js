@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { registerUser, getUserProfile, findUserPassword } from "../api/user";
+import {
+  registerUser,
+  getUserProfile,
+  findUserPassword,
+  checkDuplicatedUserId,
+} from "../api/user";
 import { findUserId } from "../api/user";
 
 import { doLogin } from "../api/auth";
@@ -54,6 +59,16 @@ const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [userNick, setUserNick] = useState("");
   const [userPhone, setUserPhone] = useState("");
+  const [isUserId, setIsUserId] = useState(false);
+  const [isUserPass, setIsUserPass] = useState(false);
+  const [isUserName, setIsUserName] = useState(false);
+  const [isUserNick, setIsUserNick] = useState(false);
+  const [isUserPhone, setIsUserPhone] = useState(false);
+  const [userIdMessage, setUserIdMessage] = useState("");
+  const [userPassMessage, setUserPassMessage] = useState("");
+  const [userNameMessage, setUserNameMessage] = useState("");
+  const [userNickMessage, setUserNickMessage] = useState("");
+  const [userPhoneMessage, setUserPhoneMessage] = useState("");
 
   const LoginOrSignUp = (e) => {
     // 로그인 창 -> 회원가입 창 왔다갔다.
@@ -251,63 +266,169 @@ const LoginPage = () => {
     findUserPassword(findUserPasswordInfo, success, error);
   };
 
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  var phoneRegex = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+
   return (
     <div className="LoginSignUp">
       {IsSignUp ? (
         <div class="center">
           <h1>SignUp</h1>
           <form method="post" onSubmit={onSubmitRegisterForm}>
-            <div class="txt_field">
+            <div
+              class={`txt_field ${isUserId ? "txt_field" : "txt_field_false"} ${
+                userIdMessage ? "txt_field_message" : ""
+              }`}
+            >
               <input
                 type="text"
                 required
                 value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                onChange={(e) => {
+                  setUserId(e.target.value);
+                  if (e.target.value.length < 5 || e.target.value.length > 10) {
+                    setIsUserId(false);
+                    setUserIdMessage("5자에서 10자 사이의 ID를 입력하세요");
+                    if (e.target.value.length < 1) {
+                      setUserIdMessage("");
+                    }
+                    return;
+                  }
+                  checkDuplicatedUserId(
+                    e.target.value,
+                    (response) => {
+                      if (response.data.statusCode === 200) {
+                        setIsUserId(true);
+                        setUserIdMessage("사용가능한 ID 입니다");
+                      }
+                    },
+                    (error) => {
+                      if (error.response.data.statusCode === 409) {
+                        setIsUserId(false);
+                        setUserIdMessage("이미 존재하는 아이디입니다");
+                      }
+                    }
+                  );
+                }}
               ></input>
-              <span></span>
+              <span>{userIdMessage}</span>
               <label>User ID</label>
             </div>
-            <div class="txt_field">
+            <div
+              class={`txt_field ${
+                isUserPass ? "txt_field" : "txt_field_false"
+              } ${userPassMessage ? "txt_field_message" : ""}`}
+            >
               <input
                 type="password"
                 required
                 value={userPass}
-                onChange={(e) => setUserPass(e.target.value)}
+                onChange={(e) => {
+                  setUserPass(e.target.value);
+                  if (!passwordRegex.test(e.target.value)) {
+                    setIsUserPass(false);
+                    setUserPassMessage(
+                      "8자리 이상의 숫자+영문자+특수문자 조합으로 입력하세요"
+                    );
+                    if (e.target.value.length < 1) {
+                      setUserPassMessage("");
+                    }
+                  } else {
+                    setIsUserPass(true);
+                    setUserPassMessage("");
+                  }
+                }}
               ></input>
-              <span></span>
+              <span>{userPassMessage}</span>
               <label>Password</label>
             </div>
-            <div class="txt_field">
+            <div
+              class={`txt_field ${
+                isUserName ? "txt_field" : "txt_field_false"
+              } ${userNameMessage ? "txt_field_message" : ""}`}
+            >
               <input
                 type="text"
                 required
                 value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                  if (e.target.value.length > 20) {
+                    setIsUserName(false);
+                    setUserNameMessage("너무 긴 이름입니다");
+                    return;
+                  } else {
+                    setIsUserName(true);
+                    setUserNameMessage("");
+                  }
+                }}
               ></input>
-              <span></span>
+              <span>{userNameMessage}</span>
               <label>YourName</label>
             </div>
-            <div class="txt_field">
+            <div
+              class={`txt_field ${
+                isUserNick ? "txt_field" : "txt_field_false"
+              } ${userNickMessage ? "txt_field_message" : ""}`}
+            >
               <input
                 type="text"
                 value={userNick}
                 required
-                onChange={(e) => setUserNick(e.target.value)}
+                onChange={(e) => {
+                  setUserNick(e.target.value);
+                  if (e.target.value.length > 12) {
+                    setIsUserNick(false);
+                    setUserNickMessage("12자 이하의 닉네임을 입력하세요");
+                    return;
+                  } else {
+                    setIsUserNick(true);
+                    setUserNickMessage("");
+                  }
+                }}
               ></input>
-              <span></span>
+              <span>{userNickMessage}</span>
               <label>NickName</label>
             </div>
-            <div class="txt_field">
+            <div
+              class={`txt_field ${
+                isUserPhone ? "txt_field" : "txt_field_false"
+              } ${userPhone ? "txt_field_message" : ""}`}
+            >
               <input
                 type="text"
                 required
                 value={userPhone}
-                onChange={(e) => setUserPhone(e.target.value)}
+                onChange={(e) => {
+                  setUserPhone(e.target.value);
+                  if (!phoneRegex.test(e.target.value)) {
+                    setIsUserPhone(false);
+                    setUserPhoneMessage("잘못된 번호입니다");
+                    if (e.target.value.length < 1) {
+                      setUserPhoneMessage("");
+                    }
+                  } else {
+                    setIsUserPhone(true);
+                    setUserPhoneMessage("");
+                  }
+                }}
               ></input>
-              <span></span>
+              <span>{userPhoneMessage}</span>
               <label>PhoneNumber</label>
             </div>
-            <input type="submit" value="SignUp"></input>
+            <input
+              type="submit"
+              value="SignUp"
+              disabled={
+                !(
+                  isUserId &&
+                  isUserName &&
+                  isUserNick &&
+                  isUserPass &&
+                  isUserPhone
+                )
+              }
+            ></input>
             <div class="signup_link">
               already a member?{" "}
               <span className="LoginOrout" onClick={LoginOrSignUp}>
