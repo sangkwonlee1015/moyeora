@@ -108,11 +108,14 @@ function MypageSetting({ open, setOpen }) {
     const success = (res) => {
       console.log("유저정보변경 성공", res.data.userRes);
       dispatch(SET_USERINFO(res.data.userRes));
+      alert("사용자 정보가 변경되었습니다.")
       handleClose(false)
     };
 
     const error = (res) => {
       console.log("유저정보변경 실패", res);
+      alert("사용자 정보 변경에 실패했습니다.")
+
     };
 
     updateUser(updateUserInfo, token, success, error);
@@ -127,12 +130,14 @@ function MypageSetting({ open, setOpen }) {
     console.log(updateUserPasswordInfo);
     const success = (res) => {
       console.log("비밀번호 변경 성공", res);
+      alert("비밀번호가 변경되었습니다.");
       handleClose();
       handleCloseChangePassword();
     };
     <Link to="/"></Link>;
     const error = (res) => {
       console.log("비밀번호 변경 실패", res);
+      alert(res.response.data.message);
     };
     updateUserPassword(updateUserPasswordInfo, token, success, error);
   };
