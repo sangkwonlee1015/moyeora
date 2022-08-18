@@ -3,6 +3,7 @@ import { useState, useEffect, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getChannelInfo, getChannelList } from "../api/channel";
+import { useNavigate } from "react-router-dom";
 import {
   getParticipantListByUser,
   registerParticipant,
@@ -22,6 +23,7 @@ import {
   Box,
   TextField,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -42,10 +44,11 @@ function SearchChannel() {
   const [isWrongPassword, setIsWrongPassword] = useState(false);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
   const offset = (page - 1) * limit;
   const dispatch = useDispatch();
 
-  console.log(searchName, channellistview, limit, page, offset);
+  // console.log(searchName, channellistview, limit, page, offset);
 
   useEffect(() => {
     console.log("useeffect start channellistview", channellistview);
@@ -78,8 +81,8 @@ function SearchChannel() {
   };
 
   const onSubmitSearchForm = () => {
-    console.log(token);
-    console.log("searchName ", searchName);
+    // console.log(token);
+    // console.log("searchName ", searchName);
     getChannelList(
       searchName,
       searchName,
@@ -94,8 +97,6 @@ function SearchChannel() {
     );
   };
   const onRegisterChannel = (channel) => {
-    console.log(channel);
-    console.log(token);
     registerParticipant(
       channel,
       token,
@@ -121,6 +122,7 @@ function SearchChannel() {
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
+                  navigate(`/serverpage/${channel.channelSeq}`);
                   // setChannelList(list);
                 },
                 (error) => {
@@ -133,7 +135,6 @@ function SearchChannel() {
             console.log(error);
           }
         );
-        console.log("채널 추가  ", response.data);
       },
       (error) => {
         console.log(error);
