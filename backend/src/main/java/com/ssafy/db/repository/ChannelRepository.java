@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
     Optional<Channel> findByChannelSeq(Long channelSeq);
-    List<Channel> findByChannelNameContainingAndChannelTagContaining(String channelName, String channelTag);
+    List<Channel> findByChannelNameContainingOrChannelTagContaining(String channelName, String channelTag);
     Optional<Channel> findByChannelSeqAndUserSeq(Long channelSeq, Long userSeq);
 }
