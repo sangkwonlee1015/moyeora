@@ -46,7 +46,7 @@ public class ChannelServiceImpl implements ChannelService {
             channel.setChannelDesc(channelUpdatePatchReq.getChannelDesc());
             channel.setChannelTag(channelUpdatePatchReq.getChannelTag());
             channel.setChannelImageId(channelUpdatePatchReq.getChannelImageId());
-            if (channelUpdatePatchReq.getChannelPassword().isEmpty())
+            if (channelUpdatePatchReq.getChannelPassword() == null)
                 channel.setChannelPassword(null);
             else
                 channel.setChannelPassword(channelUpdatePatchReq.getChannelPassword());
