@@ -112,7 +112,7 @@ function SearchChannel() {
               getChannelInfo(
                 participant.participantsId.channelSeq,
                 token,
-                ({ data }) => {
+                async ({ data }) => {
                   let channel = {
                     channelSeq: participant.participantsId.channelSeq,
                     channelDesc: data.channelDesc,
@@ -122,7 +122,7 @@ function SearchChannel() {
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
-                  dispatch(SET_CHANNELSEQ(channel.chnnelSeq));
+                  await dispatch(SET_CHANNELSEQ(channel.chnnelSeq));
                   navigate(`/serverpage/${channel.channelSeq}`);
                   // setChannelList(list);
                 },
