@@ -310,6 +310,7 @@ export default function Header(props) {
                 // height: "auto",
                 width: "80%",
                 borderRadius: 3,
+                display: 'list-item'
               }}
               // className="gradient-border"
               alt="The house from the offer."

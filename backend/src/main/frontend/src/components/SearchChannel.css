@@ -7,11 +7,40 @@
   vertical-align: baseline;
 } */
 /*css 초기화*/
+.Layout {
+  background-color: #36393f;
+  color: aliceblue;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.Layout input {
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+.Layout select {
+  width: 60px; /* 원하는 너비설정 */    
+  /* height: 40px; */
+  padding: .2em .2em; /* 여백으로 높이 설정 */    
+  font-family: inherit;  /* 폰트 상속 */    
+  background: url('../assets/select.png') no-repeat 100% 50%;    
+  background-size: contain;
+  border: 1px solid #999;   
+  background-color: aliceblue; 
+  border-radius: 0px; /* iOS 둥근모서리 제거 */    
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */    
+  -moz-appearance: none;    
+  appearance: none;
 
+}
 .card {
   height: 400px;
   width: 350px;
   border-radius: 15px;
+  background-color: #fefae0;
+  color: #36393f;
   display: inline-block;
   margin-top: 20px;
   margin-left: 20px;
@@ -20,6 +49,7 @@
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   overflow: hidden;
+  position: relative;
 }
 
 .card-header {
@@ -37,8 +67,11 @@
 }
 
 .card:hover .card-header {
-  opacity: 0.8;
-  height: 100px;
+  opacity: 1;
+  height: 0px;
+}
+.card img {
+  min-width: 100%;
 }
 
 .card-header-is_closed {
@@ -52,15 +85,12 @@
   font-weight: bold;
   padding: 10px 10px;
   line-height: 20px;
-}
-
-h1 {
-  font-size: 22px;
-  font-weight: bold;
+  position: absolute;
+  right: 3px;
 }
 
 .card-body {
-  height: 270px;
+  height: 370px;
   overflow: scroll;
 }
 
@@ -79,13 +109,21 @@ h1 {
   -o-transition: 0.2s ease-in-out; /*오페라*/
   transition: 0.2s ease-in-out;
   overflow: scroll;
-  height: 100px;
+  height: 170px;
   margin: 5px 20px;
 }
 
 .card-body-button {
   opacity: 0;
   margin: 5px 20px;
+}
+.card:hover .card-body {
+  max-height: 100%;
+}
+.card:hover .SearchChannelButton {
+  position: absolute;
+  bottom: 10px;
+  left: 70px;
 }
 
 .card:hover .card-body-description,
@@ -100,8 +138,8 @@ h1 {
 }
 
 .card-body-hashtag {
-  color: #2478ff;
   font-style: italic;
+  display: block;
 }
 
 .card-body-footer {
@@ -142,16 +180,22 @@ h1 {
   overflow: scroll;
   /* align-items: center; */
 }
-
-.Layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 100%;
-  margin: 0 auto;
-}
 .search {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 350px;
+}
+.SearchChannelButton {
+  background-color: #5ab376;
+  border: 0;
+  margin-top: 1rem;
+  border-radius: 10px;
+  height: 40px;
+  width: 200px;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+}
+.SearchChannelButton:hover {
+  background-color: #2cb056;
 }
