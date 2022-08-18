@@ -32,7 +32,6 @@
   font-weight: bold;
 }
 
-
 .chatting-trash-outline {
   color: rgb(120, 120, 120);
   background: none;
@@ -50,4 +49,10 @@
 
 .pre-text {
   white-space: pre-wrap;
+}
+
+.camera-area {
+  border-top: 2px solid;
+  height: 110px;
+  margin-top: 3px;
 }
