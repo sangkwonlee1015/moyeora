@@ -84,14 +84,14 @@ function ChannelHome(props) {
           <div className="channel-name">
             {channelName} {/*채널이름*/} {/*채널seq*/}
           </div>
-          <hr />
+          {/* <hr /> */}
           <br />
           <div className="channel-desc">
             {channelDesc} {/*채널설명*/}
           </div>
-          <hr />
+          {/* <hr /> */}
           <div className="channel-tag">{channelTag}</div> {/*채널태그*/}
-          <hr />
+          {/* <hr /> */}
           <div>
             <br />
             채널 참여자 목록:{" "}

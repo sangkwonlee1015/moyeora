@@ -4,36 +4,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../assets/channelHomeBack1.png);
+  background-image: url(../assets/1177024.jpg);
   background-size: cover;
 }
-.channel-home{
+.channel-home {
   width: 100%;
 }
-.channel-background{
+.channel-background {
   width: 65%;
   min-height: 70vh;
   max-height: 80vh;
   padding: 20px;
-  background-color: #f1faee;
+  /* background-color: #f1faee; */
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 10px;
   justify-content: center;
   align-items: center;
   text-align: center;
   position: relative;
 }
-.channel-name{
+.channel-name {
   font-size: 30pt;
   font-weight: 1000;
   height: 100px;
   overflow: scroll;
 }
-.channel-desc{
+.channel-desc {
   font-size: 15pt;
   height: 100px;
   overflow: scroll;
 }
-.channel-tag{
+.channel-tag {
   font-size: small;
   font-weight: bold;
   height: 40px;
