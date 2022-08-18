@@ -6,17 +6,18 @@ import { v4 as uuid } from "uuid";
 import "./MapMarkerList.css";
 import { red } from "@mui/material/colors";
 import { createHeaders } from "../api";
+import { SET_DNDLATLNG } from "../redux/PinList";
 
 function MapMarkerList({ channelSeq, mapSeq, stomp }) {
   const store = useSelector((state) => state);
   const pins = store.PinList.pinList;
   const token = useSelector((state) => state.UserInfo.accessToken);
   const [columns, setColumns] = useState([]);
+  const dispatch = useDispatch();
   let itemsCandi = [];
   let itemsFinal = [];
 
   const onDragEnd = (result, columns, setColumns) => {
-    console.log("result : ", result);
     if (!result.destination) return;
     const { source, destination } = result;
 
@@ -52,6 +53,9 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
       pinSeq: pin.pinSeq,
       pinOrder: pin.pinOrder, // pin index
       pinFlag: pin.pinFlag, // 최종선택: 1 or 후보: 0
+      pinIsVisible: pin.isVisible, // 선택한(메모장 띄운) 핀인가
+      pinLat: pin.pinLat,
+      pinLng: pin.pinLng,
     };
     if (item.pinFlag === 1) {
       itemsFinal.push(item);
@@ -158,6 +162,7 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                   draggableId={item.id}
                                   index={index}
                                   pinSeq={item.pinSeq}
+                                  isVisible={item.isVisible}
                                 >
                                   {(provided, snapshot) => {
                                     return (
@@ -165,6 +170,11 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
+                                        className={
+                                          item.pinIsVisible
+                                            ? "draggable-selected"
+                                            : "draggable-unselected"
+                                        }
                                         style={{
                                           userSelect: "none",
                                           // padding: 16,
@@ -173,6 +183,8 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                           width: "175px",
                                           backgroundColor: snapshot.isDragging
                                             ? "#5865f2" // 리스트 드래그 했을때 색 // 후보색 5865f2, 3ba55d, DDE0E5, black
+                                            : item.pinIsVisible
+                                            ? "#0067a3" // 선택(메모 열린)된 핀 색
                                             : "#42464d", // 리스트 색  // 후보색 42464d, DDE0E5, 3ba55d
                                           color: snapshot.isDragging
                                             ? "#e2e3e4" // 리스트 드래그 했을때 글자색 // e2e3e4
@@ -183,6 +195,14 @@ function MapMarkerList({ channelSeq, mapSeq, stomp }) {
                                           paddingTop: 5,
                                           paddingLeft: 10,
                                           ...provided.draggableProps.style,
+                                        }}
+                                        onClick={() => {
+                                          dispatch(
+                                            SET_DNDLATLNG({
+                                              lat: item.pinLat,
+                                              lng: item.pinLng,
+                                            })
+                                          );
                                         }}
                                       >
                                         {item.content}
