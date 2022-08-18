@@ -85,7 +85,7 @@ function SearchChannel() {
     // console.log("searchName ", searchName);
     getChannelList(
       searchName,
-      "",
+      searchName,
       token,
       (response) => {
         console.log(response.data.channelList);
