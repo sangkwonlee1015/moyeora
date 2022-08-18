@@ -82,7 +82,7 @@ function SearchChannel() {
     console.log("searchName ", searchName);
     getChannelList(
       searchName,
-      "",
+      searchName,
       token,
       (response) => {
         console.log(response.data.channelList);
@@ -209,19 +209,22 @@ function SearchChannel() {
 
             <div className="card-body">
               <div className="card-body-header">
-                <h1>채널 제목 : {channel.channel.channelName}</h1>
+                <h2>{channel.channel.channelName}</h2>
                 <p className="card-body-hashtag">
-                  채널 태그 : {channel.channel.channelTag}
+                  {channel.channel.channelTag}
                 </p>
-                <p className="card-body-nickname">
-                  채널 주인 : {channel.userNick}
+                
+                <p className="card-body-nickname" style={{marginBottom: '0'}}>
+                  <b style={{color: 'black', marginRight: '4px'}}>방장 :</b>{channel.userNick}
                 </p>
               </div>
               <div className="card-body-description">
-                <p>채널 설명 :{channel.channel.channelDesc}</p>
+                <b style={{color: 'black'}}>채널 소개</b><br/>
+                <p style={{marginBottom: '40px', marginTop: '0px'}}>{channel.channel.channelDesc}</p>
               </div>
               <div className="card-body-button">
                 <button
+                  className="SearchChannelButton"
                   onClick={() => {
                     if (channel.participantsCount >= 6) {
                       alert("정원 초과입니다");
