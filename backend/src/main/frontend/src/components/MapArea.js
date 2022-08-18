@@ -175,7 +175,6 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
             }}
           >
             {marker.isVisible && (
-              <div>
                 <Editor
                   value={{
                     title: marker.pinTitle,
@@ -184,7 +183,6 @@ function MapArea({ channelSeq, mapSeq, stomp }) {
                   onChange={editorChange}
                   index={index}
                 />
-              </div>
             )}
           </MapMarker>
         ))}
