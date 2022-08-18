@@ -122,16 +122,12 @@ function SearchChannel() {
                   };
                   list = list.concat(channel);
                   dispatch(SET_CHANNELLIST(list));
-                  // dispatch(SET_CHANNELSEQ(channel.channelSeq));
-                  // navigate(`/serverpage/${channel.channelSeq}`);
-                  // setChannelList(list);
                 },
                 (error) => {
                   console.log("error", error);
                 }
               );
             });
-            dis;
           },
           (error) => {
             console.log(error);
