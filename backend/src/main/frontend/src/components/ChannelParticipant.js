@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-function ChannelParticipant({ userSeq, leader, stomp }) {
+function ChannelParticipant({ userSeq, leader, stomp, getParticipant }) {
   console.log(leader);
   const channelSeq = useSelector((state) => state.ChannelList.channelSeq);
   const accessToken = useSelector((state) => state.UserInfo.accessToken);
@@ -108,6 +108,7 @@ function ChannelParticipant({ userSeq, leader, stomp }) {
                         createHeaders(accessToken),
                         JSON.stringify(chatMessage)
                       );
+                      getParticipant();
                     }
                   },
                   (error) => {

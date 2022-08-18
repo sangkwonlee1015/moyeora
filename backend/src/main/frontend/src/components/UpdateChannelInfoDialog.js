@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Input from "@mui/material/Input";
 import { Checkbox, TextField, Box } from "@mui/material";
+import { updateChannel } from "../api/channel";
 
 import { getChannelInfo } from "../api/channel";
 
@@ -50,10 +51,10 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
 
   const handleClose = () => {
     setOpen(false);
-    setChannelName(""); // value 비우기
-    setChannelDesc("");
-    setChannelTag("");
-    setChannelPassword("");
+    // setChannelName(""); // value 비우기
+    // setChannelDesc("");
+    // setChannelTag("");
+    // setChannelPassword("");
   };
 
   useEffect(() => {
@@ -74,7 +75,7 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
         }
         if (response.data.channelPassword !== "") {
           setChannelPassword(response.data.channelPassword);
-          setChecked(true);
+          setChecked(false);
         }
       },
       (error) => {
@@ -223,7 +224,27 @@ function UpdateChannelInfoDialog({ open, setOpen }) {
             </Button>
           </div>
           <div className="accept-button">
-            <Button onClick={() => {}}>
+            <Button
+              onClick={() => {
+                updateChannel(
+                  {
+                    channelSeq: channelSeq,
+                    channelName: channelName,
+                    channelDesc: channelDesc,
+                    channelTag: channelTag,
+                    channelPassword: channelPassword,
+                    channelImageId: channelImageId,
+                  },
+                  accessToken,
+                  (response) => {
+                    console.log(response);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+              }}
+            >
               <div className="accept-button-text">ACCEPT</div>
             </Button>
           </div>
