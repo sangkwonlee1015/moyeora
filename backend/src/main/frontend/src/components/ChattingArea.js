@@ -102,7 +102,7 @@ function ChattingArea({ stomp }) {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <div></div>
+      <div class="camera-area"></div>
     </div>
   );
 }
