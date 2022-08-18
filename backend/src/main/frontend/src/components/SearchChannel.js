@@ -10,7 +10,6 @@ import {
 } from "../api/participant";
 import { SET_CHANNELLIST, SET_CHANNELSEQ } from "../redux/ChannelList";
 import Pagination from "./Pagination";
-import styled from "styled-components";
 import {
   Button,
   Dialog,
@@ -24,6 +23,8 @@ import {
   TextField,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { getMapList } from "../api/map";
+import { SET_MAPLIST } from "../redux/MapList";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -112,7 +113,7 @@ function SearchChannel() {
               getChannelInfo(
                 participant.participantsId.channelSeq,
                 token,
-                async ({ data }) => {
+                ({ data }) => {
                   let channel = {
                     channelSeq: participant.participantsId.channelSeq,
                     channelDesc: data.channelDesc,
@@ -134,7 +135,18 @@ function SearchChannel() {
           }
         );
         dispatch(SET_CHANNELSEQ(channel.channelSeq));
-        navigate(`/serverpage/${channel.channelSeq}`);
+        getMapList(
+          channel.channelSeq,
+          "channel",
+          token,
+          (response) => {
+            dispatch(SET_MAPLIST(response.data.mapsList));
+            navigate(`/serverpage/${channel.channelSeq}`);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
       (error) => {
         console.log(error);
