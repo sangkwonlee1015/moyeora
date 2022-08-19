@@ -1,7 +1,7 @@
         
 # Pin to Pin
 
---------pin to pin 배너자리---------
+ <img src="./image/핀투핀로고.png" alt="로고" />
 
 ---
 
@@ -41,11 +41,6 @@ Notion, Google Sheet와 같은 기능을 사용해보며, <strong>Kakao Map, Nav
 ### :star2: 24시간 열려 있는 채널
 
 
-
----- gif ----
-
-
-
 👩 채널은 24시간 열려 있기 때문에 언제든지 접속 가능합니다.
 
 방장이 있어야만 소통할 수 있는 webex 등과 달리 채널에 참여된 인원들 모두 접속되어 있는 인원들과 24시간 소통이 가능합니다.
@@ -54,11 +49,6 @@ Notion, Google Sheet와 같은 기능을 사용해보며, <strong>Kakao Map, Nav
 
 
 ### :star2: Web RTC 기능(화상 수업)
-
-
-
-------gif자리------------
-
 
 
 👩  WebRTC 기능을 통한 원격 화상 채팅 서비스를 제공합니다.
@@ -70,9 +60,6 @@ Notion, Google Sheet와 같은 기능을 사용해보며, <strong>Kakao Map, Nav
 
 
 ### :star2: 실시간 여행 계획
-
-------gif자리-------------
-
 
 
 👩 WebSocket 기반으로 구현된 실시간 여행 계획 서비스를 제공합니다.
@@ -159,7 +146,7 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 ### :star: 아키텍처
 
------아키텍쳐 이미지 자리-----------
+<img src="./image/핀투핀배포환경.png" alt="배포" />
 
 
 
@@ -188,10 +175,6 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
 
 ### :star: Kakao Map API
 
-
-
----카카오 맵 API 이미지 자리-------
-
 웹사이트와 모바일 애플리케이션에서
 지도를 이용한 서비스를 제작할 수 있도록 다양한 기능을 제공하고 있는 Kakao Map Api를 기반으로 실시간으로 Pin정보를 공유할 수 있는 서비스를 개발하였습니다. 또한 로드뷰 및 키워드 기반 장소 검색 서비스도 개발되었습니다.
 
@@ -201,8 +184,8 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
 ## :five: REST API
 
 
-
-![img](BF_Barrier_Free_Project.assets/unknown-16451149236688.png)
+<img src="./image/API명세서예시.PNG" alt="명세" />
+<!-- ![img](BF_Barrier_Free_Project.assets/unknown-16451149236688.png) -->
 
 
 https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJePs/edit?usp=sharing
@@ -211,7 +194,7 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 ## :six: ERD
 
 
----erd 이미지
+<img src="./image/ERD이미지.png" alt="erd" />
 
 
 
@@ -221,7 +204,7 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 
 
 
---- 와이어프레임
+<img src="./image/와이어프레임.PNG" alt="와이어" />
 
 
 
@@ -229,15 +212,14 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 ### :triangular_ruler: Jira Epic
 | 이름 			| 내용			|
 |----------------|------------------------|
-| 기획          | 기획서, 명세서, 요구사항 정리, 문서 작성              |
-| Sign Language | 수어 번역 관련 모든 처리                             |
-| WebRTC        | WebRTC 관련 모든 처리(openvidu)                      |
-| Project       | 백엔드, 프론트엔드 REQ&RES, DB스키마, 데이터 처리 등  |
-| Design        | 와이어 프레임, 프로토타입, 화면 구성, 레이아웃 배치    |
+| 공통개발       | 기획서, 명세서, 요구사항 정리, 문서 작성             |
+| Map개발        | Kakao Map API 관련 기능 개발                        |
+| Openvidu       | WebRTC 관련 모든 처리(openvidu)                     |
+| FE, BE        | 백엔드, 프론트엔드 REQ&RES, DB스키마, 데이터 처리 등  |
+| CSS           | 와이어 프레임, 프로토타입, 화면 구성, 레이아웃 배치    |
 | 배포 및 CI/CD | 배포, action, jenkins, CI/CD 등                      |
-| 발표          | PPT 제작, 발표 연습, 시연 영상 찍기 등의 발표 준비     |
+| 최종발표      | PPT 제작, 발표 연습, 시연 영상 찍기 등의 발표 준비     |
 | UCC           | UCC 스토리보드  제작, UCC 제작 회의 및 촬영           |
-| Docs          | Readme, 기타 제출해야 할 문서 작성                   |
 
 
 
@@ -263,7 +245,7 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 > | 👩팀원 | 윤경식 | Backend, API, CRUD, WebRTC     | 음 |
 
 
-### :palm_tree: Front end
+<!-- ### :palm_tree: Front end
 
 - **남궁휘(팀장, frontend)**
   - 발표 총괄
@@ -363,4 +345,4 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 
 
 
-**손모은**: 해보고 싶었던 수어 번역 서비스를 해볼 수 있어서 많은 의미가 있는 프로젝트였습니다, openvidu/Spring boot/Django까지 3개의 서버를 AWS서버에 올리려다보니 크고 작은 이슈가 매일 생겨서 조금 지쳤던 것 같지만, 다 해결했을때 뿌듯함이 기억에 남습니다. 빌드와 배포를 해봐서 backend를 마스터 한 느낌이네요. 다들 너무 고생 많으셨고, 다음 프로젝트 화이팅 입니다!
+**손모은**: 해보고 싶었던 수어 번역 서비스를 해볼 수 있어서 많은 의미가 있는 프로젝트였습니다, openvidu/Spring boot/Django까지 3개의 서버를 AWS서버에 올리려다보니 크고 작은 이슈가 매일 생겨서 조금 지쳤던 것 같지만, 다 해결했을때 뿌듯함이 기억에 남습니다. 빌드와 배포를 해봐서 backend를 마스터 한 느낌이네요. 다들 너무 고생 많으셨고, 다음 프로젝트 화이팅 입니다! -->
