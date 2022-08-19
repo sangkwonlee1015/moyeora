@@ -244,7 +244,7 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 > | ----- | ------ | -------------------------------|
 > | 🐻팀장 | 이경준 | 프로젝트 총괄, Frontend, 발표자 |
 > | 🐨팀원 | 이주영 | Frontend 리더, UCC, 디자인     |
-> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계  |
+> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계, 서버, 배포  |
 > | 🐱팀원 | 이상권 | Backend 리더, API, KaKao MAP   |
 > | 🐰팀원 | 유경훈 | Backend, API, DB, ERD          |
 > | 👩팀원 | 윤경식 | Backend, API, CRUD, WebRTC     |
