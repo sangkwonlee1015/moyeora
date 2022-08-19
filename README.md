@@ -1,7 +1,8 @@
         
 # Pin to Pin
 
- <img src="./image/핀투핀로고.png" alt="로고" />
+ <!-- <img src="./image/핀투핀로고.png" alt="로고" /> -->
+ ![img](./image/핀투핀로고.png)
 
 ---
 
@@ -146,7 +147,8 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 ### :star: 아키텍처
 
-<img src="./image/핀투핀배포환경.png" alt="배포" />
+<!-- <img src="./image/핀투핀배포환경.png" alt="배포" /> -->
+![img](./image/핀투핀배포환경.png)
 
 
 
@@ -184,8 +186,8 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
 ## :five: REST API
 
 
-<img src="./image/API명세서예시.PNG" alt="명세" />
-<!-- ![img](BF_Barrier_Free_Project.assets/unknown-16451149236688.png) -->
+<!-- <img src="./image/API명세서예시.PNG" alt="명세" /> -->
+![img](./image/API명세서예시.PNG)
 
 
 https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJePs/edit?usp=sharing
@@ -194,8 +196,8 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 ## :six: ERD
 
 
-<img src="./image/ERD이미지.png" alt="erd" />
-
+<!-- <img src="./image/ERD이미지.png" alt="erd" /> -->
+![img](./image/ERD이미지.png)
 
 
 
@@ -204,7 +206,8 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 
 
 
-<img src="./image/와이어프레임.PNG" alt="와이어" />
+<!-- <img src="./image/와이어프레임.PNG" alt="와이어" /> -->
+![img](./image/와이어프레임.PNG)
 
 
 
