@@ -17,15 +17,6 @@ https://http://i7a407.p.ssafy.io/
 
 
 
-:black_large_square: UCC 영상
-
--------------유튜브 링크 자리-----------
-
-
----
-
-
-
 ## 1️⃣ 문제 제기 및 프로젝트 개발 필요성
 
 webex, zoom과 같은 화상 채팅과 여행 계획 수립을 병행하기에 적합한 어플리케이션의 부재를 느꼈습니다.
@@ -104,31 +95,28 @@ Notion, Google Sheet와 같은 기능을 사용해보며, <strong>Kakao Map, Nav
 Pin to Pin은 아래와 같은 환경에서 실행 중입니다.
 
 - Cloud : AWS EC2
-- OS : Ubuntu 20.04.3 LTS
+- OS : Ubuntu : 20.04.4 LTS
 - CPU 모델 : Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
-- Total Memory : 16396056 kB
+- Total Memory : 16384740 kB
 - 물리 cpu 개수 : 1 | cpu당 물리 코어 : 4 
 
 ### 시스템 구성
 
-- docker : 20.10.12
-- docker-compose : 1.29.2
-- DB : mysql  8.0.28
-- WebRTC : openvidu 2.20.0
-- FrontEnd : Vue build 파일 
+- Docker version 20.10.17
+- Docker Compose version : v2.9.0
+- Mysql version : 8.0.30-0ubuntu0.20.04.2
+- Openvidu version : 2.22.0
+- FrontEnd : React build 파일 
 - BackEnd : Springboot 
-- SSLIS : uwsgi  2.0.20 | django
-- Modeling : blender  3.0
 
 ### Server Port
 
 | 이름                | 포트 번호 |
 | ------------------- | --------- |
 | web server(nginx)   | 80        |
-| springboot (tomcat) | 8080      |
-| django(uwsgi)       | 8000      |
-| openvidu(http)      | 4442      |
-| openvidu(https)     | 4443      |
+| springboot (tomcat) | 8081      |
+| openvidu(http)      | 8080      |
+| openvidu(https)     | 8443      |
 | https               | 443       |
 | mysql               | 3306      |
 
@@ -189,26 +177,12 @@ sudo letsencrypt certonly --standalone -d www제외한 도메인 이름
 
 
 
-![image-20220218102231419](BF_Barrier_Free_Project.assets/image-20220218102231419.png)
-
-
-
 Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커스텀할 수 있는 OpenVidu 플랫폼을 활용하여 서비스를 개발하였습니다.
 
 - Session
 
 - Publisher
 - Subscriber
-
-
-
-- **주의점**
-  - HTTPS SSL 필수
-  - Backend에서 얻어온 토큰 값을 frontend에서 사용하여 세션 연결(공식문서에서 권장하고 있음)
-
-
-
-
 
 
 
@@ -224,97 +198,45 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
 
 
 
-
-## :five: 기능 명세 요구 사항 정의서
-
-https://ibb.co/C04Jwqd
-
-(이미지 크기가 커서 링크로 대체합니다.)
-
-
-
-## :seven: REST API
+## :five: REST API
 
 
 
 ![img](BF_Barrier_Free_Project.assets/unknown-16451149236688.png)
 
 
+https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJePs/edit?usp=sharing
 
 
-
-## :eight: ERD
-
-![img](BF_Barrier_Free_Project.assets/Im_Your_BF_DB_ERD.png)
+## :six: ERD
 
 
-
-
-
-## :nine: 와이어 프레임
-
-
-
-![img](BF_Barrier_Free_Project.assets/unknown.png)
+---erd 이미지
 
 
 
 
 
-
-
-## :keycap_ten:  Coding Convention
-
-
-
-### :triangular_ruler: Language Convention
-
-- JAVA : 네이버 - [JAVA 코딩 컨벤션](https://naver.github.io/hackday-conventions-java/)
-- JAVASCRIPT : AIRBNB - [JAVASCRIPT 컨벤션](https://github.com/airbnb/javascript)
-- 주석 : /**
-
-### :triangular_ruler: Commit Message Convention
+## :seven: 와이어 프레임
 
 
 
-```
-feat : 새로운 기능에 대한 커밋
-fix : 버그 수정에 대한 커밋
-build : 빌드 관련 파일 수정에 대한 커밋
-chore : 그 외 자잘한 수정에 대한 커밋
-ci : CI관련 설정 수정에 대한 커밋
-docs : 문서 수정에 대한 커밋
-style : 코드 스타일 혹은 포맷 등에 관한 커밋
-refactor :  코드 리팩토링에 대한 커밋
-test : 테스트 코드 수정에 대한 커밋
-```
+--- 와이어프레임
 
-
-
-
-
-### :triangular_ruler: 우선순위 규칙
-
-| Highest(1) | 이걸 끝내지 않고서는 다음 단계로 갈 수 없음                  |
-| ---------- | ------------------------------------------------------------ |
-| High(2)    | Highest를 끝내고 해야하는 것                                 |
-| Mid(3)     | 항상 있는 것 or 중요하지만 시간이 많이 남음(우선 순위를 미룰 수 있음) |
-| Low(4)     | 해도 되고 안 해도 됨                                         |
-| Lowest(5)  | 진짜 필요할 때만                                             |
 
 
 
 ### :triangular_ruler: Jira Epic
 | 이름 			| 내용			|
 |----------------|------------------------|
-| 기획          | 기획서, 명세서, 요구사항 정리, 문서 작성             |
+| 기획          | 기획서, 명세서, 요구사항 정리, 문서 작성              |
 | Sign Language | 수어 번역 관련 모든 처리                             |
 | WebRTC        | WebRTC 관련 모든 처리(openvidu)                      |
-| Project       | 백엔드, 프론트엔드 REQ&RES, DB스키마, 데이터 처리 등 |
-| Design        | 와이어 프레임, 프로토타입, 화면 구성, 레이아웃 배치  |
+| Project       | 백엔드, 프론트엔드 REQ&RES, DB스키마, 데이터 처리 등  |
+| Design        | 와이어 프레임, 프로토타입, 화면 구성, 레이아웃 배치    |
 | 배포 및 CI/CD | 배포, action, jenkins, CI/CD 등                      |
-| 발표          | PPT 제작, 발표 연습, 시연 영상 찍기 등의 발표 준비   |
-| UCC           | UCC 스토리보드  제작, UCC 제작 회의 및 촬영          |
+| 발표          | PPT 제작, 발표 연습, 시연 영상 찍기 등의 발표 준비     |
+| UCC           | UCC 스토리보드  제작, UCC 제작 회의 및 촬영           |
 | Docs          | Readme, 기타 제출해야 할 문서 작성                   |
 
 
@@ -335,10 +257,10 @@ test : 테스트 코드 수정에 대한 커밋
 > | ----- | ------ | ------------------------------- | ----------|
 > | 🐻팀장 | 이경준 | 프로젝트 총괄, Frontend, 발표자 | 음 |
 > | 🐨팀원 | 이주영 | Frontend 리더, UCC, 디자인      | 음 |
-> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계 | 음 |
-> | 🐱팀원 | 이상권 | Backend 리더, API, KaKao MAP  | 음 |
+> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계  | 음 |
+> | 🐱팀원 | 이상권 | Backend 리더, API, KaKao MAP   | 음 |
 > | 🐰팀원 | 유경훈 | Backend, API, DB, ERD          | 음 |
-> | 음팀원 | 윤경식 | Backend, API, CRUD, WebRTC     | 음 |
+> | 👩팀원 | 윤경식 | Backend, API, CRUD, WebRTC     | 음 |
 
 
 ### :palm_tree: Front end
