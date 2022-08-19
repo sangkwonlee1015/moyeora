@@ -177,6 +177,8 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
 
 ### :star: Kakao Map API
 
+> https://apis.map.kakao.com/
+
 웹사이트와 모바일 애플리케이션에서
 지도를 이용한 서비스를 제작할 수 있도록 다양한 기능을 제공하고 있는 Kakao Map Api를 기반으로 실시간으로 Pin정보를 공유할 수 있는 서비스를 개발하였습니다. 또한 로드뷰 및 키워드 기반 장소 검색 서비스도 개발되었습니다.
 
@@ -238,14 +240,14 @@ https://docs.google.com/spreadsheets/d/19fNx_Uq8IPcMJvUEGs8QfVYRzHbuzkbMfK3PBSuJ
 
 ### :angel: 팀원 소개
 
-> | 소개  | 이름   | 역할                            | Github		 |
-> | ----- | ------ | ------------------------------- | ----------|
-> | 🐻팀장 | 이경준 | 프로젝트 총괄, Frontend, 발표자 | 음 |
-> | 🐨팀원 | 이주영 | Frontend 리더, UCC, 디자인      | 음 |
-> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계  | 음 |
-> | 🐱팀원 | 이상권 | Backend 리더, API, KaKao MAP   | 음 |
-> | 🐰팀원 | 유경훈 | Backend, API, DB, ERD          | 음 |
-> | 👩팀원 | 윤경식 | Backend, API, CRUD, WebRTC     | 음 |
+> | 소개  | 이름   | 역할                            |
+> | ----- | ------ | -------------------------------|
+> | 🐻팀장 | 이경준 | 프로젝트 총괄, Frontend, 발표자 |
+> | 🐨팀원 | 이주영 | Frontend 리더, UCC, 디자인     |
+> | 🐯팀원 | 조민수 | 알고리즘 개발 및 세부 기능 설계  |
+> | 🐱팀원 | 이상권 | Backend 리더, API, KaKao MAP   |
+> | 🐰팀원 | 유경훈 | Backend, API, DB, ERD          |
+> | 👩팀원 | 윤경식 | Backend, API, CRUD, WebRTC     |
 
 
 <!-- ### :palm_tree: Front end
